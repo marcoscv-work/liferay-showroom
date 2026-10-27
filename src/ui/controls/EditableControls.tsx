@@ -12,20 +12,6 @@ export interface EditableControlsProps {
  * Controls for the `data-lfr-editable-*` fields a fragment exposes. They map
  * one to one to the `fragmentFields` of a page definition.
  */
-function summary(editable: EditableInfo): string {
-	const {defaultValue, type} = editable;
-
-	if (type === 'image' || type === 'background-image') {
-		const src = defaultValue.src ?? '';
-
-		return src.startsWith('data:') ? 'Embedded image' : src.split('/').pop() ?? '';
-	}
-
-	const text = (defaultValue.text ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-
-	return text.length > 70 ? `${text.slice(0, 70)}…` : text;
-}
-
 export function EditableControls({editables, onChange, values}: EditableControlsProps) {
 	if (!editables.length) {
 		return <p className="text-secondary">This fragment has no editable fields.</p>;
@@ -46,6 +32,17 @@ export function EditableControls({editables, onChange, values}: EditableControls
 			<tbody>
 				{editables.map((editable) => {
 					const value = values[editable.id] ?? {};
+					const defaults = editable.defaultValue;
+
+					const embedded = (defaults.src ?? '').startsWith('data:');
+
+					const shown = {
+						alt: value.alt ?? defaults.alt ?? '',
+						href: value.href ?? defaults.href ?? '',
+						src: value.src ?? (embedded ? '' : defaults.src ?? ''),
+						target: value.target ?? defaults.target,
+						text: value.text ?? defaults.text ?? '',
+					};
 
 					const update = (patch: Partial<EditableValue>) => onChange(editable.id, {...value, ...patch});
 
@@ -56,16 +53,14 @@ export function EditableControls({editables, onChange, values}: EditableControls
 								<span className="d-block mt-1">
 									<span className="label label-secondary">{editable.type}</span>
 								</span>
-								{summary(editable) && (
-									<span className="d-block text-secondary small font-weight-normal storybook-editable__default" title={summary(editable)}>
-										{summary(editable)}
-									</span>
+								{(editable.type === 'image' || editable.type === 'background-image') && embedded && !value.src && (
+									<span className="d-block text-secondary small font-weight-normal storybook-editable__default">Embedded placeholder image</span>
 								)}
 							</th>
 							<td>
 								{(editable.type === 'image' || editable.type === 'background-image') && (
 									<div className="storybook-stack">
-										<input className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder={editable.defaultValue.src?.startsWith('data:') ? 'Image URL (embedded placeholder by default)' : editable.defaultValue.src || 'Image URL'} type="text" value={value.src ?? ''} />
+										<input className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder="Image URL" type="text" value={shown.src} />
 										<input
 											accept="image/*"
 											aria-label={`Upload image for ${editable.id}`}
@@ -84,24 +79,24 @@ export function EditableControls({editables, onChange, values}: EditableControls
 											}}
 											type="file"
 										/>
-										{editable.type === 'image' && <input className="form-control form-control-sm" onChange={(event) => update({alt: event.target.value})} placeholder={editable.defaultValue.alt || 'Alternative text'} type="text" value={value.alt ?? ''} />}
+										{editable.type === 'image' && <input className="form-control form-control-sm" onChange={(event) => update({alt: event.target.value})} placeholder="Alternative text" type="text" value={shown.alt} />}
 										{editable.type === 'image' && <input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="Link URL (optional)" type="text" value={value.href ?? ''} />}
 									</div>
 								)}
 
 								{(editable.type === 'link' || editable.type === 'action') && (
 									<div className="storybook-stack">
-										<input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder={editable.defaultValue.text || 'Link text'} type="text" value={value.text ?? ''} />
-										<input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder={editable.defaultValue.href || 'https://'} type="text" value={value.href ?? ''} />
-										<Toggle checked={value.target === '_blank'} label="Open in a new tab" onChange={(checked) => update({target: checked ? '_blank' : undefined})} />
+										<input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Link text" type="text" value={shown.text} />
+										<input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="https://" type="text" value={shown.href} />
+										<Toggle checked={shown.target === '_blank'} label="Open in a new tab" onChange={(checked) => update({target: checked ? '_blank' : undefined})} />
 									</div>
 								)}
 
 								{(editable.type === 'rich-text' || editable.type === 'html') && (
-									<textarea className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder={editable.defaultValue.text || 'HTML content'} rows={3} value={value.text ?? ''} />
+									<textarea className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="HTML content" rows={3} value={shown.text} />
 								)}
 
-								{(editable.type === 'text' || editable.type === 'date-time') && <input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder={editable.defaultValue.text || 'Text'} type="text" value={value.text ?? ''} />}
+								{(editable.type === 'text' || editable.type === 'date-time') && <input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Text" type="text" value={shown.text} />}
 
 								{values[editable.id] && (
 									<button className="btn btn-unstyled btn-sm text-primary mt-1" onClick={() => onChange(editable.id, null)} type="button">
