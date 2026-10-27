@@ -23,7 +23,8 @@ body,
  * schemes.
  */
 
-.storybook {
+.storybook,
+.storybook-loading {
 	--sb-border: var(--cadmin-gray-300, #e7e7ed);
 	--sb-bg: var(--cadmin-white, #fff);
 	--sb-muted-bg: var(--cadmin-gray-100, #f1f2f5);
@@ -45,15 +46,55 @@ html:not(#__):not(#___) .storybook {
 	min-height: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook--loading {
+/* Loading screen --------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook-loading {
 	align-items: center;
-	color: var(--sb-gray-600);
+	background: var(--cadmin-white, #fff);
+	color: var(--cadmin-gray-900, #272833);
 	display: flex;
-	grid-template-columns: 1fr;
+	height: 100%;
 	justify-content: center;
+	padding: 1rem;
 }
 
-html:not(#__):not(#___) .storybook .lexicon-icon {
+html:not(#__):not(#___) .storybook-loading__card {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	max-width: 22rem;
+	text-align: center;
+}
+
+html:not(#__):not(#___) .storybook-loading .storybook-loading__card .storybook-loading__logo {
+	background: var(--cadmin-primary, #0b5fff);
+	color: #fff;
+	font-size: 1.75rem;
+	height: 3.5rem;
+	margin-bottom: 0.5rem;
+	width: 3.5rem;
+}
+
+html:not(#__):not(#___) .storybook-loading__title {
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+html:not(#__):not(#___) .storybook-loading__subtitle {
+	font-size: 0.875rem;
+}
+
+html:not(#__):not(#___) .storybook-loading__spinner {
+	margin: 1.25rem 0 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook-loading__text {
+	font-size: 0.875rem;
+}
+
+html:not(#__):not(#___) .storybook .lexicon-icon,
+html:not(#__):not(#___) .storybook-loading .lexicon-icon {
 	fill: currentColor;
 	height: 1em;
 	width: 1em;
@@ -102,7 +143,8 @@ html:not(#__):not(#___) .storybook .storybook-brand {
 	margin-bottom: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand__logo {
+html:not(#__):not(#___) .storybook .storybook-brand__logo,
+html:not(#__):not(#___) .storybook-loading .storybook-brand__logo {
 	align-items: center;
 	background: var(--sb-primary);
 	border-radius: 0.5rem;

@@ -4,6 +4,7 @@ import {importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
 import {loadBuiltinCollections, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes} from '../store/load';
 import {Canvas} from './Canvas';
+import {Icon} from './Icon';
 import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
 import {Toolbar} from './Toolbar';
@@ -79,9 +80,16 @@ export function App() {
 
 	if (state.loading) {
 		return (
-			<div className="cadmin storybook storybook--loading">
-				<span aria-hidden="true" className="loading-animation loading-animation-sm mr-2" />
-				Loading Liferay themes and fragment collections…
+			<div className="cadmin storybook-loading" role="status">
+				<div className="storybook-loading__card">
+					<span aria-hidden="true" className="storybook-brand__logo storybook-loading__logo">
+						<Icon symbol="page-template" />
+					</span>
+					<div className="storybook-loading__title">Liferay Storybook</div>
+					<div className="storybook-loading__subtitle text-secondary">Fragments · Templates · Style books</div>
+					<span aria-hidden="true" className="loading-animation loading-animation-md storybook-loading__spinner" />
+					<div className="storybook-loading__text text-secondary">Loading themes, fragment collections and style books…</div>
+				</div>
 			</div>
 		);
 	}
