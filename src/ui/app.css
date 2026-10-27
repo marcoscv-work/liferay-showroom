@@ -91,6 +91,7 @@ html:not(#__):not(#___) .storybook .storybook-sidebar {
 }
 
 html:not(#__):not(#___) .storybook .storybook-sidebar__header {
+	flex: 0 0 auto;
 	padding: 1rem 1rem 0.75rem;
 }
 
@@ -120,6 +121,13 @@ html:not(#__):not(#___) .storybook .storybook-brand__title {
 
 html:not(#__):not(#___) .storybook .storybook-brand__subtitle {
 	font-size: 0.75rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+html:not(#__):not(#___) .storybook .storybook-brand > div {
+	min-width: 0;
 }
 
 html:not(#__):not(#___) .storybook .storybook-sidebar__tree {
@@ -221,6 +229,7 @@ html:not(#__):not(#___) .storybook .storybook-thumb {
 
 html:not(#__):not(#___) .storybook .storybook-sidebar__footer {
 	border-top: 1px solid var(--sb-border);
+	flex: 0 0 auto;
 	padding: 0.75rem 1rem;
 }
 
