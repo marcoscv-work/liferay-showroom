@@ -18,6 +18,7 @@ export interface Collection {
 	name: string;
 	resources: Record<string, string>;
 	source: 'builtin' | 'imported';
+	theme?: string | null;
 }
 
 export interface FrontendToken {

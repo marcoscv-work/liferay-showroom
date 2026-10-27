@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-02-launch-digital-experiences-that-convert-",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 2. Launch Digital Experiences That Convert, Scale and Grow",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

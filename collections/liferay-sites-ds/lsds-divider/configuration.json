@@ -1,0 +1,51 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "normal",
+					"label": "tone",
+					"name": "tone",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "normal",
+								"value": "normal"
+							},
+							{
+								"label": "subtle",
+								"value": "subtle"
+							},
+							{
+								"label": "gradient",
+								"value": "gradient"
+							}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "horizontal",
+					"label": "orientation",
+					"name": "orientation",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "horizontal",
+								"value": "horizontal"
+							},
+							{
+								"label": "vertical",
+								"value": "vertical"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

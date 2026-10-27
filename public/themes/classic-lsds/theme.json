@@ -1,0 +1,5 @@
+{
+	"assets": "classic",
+	"description": "The Classic theme plus the Liferay Sites Design System tokens (--sds-* and the Mantine variables the components read), so the LSDS style books can drive the fragments.",
+	"name": "Classic + Liferay Sites DS"
+}

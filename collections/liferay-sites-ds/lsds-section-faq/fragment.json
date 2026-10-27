@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-section-faq",
+	"htmlPath": "index.html",
+	"icon": "list",
+	"jsPath": "index.js",
+	"name": "LSDS Section: FAQ",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

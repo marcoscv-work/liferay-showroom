@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-accordion",
+	"htmlPath": "index.html",
+	"icon": "list",
+	"jsPath": "index.js",
+	"name": "LSDS Accordion",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

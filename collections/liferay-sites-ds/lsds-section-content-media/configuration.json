@@ -1,0 +1,28 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "left",
+					"label": "media-side",
+					"name": "mediaSide",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "left",
+								"value": "left"
+							},
+							{
+								"label": "right",
+								"value": "right"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

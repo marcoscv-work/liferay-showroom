@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-image",
+	"htmlPath": "index.html",
+	"icon": "picture",
+	"jsPath": "index.js",
+	"name": "LSDS Image",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

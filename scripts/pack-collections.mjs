@@ -91,6 +91,7 @@ for (const collectionDir of readdirSync(root)) {
 		key: collectionDir,
 		name: collection.name || collectionDir,
 		resources,
+		theme: collection.theme || null,
 	};
 
 	writeFileSync(join(out, `${collectionDir}.json`), JSON.stringify(packed));
@@ -124,6 +125,35 @@ if (existsSync(templatesRoot)) {
 }
 
 writeFileSync(join(out, 'templates.json'), JSON.stringify(templates));
+
+/* Style books under `style-books/<name>/style-book.json` + `frontend-tokens-values.json` */
+
+const styleBooksRoot = new URL('../style-books/', import.meta.url).pathname;
+const styleBooks = [];
+
+if (existsSync(styleBooksRoot)) {
+	for (const dir of readdirSync(styleBooksRoot)) {
+		const styleBookPath = join(styleBooksRoot, dir, 'style-book.json');
+
+		if (!existsSync(styleBookPath)) {
+			continue;
+		}
+
+		const styleBook = JSON.parse(readFileSync(styleBookPath, 'utf8'));
+		const valuesPath = join(styleBooksRoot, dir, styleBook.frontendTokensValuesPath || 'frontend-tokens-values.json');
+
+		styleBooks.push({
+			key: dir,
+			name: styleBook.name || dir,
+			themeId: styleBook.themeId || null,
+			values: existsSync(valuesPath) ? JSON.parse(readFileSync(valuesPath, 'utf8')) : styleBook.frontendTokensValues || {},
+		});
+	}
+}
+
+writeFileSync(join(out, 'style-books.json'), JSON.stringify(styleBooks));
+
+console.log(`Packed ${styleBooks.length} style book(s)`);
 
 console.log(`Packed ${templates.length} page template(s)`);
 

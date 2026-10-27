@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-04-what-teams-can-achieve-with-liferay",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 4. What Teams Can Achieve with Liferay",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

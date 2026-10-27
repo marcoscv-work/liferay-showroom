@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-12-our-latest-research-data",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 12. Our Latest Research & Data",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

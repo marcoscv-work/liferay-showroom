@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-marquee",
+	"htmlPath": "index.html",
+	"icon": "logo",
+	"jsPath": "index.js",
+	"name": "LSDS Logo marquee",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

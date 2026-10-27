@@ -1,0 +1,51 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "default",
+					"label": "variant",
+					"name": "variant",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "default",
+								"value": "default"
+							},
+							{
+								"label": "secondary",
+								"value": "secondary"
+							}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "lg",
+					"label": "size",
+					"name": "size",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "sm",
+								"value": "sm"
+							},
+							{
+								"label": "md",
+								"value": "md"
+							},
+							{
+								"label": "lg",
+								"value": "lg"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

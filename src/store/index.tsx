@@ -49,7 +49,7 @@ export const initialState: State = {
 };
 
 export type Action =
-	| {type: 'loaded'; collections: Collection[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
+	| {type: 'loaded'; collections: Collection[]; styleBooks: StyleBook[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
 	| {type: 'select'; selection: Selection}
 	| {type: 'setPanelTab'; tab: PanelTab}
 	| {type: 'setTheme'; key: string}
@@ -96,7 +96,12 @@ function reducer(state: State, action: Action): State {
 			const {persisted} = action;
 
 			const collections = [...action.collections, ...(persisted.collections ?? [])];
-			const styleBooks = [...initialState.styleBooks, ...(persisted.styleBooks ?? []).filter((styleBook) => styleBook.key !== DEFAULT_STYLE_BOOK_KEY)];
+			const persistedStyleBooks = (persisted.styleBooks ?? []).filter((styleBook) => styleBook.key !== DEFAULT_STYLE_BOOK_KEY);
+			const styleBooks = [
+				...initialState.styleBooks,
+				...action.styleBooks.map((styleBook) => persistedStyleBooks.find((candidate) => candidate.key === styleBook.key) ?? styleBook),
+				...persistedStyleBooks.filter((styleBook) => !styleBook.key.startsWith('builtin-')),
+			];
 
 			const themeKey = action.themes.some((theme) => theme.key === persisted.themeKey) ? persisted.themeKey! : action.themes[0]?.key ?? 'classic';
 
@@ -140,14 +145,35 @@ function reducer(state: State, action: Action): State {
 				viewport: persisted.viewport ?? 'desktop',
 			};
 		}
-		case 'select':
+		case 'select': {
+			let themeKey = state.themeKey;
+			let styleBookKey = state.styleBookKey;
+
+			if (action.selection.kind === 'fragment') {
+				const {collectionKey} = action.selection;
+				const collection = state.collections.find((candidate) => candidate.key === collectionKey);
+
+				if (collection?.theme && collection.theme !== state.themeKey && state.themes.some((theme) => theme.key === collection.theme)) {
+					themeKey = collection.theme;
+
+					const current = state.styleBooks.find((styleBook) => styleBook.key === state.styleBookKey);
+
+					if (current?.themeKey && current.themeKey !== themeKey) {
+						styleBookKey = state.styleBooks.find((styleBook) => styleBook.themeKey === themeKey)?.key ?? DEFAULT_STYLE_BOOK_KEY;
+					}
+				}
+			}
+
 			return {
 				...state,
 				panelTab: action.selection.kind === 'template' ? (state.panelTab === 'controls' ? 'layout' : state.panelTab) : state.panelTab === 'layout' ? 'controls' : state.panelTab,
 				runtimeWarnings: [],
 				selectedItemId: null,
 				selection: action.selection,
+				styleBookKey,
+				themeKey,
 			};
+		}
 		case 'setPanelTab':
 			return {...state, panelTab: action.tab};
 		case 'setTheme':
@@ -193,7 +219,7 @@ function reducer(state: State, action: Action): State {
 			return {
 				...state,
 				styleBookKey: state.styleBookKey === action.key ? DEFAULT_STYLE_BOOK_KEY : state.styleBookKey,
-				styleBooks: state.styleBooks.filter((styleBook) => styleBook.key !== action.key || styleBook.key === DEFAULT_STYLE_BOOK_KEY),
+				styleBooks: state.styleBooks.filter((styleBook) => styleBook.key !== action.key || styleBook.key === DEFAULT_STYLE_BOOK_KEY || styleBook.source === 'builtin'),
 			};
 		case 'addCollections':
 			return {...state, collections: [...state.collections, ...action.collections]};
@@ -232,7 +258,7 @@ function reducer(state: State, action: Action): State {
 		case 'clearRuntimeWarnings':
 			return state.runtimeWarnings.length ? {...state, runtimeWarnings: []} : state;
 		case 'resetAll':
-			return {...state, fragmentArgs: {}, styleBookKey: DEFAULT_STYLE_BOOK_KEY, styleBooks: initialState.styleBooks, templates: [], collections: state.collections.filter((collection) => collection.source === 'builtin')};
+			return {...state, fragmentArgs: {}, styleBookKey: DEFAULT_STYLE_BOOK_KEY, styleBooks: state.styleBooks.filter((styleBook) => styleBook.source === 'builtin'), templates: state.templates.filter((template) => template.source === 'builtin'), collections: state.collections.filter((collection) => collection.source === 'builtin')};
 	}
 }
 

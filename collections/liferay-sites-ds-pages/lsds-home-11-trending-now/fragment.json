@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-11-trending-now",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 11. Trending Now",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

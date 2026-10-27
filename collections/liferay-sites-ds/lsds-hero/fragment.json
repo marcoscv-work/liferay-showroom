@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-hero",
+	"htmlPath": "index.html",
+	"icon": "display",
+	"jsPath": "index.js",
+	"name": "LSDS Hero",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

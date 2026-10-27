@@ -1,0 +1,55 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "gradient",
+					"label": "variant",
+					"name": "variant",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "filled",
+								"value": "filled"
+							},
+							{
+								"label": "glass",
+								"value": "glass"
+							},
+							{
+								"label": "gradient",
+								"value": "gradient"
+							}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "lg",
+					"label": "size",
+					"name": "size",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "sm",
+								"value": "sm"
+							},
+							{
+								"label": "md",
+								"value": "md"
+							},
+							{
+								"label": "lg",
+								"value": "lg"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

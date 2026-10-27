@@ -1,0 +1,28 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "lg",
+					"label": "size",
+					"name": "size",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "sm",
+								"value": "sm"
+							},
+							{
+								"label": "lg",
+								"value": "lg"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

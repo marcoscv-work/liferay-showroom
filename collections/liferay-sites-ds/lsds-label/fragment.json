@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-label",
+	"htmlPath": "index.html",
+	"icon": "tag",
+	"jsPath": "index.js",
+	"name": "LSDS Label",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

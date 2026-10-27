@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-09-every-capability-your-enterprise-needs",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 9. Every Capability Your Enterprise Needs",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

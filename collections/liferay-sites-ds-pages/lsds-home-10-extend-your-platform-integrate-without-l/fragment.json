@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-10-extend-your-platform-integrate-without-l",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 10. Extend Your platform. Integrate without limits.",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

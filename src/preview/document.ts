@@ -10,6 +10,7 @@ import type {Theme} from '../model/types';
 
 export interface PreviewDocumentOptions {
 	bodyClass?: string;
+	colorScheme?: 'light' | 'dark';
 	css: string;
 	fragmentCSS: string;
 	html: string;
@@ -17,6 +18,41 @@ export interface PreviewDocumentOptions {
 	mode: 'story' | 'template';
 	theme: Theme | null;
 	tokenValues: Record<string, string>;
+}
+
+/**
+ * Stand-in for the `@liferay/fragment-impl/api` module that fragment
+ * JavaScript can import at runtime: the storage helpers work on the browser
+ * storages, the form helpers are no-ops.
+ */
+export const FRAGMENT_API_MODULE = `
+const storage = (store) => ({
+	TYPES: {FUNCTIONAL: 'functional', NECESSARY: 'necessary', PERFORMANCE: 'performance', PERSONALIZATION: 'personalization'},
+	getItem(key) { try { return store.getItem(key); } catch (error) { return null; } },
+	setItem(key, value) { try { store.setItem(key, value); } catch (error) {} },
+	removeItem(key) { try { store.removeItem(key); } catch (error) {} }
+});
+export const localStorage = storage(window.localStorage);
+export const sessionStorage = storage(window.sessionStorage);
+const noop = () => {};
+export const focusInput = noop;
+export const getTranslationInput = () => null;
+export const handleInputLengthError = noop;
+export const showInputError = noop;
+export const hideInputError = noop;
+export const registerInputFeedback = noop;
+export const registerLocalizedInput = noop;
+export const registerUnlocalizedInput = noop;
+export const renderDateInput = noop;
+export const updateDLVideo = noop;
+export const openCMSFileSelectorModal = noop;
+export const LocalizationSelect = () => null;
+`;
+
+export function importMap(): string {
+	const url = `data:text/javascript;base64,${typeof btoa === 'function' ? btoa(unescape(encodeURIComponent(FRAGMENT_API_MODULE))) : Buffer.from(FRAGMENT_API_MODULE).toString('base64')}`;
+
+	return `<script type="importmap">${JSON.stringify({imports: {'@liferay/fragment-impl/api': url}})}</script>`;
 }
 
 export const BRIDGE_SCRIPT = `
@@ -45,6 +81,18 @@ window.Liferay = window.Liferay || {
 		isSignedIn: function () { return false; }
 	},
 	Util: {
+		LocalStorage: {
+			TYPES: {FUNCTIONAL: 'functional', NECESSARY: 'necessary', PERFORMANCE: 'performance', PERSONALIZATION: 'personalization'},
+			getItem: function (key) { try { return window.localStorage.getItem(key); } catch (e) { return null; } },
+			setItem: function (key, value) { try { window.localStorage.setItem(key, value); } catch (e) {} },
+			removeItem: function (key) { try { window.localStorage.removeItem(key); } catch (e) {} }
+		},
+		SessionStorage: {
+			TYPES: {FUNCTIONAL: 'functional', NECESSARY: 'necessary', PERFORMANCE: 'performance', PERSONALIZATION: 'personalization'},
+			getItem: function (key) { try { return window.sessionStorage.getItem(key); } catch (e) { return null; } },
+			setItem: function (key, value) { try { window.sessionStorage.setItem(key, value); } catch (e) {} },
+			removeItem: function (key) { try { window.sessionStorage.removeItem(key); } catch (e) {} }
+		},
 		ns: function (namespace, object) { return object; },
 		escapeHTML: function (text) { return String(text).replace(/[&<>"']/g, function (c) { return ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]; }); },
 		getCheckedCheckboxes: function () { return ''; }
@@ -189,22 +237,36 @@ export const PREVIEW_CSS = `
 `;
 
 export function buildPreviewDocument(options: PreviewDocumentOptions): string {
-	const {bodyClass = '', css, fragmentCSS, html, js, mode, theme, tokenValues} = options;
+	const {bodyClass = '', colorScheme = 'light', css, fragmentCSS, html, js, mode, theme, tokenValues} = options;
 
 	const links = (theme?.css ?? []).map((href) => `<link rel="stylesheet" href="${href}">`).join('\n');
 
 	const tokenCSS = buildTokenCSS(theme, tokenValues);
 
+	/*
+	 * Liferay's dark mode marks the page with `data-color-scheme="dark"` and
+	 * applies the dark values of the style book. The canvas follows the
+	 * storybook's own scheme the same way: the attribute, `color-scheme`, and
+	 * dark values for the page background and text tokens.
+	 */
+	const schemeCSS =
+		colorScheme === 'dark'
+			? `:root[data-color-scheme="dark"] { color-scheme: dark; --body-bg: #1b1b23; --body-color: #f1f2f5; --white: #1b1b23; --gray-100: #272833; --gray-200: #30313f; --gray-300: #3c3d4d; --gray-600: #a7a9bc; --gray-900: #f1f2f5; --dark: #f1f2f5; --light: #272833; }
+body { background-color: var(--body-bg); color: var(--body-color); }`
+			: '';
+
 	return `<!doctype html>
-<html lang="en" data-storybook-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
+<html lang="en" data-color-scheme="${colorScheme}" data-storybook-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ${links}
 <style id="storybook-tokens">${tokenCSS}</style>
+<style id="storybook-scheme">${schemeCSS}</style>
 <style id="storybook-fragment-css">${fragmentCSS}</style>
 <style id="storybook-item-css">${css}</style>
 <style id="storybook-preview-css">${PREVIEW_CSS}</style>
+${importMap()}
 <script>${BRIDGE_SCRIPT}</script>
 </head>
 <body class="${bodyClass}">

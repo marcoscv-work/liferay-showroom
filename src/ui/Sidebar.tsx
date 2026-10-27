@@ -1,6 +1,7 @@
 import {useRef, useState} from 'react';
 
 import {createElement} from '../model/pageDefinition';
+import {downloadBlob, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
 import {importFile} from './App';
 import {ConfirmButton} from './ConfirmButton';
@@ -164,6 +165,15 @@ function CollectionNode({
 					<Icon className="mr-2" symbol={collapsed ? 'angle-right-small' : 'angle-down-small'} />
 					<span className="storybook-collection__name text-truncate">{collection.name}</span>
 					<span className="label label-secondary ml-2">{collection.fragments.length}</span>
+				</button>
+				<button
+					aria-label={`Export ${collection.name} as a fragment set zip`}
+					className="btn btn-unstyled btn-sm btn-monospaced storybook-nav-row__action"
+					onClick={async () => downloadBlob(await exportCollectionZip(collection), `${collection.key}-fragments.zip`)}
+					title="Export this collection as a Liferay fragment set zip"
+					type="button"
+				>
+					<Icon symbol="download" />
 				</button>
 				{onRemove && (
 					<button aria-label={`Remove ${collection.name}`} className="btn btn-unstyled btn-sm btn-monospaced storybook-nav-row__action" onClick={onRemove} title="Remove this imported collection" type="button">

@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-tabs-pills",
+	"htmlPath": "index.html",
+	"icon": "cards2",
+	"jsPath": "index.js",
+	"name": "LSDS Tabs (pills)",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

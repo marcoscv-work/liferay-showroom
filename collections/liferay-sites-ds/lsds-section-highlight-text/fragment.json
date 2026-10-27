@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-section-highlight-text",
+	"htmlPath": "index.html",
+	"icon": "text",
+	"jsPath": "index.js",
+	"name": "LSDS Section: Highlight text",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

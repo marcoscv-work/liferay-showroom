@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-section-content-media",
+	"htmlPath": "index.html",
+	"icon": "picture",
+	"jsPath": "index.js",
+	"name": "LSDS Section: Content with media",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

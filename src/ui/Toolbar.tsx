@@ -1,5 +1,5 @@
 import {VIEWPORTS} from '../model/types';
-import {downloadBlob, exportStyleBookZip, exportTemplateZip, templateDefinitionJSON} from '../model/zip';
+import {downloadBlob, exportCollectionZip, exportStyleBookZip, exportTemplateZip, templateDefinitionJSON} from '../model/zip';
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {ConfirmButton} from './ConfirmButton';
 import {Icon, IconButton} from './Icon';
@@ -104,6 +104,22 @@ export function Toolbar() {
 			</div>
 
 			<div className="storybook-toolbar__group storybook-toolbar__actions">
+				{output.fragment && output.collection && (
+					<button
+						className="btn btn-secondary btn-sm"
+						onClick={async () =>
+							downloadBlob(
+								await exportCollectionZip({...output.collection!, fragments: [output.fragment!], name: output.fragment!.name}),
+								`${output.fragment!.key}-fragment.zip`
+							)
+						}
+						title="Export this fragment alone as a Liferay fragment set zip"
+						type="button"
+					>
+						<Icon className="mr-1" symbol="download" />
+						Export fragment
+					</button>
+				)}
 				{template && (
 					<>
 						<button

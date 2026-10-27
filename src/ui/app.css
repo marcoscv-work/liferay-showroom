@@ -283,8 +283,7 @@ html:not(#__):not(#___) .storybook .storybook-canvas {
 }
 
 html:not(#__):not(#___) .storybook .storybook-canvas__frame-wrapper {
-	background: #fff;
-	color-scheme: light;
+	background: var(--sb-bg);
 	border: 1px solid var(--sb-border);
 	border-radius: 0.25rem;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -295,7 +294,7 @@ html:not(#__):not(#___) .storybook .storybook-canvas__frame-wrapper {
 }
 
 html:not(#__):not(#___) .storybook .storybook-canvas__frame {
-	background: #fff;
+	background: var(--sb-bg);
 	border: 0;
 	display: block;
 	height: 100%;

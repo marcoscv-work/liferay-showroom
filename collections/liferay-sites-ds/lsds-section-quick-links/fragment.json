@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-section-quick-links",
+	"htmlPath": "index.html",
+	"icon": "link",
+	"jsPath": "index.js",
+	"name": "LSDS Section: Quick links",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

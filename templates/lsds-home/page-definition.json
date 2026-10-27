@@ -1,0 +1,177 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"indexed": true,
+					"layout": {
+						"widthType": "Fluid"
+					},
+					"name": "LSDS Home"
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-01-header"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 1. Header"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-02-launch-digital-experiences-that-convert-"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 2. Launch Digital Experiences That Convert, Scale and Grow"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-03-section"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 3. Section"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-04-what-teams-can-achieve-with-liferay"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 4. What Teams Can Achieve with Liferay"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-05-1-200-enterprises-move-the-needle-with-l"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 5. 1,200+ Enterprises Move the Needle With Liferay"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-06-different-teams-one-platform"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 6. Different Teams. One Platform."
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-07-designed-for-your-industry-built-for-gro"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 7. Designed for Your Industry. Built for Growth."
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-08-everything-you-need-in-one-platform"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 8. Everything You Need in One Platform"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-09-every-capability-your-enterprise-needs"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 9. Every Capability Your Enterprise Needs"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-10-extend-your-platform-integrate-without-l"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 10. Extend Your platform. Integrate without limits."
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-11-trending-now"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 11. Trending Now"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-12-our-latest-research-data"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 12. Our Latest Research & Data"
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"collectionKey": "liferay-sites-ds-pages",
+								"key": "lsds-home-13-footer"
+							},
+							"fragmentConfig": {},
+							"indexed": true,
+							"name": "LSDS Home: 13. Footer"
+						},
+						"type": "Fragment"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {},
+	"version": 1.1
+}

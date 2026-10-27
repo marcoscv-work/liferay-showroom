@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 
 import {importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
-import {loadBuiltinCollections, loadBuiltinTemplates, loadBuiltinThemes} from '../store/load';
+import {loadBuiltinCollections, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes} from '../store/load';
 import {Canvas} from './Canvas';
 import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
@@ -14,9 +14,9 @@ export function App() {
 	useEffect(() => {
 		let cancelled = false;
 
-		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates()]).then(([collections, themes, templates]) => {
+		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks()]).then(([collections, themes, templates, styleBooks]) => {
 			if (!cancelled) {
-				dispatch({collections, persisted: readPersistedState(), templates, themes, type: 'loaded'});
+				dispatch({collections, persisted: readPersistedState(), styleBooks, templates, themes, type: 'loaded'});
 			}
 		});
 

@@ -1,0 +1,55 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "brand",
+					"label": "tone",
+					"name": "tone",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "brand",
+								"value": "brand"
+							},
+							{
+								"label": "neutral",
+								"value": "neutral"
+							},
+							{
+								"label": "warning",
+								"value": "warning"
+							},
+							{
+								"label": "success",
+								"value": "success"
+							}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "center",
+					"label": "align",
+					"name": "align",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "center",
+								"value": "center"
+							},
+							{
+								"label": "left",
+								"value": "left"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}

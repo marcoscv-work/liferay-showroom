@@ -199,11 +199,15 @@ function postProcess(html: string, options: FragmentRenderOptions, editables: Ed
 		}
 	}
 
-	if (doc.querySelector('script')) {
+	if (doc.querySelector('script') && !fragmentHasScriptTaglib(html)) {
 		warnings.push('Inline <script> tags are removed by Liferay in fragment HTML; put the code in index.js');
 	}
 
 	return doc.body.innerHTML;
+}
+
+function fragmentHasScriptTaglib(html: string): boolean {
+	return html.includes('<script>');
 }
 
 function applyEditableValue(element: Element, type: string, value: EditableValue, doc: Document): void {

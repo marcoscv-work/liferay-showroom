@@ -73,6 +73,25 @@ A theme zip can also be imported at runtime; it is not persisted because the sty
 - Page definitions use the same markup Liferay's layout renderer produces: `lfr-layout-structure-item-*` wrappers, `container-fluid container-fluid-max-xl` for fixed-width containers, Bootstrap rows and columns per viewport, `fragmentStyle` converted to the `!important` CSS of `common-styles.json`, spacing numbers mapped to `spacer-N` tokens.
 - Taglibs and widgets that need the portal (`[@liferay_portlet]`, collection displays, forms, mapped content) are rendered as placeholders and listed as warnings.
 
+## Liferay Sites Design System as fragments
+
+`scripts/build-lsds.mjs` converts the [Liferay Sites Design System](https://makenaford.github.io/liferay-sites-design-system) Storybook (React + Mantine) into plain Liferay assets, driven by `scripts/lsds/spec.mjs`:
+
+- `collections/liferay-sites-ds/`: the simplest story of each component as a fragment. The rendered markup is kept, the CSS the story actually uses is extracted (CSS-module names become `lsds-*`), headings, paragraphs, images and links become editables, and the component's basic props become `configuration.json` fields bound to the `data-variant` / `data-size` attributes the CSS keys on. Interactive parts (accordion, tabs, marquee, banner, progress, card spotlight) run on the plain JavaScript in `scripts/lsds/behaviors.js`.
+- `collections/liferay-sites-ds-pages/`: every block of a built page (header, hero, sections, footer) as a fragment, and `templates/<page>/page-definition.json` composing them into a page template.
+- `public/themes/classic-lsds/`: the "Classic + Liferay Sites DS" theme, whose `frontend-token-definition.json` adds every design token the fragments read (`--sds-*` and the Mantine variables) to the Classic definition.
+- `style-books/lsds-dark` and `style-books/lsds-light`: the two colour schemes as Liferay style books. Switching the style book restyles every LSDS fragment and page, which is what the tokens are for.
+
+Picking a fragment of these collections switches the preview to the theme that defines its tokens. Everything (fragment sets, style books, page templates) exports with the toolbar and sidebar buttons in the formats Liferay imports.
+
+Regenerate after the design system changes:
+
+```bash
+PLAYWRIGHT_CHANNEL=chrome node scripts/build-lsds.mjs
+```
+
+`PLAYWRIGHT_MODULE` can point at an existing `playwright` package (it is not a dependency of this project). Media referenced by the built pages stays on the Storybook host; replace it through the editables.
+
 ## Deploying to GitHub Pages
 
 The workflow in `.github/workflows/deploy.yml` builds the site on every push to `main` and publishes `dist/` to GitHub Pages. Enable *Settings → Pages → Source: GitHub Actions* in the repository.

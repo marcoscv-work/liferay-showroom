@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-progress",
+	"htmlPath": "index.html",
+	"icon": "time",
+	"jsPath": "index.js",
+	"name": "LSDS Progress",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

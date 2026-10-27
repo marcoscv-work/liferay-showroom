@@ -98,6 +98,13 @@ export function buildLiferayContext(options: LiferayContextOptions): Record<stri
 		return clayIcon(String(params.symbol ?? ''), imagesPath, cssClass ? String(cssClass) : '');
 	});
 
+	const styleDirective = directive((_params, renderBody) => `<style>${renderBody()}</style>`);
+	const scriptDirective = directive((_params, renderBody, context: Context) => {
+		context.warn('[@liferay_aui.script] body was moved to the fragment JavaScript; put it in index.js instead');
+
+		return `<script>${renderBody()}</script>`;
+	});
+
 	const warnDirective = (name: string) =>
 		directive((_params, renderBody, context: Context) => {
 			context.warn(`Taglib ${name} is not available outside Liferay; only its body was rendered`);
@@ -141,7 +148,7 @@ export function buildLiferayContext(options: LiferayContextOptions): Record<stri
 		languageId,
 		languageUtil,
 		layoutMode,
-		liferay_aui: taglibProxy('liferay_aui'),
+		liferay_aui: taglibProxy('liferay_aui', {script: scriptDirective, style: styleDirective}),
 		liferay_frontend: taglibProxy('liferay_frontend'),
 		liferay_portlet: taglibProxy('liferay_portlet'),
 		liferay_theme: taglibProxy('liferay_theme'),
@@ -153,6 +160,8 @@ export function buildLiferayContext(options: LiferayContextOptions): Record<stri
 			getPortalURL: () => '',
 			getSiteDefaultLocale: () => locale,
 		},
+		siteSpritemap: `${imagesPath}/clay/icons.svg`,
+		spritemap: `${imagesPath}/clay/icons.svg`,
 		stringUtil: {
 			equals: (a: any, b: any) => String(a) === String(b),
 			lowerCase: (value: any) => String(value ?? '').toLowerCase(),

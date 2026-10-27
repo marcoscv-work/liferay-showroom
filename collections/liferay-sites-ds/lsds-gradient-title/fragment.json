@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-gradient-title",
+	"htmlPath": "index.html",
+	"icon": "text",
+	"jsPath": "index.js",
+	"name": "LSDS Gradient title",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

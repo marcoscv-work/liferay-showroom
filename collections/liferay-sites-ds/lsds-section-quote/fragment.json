@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-section-quote",
+	"htmlPath": "index.html",
+	"icon": "quote-left",
+	"jsPath": "index.js",
+	"name": "LSDS Section: Quote",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

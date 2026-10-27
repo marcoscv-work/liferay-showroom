@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-01-header",
+	"htmlPath": "index.html",
+	"icon": "menu",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 1. Header",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

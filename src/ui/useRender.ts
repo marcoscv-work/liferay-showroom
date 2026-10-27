@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 
 import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
 import {renderFragment, wrapFragmentScript} from '../model/fragmentRenderer';
@@ -49,8 +49,28 @@ export function useCurrentTemplate(): PageTemplate | null {
 	return state.templates.find((template) => template.id === id) ?? null;
 }
 
+export function useColorScheme(): 'light' | 'dark' {
+	const [scheme, setScheme] = useState<'light' | 'dark'>(() => (typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+
+	useEffect(() => {
+		if (typeof matchMedia !== 'function') {
+			return;
+		}
+
+		const query = matchMedia('(prefers-color-scheme: dark)');
+		const onChange = () => setScheme(query.matches ? 'dark' : 'light');
+
+		query.addEventListener('change', onChange);
+
+		return () => query.removeEventListener('change', onChange);
+	}, []);
+
+	return scheme;
+}
+
 export function useRender(): RenderOutput {
 	const {state} = useStore();
+	const colorScheme = useColorScheme();
 	const theme = useCurrentTheme();
 	const styleBook = useCurrentStyleBook();
 	const {collection, fragment} = useCurrentFragment();
@@ -88,7 +108,7 @@ export function useRender(): RenderOutput {
 				collection,
 				configurationRaw,
 				css: '',
-				document: buildPreviewDocument({css: '', fragmentCSS: result.css, html, js, mode: 'story', theme, tokenValues}),
+				document: buildPreviewDocument({colorScheme, css: '', fragmentCSS: result.css, html, js, mode: 'story', theme, tokenValues}),
 				editables: result.editables,
 				fragment,
 				html: result.html,
@@ -105,7 +125,7 @@ export function useRender(): RenderOutput {
 				collection: null,
 				configurationRaw: {},
 				css: result.css,
-				document: buildPreviewDocument({css: result.css, fragmentCSS: '', html: result.html, js: result.js, mode: 'template', theme, tokenValues}),
+				document: buildPreviewDocument({colorScheme, css: result.css, fragmentCSS: '', html: result.html, js: result.js, mode: 'template', theme, tokenValues}),
 				editables: [],
 				fragment: null,
 				html: result.html,
@@ -120,6 +140,7 @@ export function useRender(): RenderOutput {
 			configurationRaw: {},
 			css: '',
 			document: buildPreviewDocument({
+				colorScheme,
 				css: '',
 				fragmentCSS: '',
 				html: '<div class="container-fluid container-fluid-max-xl py-5"><h1>Liferay Storybook</h1><p class="lead">Pick a fragment or a page template from the sidebar.</p></div>',
@@ -135,5 +156,5 @@ export function useRender(): RenderOutput {
 			template: null,
 			warnings: [],
 		};
-	}, [args, collection, fragment, state.collections, styleBook.values, template, theme]);
+	}, [args, collection, colorScheme, fragment, state.collections, styleBook.values, template, theme]);
 }

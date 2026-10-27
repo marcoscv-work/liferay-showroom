@@ -1,0 +1,12 @@
+{
+	"cacheable": false,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"fragmentEntryKey": "lsds-home-05-1-200-enterprises-move-the-needle-with-l",
+	"htmlPath": "index.html",
+	"icon": "page",
+	"jsPath": "index.js",
+	"name": "LSDS Home: 5. 1,200+ Enterprises Move the Needle With Liferay",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

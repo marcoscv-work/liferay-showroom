@@ -1,0 +1,44 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "glass",
+					"label": "surface",
+					"name": "surface",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "glass",
+								"value": "glass"
+							},
+							{
+								"label": "static",
+								"value": "static"
+							},
+							{
+								"label": "no-bg",
+								"value": "no-bg"
+							},
+							{
+								"label": "none",
+								"value": "none"
+							},
+							{
+								"label": "gradient",
+								"value": "gradient"
+							},
+							{
+								"label": "dark",
+								"value": "dark"
+							}
+						]
+					}
+				}
+			],
+			"label": "options"
+		}
+	]
+}
