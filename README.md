@@ -11,7 +11,7 @@ It renders fragments, page templates and style books the way Liferay does:
 ## What you can do
 
 - **Browse fragments** from bundled (Liferay Sites DS, Basic Components) or imported collections, with their `configuration.json` fields shown as controls (like Storybook args) and their `data-lfr-editable` fields editable.
-- **Pick a theme** (Classic, Prism, Dialect, CMS are bundled) or import a built theme zip.
+- **Pick a theme** (Classic, Classic + Liferay Sites DS and Prism are bundled) or import a built theme zip.
 - **Load and edit style books**: every frontend token of the theme is listed by category, overrides are applied live, and a style book can be exported as a Liferay zip.
 - **Build page templates** with Liferay layout elements (containers, rows, columns, fragments), click elements in the preview to edit their configuration, editables and styles, and export a `page-definition.json` or a page template zip Liferay imports under *Design → Page Templates*.
 - **Import Liferay exports** by dropping zips on the window: fragment collections, page templates, style books and built themes.

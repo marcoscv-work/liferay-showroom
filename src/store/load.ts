@@ -12,8 +12,6 @@ const BUILTIN_THEMES: {assets?: string; key: string; name: string; description: 
 	{description: 'The default Liferay DXP theme (Clay Atlas).', key: 'classic', name: 'Classic'},
 	{assets: 'classic', description: 'Classic plus the Liferay Sites Design System tokens, driven by the LSDS style books.', key: 'classic-lsds', name: 'Classic + Liferay Sites DS'},
 	{description: 'Liferay 2025+ theme with the Prism design tokens.', key: 'prism', name: 'Prism'},
-	{description: 'Dialect theme (Liferay marketing design system).', key: 'dialect', name: 'Dialect'},
-	{description: 'Minimal theme used by the CMS experience.', key: 'cms', name: 'CMS'},
 ];
 
 export function assetURL(path: string): string {
