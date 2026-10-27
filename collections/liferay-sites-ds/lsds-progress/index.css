@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&display=swap');
-
 .lsds-fragment {
 	background: var(--mantine-color-body);
 	color: var(--sds-surfaces-text-primary);
@@ -28,8 +26,12 @@
 .lsds-progress { display: flex; flex: 1 1 100%; width: 100%; align-items: center; gap: 8px; }
 .lsds-progress .lsds-progress-track { flex: 1 1 0%; min-width: 0px; background-color: var(--sds-surfaces-card-bg-blue); }
 .lsds-progress .lsds-progress-fill { background: linear-gradient(90deg,var(--sds-brand-primary-primary),var(--sds-accent-aqua)); }
+.lsds-progress[data-state="warning"] .lsds-progress-fill { background: var(--sds-status-warning-warning); }
+.lsds-progress[data-state="completed"] .lsds-progress-fill { background: var(--sds-status-success-darken-1); }
 .lsds-progress-value { display: inline-flex; flex: 0 0 auto; align-items: center; font-size: var(--sds-size-paragraph-base); line-height: var(--sds-line-height-paragraph-base); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--sds-surfaces-text-secondary); }
+.lsds-progress[data-state="completed"] .lsds-progress-value { color: var(--sds-surfaces-text-primary); }
 .m_db6d6462 { --progress-radius: var(--mantine-radius-default); --progress-size: var(--progress-size-md); --progress-size-xs: calc(.1875rem * var(--mantine-scale)); --progress-size-sm: calc(.3125rem * var(--mantine-scale)); --progress-size-md: calc(.5rem * var(--mantine-scale)); --progress-size-lg: calc(.75rem * var(--mantine-scale)); --progress-size-xl: calc(1rem * var(--mantine-scale)); position: relative; height: var(--progress-size); border-radius: var(--progress-radius); overflow: hidden; display: flex; }
+:where([data-mantine-color-scheme="light"]) .m_db6d6462 { background-color: var(--mantine-color-gray-2); }
 :where([data-mantine-color-scheme="dark"]) .m_db6d6462 { background-color: var(--mantine-color-dark-4); }
 .m_2242eb65 { background-color: var(--progress-section-color); height: 100%; width: var(--progress-section-size); display: flex; align-items: center; justify-content: center; overflow: hidden; background-size: calc(1.25rem * var(--mantine-scale)) calc(1.25rem * var(--mantine-scale)); transition: width var(--progress-transition-duration, .1s) ease; }
 .m_2242eb65:where(:last-of-type) { border-radius: 0px; border-start-end-radius: var(--progress-radius); border-end-end-radius: var(--progress-radius); }

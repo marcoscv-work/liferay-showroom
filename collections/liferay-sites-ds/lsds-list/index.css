@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&display=swap');
-
 .lsds-fragment {
 	background: var(--mantine-color-body);
 	color: var(--sds-surfaces-text-primary);
@@ -25,6 +23,8 @@
 .lsds-card-root[data-align][data-interactive], .lsds-card-root[data-align][data-interactive]::after, .lsds-card-root[data-align][data-interactive] > .lsds-card-image::after, .lsds-card-image > :where(img, picture, video, svg, div, span) { transition: none; }
 }
 .lsds-list-root[data-size] { --sds-list-marker: 24px; --sds-list-gap: 8px; padding-inline-start: 0px; list-style-position: inside; }
+.lsds-list-root[data-size="sm"] { --sds-list-marker: 16px; }
+.lsds-list-root[data-size="lg"] { --sds-list-marker: 32px; }
 .lsds-list-root[data-size] .lsds-list-item { list-style: none; }
 .lsds-list-root[data-size] .lsds-list-item + .lsds-list-item { margin-top: var(--list-spacing, 0); }
 .lsds-list-root[data-size] .lsds-list-item-row { display: flex; flex-direction: row; align-items: flex-start; gap: var(--sds-list-gap); width: 100%; }
@@ -34,7 +34,11 @@
 .lsds-list-root[data-size] .lsds-list-description { font-weight: 400; color: var(--sds-surfaces-text-primary); }
 .lsds-list-marker { display: flex; align-items: center; justify-content: center; width: var(--sds-list-marker); height: var(--sds-list-marker); flex: 0 0 auto; }
 .lsds-list-marker > svg { width: 100%; height: 100%; }
+.lsds-list-marker[data-marker="bullet"]::before { content: ""; width: 8px; height: 8px; border-radius: 1000px; background-color: currentcolor; }
+.lsds-list-marker[data-marker="number"]::before { content: counter(list-item) "."; font-weight: 700; font-size: 18px; line-height: 24px; }
+.lsds-list-root[data-size="sm"] > .lsds-list-item { --sds-list-indent: 24px; }
 .lsds-list-root[data-size="md"] > .lsds-list-item { --sds-list-indent: 32px; }
+.lsds-list-root[data-size="lg"] > .lsds-list-item { --sds-list-indent: 40px; }
 @media (forced-colors: active) {
 .lsds-list-root[data-size] .lsds-list-item-icon { color: canvastext; }
 }

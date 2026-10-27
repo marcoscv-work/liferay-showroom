@@ -8,9 +8,9 @@ import type {Collection, PageTemplate, StyleBook, Theme} from '../model/types';
  * collections and the built Liferay themes under `public/`.
  */
 
-const BUILTIN_THEMES: {assets?: string; key: string; name: string; description: string}[] = [
+const BUILTIN_THEMES: {assets?: string; extraCSS?: string[]; key: string; name: string; description: string}[] = [
 	{description: 'The default Liferay DXP theme (Clay Atlas).', key: 'classic', name: 'Classic'},
-	{assets: 'classic', description: 'Classic plus the Liferay Sites Design System tokens, driven by the LSDS style books.', key: 'classic-lsds', name: 'Classic + Liferay Sites DS'},
+	{assets: 'classic', description: 'Classic plus the Liferay Sites Design System tokens, driven by the LSDS style books.', extraCSS: ['css/fonts.css'], key: 'classic-lsds', name: 'Classic + Liferay Sites DS'},
 	{description: 'Liferay 2025+ theme with the Prism design tokens.', key: 'prism', name: 'Prism'},
 ];
 
@@ -36,7 +36,7 @@ export async function loadBuiltinThemes(): Promise<Theme[]> {
 
 			themes.push({
 				categories,
-				css: [assetURL(`themes/${assets}/css/clay.css`), assetURL(`themes/${assets}/css/main.css`)],
+				css: [assetURL(`themes/${assets}/css/clay.css`), assetURL(`themes/${assets}/css/main.css`), ...(builtin.extraCSS ?? []).map((path) => assetURL(`themes/${builtin.key}/${path}`))],
 				description: builtin.description,
 				imagesPath: assetURL(`themes/${assets}/images`),
 				key: builtin.key,

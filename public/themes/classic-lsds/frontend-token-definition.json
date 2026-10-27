@@ -3997,6 +3997,32 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "#f8f9fa",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-gray-0",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-gray-0"
+								}
+							],
+							"name": "mantineColorGray0",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#f1f3f5",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-gray-1",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-gray-1"
+								}
+							],
+							"name": "mantineColorGray1",
+							"type": "String"
+						},
+						{
 							"defaultValue": "#e9ecef",
 							"editorType": "ColorPicker",
 							"label": "mantine-color-gray-2",
@@ -4007,6 +4033,32 @@
 								}
 							],
 							"name": "mantineColorGray2",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#dee2e6",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-gray-3",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-gray-3"
+								}
+							],
+							"name": "mantineColorGray3",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#ced4da",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-gray-4",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-gray-4"
+								}
+							],
+							"name": "mantineColorGray4",
 							"type": "String"
 						},
 						{
@@ -4580,6 +4632,19 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "#1daef7",
+							"editorType": "ColorPicker",
+							"label": "sds-accent-cyan",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-accent-cyan"
+								}
+							],
+							"name": "sdsAccentCyan",
+							"type": "String"
+						},
+						{
 							"defaultValue": "#70a2ff",
 							"editorType": "ColorPicker",
 							"label": "sds-accent-primary-blue-accent",
@@ -4603,6 +4668,19 @@
 								}
 							],
 							"name": "sdsAccentProductAccent",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#ad80f5",
+							"editorType": "ColorPicker",
+							"label": "sds-accent-purple",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-accent-purple"
+								}
+							],
+							"name": "sdsAccentPurple",
 							"type": "String"
 						}
 					],
@@ -4667,6 +4745,32 @@
 								}
 							],
 							"name": "sdsActionLinkVisitedLink",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#3d536b",
+							"editorType": "ColorPicker",
+							"label": "sds-action-neutral-active",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-action-neutral-active"
+								}
+							],
+							"name": "sdsActionNeutralActive",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#34465b",
+							"editorType": "ColorPicker",
+							"label": "sds-action-neutral-hover",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-action-neutral-hover"
+								}
+							],
+							"name": "sdsActionNeutralHover",
 							"type": "String"
 						},
 						{
@@ -4799,6 +4903,19 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "#e7efff",
+							"editorType": "ColorPicker",
+							"label": "sds-brand-primary-lighten-5",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-brand-primary-lighten-5"
+								}
+							],
+							"name": "sdsBrandPrimaryLighten5",
+							"type": "String"
+						},
+						{
 							"defaultValue": "#0b5fff",
 							"editorType": "ColorPicker",
 							"label": "sds-brand-primary-primary",
@@ -4910,6 +5027,19 @@
 								}
 							],
 							"name": "sdsCardLitEdge",
+							"type": "String"
+						},
+						{
+							"defaultValue": "rgba(255, 255, 255, 0.05)",
+							"editorType": "ColorPicker",
+							"label": "sds-card-static-line",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-card-static-line"
+								}
+							],
+							"name": "sdsCardStaticLine",
 							"type": "String"
 						}
 					],
@@ -5860,6 +5990,44 @@
 				{
 					"frontendTokens": [
 						{
+							"defaultValue": "#1f845a",
+							"editorType": "ColorPicker",
+							"label": "sds-status-success-darken-1",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-status-success-darken-1"
+								}
+							],
+							"name": "sdsStatusSuccessDarken1",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#f38a3f",
+							"editorType": "ColorPicker",
+							"label": "sds-status-warning-warning",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-status-warning-warning"
+								}
+							],
+							"name": "sdsStatusWarningWarning",
+							"type": "String"
+						}
+					],
+					"label": "sds-status",
+					"name": "sdsStatus"
+				}
+			],
+			"label": "lsds-sds-status",
+			"name": "lsdsSdsStatus"
+		},
+		{
+			"frontendTokenSets": [
+				{
+					"frontendTokens": [
+						{
 							"defaultValue": "rgba(99, 153, 255, 0.05)",
 							"editorType": "ColorPicker",
 							"label": "sds-surfaces-card-bg-blue",
@@ -5870,6 +6038,19 @@
 								}
 							],
 							"name": "sdsSurfacesCardBgBlue",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#0f131b",
+							"editorType": "ColorPicker",
+							"label": "sds-surfaces-card-bg-grey",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-surfaces-card-bg-grey"
+								}
+							],
+							"name": "sdsSurfacesCardBgGrey",
 							"type": "String"
 						},
 						{

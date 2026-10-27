@@ -39,12 +39,20 @@
 		"cssVariableMapping": "sds-accent-aqua",
 		"value": "#00e0dc"
 	},
+	"sdsAccentCyan": {
+		"cssVariableMapping": "sds-accent-cyan",
+		"value": "#0e98e2"
+	},
 	"sdsAccentPrimaryBlueAccent": {
 		"cssVariableMapping": "sds-accent-primary-blue-accent",
 		"value": "#0b5fff"
 	},
 	"sdsAccentProductAccent": {
 		"cssVariableMapping": "sds-accent-product-accent",
+		"value": "#7414ff"
+	},
+	"sdsAccentPurple": {
+		"cssVariableMapping": "sds-accent-purple",
 		"value": "#7414ff"
 	},
 	"sdsActionLinkActiveLink": {
@@ -90,6 +98,10 @@
 	"sdsCardLitEdge": {
 		"cssVariableMapping": "sds-card-lit-edge",
 		"value": "transparent"
+	},
+	"sdsCardStaticLine": {
+		"cssVariableMapping": "sds-card-static-line",
+		"value": "rgba(16, 24, 40, 0.06)"
 	},
 	"sdsGlassLineFrom": {
 		"cssVariableMapping": "sds-glass-line-from",
@@ -207,9 +219,21 @@
 		"cssVariableMapping": "sds-neutral-10",
 		"value": "#070b13"
 	},
+	"sdsStatusSuccessDarken1": {
+		"cssVariableMapping": "sds-status-success-darken-1",
+		"value": "#14700d"
+	},
+	"sdsStatusWarningWarning": {
+		"cssVariableMapping": "sds-status-warning-warning",
+		"value": "#e56617"
+	},
 	"sdsSurfacesCardBgBlue": {
 		"cssVariableMapping": "sds-surfaces-card-bg-blue",
 		"value": "rgba(232, 238, 251, 0.25)"
+	},
+	"sdsSurfacesCardBgGrey": {
+		"cssVariableMapping": "sds-surfaces-card-bg-grey",
+		"value": "#f4f6fb"
 	},
 	"sdsSurfacesPageBgBaseDefault": {
 		"cssVariableMapping": "sds-surfaces-page-bg-base-default",

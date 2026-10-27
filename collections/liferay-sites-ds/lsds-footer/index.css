@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&display=swap');
-
 .lsds-fragment {
 	background: var(--mantine-color-body);
 	color: var(--sds-surfaces-text-primary);
@@ -30,6 +28,10 @@
 }
 .lsds-link:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: 2px; border-radius: var(--mantine-radius-xs); }
 .lsds-link[data-variant]:focus-visible { text-decoration: underline; }
+.lsds-link[data-variant="default"] { color: var(--sds-action-link-default-link); }
+.lsds-link[data-variant="default"]:visited { color: var(--sds-action-link-visited-link); }
+.lsds-link[data-variant="default"]:hover, .lsds-link[data-variant="default"]:focus-visible { color: var(--sds-action-link-hover-link); }
+.lsds-link[data-variant="default"]:active { color: var(--sds-action-link-active-link); }
 .lsds-link[data-variant="secondary"] { color: var(--sds-surfaces-text-primary); }
 .lsds-link[data-variant="secondary"]:visited { color: var(--sds-action-link-visited-link); }
 .lsds-link[data-variant="secondary"]:hover, .lsds-link[data-variant="secondary"]:focus-visible { color: var(--sds-action-link-hover-link); }
@@ -77,11 +79,20 @@
 .lsds-footer-links { display: flex; flex-direction: column; gap: 16px; margin: 0px; padding: 0px; list-style: none; }
 .lsds-footer-link-item { display: flex; }
 .lsds-footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 80px; padding-block: 3px; font-size: 16px; line-height: 24px; }
+:where([data-mantine-color-scheme="light"]) .lsds-footer-base { background-color: var(--sds-surfaces-page-bg-base-default); color: var(--sds-surfaces-text-primary); box-shadow: rgba(111, 160, 255, 0.8) 0px 1px inset; }
+:where([data-mantine-color-scheme="light"]) .lsds-footer-base::after { display: none; }
+:where([data-mantine-color-scheme="light"]) .lsds-footer-base::before { background-image: radial-gradient(60% 90% at 50% 33%, rgba(251, 252, 254, 0.1), rgba(112, 162, 255, 0.1) 80%); }
+:where([data-mantine-color-scheme="light"]) .lsds-footer-base a[data-variant] { color: var(--sds-surfaces-text-primary); }
+@media (hover: hover) {
+:where([data-mantine-color-scheme="light"]) .lsds-footer-base a[data-variant]:hover { color: var(--sds-action-link-hover-link); }
+}
+:where([data-mantine-color-scheme="light"]) .lsds-footer-column-title { color: var(--sds-surfaces-text-secondary); }
 @media (forced-colors: active) {
 .lsds-footer-base::before, .lsds-footer-backdrop { display: none; }
 }
 .mantine-focus-auto:focus-visible { outline: 2px solid var(--mantine-primary-color-filled); outline-offset: calc(.125rem * var(--mantine-scale)); }
 .m_b6d8b162 { -webkit-tap-highlight-color: transparent; text-decoration: none; font-size: var(--text-fz, var(--mantine-font-size-md)); line-height: var(--text-lh, var(--mantine-line-height-md)); font-weight: var(--mantine-font-weight-regular); text-wrap: var(--text-text-wrap, var(--mantine-text-wrap)); margin: 0px; padding: 0px; }
+.m_b6d8b162:where([data-variant="gradient"]) { background-image: var(--text-gradient); background-clip: text; -webkit-text-fill-color: transparent; }
 .m_849cf0da { color: var(--mantine-color-anchor); text-decoration: none; appearance: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; display: inline; padding: 0px; margin: 0px; background-color: transparent; cursor: pointer; }
 @media (hover: hover) {
 .m_849cf0da:where([data-underline="hover"]):hover { text-decoration: underline; }
@@ -89,6 +100,15 @@
 @media (hover: none) {
 .m_849cf0da:where([data-underline="hover"]):active { text-decoration: underline; }
 }
+.m_849cf0da:where([data-underline="not-hover"]) { text-decoration: underline; }
+@media (hover: hover) {
+.m_849cf0da:where([data-underline="not-hover"]):hover { text-decoration: none; }
+}
+@media (hover: none) {
+.m_849cf0da:where([data-underline="not-hover"]):active { text-decoration: none; }
+}
+.m_849cf0da:where([data-underline="always"]) { text-decoration: underline; }
+.m_849cf0da:where([data-variant="gradient"]), .m_849cf0da:where([data-variant="gradient"]):hover { text-decoration: none; }
 .m_d08caa0 :where(h1, h2, h3, h4, h5, h6) { margin-bottom: var(--mantine-spacing-xs); text-wrap: var(--mantine-heading-text-wrap); font-family: var(--mantine-font-family-headings); }
 :lang(ja) p, :lang(ja) li, :lang(ja) dd { line-height: 1.75em; }
 :lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ja) h4, :lang(ja) h5, :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }

@@ -25,8 +25,6 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = new URL('../', import.meta.url).pathname;
 const behaviors = readFileSync(join(root, 'scripts/lsds/behaviors.js'), 'utf8');
 
-const FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&display=swap');";
-
 const liveSelector = (selector) => selector.replace(/\.lsds-([a-z0-9-]+)/g, (_, name) => `[class*="_${name.replace(/-([a-z0-9])/g, (__, ch) => ch.toUpperCase())}_"]`);
 
 const collectionDir = join(root, 'collections', COLLECTION.key);
@@ -270,6 +268,14 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 	const stripPseudo = (selector) =>
 		selector.replace(/::?[a-zA-Z-]+(\([^)]*\))?/g, (match) => (/^:(not|is|where|has|nth-child|nth-of-type|first-child|last-child|only-child|nth-last-child)/.test(match) ? match : '')).trim();
 
+	/*
+	 * State attributes (`data-reveal-state="in"`, `data-active`, `data-open`)
+	 * are toggled by the components at runtime, so a selector is also tried
+	 * with the attribute values removed: the rule for the other state must
+	 * travel with the fragment.
+	 */
+	const relax = (selector) => selector.replace(/\[(data-[a-z-]+)(?:[~|^$*]?=[^\]]*)?\]/g, '[$1]');
+
 	const matchesAny = (selector) => {
 		for (const part of selector.split(',')) {
 			const base = stripPseudo(part);
@@ -278,13 +284,15 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 				continue;
 			}
 
-			try {
-				if (elements.some((element) => element.matches(base))) {
-					return true;
+			for (const candidate of [base, relax(base)]) {
+				try {
+					if (elements.some((element) => element.matches(candidate))) {
+						return true;
+					}
 				}
-			}
-			catch {
-				// Unsupported selector.
+				catch {
+					// Unsupported selector.
+				}
 			}
 		}
 
@@ -484,7 +492,7 @@ function buildVariantRules(samples) {
 function buildCSS(css, variantRules) {
 	const variants = variantRules.map(([selector, text]) => `${selector} { ${text} }`).join('\n');
 
-	return [FONT_IMPORT, WRAPPER_CSS, variants, css].filter(Boolean).join('\n\n');
+	return [WRAPPER_CSS, variants, css].filter(Boolean).join('\n\n');
 }
 
 /* ------------------------------------------------------------------------ */
@@ -710,6 +718,8 @@ const themeDir = join(root, 'public/themes', THEME.key);
 mkdirSync(themeDir, {recursive: true});
 writeFileSync(join(themeDir, 'frontend-token-definition.json'), JSON.stringify({frontendTokenCategories: [...classicDefinition.frontendTokenCategories, ...lsdsCategories]}, null, '\t') + '\n');
 writeFileSync(join(themeDir, 'theme.json'), JSON.stringify({assets: 'classic', description: THEME.description, name: THEME.name}, null, '\t') + '\n');
+mkdirSync(join(themeDir, 'css'), {recursive: true});
+writeFileSync(join(themeDir, 'css', 'fonts.css'), "/* The Liferay Sites Design System typeface, loaded once by the theme (the Storybook loads it in its preview head). */\n@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&display=swap');\n");
 
 for (const styleBook of STYLE_BOOKS) {
 	const dir = join(root, 'style-books', styleBook.key);

@@ -5,6 +5,49 @@
  * in scope and only touches that fragment.
  */
 
+/* Reveal on scroll ------------------------------------------------------- */
+
+(function () {
+	var pending = Array.prototype.slice.call(fragmentElement.querySelectorAll('[data-reveal]'));
+	var bars = Array.prototype.slice.call(fragmentElement.querySelectorAll('.lsds-stat-bar'));
+
+	function reveal(element) {
+		if (element.hasAttribute('data-reveal')) {
+			element.setAttribute('data-reveal-state', 'in');
+		}
+		else {
+			element.setAttribute('data-revealed', 'true');
+		}
+	}
+
+	var targets = pending.concat(bars);
+
+	if (!targets.length) {
+		return;
+	}
+
+	var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (reduced || typeof IntersectionObserver === 'undefined' || layoutMode === 'edit') {
+		targets.forEach(reveal);
+
+		return;
+	}
+
+	var observer = new IntersectionObserver(function (entries) {
+		entries.forEach(function (entry) {
+			if (entry.isIntersecting) {
+				reveal(entry.target);
+				observer.unobserve(entry.target);
+			}
+		});
+	}, {rootMargin: '0px 0px -10% 0px', threshold: 0.1});
+
+	targets.forEach(function (target) {
+		observer.observe(target);
+	});
+})();
+
 /* Accordion -------------------------------------------------------------- */
 
 fragmentElement.querySelectorAll('.lsds-acc-root').forEach(function (accordion) {
