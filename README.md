@@ -82,7 +82,7 @@ A theme zip can also be imported at runtime; it is not persisted because the sty
 - `public/themes/classic-lsds/`: the "Classic + Liferay Sites DS" theme, whose `frontend-token-definition.json` adds every design token the fragments read (`--sds-*` and the Mantine variables) to the Classic definition, and whose `css/fonts.css` loads the Source Sans 3 typeface once, the way the Storybook's preview head does.
 - `style-books/lsds-dark` and `style-books/lsds-light`: the two colour schemes as Liferay style books. Switching the style book restyles every LSDS fragment and page, which is what the tokens are for.
 
-Picking a fragment of these collections switches the preview to the theme that defines its tokens. Everything (fragment sets, style books, page templates) exports with the toolbar and sidebar buttons in the formats Liferay imports.
+Picking a fragment of these collections switches the preview to the theme that defines its tokens. The selection is mirrored in the URL (`?path=/fragment/<collection>/<fragment>` or `?path=/template/<id>`), so a story can be linked and the browser history moves between stories. The editor itself has its own light / dark / system switch in the sidebar footer, independent of the theme and style book being previewed. Everything (fragment sets, style books, page templates) exports with the toolbar and sidebar buttons in the formats Liferay imports.
 
 Regenerate after the design system changes:
 
