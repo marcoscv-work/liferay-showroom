@@ -438,6 +438,106 @@ html:not(#__):not(#___) .storybook .storybook-fieldset legend {
 
 /* Tables and controls ------------------------------------------------------ */
 
+/* Args table (Storybook style) ------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-args {
+	border-collapse: separate;
+	border-spacing: 0;
+	margin-bottom: 0.5rem;
+	table-layout: fixed;
+	width: 100%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args thead th {
+	background: transparent;
+	border-bottom: 1px solid var(--sb-border);
+	border-top: 0;
+	color: var(--sb-gray-600);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	padding: 0.5rem 0.75rem;
+	text-transform: uppercase;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args .storybook-args__name-col {
+	width: 30%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args tbody th,
+html:not(#__):not(#___) .storybook .storybook-args tbody td {
+	overflow-wrap: anywhere;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args tbody th,
+html:not(#__):not(#___) .storybook .storybook-args tbody td {
+	border-bottom: 1px solid var(--sb-border);
+	border-top: 0;
+	padding: 0.875rem 0.75rem;
+	vertical-align: top;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args tbody tr:last-child th,
+html:not(#__):not(#___) .storybook .storybook-args tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args .storybook-args__group th {
+	background: var(--sb-muted-bg);
+	color: var(--sb-gray-600);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	padding: 0.375rem 0.75rem;
+	text-transform: uppercase;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args__name {
+	font-weight: 600;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args__id {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args__description,
+html:not(#__):not(#___) .storybook .storybook-args__default {
+	color: var(--sb-gray-600);
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 400;
+	margin-top: 0.25rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args__default .storybook-mono {
+	font-size: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args__control > .form-control,
+html:not(#__):not(#___) .storybook .storybook-args__control > textarea,
+html:not(#__):not(#___) .storybook .storybook-args__control > .storybook-color,
+html:not(#__):not(#___) .storybook .storybook-args__control > .storybook-stack {
+	max-width: 30rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-radios {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1rem;
+	min-height: 2rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-radios .custom-control {
+	margin: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-args .toggle-switch {
+	min-height: 2rem;
+}
+
 html:not(#__):not(#___) .storybook .storybook-table {
 	margin-bottom: 0.5rem;
 }

@@ -21,6 +21,10 @@
 							{
 								"label": "bullet",
 								"value": "bullet"
+							},
+							{
+								"label": "none",
+								"value": "none"
 							}
 						]
 					}

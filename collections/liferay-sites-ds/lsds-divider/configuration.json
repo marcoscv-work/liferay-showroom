@@ -15,10 +15,6 @@
 								"value": "normal"
 							},
 							{
-								"label": "subtle",
-								"value": "subtle"
-							},
-							{
 								"label": "gradient",
 								"value": "gradient"
 							}

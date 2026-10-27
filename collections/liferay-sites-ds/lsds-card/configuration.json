@@ -19,20 +19,31 @@
 								"value": "static"
 							},
 							{
-								"label": "no-bg",
-								"value": "no-bg"
+								"label": "highlighted",
+								"value": "highlighted"
 							},
 							{
 								"label": "none",
 								"value": "none"
+							}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "blue",
+					"label": "tone (highlighted surface)",
+					"name": "tone",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "blue",
+								"value": "blue"
 							},
 							{
-								"label": "gradient",
-								"value": "gradient"
-							},
-							{
-								"label": "dark",
-								"value": "dark"
+								"label": "purple",
+								"value": "purple"
 							}
 						]
 					}

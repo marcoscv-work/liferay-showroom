@@ -15,16 +15,12 @@
 								"value": "brand"
 							},
 							{
+								"label": "accent",
+								"value": "accent"
+							},
+							{
 								"label": "neutral",
 								"value": "neutral"
-							},
-							{
-								"label": "warning",
-								"value": "warning"
-							},
-							{
-								"label": "success",
-								"value": "success"
 							}
 						]
 					}
