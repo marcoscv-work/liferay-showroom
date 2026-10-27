@@ -1,4 +1,5 @@
 {
 	"name": "Basic Components",
-	"order": 100
+	"order": 100,
+	"collapsed": true
 }

@@ -17,6 +17,7 @@ export interface Collection {
 	key: string;
 	name: string;
 	resources: Record<string, string>;
+	collapsed?: boolean;
 	source: 'builtin' | 'imported';
 	theme?: string | null;
 }

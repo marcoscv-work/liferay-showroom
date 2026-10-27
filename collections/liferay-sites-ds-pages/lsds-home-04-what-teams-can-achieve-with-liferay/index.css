@@ -16,270 +16,270 @@
 	max-width: 100%;
 }
 
-.lsds-root { --button-bg: transparent; --button-hover: transparent; --button-bd: 1px solid transparent; }
-.lsds-link { --sds-link-gap: 4px; }
-.lsds-label-root { --badge-padding-x: 8px; --badge-bg: transparent; --badge-color: var(--sds-surfaces-text-primary); --sds-label-gap: 4px; }
-.lsds-acc-root { --accordion-transition-duration: 240ms; --accordion-chevron-size: auto; --accordion-radius: 0; }
-.lsds-tabs-root { --tabs-radius: var(--mantine-radius-default); --tabs-color: transparent; --tabs-text-color: var(--mantine-color-white); --tabs-list-border-width: 0; --tab-border-color: var(--sds-neutral-03); --tab-hover-color: transparent; }
-.lsds-tabs-list { --sds-pill-x: 8px; --sds-pill-w: 252px; --sds-pill-opacity: 1; }
-.lsds-root[data-size="sm"] { --button-height: 40px; --button-padding-x: 12px; --button-fz: 14px; --sds-button-gap: 4px; --sds-button-lh: 20px; }
-.lsds-root[data-size="md"] { --button-height: 48px; --button-padding-x: 16px; --button-fz: 18px; --sds-button-gap: 8px; --sds-button-lh: 24px; }
-.lsds-root[data-variant="filled"] { --button-color: var(--sds-action-neutral-inverted); --button-hover-color: var(--sds-action-neutral-inverted); }
-.lsds-root[data-variant="outline"] { --button-color: var(--sds-btn-outline-text); --button-hover-color: var(--sds-btn-outline-text); }
-.lsds-root[data-variant="rounded"] { --button-color: var(--sds-action-neutral-inverted); --button-hover-color: var(--sds-action-neutral-inverted); }
-.lsds-link[data-size="md"] { --text-fz: 18px; --text-lh: 24px; --sds-link-icon: 16px; }
-.lsds-link[data-size="lg"] { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; }
-.lsds-link[data-size="sm"] { --text-fz: 14px; --text-lh: 20px; --sds-link-icon: 12px; }
-.lsds-label-root[data-size="sm"] { --sds-label-icon: 16px; }
-.lsds-label-root[data-size="md"] { --sds-label-icon: 20px; }
-.lsds-root[data-size="sm"][data-variant="filled"] { --button-radius: 4px; }
-.lsds-root[data-size="md"][data-variant="filled"] { --button-radius: 8px; }
-.lsds-root[data-size="sm"][data-variant="outline"] { --button-radius: 4px; }
-.lsds-root[data-size="md"][data-variant="outline"] { --button-radius: 8px; }
-.lsds-root[data-size="sm"][data-variant="rounded"] { --button-radius: 1000px; }
-.lsds-label-root[data-size="sm"][data-variant="glass"] { --badge-height: 26px; --badge-fz: 14px; --badge-radius: var(--mantine-radius-sm); --badge-lh: 1.25; --badge-bd: 1.5px solid transparent; --badge-border-width: 1.5px; }
-.lsds-label-root[data-size="sm"][data-variant="gradient"] { --badge-height: 22px; --badge-fz: var(--sds-size-paragraph-small); --badge-radius: 4px; --badge-lh: var(--sds-line-height-paragraph-small); --badge-bd: 1px solid transparent; --badge-border-width: 1px; }
-.lsds-label-root[data-size="md"][data-variant="gradient"] { --badge-height: 32px; --badge-fz: 16px; --badge-radius: 8px; --badge-lh: 24px; --badge-bd: 1.5px solid transparent; --badge-border-width: 1.5px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root { --button-bg: transparent; --button-hover: transparent; --button-bd: 1px solid transparent; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-link { --sds-link-gap: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root { --badge-padding-x: 8px; --badge-bg: transparent; --badge-color: var(--sds-surfaces-text-primary); --sds-label-gap: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-acc-root { --accordion-transition-duration: 240ms; --accordion-chevron-size: auto; --accordion-radius: 0; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root { --tabs-radius: var(--mantine-radius-default); --tabs-color: transparent; --tabs-text-color: var(--mantine-color-white); --tabs-list-border-width: 0; --tab-border-color: var(--sds-neutral-03); --tab-hover-color: transparent; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-list { --sds-pill-x: 8px; --sds-pill-w: 252px; --sds-pill-opacity: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="sm"] { --button-height: 40px; --button-padding-x: 12px; --button-fz: 14px; --sds-button-gap: 4px; --sds-button-lh: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="md"] { --button-height: 48px; --button-padding-x: 16px; --button-fz: 18px; --sds-button-gap: 8px; --sds-button-lh: 24px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-variant="filled"] { --button-color: var(--sds-action-neutral-inverted); --button-hover-color: var(--sds-action-neutral-inverted); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-variant="outline"] { --button-color: var(--sds-btn-outline-text); --button-hover-color: var(--sds-btn-outline-text); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-variant="rounded"] { --button-color: var(--sds-action-neutral-inverted); --button-hover-color: var(--sds-action-neutral-inverted); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-link[data-size="md"] { --text-fz: 18px; --text-lh: 24px; --sds-link-icon: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-link[data-size="lg"] { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-link[data-size="sm"] { --text-fz: 14px; --text-lh: 20px; --sds-link-icon: 12px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root[data-size="sm"] { --sds-label-icon: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root[data-size="md"] { --sds-label-icon: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="sm"][data-variant="filled"] { --button-radius: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="md"][data-variant="filled"] { --button-radius: 8px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="sm"][data-variant="outline"] { --button-radius: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="md"][data-variant="outline"] { --button-radius: 8px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-root[data-size="sm"][data-variant="rounded"] { --button-radius: 1000px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root[data-size="sm"][data-variant="glass"] { --badge-height: 26px; --badge-fz: 14px; --badge-radius: var(--mantine-radius-sm); --badge-lh: 1.25; --badge-bd: 1.5px solid transparent; --badge-border-width: 1.5px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root[data-size="sm"][data-variant="gradient"] { --badge-height: 22px; --badge-fz: var(--sds-size-paragraph-small); --badge-radius: 4px; --badge-lh: var(--sds-line-height-paragraph-small); --badge-bd: 1px solid transparent; --badge-border-width: 1px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-label-root[data-size="md"][data-variant="gradient"] { --badge-height: 32px; --badge-fz: 16px; --badge-radius: 8px; --badge-lh: 24px; --badge-bd: 1.5px solid transparent; --badge-border-width: 1.5px; }
 
-.lsds-card-root[data-align] { position: relative; display: flex; min-width: 0px; border-radius: 8px; background-color: transparent; color: var(--sds-surfaces-text-primary); text-decoration: none; isolation: isolate; }
-.lsds-card-root[data-align="vertical"] { flex-direction: column; }
-.lsds-card-root[data-align="horizontal"] { flex-direction: row; align-items: center; gap: 24px; border-radius: 16px; }
-.lsds-card-root[data-align="horizontal"] > .lsds-card-body { flex: 1 1 0%; min-width: 0px; }
-.lsds-card-root[data-align="horizontal"] > .lsds-card-image { flex: 1 1 0%; min-width: 0px; order: 1; }
-.lsds-card-root[data-align="vertical"][data-padding="all"] { padding: 20px; }
-.lsds-card-root[data-align="vertical"][data-padding="content"] > .lsds-card-body { padding: 20px; }
-.lsds-card-root[data-align="vertical"][data-padding="content"] { gap: 0px; }
-.lsds-card-root[data-align="vertical"][data-padding="full"] { padding: 20px; gap: 20px; }
-.lsds-card-root[data-align="vertical"][data-padding="full"] > .lsds-card-body { padding: 20px; }
-.lsds-card-root[data-align="horizontal"][data-padding="full"], .lsds-card-root[data-align="horizontal"][data-padding="all"], .lsds-card-root[data-align="horizontal"][data-padding="content"] { padding: 24px 40px; }
-.lsds-card-root[data-align][data-padding="none"] { padding: 0px; }
-.lsds-card-root[data-align="vertical"] { gap: 16px; }
-.lsds-card-body { display: flex; flex-direction: column; gap: 16px; min-width: 0px; flex: 1 1 0%; }
-.lsds-card-root[data-align="vertical"][data-padding="all"] > .lsds-card-body, .lsds-card-root[data-align="vertical"][data-padding="none"] > .lsds-card-body { gap: 16px; }
-.lsds-card-image { position: relative; display: block; overflow: hidden; min-width: 0px; border-radius: inherit; }
-.lsds-card-root[data-padding="content"] > .lsds-card-image { border-start-start-radius: inherit; border-start-end-radius: inherit; border-end-start-radius: 0px; border-end-end-radius: 0px; }
-.lsds-card-root[data-padding="none"] > .lsds-card-image { border-radius: inherit; }
-.lsds-card-root[data-align][data-padding="none"][data-interactive] > .lsds-card-image { transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out),filter var(--sds-motion-medium) var(--sds-motion-ease-out); }
-.lsds-card-root[data-padding="all"] > .lsds-card-image, .lsds-card-root[data-padding="full"] > .lsds-card-image { border-radius: 4px; }
-.lsds-card-image[data-ratio="3:2"] { aspect-ratio: 3 / 2; }
-.lsds-card-image[data-ratio="16:9"] { aspect-ratio: 16 / 9; }
-.lsds-card-root[data-align="horizontal"] > .lsds-card-image { aspect-ratio: auto; align-self: stretch; }
-.lsds-card-image > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--sds-motion-slow) var(--sds-motion-ease-out); }
-.lsds-card-header { display: flex; flex-direction: column; gap: 8px; min-width: 0px; }
-.lsds-card-header[data-header-align="center"] { align-items: center; text-align: center; gap: 20px; }
-.lsds-card-text { display: flex; flex-direction: column; min-width: 0px; }
-.lsds-card-text[data-size="small"] { gap: 4px; }
-.lsds-card-text[data-size="full"] { gap: 12px; }
-.lsds-card-title { font-size: 21px; line-height: 26px; font-weight: 600; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align] { position: relative; display: flex; min-width: 0px; border-radius: 8px; background-color: transparent; color: var(--sds-surfaces-text-primary); text-decoration: none; isolation: isolate; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"] { flex-direction: column; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"] { flex-direction: row; align-items: center; gap: 24px; border-radius: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"] > .lsds-card-body { flex: 1 1 0%; min-width: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"] > .lsds-card-image { flex: 1 1 0%; min-width: 0px; order: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="all"] { padding: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="content"] > .lsds-card-body { padding: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="content"] { gap: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="full"] { padding: 20px; gap: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="full"] > .lsds-card-body { padding: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"][data-padding="full"], .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"][data-padding="all"], .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"][data-padding="content"] { padding: 24px 40px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"] { padding: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"] { gap: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-body { display: flex; flex-direction: column; gap: 16px; min-width: 0px; flex: 1 1 0%; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="all"] > .lsds-card-body, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="none"] > .lsds-card-body { gap: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-image { position: relative; display: block; overflow: hidden; min-width: 0px; border-radius: inherit; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-padding="content"] > .lsds-card-image { border-start-start-radius: inherit; border-start-end-radius: inherit; border-end-start-radius: 0px; border-end-end-radius: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-padding="none"] > .lsds-card-image { border-radius: inherit; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive] > .lsds-card-image { transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out),filter var(--sds-motion-medium) var(--sds-motion-ease-out); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-padding="all"] > .lsds-card-image, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-padding="full"] > .lsds-card-image { border-radius: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-image[data-ratio="3:2"] { aspect-ratio: 3 / 2; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-image[data-ratio="16:9"] { aspect-ratio: 16 / 9; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="horizontal"] > .lsds-card-image { aspect-ratio: auto; align-self: stretch; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-image > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--sds-motion-slow) var(--sds-motion-ease-out); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-header { display: flex; flex-direction: column; gap: 8px; min-width: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-header[data-header-align="center"] { align-items: center; text-align: center; gap: 20px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-text { display: flex; flex-direction: column; min-width: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-text[data-size="small"] { gap: 4px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-text[data-size="full"] { gap: 12px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-title { font-size: 21px; line-height: 26px; font-weight: 600; color: var(--sds-surfaces-text-primary); }
 @container sds-section (max-width: 767px) {
-.lsds-card-title { font-size: 16px; line-height: 1.25; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-title { font-size: 16px; line-height: 1.25; }
 }
 @container sds-section (max-width: 767px) {
-.lsds-card-root[data-align="vertical"][data-padding="content"] > .lsds-card-body { padding: 12px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align="vertical"][data-padding="content"] > .lsds-card-body { padding: 12px; }
 }
-.lsds-card-text[data-size="full"] .lsds-card-title { font-size: 32px; line-height: 40px; font-weight: 700; }
-:where(.lsds-card-root[data-align]) :where(h1, h2, h3, h4, h5, h6) { margin: 0px; font: inherit; }
-.lsds-card-root[data-align][data-surface="glass"] { background-image: linear-gradient(60deg,var(--sds-glass-step-01) 0%,var(--sds-glass-step-02) 100%); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: inset 0 1px 0 var(--sds-card-lit-edge),var(--sds-card-cast-shadow); }
-.lsds-card-root[data-align][data-surface="static"] { background-color: var(--sds-surfaces-card-bg-grey); border: 1px solid var(--sds-card-static-line); }
-.lsds-card-root[data-align][data-surface="highlighted"] { background-color: var(--sds-surfaces-card-bg-grey); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: 0 0 6px 1px var(--sds-glass-shadow); }
-.lsds-card-root[data-align][data-surface="highlighted"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: linear-gradient(200deg,var(--sds-glass-line-from) 0%,var(--sds-glass-line-to) 38%,transparent 86%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
-.lsds-card-root[data-align][data-surface="none"] { background: none; box-shadow: none; }
-.lsds-card-root[data-align][data-surface="glass"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
-.lsds-card-root[data-align][data-surface="glass"]::before { background-image: linear-gradient(225deg,var(--sds-glass-line-from) 1%,var(--sds-glass-line-to) 92%); }
-.lsds-card-spotlight { position: absolute; inset: 0px; z-index: 1; border-radius: inherit; background-image: radial-gradient(220px circle at var(--sds-card-x, 50%) var(--sds-card-y, 50%),rgba(255,255,255,.05),transparent 70%); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease); pointer-events: none; }
-.lsds-card-root[data-align][data-interactive]:hover > .lsds-card-spotlight { opacity: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-text[data-size="full"] .lsds-card-title { font-size: 32px; line-height: 40px; font-weight: 700; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :where(.lsds-card-root[data-align]) :where(h1, h2, h3, h4, h5, h6) { margin: 0px; font: inherit; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="glass"] { background-image: linear-gradient(60deg,var(--sds-glass-step-01) 0%,var(--sds-glass-step-02) 100%); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: inset 0 1px 0 var(--sds-card-lit-edge),var(--sds-card-cast-shadow); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="static"] { background-color: var(--sds-surfaces-card-bg-grey); border: 1px solid var(--sds-card-static-line); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="highlighted"] { background-color: var(--sds-surfaces-card-bg-grey); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: 0 0 6px 1px var(--sds-glass-shadow); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="highlighted"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: linear-gradient(200deg,var(--sds-glass-line-from) 0%,var(--sds-glass-line-to) 38%,transparent 86%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="none"] { background: none; box-shadow: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="glass"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-surface="glass"]::before { background-image: linear-gradient(225deg,var(--sds-glass-line-from) 1%,var(--sds-glass-line-to) 92%); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-spotlight { position: absolute; inset: 0px; z-index: 1; border-radius: inherit; background-image: radial-gradient(220px circle at var(--sds-card-x, 50%) var(--sds-card-y, 50%),rgba(255,255,255,.05),transparent 70%); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]:hover > .lsds-card-spotlight { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-.lsds-card-spotlight { transition: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-spotlight { transition: none; }
 }
-.lsds-card-root[data-align] :where(.lsds-card-title, .lsds-card-description, .lsds-card-text, .lsds-card-header, .lsds-card-bottom) { min-width: 0px; overflow-wrap: break-word; }
-.lsds-card-root[data-align][data-interactive] { cursor: pointer; transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out); }
-.lsds-card-root[data-align][data-interactive]::after { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-action-primary-hover) 0%,var(--sds-accent-product-accent) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); pointer-events: none; }
-.lsds-card-root[data-align][data-padding="none"][data-interactive] > .lsds-card-image::after { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-action-primary-hover) 0%,var(--sds-accent-product-accent) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); pointer-events: none; z-index: 1; }
-.lsds-card-root[data-align][data-padding="none"][data-interactive]:focus-visible > .lsds-card-image::after { opacity: 1; padding: 2px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align] :where(.lsds-card-title, .lsds-card-description, .lsds-card-text, .lsds-card-header, .lsds-card-bottom) { min-width: 0px; overflow-wrap: break-word; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive] { cursor: pointer; transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]::after { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-action-primary-hover) 0%,var(--sds-accent-product-accent) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive] > .lsds-card-image::after { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-action-primary-hover) 0%,var(--sds-accent-product-accent) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); pointer-events: none; z-index: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive]:focus-visible > .lsds-card-image::after { opacity: 1; padding: 2px; }
 @media (hover: hover) {
-.lsds-card-root[data-align][data-padding="all"][data-interactive]:hover::after, .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover::after { opacity: 1; }
-}
-@media (hover: hover) {
-.lsds-card-root[data-align][data-padding="all"][data-interactive]:hover, .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px color-mix(in srgb,var(--sds-action-primary-hover) 34%,transparent); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="all"][data-interactive]:hover::after, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover::after { opacity: 1; }
 }
 @media (hover: hover) {
-.lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image::after { opacity: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="all"][data-interactive]:hover, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px color-mix(in srgb,var(--sds-action-primary-hover) 34%,transparent); }
 }
 @media (hover: hover) {
-.lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image > * { transform: scale(1.06); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image::after { opacity: 1; }
 }
 @media (hover: hover) {
-.lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 10px 24px -12px color-mix(in srgb,var(--sds-action-primary-hover) 34%,transparent); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image > * { transform: scale(1.06); }
 }
 @media (hover: hover) {
-.lsds-card-root[data-align][data-padding="all"][data-interactive]:hover > .lsds-card-image > *, .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover > .lsds-card-image > * { transform: scale(1.03); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive]:hover > .lsds-card-image { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 10px 24px -12px color-mix(in srgb,var(--sds-action-primary-hover) 34%,transparent); }
 }
-.lsds-card-root[data-align][data-padding="all"][data-interactive]:active, .lsds-card-root[data-align][data-padding="content"][data-interactive]:active { transform: translateY(0px); transition-duration: var(--sds-motion-press); }
-.lsds-card-root[data-align][data-padding="none"][data-interactive]:active > .lsds-card-image > * { transform: scale(1.02); transition-duration: var(--sds-motion-press); }
-.lsds-card-root[data-align][data-interactive]:focus-visible { outline: none; }
-.lsds-card-root[data-align][data-interactive]:focus-visible::after { opacity: 1; padding: 2px; }
+@media (hover: hover) {
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="all"][data-interactive]:hover > .lsds-card-image > *, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="content"][data-interactive]:hover > .lsds-card-image > * { transform: scale(1.03); }
+}
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="all"][data-interactive]:active, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="content"][data-interactive]:active { transform: translateY(0px); transition-duration: var(--sds-motion-press); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="none"][data-interactive]:active > .lsds-card-image > * { transform: scale(1.02); transition-duration: var(--sds-motion-press); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]:focus-visible { outline: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]:focus-visible::after { opacity: 1; padding: 2px; }
 @media (prefers-reduced-motion: reduce) {
-.lsds-card-root[data-align][data-interactive], .lsds-card-root[data-align][data-interactive]::after, .lsds-card-root[data-align][data-interactive] > .lsds-card-image::after, .lsds-card-image > :where(img, picture, video, svg, div, span) { transition: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-.lsds-card-root[data-align][data-padding="all"][data-interactive]:hover { transform: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive], .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]::after, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive] > .lsds-card-image::after, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-image > :where(img, picture, video, svg, div, span) { transition: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-.lsds-card-root[data-align][data-interactive]:hover > .lsds-card-image > * { transform: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-padding="all"][data-interactive]:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]:hover > .lsds-card-image > * { transform: none; }
 }
 @media (forced-colors: active) {
-.lsds-card-root[data-align]:not([data-surface="none"]) { border: 1px solid canvastext; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align]:not([data-surface="none"]) { border: 1px solid canvastext; }
 }
 @media (forced-colors: active) {
-.lsds-card-root[data-align]::before, .lsds-card-root[data-align][data-interactive]::after { display: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align]::before, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]::after { display: none; }
 }
 @media (forced-colors: active) {
-.lsds-card-root[data-align][data-interactive]:focus-visible { outline: highlight solid 2px; outline-offset: 2px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-card-root[data-align][data-interactive]:focus-visible { outline: highlight solid 2px; outline-offset: 2px; }
 }
-.lsds-tabs-root .lsds-tabs-tab:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: -2px; border-radius: var(--mantine-radius-xs); }
-.lsds-tabs-root .lsds-tabs-tab:disabled, .lsds-tabs-root .lsds-tabs-tab[data-disabled] { opacity: 0.5; color: var(--sds-surfaces-text-secondary); cursor: not-allowed; }
-.lsds-tabs-root .lsds-tabs-tab-label { text-align: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root .lsds-tabs-tab:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: -2px; border-radius: var(--mantine-radius-xs); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root .lsds-tabs-tab:disabled, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root .lsds-tabs-tab[data-disabled] { opacity: 0.5; color: var(--sds-surfaces-text-secondary); cursor: not-allowed; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root .lsds-tabs-tab-label { text-align: center; }
 @media (prefers-reduced-motion: reduce) {
-.lsds-tabs-root .lsds-tabs-tab, .lsds-tabs-root:not([data-pills]) .lsds-tabs-tab::after { transition: color var(--sds-motion-fast) var(--sds-motion-ease); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root .lsds-tabs-tab, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root:not([data-pills]) .lsds-tabs-tab::after { transition: color var(--sds-motion-fast) var(--sds-motion-ease); }
 }
-.lsds-hero-title > :where(h1, h2, h3, p) { margin: 0px; font-size: var(--sds-size-display-display-sm); line-height: var(--sds-line-height-display-display-sm); font-weight: 700; color: var(--sds-surfaces-text-primary); }
-.lsds-image { display: block; width: 100%; border-radius: var(--image-radius, 0); }
-.lsds-marquee-cell > :where(img, svg, picture) { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; }
-.lsds-section-root { --sds-section-gap: 24px; --sds-section-gutter: clamp(20px, calc(20px + (100cqi - 390px)*.05714) , 80px); --sds-section-block: 120px; container: sds-section / inline-size; }
-.lsds-section-root[data-spacing="none"] { --sds-section-block: 0px; }
-.lsds-section-root[data-spacing="tight"] { --sds-section-block: clamp(20px, calc(20px + (100cqi - 390px) * .019048), 40px); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-hero-title > :where(h1, h2, h3, p) { margin: 0px; font-size: var(--sds-size-display-display-sm); line-height: var(--sds-line-height-display-display-sm); font-weight: 700; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-image { display: block; width: 100%; border-radius: var(--image-radius, 0); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-marquee-cell > :where(img, svg, picture) { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root { --sds-section-gap: 24px; --sds-section-gutter: clamp(20px, calc(20px + (100cqi - 390px)*.05714) , 80px); --sds-section-block: 120px; container: sds-section / inline-size; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root[data-spacing="none"] { --sds-section-block: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root[data-spacing="tight"] { --sds-section-block: clamp(20px, calc(20px + (100cqi - 390px) * .019048), 40px); }
 @container sds-section (max-width: 767px) {
-.lsds-section-root:not([data-spacing="none"], [data-spacing="tight"]) > .lsds-section-inner { padding-block: 40px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root:not([data-spacing="none"], [data-spacing="tight"]) > .lsds-section-inner { padding-block: 40px; }
 }
-.lsds-section-root[data-reveal][data-reveal-state] > .lsds-section-inner { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1), transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
-.lsds-section-root[data-reveal][data-reveal-state="in"] > .lsds-section-inner { opacity: 1; transform: none; }
-.lsds-section-inner { display: flex; flex-direction: column; gap: var(--sds-section-gap); padding-block: var(--sds-section-block); padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; }
-.lsds-section-body { min-width: 0px; }
-.lsds-section-title-root { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 24px; }
-.lsds-section-title-text { display: flex; flex-direction: column; gap: 8px; flex: 1 1 min(100%, 34rem); min-width: 0px; }
-.lsds-section-title-text > * { max-width: 900px; }
-.lsds-section-title-root[data-align="center"] { flex-direction: column; align-items: center; text-align: center; }
-.lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
-.lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
-.lsds-section-title-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
-.lsds-section-title-root[data-align="center"] .lsds-section-title-actions { justify-content: center; }
-.lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
-.lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root[data-reveal][data-reveal-state] > .lsds-section-inner { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1), transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-root[data-reveal][data-reveal-state="in"] > .lsds-section-inner { opacity: 1; transform: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-inner { display: flex; flex-direction: column; gap: var(--sds-section-gap); padding-block: var(--sds-section-block); padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-body { min-width: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 24px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-text { display: flex; flex-direction: column; gap: 8px; flex: 1 1 min(100%, 34rem); min-width: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-text > * { max-width: 900px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root[data-align="center"] { flex-direction: column; align-items: center; text-align: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root[data-align="center"] .lsds-section-title-actions { justify-content: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
 @container sds-section (max-width: 900px) {
-.lsds-section-title-root:not([data-align="center"]) { flex-direction: column; align-items: stretch; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root:not([data-align="center"]) { flex-direction: column; align-items: stretch; }
 }
 @container sds-section (max-width: 900px) {
-.lsds-section-title-root:not([data-align="center"]) .lsds-section-title-text { flex: 0 0 auto; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-section-title-root:not([data-align="center"]) .lsds-section-title-text { flex: 0 0 auto; }
 }
-.lsds-tabs-root[data-pills] { --sds-pill-height: 48px; --sds-pill-pad: 36px; --sds-pill-gap: 0px; --sds-pill-icon: 20px; --sds-pill-fz: 18px; --sds-pill-lh: 24px; container: sds-tabs / inline-size; --sds-pill-x: 0px; --sds-pill-w: 0px; --sds-pill-opacity: 0; }
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { position: relative; display: flex; flex-wrap: nowrap; align-items: center; gap: var(--sds-pill-gap); padding: 8px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 1000px; background-color: var(--sds-tab-fill-1); box-shadow: inset 2px 2px 8px var(--sds-tab-shadow); isolation: isolate; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::-webkit-scrollbar { display: none; }
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: linear-gradient(225deg,var(--sds-glass-line-from) 1%,var(--sds-glass-line-to) 92%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after { content: ""; position: absolute; top: 8px; left: 0px; height: var(--sds-pill-height); width: var(--sds-pill-w); transform: translate(var(--sds-pill-x)); opacity: var(--sds-pill-opacity); border-radius: 1000px; background-image: radial-gradient(120% 160% at 0% 0%,var(--sds-tab-bg-from) 0%,var(--sds-tab-bg-to) 100%); backdrop-filter: blur(20px); box-shadow: -1px 1px 7px 2px var(--sds-tab-shadow); transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),width var(--sds-motion-medium) var(--sds-motion-ease-out),opacity var(--sds-motion-fast) var(--sds-motion-ease); pointer-events: none; z-index: 0; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active]::before { content: ""; position: absolute; inset: 0px; padding: 1.5px; border-radius: 1000px; background-image: linear-gradient(135deg,var(--sds-tab-stroke-from) 50%,var(--sds-tab-stroke-to) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab { position: relative; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--sds-pill-height); padding: 12px var(--sds-pill-pad); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 1000px; background-color: transparent; z-index: 1; color: var(--sds-surfaces-text-secondary); transition: color var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out),transform var(--sds-motion-press) var(--sds-motion-ease-out); }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active] { color: var(--sds-action-neutral-inverted); font-weight: 700; }
-.lsds-tabs-root[data-pills] .lsds-tabs-list[data-grow] .lsds-tabs-tab { flex: 1 1 0%; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab-label { font-size: var(--sds-pill-fz); line-height: var(--sds-pill-lh); font-weight: 600; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab-section { margin: 0px; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab :where(svg) { width: var(--sds-pill-icon); height: var(--sds-pill-icon); flex: 0 0 auto; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] { --sds-pill-height: 48px; --sds-pill-pad: 36px; --sds-pill-gap: 0px; --sds-pill-icon: 20px; --sds-pill-fz: 18px; --sds-pill-lh: 24px; container: sds-tabs / inline-size; --sds-pill-x: 0px; --sds-pill-w: 0px; --sds-pill-opacity: 0; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { position: relative; display: flex; flex-wrap: nowrap; align-items: center; gap: var(--sds-pill-gap); padding: 8px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 1000px; background-color: var(--sds-tab-fill-1); box-shadow: inset 2px 2px 8px var(--sds-tab-shadow); isolation: isolate; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::-webkit-scrollbar { display: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: linear-gradient(225deg,var(--sds-glass-line-from) 1%,var(--sds-glass-line-to) 92%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after { content: ""; position: absolute; top: 8px; left: 0px; height: var(--sds-pill-height); width: var(--sds-pill-w); transform: translate(var(--sds-pill-x)); opacity: var(--sds-pill-opacity); border-radius: 1000px; background-image: radial-gradient(120% 160% at 0% 0%,var(--sds-tab-bg-from) 0%,var(--sds-tab-bg-to) 100%); backdrop-filter: blur(20px); box-shadow: -1px 1px 7px 2px var(--sds-tab-shadow); transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),width var(--sds-motion-medium) var(--sds-motion-ease-out),opacity var(--sds-motion-fast) var(--sds-motion-ease); pointer-events: none; z-index: 0; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active]::before { content: ""; position: absolute; inset: 0px; padding: 1.5px; border-radius: 1000px; background-image: linear-gradient(135deg,var(--sds-tab-stroke-from) 50%,var(--sds-tab-stroke-to) 100%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab { position: relative; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--sds-pill-height); padding: 12px var(--sds-pill-pad); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 1000px; background-color: transparent; z-index: 1; color: var(--sds-surfaces-text-secondary); transition: color var(--sds-motion-medium) var(--sds-motion-ease-out),box-shadow var(--sds-motion-medium) var(--sds-motion-ease-out),transform var(--sds-motion-press) var(--sds-motion-ease-out); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active] { color: var(--sds-action-neutral-inverted); font-weight: 700; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[data-grow] .lsds-tabs-tab { flex: 1 1 0%; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab-label { font-size: var(--sds-pill-fz); line-height: var(--sds-pill-lh); font-weight: 600; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab-section { margin: 0px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab :where(svg) { width: var(--sds-pill-icon); height: var(--sds-pill-icon); flex: 0 0 auto; }
 @media (hover: hover) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab:hover:not([data-active], :disabled, [data-disabled]) { color: var(--sds-action-link-hover-link); backdrop-filter: blur(20px); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab:hover:not([data-active], :disabled, [data-disabled]) { color: var(--sds-action-link-hover-link); backdrop-filter: blur(20px); }
 }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: -2px; border-radius: 1000px; }
-.lsds-tabs-root[data-pills] .lsds-tabs-tab:disabled, .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: -2px; border-radius: 1000px; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab:disabled, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-disabled] { opacity: 0.5; cursor: not-allowed; }
 @container sds-tabs (max-width: 479px) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { --sds-pill-height: 44px; --sds-pill-pad: 12px; --sds-pill-gap: 12px; --sds-pill-icon: 16px; --sds-pill-fz: 16px; --sds-pill-lh: 20px; }
-}
-@container sds-tabs (max-width: 479px) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; background-color: transparent; background-image: radial-gradient(120% 160% at 54% 0%,var(--sds-glass-step-02) 0%,var(--sds-glass-step-01) 54%,var(--sds-glass-step-02) 100%); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { --sds-pill-height: 44px; --sds-pill-pad: 12px; --sds-pill-gap: 12px; --sds-pill-icon: 16px; --sds-pill-fz: 16px; --sds-pill-lh: 20px; }
 }
 @container sds-tabs (max-width: 479px) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::-webkit-scrollbar { display: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; background-color: transparent; background-image: radial-gradient(120% 160% at 54% 0%,var(--sds-glass-step-02) 0%,var(--sds-glass-step-01) 54%,var(--sds-glass-step-02) 100%); }
 }
 @container sds-tabs (max-width: 479px) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab { scroll-snap-align: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::-webkit-scrollbar { display: none; }
+}
+@container sds-tabs (max-width: 479px) {
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab { scroll-snap-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after, .lsds-tabs-root[data-pills] .lsds-tabs-tab { transition: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab { transition: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab:active { transform: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab:active { transform: none; }
 }
 @media (forced-colors: active) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { border: 1px solid canvastext; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"] { border: 1px solid canvastext; }
 }
 @media (forced-colors: active) {
-.lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::before, .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after { display: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::before, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-list[role="tablist"]::after { display: none; }
 }
 @media (forced-colors: active) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active] { border: 1px solid highlight; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active] { border: 1px solid highlight; }
 }
 @media (forced-colors: active) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active]::before { display: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab[data-active]::before { display: none; }
 }
 @media (forced-colors: active) {
-.lsds-tabs-root[data-pills] .lsds-tabs-tab:focus-visible { outline-color: highlight; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-tabs-root[data-pills] .lsds-tabs-tab:focus-visible { outline-color: highlight; }
 }
-.lsds-footer-backdrop > :where(img, video, picture, div, svg) { width: 100%; height: 100%; object-fit: cover; }
-input, button, textarea, select { font: inherit; }
-button, select { text-transform: none; }
-.mantine-focus-auto:focus-visible { outline: 2px solid var(--mantine-primary-color-filled); outline-offset: calc(.125rem * var(--mantine-scale)); }
-.m_87cf2631 { background-color: transparent; cursor: pointer; border: 0px; padding: 0px; appearance: none; font-size: var(--mantine-font-size-md); text-align: start; text-decoration: none; color: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-.m_9e117634 { display: block; object-fit: var(--image-object-fit, cover); width: 100%; border-radius: var(--image-radius, 0); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-footer-backdrop > :where(img, video, picture, div, svg) { width: 100%; height: 100%; object-fit: cover; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay input, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay button, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay textarea, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay select { font: inherit; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay button, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay select { text-transform: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .mantine-focus-auto:focus-visible { outline: 2px solid var(--mantine-primary-color-filled); outline-offset: calc(.125rem * var(--mantine-scale)); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_87cf2631 { background-color: transparent; cursor: pointer; border: 0px; padding: 0px; appearance: none; font-size: var(--mantine-font-size-md); text-align: start; text-decoration: none; color: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_9e117634 { display: block; object-fit: var(--image-object-fit, cover); width: 100%; border-radius: var(--image-radius, 0); }
 @media (hover: hover) {
-:where([data-mantine-color-scheme="light"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):hover { color: var(--mantine-color-black); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :where([data-mantine-color-scheme="light"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):hover { color: var(--mantine-color-black); }
 }
 @media (hover: hover) {
-:where([data-mantine-color-scheme="dark"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):hover { color: var(--mantine-color-white); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :where([data-mantine-color-scheme="dark"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):hover { color: var(--mantine-color-white); }
 }
 @media (hover: none) {
-:where([data-mantine-color-scheme="light"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):active { color: var(--mantine-color-black); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :where([data-mantine-color-scheme="light"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):active { color: var(--mantine-color-black); }
 }
 @media (hover: none) {
-:where([data-mantine-color-scheme="dark"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):active { color: var(--mantine-color-white); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :where([data-mantine-color-scheme="dark"]) .m_1738fcb2:where(:not([data-disabled], [data-active], [data-read-only])):active { color: var(--mantine-color-white); }
 }
-.m_2415a157 { display: grid; grid-template-columns: repeat(var(--sg-cols),minmax(0,1fr)); grid-auto-rows: var(--sg-auto-rows, auto); gap: var(--sg-spacing-y) var(--sg-spacing-x); }
-[data-mantine-color-scheme="light"] .m_89d60db1 { --tab-border-color: var(--mantine-color-gray-3); }
-[data-mantine-color-scheme="dark"] .m_89d60db1 { --tab-border-color: var(--mantine-color-dark-4); }
-.m_89d60db1 { display: var(--tabs-display); flex-direction: var(--tabs-flex-direction); --tabs-list-direction: row; --tabs-panel-grow: unset; --tabs-display: block; --tabs-flex-direction: row; --tabs-list-border-width: 0; --tabs-list-border-size: 0 0 var(--tabs-list-border-width) 0; --tabs-list-gap: unset; --tabs-list-line-bottom: 0; --tabs-list-line-top: unset; --tabs-list-line-start: 0; --tabs-list-line-end: 0; --tab-radius: var(--tabs-radius) var(--tabs-radius) 0 0; --tab-border-width: 0 0 var(--tabs-list-border-width) 0; }
-.m_89d60db1[data-orientation="vertical"] { --tabs-list-line-start: unset; --tabs-list-line-end: 0; --tabs-list-line-top: 0; --tabs-list-line-bottom: 0; --tabs-list-border-size: 0 var(--tabs-list-border-width) 0 0; --tab-border-width: 0 var(--tabs-list-border-width) 0 0; --tab-radius: var(--tabs-radius) 0 0 var(--tabs-radius); --tabs-list-direction: column; --tabs-panel-grow: 1; --tabs-display: flex; }
-.m_89d60db1[data-variant="default"] { --tabs-list-border-width: calc(.125rem * var(--mantine-scale)); }
-[data-mantine-color-scheme="light"] .m_89d60db1[data-variant="default"] { --tab-hover-color: var(--mantine-color-gray-0); }
-[data-mantine-color-scheme="dark"] .m_89d60db1[data-variant="default"] { --tab-hover-color: var(--mantine-color-dark-6); }
-.m_89d60db1[data-variant="outline"] { --tabs-list-border-width: calc(.0625rem * var(--mantine-scale)); }
-.m_89d60db1[data-variant="pills"] { --tabs-list-gap: calc(var(--mantine-spacing-sm) / 2); }
-[data-mantine-color-scheme="light"] .m_89d60db1[data-variant="pills"] { --tab-hover-color: var(--mantine-color-gray-0); }
-[data-mantine-color-scheme="dark"] .m_89d60db1[data-variant="pills"] { --tab-hover-color: var(--mantine-color-dark-6); }
-.m_89d33d6d { display: flex; flex-wrap: wrap; justify-content: var(--tabs-justify, flex-start); flex-direction: var(--tabs-list-direction); gap: var(--tabs-list-gap); }
-.m_89d33d6d:where([data-grow]) .m_4ec4dce6 { flex: 1 1 0%; }
-.m_4ec4dce6 { position: relative; padding: var(--mantine-spacing-xs) var(--mantine-spacing-md); font-size: var(--mantine-font-size-sm); white-space: nowrap; z-index: 0; display: flex; align-items: center; line-height: 1; user-select: none; }
-.m_4ec4dce6:focus { z-index: 1; }
-.m_fc420b1f { display: flex; align-items: center; justify-content: center; }
-.m_fc420b1f:where([data-position="left"]:not(:only-child)) { margin-inline-end: var(--mantine-spacing-xs); }
-.m_fc420b1f:where([data-position="right"]:not(:only-child)) { margin-inline-start: var(--mantine-spacing-xs); }
-.m_42bbd1ae { flex: 1 1 0%; text-align: center; }
-.m_c3381914 { border-radius: var(--tabs-radius); background-color: var(--tab-bg); color: var(--tab-color); --tab-bg: transparent; --tab-color: inherit; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_2415a157 { display: grid; grid-template-columns: repeat(var(--sg-cols),minmax(0,1fr)); grid-auto-rows: var(--sg-auto-rows, auto); gap: var(--sg-spacing-y) var(--sg-spacing-x); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="light"] .m_89d60db1 { --tab-border-color: var(--mantine-color-gray-3); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="dark"] .m_89d60db1 { --tab-border-color: var(--mantine-color-dark-4); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d60db1 { display: var(--tabs-display); flex-direction: var(--tabs-flex-direction); --tabs-list-direction: row; --tabs-panel-grow: unset; --tabs-display: block; --tabs-flex-direction: row; --tabs-list-border-width: 0; --tabs-list-border-size: 0 0 var(--tabs-list-border-width) 0; --tabs-list-gap: unset; --tabs-list-line-bottom: 0; --tabs-list-line-top: unset; --tabs-list-line-start: 0; --tabs-list-line-end: 0; --tab-radius: var(--tabs-radius) var(--tabs-radius) 0 0; --tab-border-width: 0 0 var(--tabs-list-border-width) 0; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d60db1[data-orientation="vertical"] { --tabs-list-line-start: unset; --tabs-list-line-end: 0; --tabs-list-line-top: 0; --tabs-list-line-bottom: 0; --tabs-list-border-size: 0 var(--tabs-list-border-width) 0 0; --tab-border-width: 0 var(--tabs-list-border-width) 0 0; --tab-radius: var(--tabs-radius) 0 0 var(--tabs-radius); --tabs-list-direction: column; --tabs-panel-grow: 1; --tabs-display: flex; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d60db1[data-variant="default"] { --tabs-list-border-width: calc(.125rem * var(--mantine-scale)); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="light"] .m_89d60db1[data-variant="default"] { --tab-hover-color: var(--mantine-color-gray-0); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="dark"] .m_89d60db1[data-variant="default"] { --tab-hover-color: var(--mantine-color-dark-6); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d60db1[data-variant="outline"] { --tabs-list-border-width: calc(.0625rem * var(--mantine-scale)); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d60db1[data-variant="pills"] { --tabs-list-gap: calc(var(--mantine-spacing-sm) / 2); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="light"] .m_89d60db1[data-variant="pills"] { --tab-hover-color: var(--mantine-color-gray-0); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay [data-mantine-color-scheme="dark"] .m_89d60db1[data-variant="pills"] { --tab-hover-color: var(--mantine-color-dark-6); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d33d6d { display: flex; flex-wrap: wrap; justify-content: var(--tabs-justify, flex-start); flex-direction: var(--tabs-list-direction); gap: var(--tabs-list-gap); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_89d33d6d:where([data-grow]) .m_4ec4dce6 { flex: 1 1 0%; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_4ec4dce6 { position: relative; padding: var(--mantine-spacing-xs) var(--mantine-spacing-md); font-size: var(--mantine-font-size-sm); white-space: nowrap; z-index: 0; display: flex; align-items: center; line-height: 1; user-select: none; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_4ec4dce6:focus { z-index: 1; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_fc420b1f { display: flex; align-items: center; justify-content: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_fc420b1f:where([data-position="left"]:not(:only-child)) { margin-inline-end: var(--mantine-spacing-xs); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_fc420b1f:where([data-position="right"]:not(:only-child)) { margin-inline-start: var(--mantine-spacing-xs); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_42bbd1ae { flex: 1 1 0%; text-align: center; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914 { border-radius: var(--tabs-radius); background-color: var(--tab-bg); color: var(--tab-color); --tab-bg: transparent; --tab-color: inherit; }
 @media (hover: hover) {
-.m_c3381914:not([data-disabled]):hover { --tab-bg: var(--tab-hover-color); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914:not([data-disabled]):hover { --tab-bg: var(--tab-hover-color); }
 }
 @media (hover: none) {
-.m_c3381914:not([data-disabled]):active { --tab-bg: var(--tab-hover-color); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914:not([data-disabled]):active { --tab-bg: var(--tab-hover-color); }
 }
-.m_c3381914[data-active][data-active] { --tab-bg: var(--tabs-color); --tab-color: var(--tabs-text-color, var(--mantine-color-white)); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914[data-active][data-active] { --tab-bg: var(--tabs-color); --tab-color: var(--tabs-text-color, var(--mantine-color-white)); }
 @media (hover: hover) {
-.m_c3381914[data-active][data-active]:hover { --tab-bg: var(--tabs-color); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914[data-active][data-active]:hover { --tab-bg: var(--tabs-color); }
 }
 @media (hover: none) {
-.m_c3381914[data-active][data-active]:active { --tab-bg: var(--tabs-color); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_c3381914[data-active][data-active]:active { --tab-bg: var(--tabs-color); }
 }
-.m_d08caa0 :where(h1, h2, h3, h4, h5, h6) { margin-bottom: var(--mantine-spacing-xs); text-wrap: var(--mantine-heading-text-wrap); font-family: var(--mantine-font-family-headings); }
-:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ja) h4, :lang(ja) h5, :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
-.lsds-grid-2u { width: 100%; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .m_d08caa0 :where(h1, h2, h3, h4, h5, h6) { margin-bottom: var(--mantine-spacing-xs); text-wrap: var(--mantine-heading-text-wrap); font-family: var(--mantine-font-family-headings); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h1, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h2, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h3, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h4, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h5, .lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-grid-2u { width: 100%; }
 @media (min-width: 62em) {
-.lsds-grid-2u { width: calc(32.5rem * var(--mantine-scale)); }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-grid-2u { width: calc(32.5rem * var(--mantine-scale)); }
 }
-.lsds-grid-32 { --sg-spacing-x: calc(1rem * var(--mantine-scale)); --sg-spacing-y: calc(1rem * var(--mantine-scale)); --sg-cols: 2; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-grid-32 { --sg-spacing-x: calc(1rem * var(--mantine-scale)); --sg-spacing-y: calc(1rem * var(--mantine-scale)); --sg-cols: 2; }
 @media (min-width: 62em) {
-.lsds-grid-32 { --sg-spacing-x: calc(1.5rem * var(--mantine-scale)); --sg-spacing-y: calc(1.5rem * var(--mantine-scale)); --sg-cols: 4; }
+.lsds-fragment-lsds-home-04-what-teams-can-achieve-with-liferay .lsds-grid-32 { --sg-spacing-x: calc(1.5rem * var(--mantine-scale)); --sg-spacing-y: calc(1.5rem * var(--mantine-scale)); --sg-cols: 4; }
 }

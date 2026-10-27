@@ -13,6 +13,8 @@ export function Sidebar() {
 	const {dispatch, state} = useStore();
 	const [query, setQuery] = useState('');
 	const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+
+	const isCollapsed = (collection: Collection) => collapsed[collection.key] ?? collection.collapsed === true;
 	const fileInput = useRef<HTMLInputElement>(null);
 
 	const normalizedQuery = query.trim().toLowerCase();
@@ -77,12 +79,12 @@ export function Sidebar() {
 
 					{state.collections.map((collection) => (
 						<CollectionNode
-							collapsed={Boolean(collapsed[collection.key]) && !normalizedQuery}
+							collapsed={isCollapsed(collection) && !normalizedQuery}
 							collection={collection}
 							key={collection.key}
 							matches={matches}
 							onRemove={collection.source === 'imported' ? () => dispatch({key: collection.key, type: 'removeCollection'}) : undefined}
-							onToggle={() => setCollapsed({...collapsed, [collection.key]: !collapsed[collection.key]})}
+							onToggle={() => setCollapsed({...collapsed, [collection.key]: !isCollapsed(collection)})}
 						/>
 					))}
 				</div>

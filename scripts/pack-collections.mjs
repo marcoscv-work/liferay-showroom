@@ -90,6 +90,7 @@ for (const collectionDir of readdirSync(root)) {
 		fragments,
 		key: collectionDir,
 		name: collection.name || collectionDir,
+		collapsed: collection.collapsed === true,
 		order: collection.order ?? 0,
 		resources,
 		theme: collection.theme || null,

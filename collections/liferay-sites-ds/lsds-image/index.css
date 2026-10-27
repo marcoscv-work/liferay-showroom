@@ -16,5 +16,5 @@
 	max-width: 100%;
 }
 
-.lsds-image { display: block; width: 100%; border-radius: var(--image-radius, 0); }
-.m_9e117634 { display: block; object-fit: var(--image-object-fit, cover); width: 100%; border-radius: var(--image-radius, 0); }
+.lsds-fragment-lsds-image .lsds-image { display: block; width: 100%; border-radius: var(--image-radius, 0); }
+.lsds-fragment-lsds-image .m_9e117634 { display: block; object-fit: var(--image-object-fit, cover); width: 100%; border-radius: var(--image-radius, 0); }

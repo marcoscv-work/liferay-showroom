@@ -51,7 +51,7 @@ async function openStory(storyId) {
  * Runs inside the story page. Returns the fragment HTML, the CSS it uses,
  * the variant rules and the token values it reads.
  */
-const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, variantOnly}) => {
+const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybookURL, variantOnly}) => {
 	const storyRoot = document.getElementById('storybook-root');
 
 	/* `.lsds-acc-root` in the spec is `_accRoot_<hash>_<line>` in the live DOM */
@@ -303,6 +303,44 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 	const keyframes = new Map();
 	const variables = {base: {}, dark: {}, light: {}};
 
+	/*
+	 * Fragment CSS is global in Liferay, and every fragment of this set ships
+	 * its own copy of the shared component rules, so each rule is scoped to
+	 * its fragment wrapper: nothing leaks between fragments and the order
+	 * inside a fragment is all that matters.
+	 */
+	const splitSelectors = (selector) => {
+		const parts = [];
+
+		let depth = 0;
+		let current = '';
+
+		for (const ch of selector) {
+			if (ch === '(') {
+				depth++;
+			}
+			else if (ch === ')') {
+				depth--;
+			}
+
+			if (ch === ',' && depth === 0) {
+				parts.push(current.trim());
+				current = '';
+			}
+			else {
+				current += ch;
+			}
+		}
+
+		if (current.trim()) {
+			parts.push(current.trim());
+		}
+
+		return parts;
+	};
+
+	const scopeSelector = (selector) => (scope ? splitSelectors(selector).map((part) => `${scope} ${part}`).join(', ') : selector);
+
 	const visit = (rules, wrap) => {
 		for (const rule of rules) {
 			if (rule.type === CSSRule.STYLE_RULE) {
@@ -325,22 +363,22 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 				}
 
 				if (matchesAny(selector)) {
-					kept.push(wrap(rule.cssText));
+					kept.push(wrap(`${scopeSelector(selector)} { ${rule.style.cssText} }`));
 				}
 			}
 			else if (rule.type === CSSRule.KEYFRAMES_RULE) {
 				keyframes.set(rule.name, rule.cssText);
 			}
 			else if (rule.cssRules) {
-				/* @media, @supports, @container, @layer: keep the grouping around the rules it holds */
+				/*
+				 * @media, @supports, @container and @layer keep their grouping
+				 * around the rules they hold. Layers matter: Mantine's core CSS
+				 * sits in `@layer mantine`, which is what lets the design
+				 * system's unlayered rules win regardless of source order.
+				 */
 				const header = rule.cssText.slice(0, rule.cssText.indexOf('{')).trim();
 
-				if (header.startsWith('@layer')) {
-					visit(rule.cssRules, wrap);
-				}
-				else {
-					visit(rule.cssRules, (text) => wrap(`${header} {\n${text}\n}`));
-				}
+				visit(rule.cssRules, (text) => wrap(`${header} {\n${text}\n}`));
 			}
 		}
 	};
@@ -489,8 +527,8 @@ function buildVariantRules(samples) {
 		.map(([ruleSelector, declarations]) => [ruleSelector, [...declarations.entries()].map(([property, value]) => `${property}: ${value};`).join(' ')]);
 }
 
-function buildCSS(css, variantRules) {
-	const variants = variantRules.map(([selector, text]) => `${selector} { ${text} }`).join('\n');
+function buildCSS(css, variantRules, scope) {
+	const variants = variantRules.map(([selector, text]) => `${scope} ${selector} { ${text} }`).join('\n');
 
 	return [WRAPPER_CSS, variants, css].filter(Boolean).join('\n\n');
 }
@@ -502,14 +540,14 @@ function buildCSS(css, variantRules) {
 for (const spec of FRAGMENTS) {
 	await openStory(spec.story);
 
-	const result = await page.evaluate(EXTRACT, {bindings: spec.bindings ?? [], index: spec.index ?? 0, rootSelector: spec.root, selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: false});
+	const result = await page.evaluate(EXTRACT, {bindings: spec.bindings ?? [], index: spec.index ?? 0, rootSelector: spec.root, scope: `.lsds-fragment-${spec.key}`, selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: false});
 
 	const samples = [...result.samples];
 
 	for (const storyId of spec.variantStories ?? []) {
 		await openStory(storyId);
 
-		const extra = await page.evaluate(EXTRACT, {bindings: [], index: 0, rootSelector: spec.root, selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: true});
+		const extra = await page.evaluate(EXTRACT, {bindings: [], index: 0, rootSelector: spec.root, scope: '', selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: true});
 
 		samples.push(...extra.samples);
 	}
@@ -518,7 +556,7 @@ for (const spec of FRAGMENTS) {
 
 	const variantRules = buildVariantRules(samples);
 
-	const css = buildCSS(result.css, variantRules);
+	const css = buildCSS(result.css, variantRules, `.lsds-fragment-${spec.key}`);
 
 	usedVariables(css);
 	usedVariables(result.html);
@@ -592,14 +630,15 @@ for (const pageSpec of PAGES) {
 			return selector;
 		});
 
-		const result = await page.evaluate(EXTRACT, {bindings: [], index: block.index, rootSelector: `${containerSelector} > :not(style):not(script)`, selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: false});
+		const key = `${pageSpec.fragmentPrefix}-${String(block.index + 1).padStart(2, '0')}-${slug(block.tag === 'header' ? 'header' : block.tag === 'footer' ? 'footer' : block.heading || 'section') || 'section'}`;
+
+		const result = await page.evaluate(EXTRACT, {bindings: [], index: block.index, rootSelector: `${containerSelector} > :not(style):not(script)`, scope: `.lsds-fragment-${key}`, selectorsToLift: VARIANT_ROOTS, storybookURL: STORYBOOK_URL, variantOnly: false});
 
 		collectTokens(result.variables);
 
 		const name = `${pageSpec.name}: ${block.index + 1}. ${block.tag === 'header' ? 'Header' : block.tag === 'footer' ? 'Footer' : block.heading || 'Section'}`;
-		const key = `${pageSpec.fragmentPrefix}-${String(block.index + 1).padStart(2, '0')}-${slug(block.tag === 'header' ? 'header' : block.tag === 'footer' ? 'footer' : block.heading || 'section') || 'section'}`;
 
-		const css = buildCSS(result.css, buildVariantRules(result.samples));
+		const css = buildCSS(result.css, buildVariantRules(result.samples), `.lsds-fragment-${key}`);
 
 		usedVariables(css);
 		usedVariables(result.html);

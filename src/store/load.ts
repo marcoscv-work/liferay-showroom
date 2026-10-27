@@ -74,6 +74,7 @@ export async function loadBuiltinCollections(): Promise<Collection[]> {
 				key: entry.key,
 				name: packed.name ?? entry.key,
 				resources: packed.resources ?? {},
+				collapsed: packed.collapsed === true,
 				source: 'builtin',
 				theme: packed.theme ?? null,
 			});
