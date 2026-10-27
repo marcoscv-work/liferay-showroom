@@ -66,7 +66,7 @@ export function Panel() {
 								<span className="alert-indicator">
 									<Icon symbol="warning-full" />
 								</span>
-								<code className="storybook-warning">{warning}</code>
+								<span className="storybook-mono storybook-warning">{warning}</span>
 							</div>
 						))}
 					</div>

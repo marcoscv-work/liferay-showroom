@@ -121,7 +121,7 @@ function TokenRow({onChange, token, value}: {onChange: (value: string | null) =>
 	return (
 		<tr className={overridden ? 'storybook-table__row--changed' : undefined}>
 			<th className="storybook-table__name" scope="row">
-				<code>{token.name}</code>
+				<span className="storybook-mono">{token.name}</span>
 				<span className="d-block text-secondary small font-weight-normal">{humanize(token.label)}</span>
 				<span className="d-block text-secondary small font-weight-normal">--{token.cssVariable}</span>
 			</th>
@@ -159,7 +159,7 @@ function TokenRow({onChange, token, value}: {onChange: (value: string | null) =>
 				)}
 			</td>
 			<td className="text-secondary">
-				<code>{token.defaultValue}</code>
+				<span className="storybook-mono">{token.defaultValue}</span>
 			</td>
 		</tr>
 	);

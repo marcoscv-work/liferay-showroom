@@ -71,7 +71,7 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 							{fieldSet.fields.map((field) => (
 								<tr key={field.name}>
 									<th className="storybook-table__name" scope="row">
-										<code>{field.name}</code>
+										<span className="storybook-mono">{field.name}</span>
 										<span className="d-block text-secondary small font-weight-normal">{humanize(field.label)}</span>
 										{field.description && <span className="d-block text-secondary small font-weight-normal">{humanize(field.description)}</span>}
 									</th>
@@ -79,7 +79,7 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 										<FieldControl field={field} onChange={(value) => onChange(field.name, value)} theme={theme} value={values[field.name] ?? defaultRawValue(field)} />
 									</td>
 									<td className="text-secondary">
-										<code>{formatDefault(field)}</code>
+										<span className="storybook-mono">{formatDefault(field)}</span>
 									</td>
 								</tr>
 							))}

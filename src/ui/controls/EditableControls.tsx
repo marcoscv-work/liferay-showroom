@@ -38,7 +38,7 @@ export function EditableControls({editables, onChange, values}: EditableControls
 					return (
 						<tr key={editable.id}>
 							<th className="storybook-table__name" scope="row">
-								<code>{editable.id}</code>
+								<span className="storybook-mono">{editable.id}</span>
 								<span className="d-block mt-1">
 									<span className="label label-secondary">{editable.type}</span>
 								</span>

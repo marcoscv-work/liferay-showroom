@@ -148,8 +148,8 @@ export function LayoutPanel() {
 							Container
 						</button>
 						<RowButton onAdd={(columns) => insert(createRow(columns))} />
-						<FragmentPicker onAdd={(fragment) => insert(createFragmentElement(fragment))} />
 					</div>
+					<FragmentPicker onAdd={(fragment) => insert(createFragmentElement(fragment))} />
 					<div className="btn-group" role="group" aria-label="Selection actions">
 						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move up" onClick={() => move(-1)} symbol="order-arrow-up" />
 						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move down" onClick={() => move(1)} symbol="order-arrow-down" />
@@ -220,9 +220,9 @@ function TreeNode({depth, element, template}: {depth: number; element: PageEleme
 					style={{paddingLeft: `${8 + depth * 14}px`}}
 					type="button"
 				>
-					<Icon className="mr-2" symbol={TYPE_ICONS[element.type] ?? 'code'} />
-					<span className="storybook-tree__type">{element.type === 'Section' ? 'Container' : element.type}</span>
+					<Icon className="mr-2 text-secondary storybook-tree__icon" symbol={TYPE_ICONS[element.type] ?? 'code'} />
 					<span className="text-truncate">{describe(element, state.collections)}</span>
+					<span className="storybook-tree__type">{element.type === 'Section' ? 'Container' : element.type}</span>
 				</button>
 			</li>
 			{element.pageElements.map((child) => (
@@ -236,23 +236,19 @@ function RowButton({onAdd}: {onAdd: (columns: number) => void}) {
 	const [columns, setColumns] = useState(2);
 
 	return (
-		<div className="input-group input-group-sm storybook-input-group-auto">
-			<div className="input-group-item input-group-item-shrink input-group-prepend">
-				<button className="btn btn-secondary" onClick={() => onAdd(columns)} type="button">
-					<Icon className="mr-1" symbol="table" />
-					Row
-				</button>
-			</div>
-			<div className="input-group-item input-group-item-shrink input-group-append">
-				<select aria-label="Number of columns" className="form-control" onChange={(event) => setColumns(Number(event.target.value))} value={columns}>
-					{[1, 2, 3, 4, 6].map((n) => (
-						<option key={n} value={n}>
-							{n} col
-						</option>
-					))}
-				</select>
-			</div>
-		</div>
+		<>
+			<select aria-label="Number of columns for a new row" className="form-control form-control-sm storybook-select-auto" onChange={(event) => setColumns(Number(event.target.value))} value={columns}>
+				{[1, 2, 3, 4, 6].map((n) => (
+					<option key={n} value={n}>
+						{n} {n === 1 ? 'column' : 'columns'}
+					</option>
+				))}
+			</select>
+			<button className="btn btn-secondary btn-sm" onClick={() => onAdd(columns)} type="button">
+				<Icon className="mr-1" symbol="table" />
+				Row
+			</button>
+		</>
 	);
 }
 
@@ -261,40 +257,36 @@ function FragmentPicker({onAdd}: {onAdd: (fragment: Fragment) => void}) {
 	const [value, setValue] = useState('');
 
 	return (
-		<div className="input-group input-group-sm storybook-input-group-auto">
-			<div className="input-group-item input-group-prepend">
-				<select aria-label="Fragment to add" className="form-control" onChange={(event) => setValue(event.target.value)} value={value}>
-					<option value="">Choose a fragment…</option>
-					{state.collections.map((collection) => (
-						<optgroup key={collection.key} label={collection.name}>
-							{collection.fragments.map((fragment) => (
-								<option key={fragment.key} value={`${collection.key}/${fragment.key}`}>
-									{fragment.name}
-								</option>
-							))}
-						</optgroup>
-					))}
-				</select>
-			</div>
-			<div className="input-group-item input-group-item-shrink input-group-append">
-				<button
-					className="btn btn-primary"
-					disabled={!value}
-					onClick={() => {
-						const [collectionKey, ...rest] = value.split('/');
-						const fragmentKey = rest.join('/');
-						const fragment = state.collections.find((collection) => collection.key === collectionKey)?.fragments.find((candidate) => candidate.key === fragmentKey);
+		<div className="storybook-layout__picker">
+			<select aria-label="Fragment to add" className="form-control form-control-sm" onChange={(event) => setValue(event.target.value)} value={value}>
+				<option value="">Choose a fragment…</option>
+				{state.collections.map((collection) => (
+					<optgroup key={collection.key} label={collection.name}>
+						{collection.fragments.map((fragment) => (
+							<option key={fragment.key} value={`${collection.key}/${fragment.key}`}>
+								{fragment.name}
+							</option>
+						))}
+					</optgroup>
+				))}
+			</select>
+			<button
+				className="btn btn-primary btn-sm"
+				disabled={!value}
+				onClick={() => {
+					const [collectionKey, ...rest] = value.split('/');
+					const fragmentKey = rest.join('/');
+					const fragment = state.collections.find((collection) => collection.key === collectionKey)?.fragments.find((candidate) => candidate.key === fragmentKey);
 
-						if (fragment) {
-							onAdd(fragment);
-						}
-					}}
-					type="button"
-				>
-					<Icon className="mr-1" symbol="plus" />
-					Fragment
-				</button>
-			</div>
+					if (fragment) {
+						onAdd(fragment);
+					}
+				}}
+				type="button"
+			>
+				<Icon className="mr-1" symbol="plus" />
+				Fragment
+			</button>
 		</div>
 	);
 }
