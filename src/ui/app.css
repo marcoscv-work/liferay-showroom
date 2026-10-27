@@ -649,5 +649,6 @@ html:not(#__):not(#___) .storybook .storybook-sidebar {
 		border-bottom: 1px solid var(--sb-border);
 		border-right: 0;
 		max-height: 40vh;
+		overflow: hidden;
 	}
 }

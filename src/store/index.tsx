@@ -149,9 +149,43 @@ function reducer(state: State, action: Action): State {
 			let themeKey = state.themeKey;
 			let styleBookKey = state.styleBookKey;
 
+			let wantedTheme: string | null = null;
+
 			if (action.selection.kind === 'fragment') {
 				const {collectionKey} = action.selection;
-				const collection = state.collections.find((candidate) => candidate.key === collectionKey);
+
+				wantedTheme = state.collections.find((candidate) => candidate.key === collectionKey)?.theme ?? null;
+			}
+			else if (action.selection.kind === 'template') {
+				const {id} = action.selection;
+				const template = state.templates.find((candidate) => candidate.id === id);
+
+				const findTheme = (element: PageElement): string | null => {
+					if (element.type === 'Fragment') {
+						const reference = element.definition.fragment ?? {};
+						const collection = state.collections.find((candidate) => (reference.collectionKey ? candidate.key === reference.collectionKey : candidate.fragments.some((fragment) => fragment.key === reference.key)));
+
+						if (collection?.theme) {
+							return collection.theme;
+						}
+					}
+
+					for (const child of element.pageElements) {
+						const found = findTheme(child);
+
+						if (found) {
+							return found;
+						}
+					}
+
+					return null;
+				};
+
+				wantedTheme = template ? findTheme(template.root) : null;
+			}
+
+			{
+				const collection = wantedTheme ? {theme: wantedTheme} : null;
 
 				if (collection?.theme && collection.theme !== state.themeKey && state.themes.some((theme) => theme.key === collection.theme)) {
 					themeKey = collection.theme;
