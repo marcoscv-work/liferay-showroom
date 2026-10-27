@@ -17,6 +17,8 @@ export interface EditableValue {
 }
 
 export interface EditableInfo {
+	/** What the fragment renders when nothing overrides it. */
+	defaultValue: EditableValue;
 	id: string;
 	type: string;
 }
@@ -151,7 +153,7 @@ function postProcess(html: string, options: FragmentRenderOptions, editables: Ed
 
 		if (!seen.has(id)) {
 			seen.add(id);
-			editables.push({id, type});
+			editables.push({defaultValue: readEditableDefault(element, type), id, type});
 		}
 
 		const value = options.editables?.[id];
@@ -189,7 +191,7 @@ function postProcess(html: string, options: FragmentRenderOptions, editables: Ed
 
 		if (!seen.has(id)) {
 			seen.add(id);
-			editables.push({id, type: 'background-image'});
+			editables.push({defaultValue: {src: ((element as HTMLElement).style.backgroundImage.match(/url\("?([^")]+)"?\)/) || [])[1] ?? ''}, id, type: 'background-image'});
 		}
 
 		const value = options.editables?.[id];
@@ -208,6 +210,27 @@ function postProcess(html: string, options: FragmentRenderOptions, editables: Ed
 
 function fragmentHasScriptTaglib(html: string): boolean {
 	return html.includes('<script>');
+}
+
+function readEditableDefault(element: Element, type: string): EditableValue {
+	switch (type) {
+		case 'image': {
+			const img = element.tagName === 'IMG' ? element : element.querySelector('img');
+
+			return {alt: img?.getAttribute('alt') ?? '', src: img?.getAttribute('src') ?? ''};
+		}
+		case 'link':
+		case 'action': {
+			const anchor = element.tagName === 'A' || element.tagName === 'BUTTON' ? element : element.querySelector('a');
+
+			return {href: anchor?.getAttribute('href') ?? '', target: anchor?.getAttribute('target') ?? undefined, text: (anchor ?? element).textContent?.trim() ?? ''};
+		}
+		case 'rich-text':
+		case 'html':
+			return {text: element.innerHTML.trim()};
+		default:
+			return {text: element.textContent?.trim() ?? ''};
+	}
 }
 
 function applyEditableValue(element: Element, type: string, value: EditableValue, doc: Document): void {

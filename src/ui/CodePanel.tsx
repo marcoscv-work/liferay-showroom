@@ -38,10 +38,10 @@ export function CodePanel() {
 	return (
 		<div className="storybook-code">
 			<div className="d-flex align-items-center">
-				<ul className="nav nav-pills nav-sm" role="tablist">
+				<ul className="nav nav-underline storybook-code__tabs" role="tablist">
 					{tabs.map((tab) => (
 						<li className="nav-item" key={tab.id}>
-							<button aria-selected={tab.id === current.id} className={`nav-link btn btn-unstyled${tab.id === current.id ? ' active' : ''}`} onClick={() => setActive(tab.id)} role="tab" type="button">
+							<button aria-selected={tab.id === current.id} className={`nav-link${tab.id === current.id ? ' active' : ''}`} onClick={() => setActive(tab.id)} role="tab" type="button">
 								{tab.label}
 							</button>
 						</li>

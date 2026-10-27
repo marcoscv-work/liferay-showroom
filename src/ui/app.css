@@ -390,6 +390,25 @@ html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link {
 	padding: 0.625rem 0.75rem;
 }
 
+html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link,
+html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link {
+	border-bottom: 2px solid transparent;
+	border-radius: 0;
+	color: var(--sb-gray-600);
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link:hover,
+html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link:hover {
+	color: var(--sb-text);
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link.active,
+html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link.active {
+	border-bottom-color: var(--sb-primary);
+	color: var(--sb-primary);
+	font-weight: 600;
+}
+
 html:not(#__):not(#___) .storybook .storybook-panel__content {
 	flex: 1 1 auto;
 	min-height: 0;
@@ -431,6 +450,13 @@ html:not(#__):not(#___) .storybook .storybook-table td {
 html:not(#__):not(#___) .storybook .storybook-table__name {
 	font-weight: 600;
 	width: 28%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-editable__default {
+	margin-top: 0.25rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 html:not(#__):not(#___) .storybook .storybook-table__row--changed .storybook-table__name .storybook-mono {
@@ -669,6 +695,10 @@ html:not(#__):not(#___) .storybook .storybook-code {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link {
+	padding: 0.375rem 0.625rem;
 }
 
 html:not(#__):not(#___) .storybook .storybook-code__content {
