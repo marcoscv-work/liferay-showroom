@@ -197,7 +197,7 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 
 	const candidates = [];
 
-	for (const element of clone.querySelectorAll('*')) {
+	for (const element of [clone, ...clone.querySelectorAll('*')]) {
 		const tag = element.tagName;
 		const classes = [...element.classList].join(' ');
 
@@ -219,7 +219,7 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 				candidates.push({element, type: 'rich-text'});
 			}
 		}
-		else if (/(^|\s)_[a-zA-Z]*(Title|Heading|Description|LabelText|TabLabel|StatValue|StatLabel|Message|AccLabel|ListTitle|ListDescription|ColumnTitle|FooterCopy|heading|title|description|message)_[a-z0-9]{5}_[0-9]+(\s|$)/.test(classes)) {
+		else if (/(^|\s)_[a-zA-Z]*(title|heading|description|labeltext|label|tablabel|statvalue|statlabel|message|acclabel|listtitle|listdescription|columntitle|footercopy|chiplabeltext|value)_[a-z0-9]{5}_[0-9]+(\s|$)/i.test(classes)) {
 			if (hasOnlyInline(element) && hasText(element)) {
 				candidates.push({element, type: element.querySelector('span, strong, em') ? 'rich-text' : 'text'});
 			}
@@ -320,17 +320,19 @@ const EXTRACT = ({bindings, index, rootSelector, selectorsToLift, storybookURL, 
 					kept.push(wrap(rule.cssText));
 				}
 			}
-			else if (rule.type === CSSRule.MEDIA_RULE || rule.type === CSSRule.SUPPORTS_RULE) {
-				const condition = rule.conditionText ?? rule.media?.mediaText ?? '';
-				const prefix = rule.type === CSSRule.MEDIA_RULE ? '@media' : '@supports';
-
-				visit(rule.cssRules, (text) => wrap(`${prefix} ${condition} {\n${text}\n}`));
-			}
 			else if (rule.type === CSSRule.KEYFRAMES_RULE) {
 				keyframes.set(rule.name, rule.cssText);
 			}
 			else if (rule.cssRules) {
-				visit(rule.cssRules, wrap);
+				/* @media, @supports, @container, @layer: keep the grouping around the rules it holds */
+				const header = rule.cssText.slice(0, rule.cssText.indexOf('{')).trim();
+
+				if (header.startsWith('@layer')) {
+					visit(rule.cssRules, wrap);
+				}
+				else {
+					visit(rule.cssRules, (text) => wrap(`${header} {\n${text}\n}`));
+				}
 			}
 		}
 	};

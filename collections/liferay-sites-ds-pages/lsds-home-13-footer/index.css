@@ -176,10 +176,18 @@
 .lsds-footer-inner { display: flex; flex-direction: column; gap: 40px; padding-block: 40px; padding-inline: clamp(20px, 5.714cqi - 2.2846px, 80px); max-width: calc(1200px + (2 * clamp(20px, 5.714cqi - 2.2846px, 80px))); margin-inline: auto; }
 .lsds-footer-columns { display: grid; grid-template-columns: repeat(5, minmax(0px, 1fr)); gap: 64px 32px; }
 .lsds-site-footer-brand { grid-column: span 2; }
+@container sds-footer (max-width: 1100px) {
 .lsds-footer-columns { grid-template-columns: repeat(3, minmax(0px, 1fr)); row-gap: 40px; }
+}
+@container sds-footer (max-width: 1100px) {
 .lsds-site-footer-brand { grid-column: auto; }
+}
+@container sds-footer (max-width: 680px) {
 .lsds-footer-columns { grid-template-columns: repeat(2, minmax(0px, 1fr)); }
+}
+@container sds-footer (max-width: 420px) {
 .lsds-footer-columns { grid-template-columns: minmax(0px, 1fr); }
+}
 .lsds-footer-column { display: flex; flex-direction: column; gap: 24px; min-width: 0px; }
 .lsds-footer-column-title { margin: 0px; color: var(--sds-footer-text); font-size: var(--sds-size-paragraph-small-caps); line-height: var(--sds-line-height-paragraph-small-caps); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 :lang(ja) .lsds-footer-column-title { text-transform: none; letter-spacing: normal; }

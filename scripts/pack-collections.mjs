@@ -90,14 +90,17 @@ for (const collectionDir of readdirSync(root)) {
 		fragments,
 		key: collectionDir,
 		name: collection.name || collectionDir,
+		order: collection.order ?? 0,
 		resources,
 		theme: collection.theme || null,
 	};
 
 	writeFileSync(join(out, `${collectionDir}.json`), JSON.stringify(packed));
 
-	index.push({key: collectionDir, name: packed.name, fragments: fragments.length});
+	index.push({key: collectionDir, name: packed.name, fragments: fragments.length, order: packed.order});
 }
+
+index.sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 
 writeFileSync(join(out, 'index.json'), JSON.stringify(index, null, '\t'));
 

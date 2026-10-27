@@ -65,7 +65,7 @@ export async function loadBuiltinCollections(): Promise<Collection[]> {
 			return collections;
 		}
 
-		const index: {key: string}[] = await response.json();
+		const index: {key: string; order?: number}[] = await response.json();
 
 		for (const entry of index) {
 			const packed = await (await fetch(assetURL(`collections/${entry.key}.json`))).json();

@@ -72,8 +72,12 @@
 .lsds-hero-title > :where(h1, h2, h3, p) { margin: 0px; font-size: var(--sds-size-display-display-sm); line-height: var(--sds-line-height-display-display-sm); font-weight: 700; color: var(--sds-surfaces-text-primary); }
 .lsds-hero-description { max-width: 60ch; color: var(--sds-surfaces-text-secondary); font-size: var(--sds-size-paragraph-large); line-height: var(--sds-line-height-paragraph-large); }
 .lsds-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+@container sds-hero (max-width: 1199px) {
 .lsds-hero-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
+}
+@container sds-hero (max-width: 1199px) {
 .lsds-hero-media { width: 100%; }
+}
 .lsds-marquee-cell > :where(img, svg, picture) { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; }
 .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }

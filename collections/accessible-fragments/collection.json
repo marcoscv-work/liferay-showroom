@@ -1,4 +1,0 @@
-{
-	"description": "A small set of Liferay's out-of-the-box fragments, re-published where the stock version has an accessibility gap the product does not cover yet: a pausable and keyboard-friendly Banner Slider, an Accordion and a Dropdown that behave for keyboard and screen reader users, captions and accessible names for media, a heading level for Card, an accessible description for Button, and a labelled Cookie Banner landmark. Every fragment here earns its place over the original.",
-	"name": "Accessible Fragments"
-}

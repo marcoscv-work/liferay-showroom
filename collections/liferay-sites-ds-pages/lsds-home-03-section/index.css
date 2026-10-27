@@ -54,7 +54,9 @@
 .lsds-marquee-root { --sds-marquee-logo: 64px; --sds-marquee-cell: 109px; display: flex; align-items: center; gap: 16px; width: 100%; min-width: 0px; }
 .lsds-marquee-root[data-size="lg"] { --sds-marquee-logo: 64px; }
 .lsds-marquee-root { container: sds-marquee / inline-size; }
+@container sds-marquee (max-width: 768px) {
 .lsds-marquee-viewport { --sds-marquee-logo: 49px; }
+}
 .lsds-marquee-viewport { position: relative; flex: 1 1 0%; min-width: 0px; overflow: hidden; }
 .lsds-marquee-viewport[data-fade] { mask-image: linear-gradient(to right,transparent 0,#000 var(--sds-marquee-fade),#000 calc(100% - var(--sds-marquee-fade)),transparent 100%); }
 .lsds-marquee-tracks { display: flex; gap: var(--sds-marquee-gap); width: max-content; }

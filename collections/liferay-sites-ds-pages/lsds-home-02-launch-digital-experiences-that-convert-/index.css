@@ -224,11 +224,21 @@
 .lsds-hero-proof-top .lsds-hero-badges { align-items: flex-end; justify-content: flex-end; gap: 8px; }
 .lsds-hero-proof-top .lsds-hero-badges img { height: 48px; }
 .lsds-hero-proof-marks { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 8px; }
+@container sds-hero (max-width: 1199px) {
 .lsds-hero-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
+}
+@container sds-hero (max-width: 1199px) {
 .lsds-hero-media { width: 100%; }
+}
+@container sds-hero (max-width: 767px) {
 .lsds-hero-proof-top { flex-wrap: nowrap; }
+}
+@container sds-hero (max-width: 767px) {
 .lsds-hero-proof-top .lsds-hero-badges { flex: 0 0 auto; }
+}
+@container sds-hero (max-width: 767px) {
 .lsds-hero[data-with-banner] > .lsds-hero-banner { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
 .lsds-hero-media video { animation-play-state: paused; }
 }

@@ -73,7 +73,9 @@
 .lsds-card-text { display: flex; flex-direction: column; min-width: 0px; }
 .lsds-card-text[data-size="small"] { gap: 4px; }
 .lsds-card-title { font-size: 21px; line-height: 26px; font-weight: 600; color: var(--sds-surfaces-text-primary); }
+@container sds-section (max-width: 767px) {
 .lsds-card-title { font-size: 16px; line-height: 1.25; }
+}
 .lsds-card-description { font-size: 18px; line-height: 24px; font-weight: 400; color: var(--sds-surfaces-text-primary); }
 .lsds-card-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: auto; padding-top: 8px; }
 .lsds-card-root[data-align][data-surface="glass"] { background-image: linear-gradient(60deg,var(--sds-glass-step-01) 0%,var(--sds-glass-step-02) 100%); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: inset 0 1px 0 var(--sds-card-lit-edge),var(--sds-card-cast-shadow); }

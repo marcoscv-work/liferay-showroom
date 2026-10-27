@@ -63,8 +63,12 @@
 .lsds-banner-close { flex: 0 0 auto; appearance: none; border: 0px; padding: 0px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: var(--mantine-radius-sm); background: transparent; color: var(--sds-surfaces-text-tertiary); font-size: 16px; cursor: pointer; transition: background-color 0.12s, color 0.12s; }
 .lsds-banner-close:hover { background: color-mix(in srgb,var(--sds-surfaces-text-primary) 8%,transparent); color: var(--sds-surfaces-text-primary); }
 .lsds-banner-close:focus-visible { outline: 2px solid var(--sds-brand-primary-primary); outline-offset: 2px; }
+@container (max-width: 700px) {
 .lsds-banner-inner { justify-content: flex-start; }
+}
+@container (max-width: 700px) {
 .lsds-banner-message { text-wrap: pretty; }
+}
 @media (prefers-reduced-motion: reduce) {
 .lsds-banner-close { transition: none; }
 }
