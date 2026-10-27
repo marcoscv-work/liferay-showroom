@@ -215,6 +215,7 @@
 @media (min-width: 62em) {
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero-finder-row { flex-wrap: nowrap; }
 }
+body:has(.lsds-header-shell[data-position="fixed"]) .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero-banner { padding-block-start: 89px; }
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero-banner { display: flex; justify-content: center; max-width: calc(1280px + (2 * clamp(20px, 5.714cqi - 2.2846px, 80px))); margin: 0px auto; padding-block-start: 40px; padding-inline: clamp(20px, 5.714cqi - 2.2846px, 80px); }
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero-banner > * { min-width: 0px; }
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero[data-with-banner] .lsds-hero-inner { padding-block-start: 64px; }
@@ -289,6 +290,9 @@
 }
 @container sds-hero (max-width: 767px) {
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero[data-with-banner] > .lsds-hero-banner { display: none; }
+}
+@container sds-hero (max-width: 767px) {
+body:has(.lsds-header-shell[data-position="fixed"]) .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero[data-with-banner] > .lsds-hero-inner { padding-block-start: 88px; }
 }
 @media (prefers-reduced-motion: reduce) {
 .lsds-fragment-lsds-home-02-launch-digital-experiences-that-convert- .lsds-hero-media video { animation-play-state: paused; }

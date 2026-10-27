@@ -137,7 +137,7 @@
 .lsds-fragment-lsds-home-01-header .lsds-header-shell[data-position="fixed"] { position: fixed; inset-block-start: 0px; inset-inline: 0px; }
 .lsds-fragment-lsds-home-01-header .lsds-header-shell[data-position="fixed"] { transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),visibility 0s linear 0s; }
 @media (prefers-reduced-motion: reduce) {
-.lsds-fragment-lsds-home-01-header .lsds-header-shell[data-position="fixed"], .lsds-fragment-lsds-home-01-header :root[data-sds-header-hidden] .lsds-header-shell[data-position="fixed"] { transition: none; }
+.lsds-fragment-lsds-home-01-header .lsds-header-shell[data-position="fixed"], :root[data-sds-header-hidden] .lsds-fragment-lsds-home-01-header .lsds-header-shell[data-position="fixed"] { transition: none; }
 }
 .lsds-fragment-lsds-home-01-header .lsds-header-shell, .lsds-fragment-lsds-home-01-header .lsds-secondary-nav { --sds-nav-fill: rgba(0, 0, 0, .8); }
 .lsds-fragment-lsds-home-01-header :where([data-mantine-color-scheme="light"]) .lsds-header-shell { --sds-nav-fill: color-mix(in srgb, var(--sds-surfaces-page-bg-base-default) 60%, transparent); }

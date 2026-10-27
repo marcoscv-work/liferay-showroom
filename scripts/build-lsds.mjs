@@ -339,7 +339,22 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 		return parts;
 	};
 
-	const scopeSelector = (selector) => (scope ? splitSelectors(selector).map((part) => `${scope} ${part}`).join(', ') : selector);
+	const scopePart = (part) => {
+		if (!scope) {
+			return part;
+		}
+
+		/* A document-level head (`body:has(…)`, `html[...]`) stays in front of the scope */
+		const match = /^((?:html|body|:root)(?:[^\s]*\([^)]*\))*[^\s]*)\s+(.+)$/.exec(part);
+
+		if (match) {
+			return `${match[1]} ${scope} ${match[2]}`;
+		}
+
+		return `${scope} ${part}`;
+	};
+
+	const scopeSelector = (selector) => (scope ? splitSelectors(selector).map(scopePart).join(', ') : selector);
 
 	const visit = (rules, wrap) => {
 		for (const rule of rules) {
@@ -349,13 +364,21 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 				if (/^:root|^:host|^html|^body/.test(selector)) {
 					const scheme = /dark/.test(selector) ? 'dark' : /light/.test(selector) ? 'light' : 'base';
 
+					let onlyVariables = true;
+
 					for (const property of rule.style) {
 						if (property.startsWith('--')) {
 							variables[scheme][property] = rule.style.getPropertyValue(property).trim();
 						}
+						else {
+							onlyVariables = false;
+						}
 					}
 
-					continue;
+					/* `body:has(.header[data-position="fixed"]) .hero-banner {…}` styles an element inside the fragment: keep it */
+					if (onlyVariables || !/\s/.test(selector.trim())) {
+						continue;
+					}
 				}
 
 				if (/#storybook-root|\.sb-|\.docs-story/.test(selector)) {
