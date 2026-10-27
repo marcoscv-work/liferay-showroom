@@ -251,7 +251,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions): string {
 	 */
 	const schemeCSS =
 		colorScheme === 'dark'
-			? `:root[data-color-scheme="dark"] { color-scheme: dark; --body-bg: #1b1b23; --body-color: #f1f2f5; --white: #1b1b23; --gray-100: #272833; --gray-200: #30313f; --gray-300: #3c3d4d; --gray-600: #a7a9bc; --gray-900: #f1f2f5; --dark: #f1f2f5; --light: #272833; }
+			? `:root[data-color-scheme="dark"] { color-scheme: dark; --body-bg: #070b13; --body-color: #f1f2f5; --white: #070b13; --gray-100: #272833; --gray-200: #30313f; --gray-300: #3c3d4d; --gray-600: #a7a9bc; --gray-900: #f1f2f5; --dark: #f1f2f5; --light: #272833; }
 body { background-color: var(--body-bg); color: var(--body-color); }`
 			: '';
 
