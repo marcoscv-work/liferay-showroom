@@ -299,3 +299,181 @@ fragmentElement.querySelectorAll('.lsds-card-root[data-interactive]').forEach(fu
 		card.style.setProperty('--sds-spot-y', event.clientY - rect.top + 'px');
 	});
 });
+
+/* Header: disclosure menus, mobile drawer ------------------------------- */
+
+fragmentElement.querySelectorAll('.lsds-header-shell').forEach(function (shell) {
+	var items = Array.prototype.slice.call(shell.querySelectorAll('.lsds-header-item[aria-controls]'));
+	var band = shell.querySelector('.lsds-header-band');
+	var burger = shell.querySelector('.lsds-header-burger');
+	var drawer = shell.querySelector('.lsds-header-drawer');
+
+	function panelOf(item) {
+		return shell.querySelector('#' + CSS.escape(item.getAttribute('aria-controls')));
+	}
+
+	function syncShell() {
+		var anyOpen = items.some(function (item) {
+			return item.hasAttribute('data-open');
+		});
+
+		var drawerOpen = drawer && !drawer.hidden;
+
+		if (anyOpen || drawerOpen) {
+			shell.setAttribute('data-menu-open', 'true');
+		}
+		else {
+			shell.removeAttribute('data-menu-open');
+		}
+	}
+
+	function closeAll() {
+		items.forEach(function (item) {
+			item.removeAttribute('data-open');
+			item.setAttribute('aria-expanded', 'false');
+
+			var panel = panelOf(item);
+
+			if (panel) {
+				panel.hidden = true;
+				panel.removeAttribute('data-open');
+			}
+		});
+
+		syncShell();
+	}
+
+	items.forEach(function (item) {
+		item.addEventListener('click', function () {
+			var open = item.hasAttribute('data-open');
+
+			closeAll();
+
+			if (!open) {
+				item.setAttribute('data-open', 'true');
+				item.setAttribute('aria-expanded', 'true');
+
+				var panel = panelOf(item);
+
+				if (panel) {
+					panel.hidden = false;
+					panel.setAttribute('data-open', 'true');
+				}
+			}
+
+			syncShell();
+		});
+	});
+
+	document.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') {
+			closeAll();
+			setDrawer(false);
+		}
+	});
+
+	document.addEventListener('click', function (event) {
+		if (!shell.contains(event.target)) {
+			closeAll();
+		}
+	});
+
+	/* Drawer */
+
+	var panels = drawer ? Array.prototype.slice.call(drawer.querySelectorAll('.lsds-header-drawer-panel')) : [];
+	var root = drawer ? drawer.querySelector('.lsds-header-drawer-root') : null;
+
+	function showPanel(target) {
+		panels.forEach(function (panel) {
+			var state = panel === target ? 'active' : panel === root ? 'behind' : 'ahead';
+
+			panel.setAttribute('data-state', state);
+
+			if (state === 'active') {
+				panel.removeAttribute('inert');
+			}
+			else {
+				panel.setAttribute('inert', '');
+			}
+		});
+	}
+
+	function setDrawer(open) {
+		if (!drawer) {
+			return;
+		}
+
+		drawer.hidden = !open;
+
+		if (open) {
+			drawer.setAttribute('data-open', 'true');
+		}
+		else {
+			drawer.removeAttribute('data-open');
+		}
+
+		if (burger) {
+			burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+		}
+
+		if (band) {
+			if (open) {
+				band.setAttribute('inert', '');
+			}
+			else {
+				band.removeAttribute('inert');
+			}
+		}
+
+		if (!open && root) {
+			showPanel(root);
+		}
+
+		syncShell();
+	}
+
+	if (burger) {
+		burger.addEventListener('click', function () {
+			setDrawer(drawer ? drawer.hidden : false);
+		});
+	}
+
+	if (drawer) {
+		drawer.querySelectorAll('.lsds-header-drawer-close').forEach(function (close) {
+			close.addEventListener('click', function () {
+				setDrawer(false);
+			});
+		});
+
+		/* Rows of the root panel drill into the sub panels in order; the first row of a sub panel goes back */
+		var subPanels = panels.filter(function (panel) {
+			return panel !== root;
+		});
+
+		if (root) {
+			var rows = Array.prototype.slice.call(root.querySelectorAll('.lsds-header-drawer-row')).filter(function (row) {
+				return row.querySelector('.lsds-header-drawer-chevron');
+			});
+
+			rows.forEach(function (row, index) {
+				row.addEventListener('click', function () {
+					if (subPanels[index]) {
+						showPanel(subPanels[index]);
+					}
+				});
+			});
+		}
+
+		subPanels.forEach(function (panel) {
+			var back = panel.querySelector('.lsds-header-drawer-back, .lsds-header-drawer-row');
+
+			if (back) {
+				back.addEventListener('click', function () {
+					if (root) {
+						showPanel(root);
+					}
+				});
+			}
+		});
+	}
+});

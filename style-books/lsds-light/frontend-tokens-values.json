@@ -27,6 +27,10 @@
 		"cssVariableMapping": "mantine-color-disabled-color",
 		"value": "var(--mantine-color-gray-5)"
 	},
+	"mantineColorError": {
+		"cssVariableMapping": "mantine-color-error",
+		"value": "var(--mantine-color-red-6)"
+	},
 	"mantineColorPlaceholder": {
 		"cssVariableMapping": "mantine-color-placeholder",
 		"value": "var(--mantine-color-gray-5)"
@@ -62,6 +66,10 @@
 	"sdsActionLinkDefaultLink": {
 		"cssVariableMapping": "sds-action-link-default-link",
 		"value": "#004ad7"
+	},
+	"sdsActionLinkDisabledLink": {
+		"cssVariableMapping": "sds-action-link-disabled-link",
+		"value": "#7aa8ff"
 	},
 	"sdsActionLinkHoverLink": {
 		"cssVariableMapping": "sds-action-link-hover-link",

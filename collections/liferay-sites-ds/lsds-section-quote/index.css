@@ -26,7 +26,10 @@
 @container sds-section (max-width: 767px) {
 .lsds-fragment-lsds-section-quote .lsds-section-root:not([data-spacing="none"], [data-spacing="tight"]) > .lsds-section-inner { padding-block: 40px; }
 }
+.lsds-fragment-lsds-section-quote .lsds-section-root[data-reveal][data-reveal-state] > .lsds-section-inner { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1), transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
+.lsds-fragment-lsds-section-quote .lsds-section-root[data-reveal][data-reveal-state="in"] > .lsds-section-inner { opacity: 1; transform: none; }
 .lsds-fragment-lsds-section-quote .lsds-section-inner { display: flex; flex-direction: column; gap: var(--sds-section-gap); padding-block: var(--sds-section-block); padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; }
+.lsds-fragment-lsds-section-quote .lsds-section-root[data-bleed] > .lsds-section-inner { padding-inline: 0px; max-width: none; }
 .lsds-fragment-lsds-section-quote .lsds-section-body { min-width: 0px; }
 .lsds-fragment-lsds-section-quote .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-section-quote .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }

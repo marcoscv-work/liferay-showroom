@@ -147,6 +147,7 @@
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-section-title-root[data-align="center"] { flex-direction: column; align-items: center; text-align: center; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-section-title-root[data-actions-align="top"] { align-items: flex-start; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-footer-backdrop > :where(img, video, picture, div, svg) { width: 100%; height: 100%; object-fit: cover; }
@@ -229,6 +230,11 @@
 }
 @media (hover: hover) {
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-tile[data-interactive]:hover > .lsds-map-tile-body { background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-map-rim-from),var(--sds-map-rim-to)); }
+}
+.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-tile { animation-duration: ; animation-timing-function: ; animation-iteration-count: ; animation-direction: ; animation-fill-mode: ; animation-play-state: ; animation-name: ; animation-timeline: ; animation-range-start: ; animation-range-end: ; animation-delay: var(--sds-map-enter, 0ms); }
+.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-grid-rest, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-network, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-name { animation-duration: ; animation-timing-function: ; animation-iteration-count: ; animation-direction: ; animation-fill-mode: ; animation-play-state: ; animation-name: ; animation-timeline: ; animation-range-start: ; animation-range-end: ; animation-delay: var(--sds-map-enter, .62s); }
+@media (prefers-reduced-motion: reduce) {
+.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-tile, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-grid-rest, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-network, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-root[data-sds-enter] .lsds-map-name { animation: auto ease 0s 1 normal none running none; }
 }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-tile[data-interactive]:focus-visible { z-index: 800; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-tile[data-interactive]:focus-visible > .lsds-map-tile-body { transform: scale(1.14); animation-name: none; background-image: radial-gradient(140% 140% at var(--sds-card-x, 50%) var(--sds-card-y, 50%),var(--sds-map-rim-from),var(--sds-map-rim-to)); }

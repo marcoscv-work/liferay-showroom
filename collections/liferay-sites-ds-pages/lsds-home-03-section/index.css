@@ -64,6 +64,7 @@
 .lsds-fragment-lsds-home-03-section .lsds-marquee-viewport[data-fade] { mask-image: linear-gradient(to right,transparent 0,#000 var(--sds-marquee-fade),#000 calc(100% - var(--sds-marquee-fade)),transparent 100%); }
 .lsds-fragment-lsds-home-03-section .lsds-marquee-tracks { display: flex; gap: var(--sds-marquee-gap); width: max-content; }
 .lsds-fragment-lsds-home-03-section .lsds-marquee-tracks[data-moving] { animation: _marquee-scroll_3d65a_1 var(--sds-marquee-duration) linear infinite; }
+.lsds-fragment-lsds-home-03-section .lsds-marquee-tracks[data-moving][data-paused] { animation-play-state: paused; }
 .lsds-fragment-lsds-home-03-section .lsds-marquee-tracks[data-moving][data-direction="right"] { animation-direction: reverse; }
 .lsds-fragment-lsds-home-03-section .lsds-marquee-viewport[data-pause-on-hover]:hover .lsds-marquee-tracks[data-moving] { animation-play-state: paused; }
 .lsds-fragment-lsds-home-03-section .lsds-marquee-viewport:focus-within .lsds-marquee-tracks[data-moving] { animation-play-state: paused; }
@@ -92,6 +93,7 @@
 .lsds-fragment-lsds-home-03-section .lsds-section-root[data-reveal][data-reveal-state] > .lsds-section-inner { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1), transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
 .lsds-fragment-lsds-home-03-section .lsds-section-root[data-reveal][data-reveal-state="in"] > .lsds-section-inner { opacity: 1; transform: none; }
 .lsds-fragment-lsds-home-03-section .lsds-section-inner { display: flex; flex-direction: column; gap: var(--sds-section-gap); padding-block: var(--sds-section-block); padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; }
+.lsds-fragment-lsds-home-03-section .lsds-section-root[data-bleed] > .lsds-section-inner { padding-inline: 0px; max-width: none; }
 .lsds-fragment-lsds-home-03-section .lsds-section-body { min-width: 0px; }
 .lsds-fragment-lsds-home-03-section .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-home-03-section .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }

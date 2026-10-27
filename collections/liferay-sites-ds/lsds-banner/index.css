@@ -43,6 +43,9 @@
 .lsds-fragment-lsds-banner .lsds-link[data-variant="secondary"]:visited { color: var(--sds-action-link-visited-link); }
 .lsds-fragment-lsds-banner .lsds-link[data-variant="secondary"]:hover, .lsds-fragment-lsds-banner .lsds-link[data-variant="secondary"]:focus-visible { color: var(--sds-action-link-hover-link); }
 .lsds-fragment-lsds-banner .lsds-link[data-variant="secondary"]:active { color: var(--sds-action-link-active-link); }
+.lsds-fragment-lsds-banner .lsds-link[data-variant][data-disabled] { cursor: default; pointer-events: none; text-decoration: none; }
+.lsds-fragment-lsds-banner .lsds-link[data-variant="default"][data-disabled] { color: var(--sds-action-link-disabled-link); }
+.lsds-fragment-lsds-banner .lsds-link[data-variant="secondary"][data-disabled] { color: var(--sds-action-neutral-disabled); }
 @media (forced-colors: active) {
 .lsds-fragment-lsds-banner .lsds-link[data-variant] { text-decoration: underline; }
 }

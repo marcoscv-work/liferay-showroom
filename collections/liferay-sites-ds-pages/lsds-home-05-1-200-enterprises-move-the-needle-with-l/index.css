@@ -47,6 +47,8 @@
 }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root { font-weight: 600; height: auto; min-height: var(--button-height); transition: background-image var(--sds-motion-fast) var(--sds-motion-ease),border-color var(--sds-motion-fast) var(--sds-motion-ease),box-shadow var(--sds-motion-fast) var(--sds-motion-ease); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root .lsds-label { white-space: normal; text-align: center; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root[data-with-left-section] { padding-inline-start: var(--button-padding-x); }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root[data-with-right-section] { padding-inline-end: var(--button-padding-x); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: 0px; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root[data-variant="filled"], .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root[data-variant="rounded"] { --btn-default-from: var(--sds-action-primary-hover); --btn-default-to: var(--sds-action-primary-default); --btn-hover-from: var(--sds-action-primary-default); --btn-hover-to: var(--sds-action-primary-hover); --btn-active-from: var(--sds-action-primary-active); --btn-active-to: var(--sds-action-primary-default); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root[data-variant="neutral"] { --btn-default-from: var(--sds-action-neutral-active); --btn-default-to: var(--sds-action-neutral-hover); --btn-hover-from: var(--sds-action-neutral-hover); --btn-hover-to: var(--sds-action-neutral-active); --btn-active-from: var(--sds-action-neutral-hover); --btn-active-to: var(--sds-action-neutral-hover); }
@@ -59,7 +61,12 @@
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root .lsds-inner { gap: var(--sds-button-gap); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-root .lsds-label { line-height: var(--sds-button-lh); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align] { position: relative; display: flex; min-width: 0px; border-radius: 8px; background-color: transparent; color: var(--sds-surfaces-text-primary); text-decoration: none; isolation: isolate; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-radius="pill"] { border-radius: 24px; }
+@media (min-width: 62em) {
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-radius="pill"] { border-radius: 30px; }
+}
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align="vertical"] { flex-direction: column; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align="horizontal"][data-image-side="leading"] { flex-direction: row-reverse; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align="horizontal"] { flex-direction: row; align-items: center; gap: 24px; border-radius: 16px; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align="horizontal"] > .lsds-card-body { flex: 1 1 0%; min-width: 0px; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align="horizontal"] > .lsds-card-image { flex: 1 1 0%; min-width: 0px; order: 1; }
@@ -101,6 +108,8 @@
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="static"] { background-color: var(--sds-surfaces-card-bg-grey); border: 1px solid var(--sds-card-static-line); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="highlighted"] { background-color: var(--sds-surfaces-card-bg-grey); backdrop-filter: blur(var(--sds-glass-blur)); box-shadow: 0 0 6px 1px var(--sds-glass-shadow); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="highlighted"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; background-image: linear-gradient(200deg,var(--sds-glass-line-from) 0%,var(--sds-glass-line-to) 38%,transparent 86%); mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="highlighted"][data-tone="blue"] { background-image: radial-gradient(70% 130% at 0% 0%,color-mix(in srgb,var(--sds-brand-primary-primary) 34%,transparent) 0%,transparent 70%),radial-gradient(60% 120% at 100% 0%,color-mix(in srgb,var(--sds-brand-primary-lighten-1) 26%,transparent) 0%,transparent 68%),radial-gradient(80% 90% at 88% 110%,color-mix(in srgb,var(--sds-brand-primary-primary) 16%,transparent) 0%,transparent 74%); }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="highlighted"][data-tone="purple"] { background-image: radial-gradient(70% 130% at 0% 0%,color-mix(in srgb,var(--sds-accent-product-accent) 34%,transparent) 0%,transparent 70%),radial-gradient(60% 120% at 100% 0%,color-mix(in srgb,var(--sds-brand-primary-primary) 30%,transparent) 0%,transparent 68%),radial-gradient(80% 90% at 88% 110%,color-mix(in srgb,var(--sds-brand-primary-primary) 18%,transparent) 0%,transparent 74%); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="none"] { background: none; box-shadow: none; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="glass"]::before { content: ""; position: absolute; inset: 0px; padding: 1px; border-radius: inherit; mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px); pointer-events: none; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-surface="glass"]::before { background-image: linear-gradient(225deg,var(--sds-glass-line-from) 1%,var(--sds-glass-line-to) 92%); }
@@ -155,9 +164,16 @@
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-card-root[data-align][data-interactive]:focus-visible { outline: highlight solid 2px; outline-offset: 2px; }
 }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat { display: flex; flex-direction: column; gap: 0px; align-items: flex-start; justify-content: center; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-align="center"] { align-items: center; text-align: center; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-layout="inline"] { flex-direction: row; align-items: baseline; gap: 8px; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-layout="inline"][data-align="center"] { justify-content: center; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-size][data-layout="inline"] .lsds-stat-label { font-size: var(--sds-size-paragraph-small-caps-xs); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.06em; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l :lang(ja) .lsds-stat[data-size][data-layout="inline"] .lsds-stat-label { text-transform: none; letter-spacing: normal; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat-value { display: flex; align-items: center; gap: 0px; color: var(--sds-accent-primary-blue-accent); font-weight: 600; line-height: 1; font-size: 40px; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-size="sm"] .lsds-stat-value { font-size: 32px; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat-label { display: flex; align-items: center; gap: 4px; color: var(--sds-surfaces-text-secondary); font-weight: 600; font-size: var(--sds-size-paragraph-small-caps-xs); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.06em; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l :lang(ja) .lsds-stat-label { text-transform: none; letter-spacing: normal; }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-stat[data-size="sm"] .lsds-stat-label { font-size: var(--sds-size-paragraph-x-small); line-height: var(--sds-line-height-paragraph-x-small); text-transform: none; letter-spacing: normal; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-hero-title > :where(h1, h2, h3, p) { margin: 0px; font-size: var(--sds-size-display-display-sm); line-height: var(--sds-line-height-display-display-sm); font-weight: 700; color: var(--sds-surfaces-text-primary); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-gradient-text { background-image: linear-gradient(90deg,var(--sds-brand-primary-lighten-1) 0%,var(--sds-accent-product-accent) 100%); background-clip: text; color: transparent; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-gradient-text[data-animate] { background-image: linear-gradient(100deg,transparent 34%,var(--sds-gradient-sheen) 50%,transparent 66%),linear-gradient(90deg,var(--sds-brand-primary-lighten-1) 0%,var(--sds-accent-product-accent) 100%); background-size: 300% 100%, 100% 100%; background-position: 140% center, 0px 0px; animation: 9s ease-in-out 0s infinite normal none running _sds-gradient-sheen_3d65a_1; }
@@ -165,11 +181,13 @@
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-gradient-text[data-animate] { animation: auto ease 0s 1 normal none running none; background-position: 140% center, 0px 0px; }
 }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-image { display: block; width: 100%; border-radius: var(--image-radius, 0); }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-image[data-fill] { position: absolute; inset: 0px; width: 100%; height: 100%; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-root { display: flex; flex-direction: column; gap: 24px; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track { position: relative; display: flex; align-items: stretch; gap: var(--sds-carousel-gap); padding-inline: var(--sds-carousel-gutter); padding-block: 12px; margin-block: -12px; overflow: auto hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--sds-carousel-gutter); scroll-behavior: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track::-webkit-scrollbar { display: none; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track:focus-visible { outline: 2px solid var(--sds-action-primary-hover); outline-offset: -2px; border-radius: var(--mantine-radius-xs); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track[data-fade] { --sds-carousel-fade-start: 0px; --sds-carousel-fade-end: 0px; mask-image: linear-gradient(to right,transparent 0,#000 var(--sds-carousel-fade-start),#000 calc(100% - var(--sds-carousel-fade-end)),transparent 100%); transition: --sds-carousel-fade-start var(--sds-motion-medium) var(--sds-motion-ease-out),--sds-carousel-fade-end var(--sds-motion-medium) var(--sds-motion-ease-out); }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track[data-fade-start] { --sds-carousel-fade-start: var(--sds-carousel-fade); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-track[data-fade-end] { --sds-carousel-fade-end: var(--sds-carousel-fade); }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-slide { flex: 0 0 var(--sds-carousel-slide); max-width: 100%; min-width: 0px; scroll-snap-align: start; display: flex; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-carousel-slide > * { flex: 1 1 0%; min-width: 0px; }
@@ -245,6 +263,7 @@
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-section-title-root[data-align="center"] { flex-direction: column; align-items: center; text-align: center; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-section-title-root[data-actions-align="top"] { align-items: flex-start; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
 .lsds-fragment-lsds-home-05-1-200-enterprises-move-the-needle-with-l .lsds-footer-backdrop > :where(img, video, picture, div, svg) { width: 100%; height: 100%; object-fit: cover; }

@@ -37,6 +37,7 @@
 .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-input:checked + .lsds-chip-label { background-color: var(--sds-surfaces-card-bg-blue); color: var(--sds-surfaces-text-primary); }
 .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-input:checked + .lsds-chip-label::before { display: none; }
 .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-input:focus-visible + .lsds-chip-label { outline: 2px solid var(--sds-brand-primary-lighten-1); outline-offset: 1px; }
+.lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-label[data-dragging], .lsds-fragment-lsds-chip .lsds-chip-wrapper[data-dragging] .lsds-chip-label { background-color: var(--sds-surfaces-card-bg-blue); box-shadow: rgba(45, 45, 45, 0.3) 0px 1px 3px; }
 .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-input:disabled + .lsds-chip-label, .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-label[data-disabled] { color: var(--sds-neutral-07); background-color: transparent; cursor: not-allowed; }
 .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-input:disabled + .lsds-chip-label::before, .lsds-fragment-lsds-chip .lsds-chip-wrapper .lsds-chip-label[data-disabled]::before { opacity: 0.4; }
 @media (hover: hover) {

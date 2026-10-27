@@ -18,6 +18,10 @@
 
 .lsds-fragment-lsds-section-faq .lsds-acc-root { --accordion-transition-duration: 240ms; --accordion-chevron-size: auto; --accordion-radius: 0; }
 
+@keyframes _acc-content-in_3d65a_1 { 
+  0% { transform: translateY(-4px); }
+  100% { transform: none; }
+}
 .lsds-fragment-lsds-section-faq .lsds-card-image > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--sds-motion-slow) var(--sds-motion-ease-out); }
 .lsds-fragment-lsds-section-faq :where(.lsds-card-root[data-align]) :where(h1, h2, h3, h4, h5, h6) { margin: 0px; font: inherit; }
 @media (prefers-reduced-motion: reduce) {
@@ -31,8 +35,13 @@
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::after, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::after, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::before { content: ""; position: absolute; inset-inline: 0px; bottom: 0px; height: 1px; pointer-events: none; }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::after, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::after { background-color: var(--sds-acc-rule); }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::before { background-image: var(--sds-acc-rule-grad); opacity: 0; transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); z-index: 1; }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item[data-active] > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item[data-active] > .lsds-acc-control::before { opacity: 1; }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-autoplay] .lsds-acc-item[data-active] > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-autoplay] .lsds-acc-item[data-active] > .lsds-acc-control::before { height: 2px; transform: scaleX(var(--sds-acc-progress, 0)); transform-origin: left center; transition: none; }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-autoplay]:dir(rtl) .lsds-acc-item[data-active] > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-autoplay]:dir(rtl) .lsds-acc-item[data-active] > .lsds-acc-control::before { transform-origin: right center; }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item-title { position: relative; margin: 0px; font: inherit; }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-control { position: relative; padding-block: var(--sds-acc-pad); padding-inline: 0px; gap: 16px; background-color: transparent; border-radius: 0px; transition: background-color var(--sds-motion-fast) var(--sds-motion-ease); }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-spotlight][data-size="lg"] { --sds-acc-pad: 20px; --sds-acc-chevron: 24px; }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-spotlight] .lsds-acc-item-title, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-spotlight] .lsds-acc-control { transition: opacity var(--sds-motion-medium) var(--sds-motion-ease-out); }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-label { padding-block: 0px; font-size: var(--sds-acc-fz); line-height: var(--sds-acc-lh); font-weight: 600; color: var(--sds-surfaces-text-primary); text-align: start; overflow: visible; text-overflow: clip; transition: color var(--sds-motion-medium) var(--sds-motion-ease-out); }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-chevron { position: relative; width: var(--sds-acc-chevron); min-width: var(--sds-acc-chevron); height: var(--sds-acc-chevron); display: flex; align-items: center; justify-content: center; color: var(--sds-surfaces-text-primary); transition: transform var(--sds-motion-medium) var(--sds-motion-ease-out),color var(--sds-motion-medium) var(--sds-motion-ease-out); }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-chevron > svg { width: 100%; height: 100%; position: relative; z-index: 1; }
@@ -41,9 +50,13 @@
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-control:disabled, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-control[data-disabled] { opacity: 0.5; cursor: not-allowed; }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-panel { color: var(--sds-surfaces-text-secondary); }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-content { display: flex; flex-direction: column; gap: 10px; padding: var(--sds-acc-panel-pad) 0; font-size: 18px; line-height: 24px; }
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item[data-active] .lsds-acc-content { animation: _acc-content-in_3d65a_1 var(--sds-motion-medium) var(--sds-motion-ease-out) 40ms both; }
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-content :where(p) { margin: 0px; }
 @media (prefers-reduced-motion: reduce) {
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-control, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-label, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-chevron, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-chevron::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::before, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::before { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+.lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item[data-active] .lsds-acc-content { animation: auto ease 0s 1 normal none running none; }
 }
 @media (forced-colors: active) {
 .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-item-title::after, .lsds-fragment-lsds-section-faq .lsds-acc-root[data-size] .lsds-acc-item > .lsds-acc-control::after { background-color: canvastext; }
@@ -64,7 +77,11 @@
 @container sds-section (max-width: 767px) {
 .lsds-fragment-lsds-section-faq .lsds-section-root:not([data-spacing="none"], [data-spacing="tight"]) > .lsds-section-inner { padding-block: 40px; }
 }
+.lsds-fragment-lsds-section-faq .lsds-section-root[data-reveal][data-reveal-state] > .lsds-section-inner { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16, 0.8, 0.3, 1), transform 0.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
+.lsds-fragment-lsds-section-faq .lsds-section-root[data-reveal][data-reveal-state="in"] > .lsds-section-inner { opacity: 1; transform: none; }
 .lsds-fragment-lsds-section-faq .lsds-section-inner { display: flex; flex-direction: column; gap: var(--sds-section-gap); padding-block: var(--sds-section-block); padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; }
+.lsds-fragment-lsds-section-faq .lsds-section-root[data-bleed] > .lsds-section-inner { padding-inline: 0px; max-width: none; }
+.lsds-fragment-lsds-section-faq .lsds-section-root[data-bleed] > .lsds-section-inner > .lsds-section-header, .lsds-fragment-lsds-section-faq .lsds-section-root[data-bleed] > .lsds-section-inner > .lsds-section-footer { padding-inline: var(--sds-section-gutter); max-width: calc(var(--sds-section-max) + 2 * var(--sds-section-gutter)); margin-inline: auto; width: 100%; }
 .lsds-fragment-lsds-section-faq .lsds-section-body { min-width: 0px; }
 .lsds-fragment-lsds-section-faq .lsds-section-title-root { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 24px; }
 .lsds-fragment-lsds-section-faq .lsds-section-title-text { display: flex; flex-direction: column; gap: 8px; flex: 1 1 min(100%, 34rem); min-width: 0px; }
@@ -73,6 +90,7 @@
 .lsds-fragment-lsds-section-faq .lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
 .lsds-fragment-lsds-section-faq .lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
 .lsds-fragment-lsds-section-faq .lsds-section-title-description { margin: 0px; font-size: clamp(18px, 0.2857cqi + 16.8858px, 21px); line-height: 1.24; font-weight: 400; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-section-faq .lsds-section-title-root[data-actions-align="top"] { align-items: flex-start; }
 .lsds-fragment-lsds-section-faq .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-section-faq .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
 .lsds-fragment-lsds-section-faq .lsds-footer-backdrop > :where(img, video, picture, div, svg) { width: 100%; height: 100%; object-fit: cover; }

@@ -1,4 +1,6 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo} from 'react';
+
+import {useEditorScheme} from './editorScheme';
 
 import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
 import {renderFragment, wrapFragmentScript} from '../model/fragmentRenderer';
@@ -50,22 +52,7 @@ export function useCurrentTemplate(): PageTemplate | null {
 }
 
 export function useColorScheme(): 'light' | 'dark' {
-	const [scheme, setScheme] = useState<'light' | 'dark'>(() => (typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-
-	useEffect(() => {
-		if (typeof matchMedia !== 'function') {
-			return;
-		}
-
-		const query = matchMedia('(prefers-color-scheme: dark)');
-		const onChange = () => setScheme(query.matches ? 'dark' : 'light');
-
-		query.addEventListener('change', onChange);
-
-		return () => query.removeEventListener('change', onChange);
-	}, []);
-
-	return scheme;
+	return useEditorScheme().effective;
 }
 
 export function useRender(): RenderOutput {

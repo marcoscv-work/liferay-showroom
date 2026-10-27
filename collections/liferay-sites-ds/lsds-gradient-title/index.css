@@ -16,6 +16,10 @@
 	max-width: 100%;
 }
 
+@keyframes _sds-gradient-sheen_3d65a_1 { 
+  0% { background-position: 140% center, 0px 0px; }
+  55%, 100% { background-position: -40% center, 0px 0px; }
+}
 .lsds-fragment-lsds-gradient-title .lsds-card-image > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--sds-motion-slow) var(--sds-motion-ease-out); }
 .lsds-fragment-lsds-gradient-title :where(.lsds-card-root[data-align]) :where(h1, h2, h3, h4, h5, h6) { margin: 0px; font: inherit; }
 @media (prefers-reduced-motion: reduce) {
@@ -23,12 +27,17 @@
 }
 .lsds-fragment-lsds-gradient-title .lsds-hero-title > :where(h1, h2, h3, p) { margin: 0px; font-size: var(--sds-size-display-display-sm); line-height: var(--sds-line-height-display-display-sm); font-weight: 700; color: var(--sds-surfaces-text-primary); }
 .lsds-fragment-lsds-gradient-title .lsds-gradient-text { background-image: linear-gradient(90deg,var(--sds-brand-primary-lighten-1) 0%,var(--sds-accent-product-accent) 100%); background-clip: text; color: transparent; }
+.lsds-fragment-lsds-gradient-title .lsds-gradient-text[data-animate] { background-image: linear-gradient(100deg,transparent 34%,var(--sds-gradient-sheen) 50%,transparent 66%),linear-gradient(90deg,var(--sds-brand-primary-lighten-1) 0%,var(--sds-accent-product-accent) 100%); background-size: 300% 100%, 100% 100%; background-position: 140% center, 0px 0px; animation: 9s ease-in-out 0s infinite normal none running _sds-gradient-sheen_3d65a_1; }
+@media (prefers-reduced-motion: reduce) {
+.lsds-fragment-lsds-gradient-title .lsds-gradient-text[data-animate] { animation: auto ease 0s 1 normal none running none; background-position: 140% center, 0px 0px; }
+}
 .lsds-fragment-lsds-gradient-title .lsds-section-title-root { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 24px; }
 .lsds-fragment-lsds-gradient-title .lsds-section-title-text { display: flex; flex-direction: column; gap: 8px; flex: 1 1 min(100%, 34rem); min-width: 0px; }
 .lsds-fragment-lsds-gradient-title .lsds-section-title-text > * { max-width: 900px; }
 .lsds-fragment-lsds-gradient-title .lsds-section-title-root[data-align="center"] { flex-direction: column; align-items: center; text-align: center; }
 .lsds-fragment-lsds-gradient-title .lsds-section-title-root[data-align="center"] .lsds-section-title-text { flex: 0 1 auto; }
 .lsds-fragment-lsds-gradient-title .lsds-section-title-heading { margin: 0px; font-size: clamp(32px, 0.4762cqi + 30.1428px, 37px); line-height: 1.24; font-weight: 700; color: var(--sds-surfaces-text-primary); }
+.lsds-fragment-lsds-gradient-title .lsds-section-title-root[data-actions-align="top"] { align-items: flex-start; }
 .lsds-fragment-lsds-gradient-title .lsds-content-media-figure:not([data-ratio="auto"]) > :where(img, picture, video, svg, div, span) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lsds-fragment-lsds-gradient-title .lsds-content-media-figure[data-ratio="auto"] > :where(img, picture, video, svg, div, span):not(.lsds-media-stats) { display: block; width: 100%; }
 @container sds-section (max-width: 900px) {

@@ -2,12 +2,50 @@ import {useEffect} from 'react';
 
 import {importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
+
+import type {Selection} from '../store';
 import {loadBuiltinCollections, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes} from '../store/load';
 import {Canvas} from './Canvas';
 import {Icon} from './Icon';
 import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
 import {Toolbar} from './Toolbar';
+
+/**
+ * The URL mirrors the selection, Storybook style:
+ * `?path=/fragment/<collection>/<fragment>` or `?path=/template/<id>`.
+ */
+export function selectionFromURL(search: string): Selection | null {
+	const path = new URLSearchParams(search).get('path');
+
+	if (!path) {
+		return null;
+	}
+
+	const [, kind, ...rest] = path.split('/');
+
+	if (kind === 'fragment' && rest.length >= 2) {
+		return {collectionKey: decodeURIComponent(rest[0]), fragmentKey: decodeURIComponent(rest.slice(1).join('/')), kind: 'fragment'};
+	}
+
+	if (kind === 'template' && rest[0]) {
+		return {id: decodeURIComponent(rest.join('/')), kind: 'template'};
+	}
+
+	return null;
+}
+
+export function urlFromSelection(selection: Selection): string | null {
+	if (selection.kind === 'fragment') {
+		return `/fragment/${encodeURIComponent(selection.collectionKey)}/${encodeURIComponent(selection.fragmentKey)}`;
+	}
+
+	if (selection.kind === 'template') {
+		return `/template/${encodeURIComponent(selection.id)}`;
+	}
+
+	return null;
+}
 
 export function App() {
 	const {dispatch, state} = useStore();
@@ -17,13 +55,45 @@ export function App() {
 
 		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks()]).then(([collections, themes, templates, styleBooks]) => {
 			if (!cancelled) {
-				dispatch({collections, persisted: readPersistedState(), styleBooks, templates, themes, type: 'loaded'});
+				const persisted = readPersistedState();
+				const fromURL = selectionFromURL(window.location.search);
+
+				dispatch({collections, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, styleBooks, templates, themes, type: 'loaded'});
 			}
 		});
 
 		return () => {
 			cancelled = true;
 		};
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (state.loading) {
+			return;
+		}
+
+		const path = urlFromSelection(state.selection);
+		const url = new URL(window.location.href);
+
+		url.search = path ? `?path=${path}` : '';
+
+		if (url.href !== window.location.href) {
+			window.history.pushState(null, '', url);
+		}
+	}, [state.loading, state.selection]);
+
+	useEffect(() => {
+		const onPopState = () => {
+			const selection = selectionFromURL(window.location.search);
+
+			if (selection) {
+				dispatch({selection, type: 'select'});
+			}
+		};
+
+		window.addEventListener('popstate', onPopState);
+
+		return () => window.removeEventListener('popstate', onPopState);
 	}, [dispatch]);
 
 	useEffect(() => {

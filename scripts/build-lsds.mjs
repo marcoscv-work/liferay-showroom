@@ -276,6 +276,9 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 	 */
 	const relax = (selector) => selector.replace(/\[(data-[a-z-]+)(?:[~|^$*]?=[^\]]*)?\]/g, '[$1]');
 
+	/* Attributes that only exist at runtime (`data-open` on a closed menu) are dropped for a last try */
+	const bare = (selector) => selector.replace(/\[data-[a-z-]+(?:[~|^$*]?=[^\]]*)?\]/g, '') || selector;
+
 	const matchesAny = (selector) => {
 		for (const part of selector.split(',')) {
 			const base = stripPseudo(part);
@@ -284,7 +287,7 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 				continue;
 			}
 
-			for (const candidate of [base, relax(base)]) {
+			for (const candidate of [base, relax(base), bare(base)]) {
 				try {
 					if (elements.some((element) => element.matches(candidate))) {
 						return true;
@@ -629,6 +632,7 @@ for (const pageSpec of PAGES) {
 		return content(container)
 			.map((element, index) => ({
 				heading: (element.querySelector('h1, h2, h3')?.textContent ?? element.getAttribute('aria-label') ?? '').trim(),
+				height: Math.round(Math.max(element.getBoundingClientRect().height, ...[...element.children].map((child) => child.getBoundingClientRect().height))),
 				index,
 				tag: element.tagName.toLowerCase(),
 			}));
@@ -661,7 +665,12 @@ for (const pageSpec of PAGES) {
 
 		const name = `${pageSpec.name}: ${block.index + 1}. ${block.tag === 'header' ? 'Header' : block.tag === 'footer' ? 'Footer' : block.heading || 'Section'}`;
 
-		const css = buildCSS(result.css, buildVariantRules(result.samples), `.lsds-fragment-${key}`);
+		let css = buildCSS(result.css, buildVariantRules(result.samples), `.lsds-fragment-${key}`);
+
+		if (block.tag === 'header') {
+			/* The header is position: fixed; its fragment keeps the band's height so it shows on its own and pushes nothing */
+			css += `\n.lsds-fragment-${key} {\n\tmin-height: ${block.height}px;\n\tposition: relative;\n}\n`;
+		}
 
 		usedVariables(css);
 		usedVariables(result.html);

@@ -5,7 +5,8 @@ import {downloadBlob, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
 import {importFile} from './App';
 import {ConfirmButton} from './ConfirmButton';
-import {Icon} from './Icon';
+import {useEditorScheme} from './editorScheme';
+import {Icon, IconButton} from './Icon';
 
 import type {Collection, PageTemplate} from '../model/types';
 
@@ -16,6 +17,7 @@ export function Sidebar() {
 
 	const isCollapsed = (collection: Collection) => collapsed[collection.key] ?? collection.collapsed === true;
 	const fileInput = useRef<HTMLInputElement>(null);
+	const editorScheme = useEditorScheme();
 
 	const normalizedQuery = query.trim().toLowerCase();
 
@@ -134,6 +136,15 @@ export function Sidebar() {
 					Import zip…
 				</button>
 				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books or built themes.</p>
+
+				<div className="storybook-editor-scheme">
+					<span className="text-secondary small">Editor theme</span>
+					<div aria-label="Editor colour scheme" className="btn-group" role="group" title="Colour scheme of this editor only; the preview keeps its theme and style book">
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Light editor" onClick={() => editorScheme.setScheme('light')} pressed={editorScheme.scheme === 'light'} symbol="sun" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Dark editor" onClick={() => editorScheme.setScheme('dark')} pressed={editorScheme.scheme === 'dark'} symbol="moon" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Follow the system" onClick={() => editorScheme.setScheme('auto')} pressed={editorScheme.scheme === 'auto'} symbol="display" />
+					</div>
+				</div>
 			</div>
 		</aside>
 	);

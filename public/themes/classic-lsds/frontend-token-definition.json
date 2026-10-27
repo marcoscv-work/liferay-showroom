@@ -3997,6 +3997,18 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "var(--mantine-color-red-8)",
+							"label": "mantine-color-error",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-error"
+								}
+							],
+							"name": "mantineColorError",
+							"type": "String"
+						},
+						{
 							"defaultValue": "#f8f9fa",
 							"editorType": "ColorPicker",
 							"label": "mantine-color-gray-0",
@@ -4100,6 +4112,57 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "#fa5252",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-red-6",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-red-6"
+								}
+							],
+							"name": "mantineColorRed6",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#e03131",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-red-8",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-red-8"
+								}
+							],
+							"name": "mantineColorRed8",
+							"type": "String"
+						},
+						{
+							"defaultValue": "var(--mantine-color-teal-8)",
+							"label": "mantine-color-success",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-success"
+								}
+							],
+							"name": "mantineColorSuccess",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#099268",
+							"editorType": "ColorPicker",
+							"label": "mantine-color-teal-8",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-color-teal-8"
+								}
+							],
+							"name": "mantineColorTeal8",
+							"type": "String"
+						},
+						{
 							"defaultValue": "var(--mantine-color-dark-0)",
 							"label": "mantine-color-text",
 							"mappings": [
@@ -4158,6 +4221,18 @@
 								}
 							],
 							"name": "mantineFontFamilyHeadings",
+							"type": "String"
+						},
+						{
+							"defaultValue": "ui-monospace, SFMono-Regular, Menlo, monospace",
+							"label": "mantine-font-family-monospace",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "mantine-font-family-monospace"
+								}
+							],
+							"name": "mantineFontFamilyMonospace",
 							"type": "String"
 						},
 						{
@@ -4722,6 +4797,19 @@
 							"type": "String"
 						},
 						{
+							"defaultValue": "rgba(116, 164, 255, 0.6)",
+							"editorType": "ColorPicker",
+							"label": "sds-action-link-disabled-link",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-action-link-disabled-link"
+								}
+							],
+							"name": "sdsActionLinkDisabledLink",
+							"type": "String"
+						},
+						{
 							"defaultValue": "#bbd2ff",
 							"editorType": "ColorPicker",
 							"label": "sds-action-link-hover-link",
@@ -4758,6 +4846,19 @@
 								}
 							],
 							"name": "sdsActionNeutralActive",
+							"type": "String"
+						},
+						{
+							"defaultValue": "#959ca5",
+							"editorType": "ColorPicker",
+							"label": "sds-action-neutral-disabled",
+							"mappings": [
+								{
+									"type": "cssVariable",
+									"value": "sds-action-neutral-disabled"
+								}
+							],
+							"name": "sdsActionNeutralDisabled",
 							"type": "String"
 						},
 						{
