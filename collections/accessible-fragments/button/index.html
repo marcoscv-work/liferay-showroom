@@ -1,0 +1,20 @@
+[#if configuration.type == "action"]
+	<button [#if configuration.accessibleDescription?has_content]aria-describedby="fragment-${fragmentEntryLinkNamespace}-description" [/#if]class="btn btn-${configuration.buttonSize} btn-${configuration.buttonType}" data-lfr-editable-id="action" data-lfr-editable-type="action">
+		Go Somewhere
+	</button>
+
+	[#if configuration.accessibleDescription?has_content]
+		<span class="sr-only" id="fragment-${fragmentEntryLinkNamespace}-description">${htmlUtil.escape(configuration.accessibleDescription)}</span>
+	[/#if]
+
+	[#else]
+		<div class="component-button text-break">
+			<a [#if configuration.accessibleDescription?has_content]aria-describedby="fragment-${fragmentEntryLinkNamespace}-description" [/#if]class="btn btn-${configuration.buttonSize} btn-${configuration.buttonType}" data-lfr-editable-id="link" data-lfr-editable-type="link" href="" id="fragment-${fragmentEntryLinkNamespace}-link">
+				Go Somewhere
+			</a>
+
+			[#if configuration.accessibleDescription?has_content]
+				<span class="sr-only" id="fragment-${fragmentEntryLinkNamespace}-description">${htmlUtil.escape(configuration.accessibleDescription)}</span>
+			[/#if]
+		</div>
+[/#if]

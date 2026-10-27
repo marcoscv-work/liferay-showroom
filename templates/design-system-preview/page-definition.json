@@ -1,0 +1,89 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"fragmentStyle": {"backgroundColor": "brandColor1", "paddingBottom": "8", "paddingTop": "8", "textColor": "whiteColor"},
+					"indexed": true,
+					"layout": {"widthType": "Fluid"},
+					"name": "Hero"
+				},
+				"pageElements": [
+					{
+						"definition": {"indexed": true, "layout": {"widthType": "Fixed"}},
+						"pageElements": [
+							{
+								"definition": {
+									"fragment": {"key": "BASIC_COMPONENT-heading"},
+									"fragmentConfig": {"headingLevel": "h1"},
+									"fragmentFields": [{"id": "element-text", "value": {"text": {"value_i18n": {"en_US": "Every fragment, every theme, every style book"}}}}],
+									"fragmentStyle": {"marginBottom": "3"},
+									"indexed": true
+								},
+								"type": "Fragment"
+							},
+							{
+								"definition": {
+									"fragment": {"key": "BASIC_COMPONENT-paragraph"},
+									"fragmentFields": [{"id": "element-text", "value": {"text": {"value_i18n": {"en_US": "This page template is rendered with the real theme CSS and the current style book. Switch the theme or edit a token and watch it change."}}}}],
+									"fragmentStyle": {"marginBottom": "4", "maxWidth": "720px"},
+									"indexed": true
+								},
+								"type": "Fragment"
+							},
+							{
+								"definition": {
+									"fragment": {"key": "BASIC_COMPONENT-button"},
+									"fragmentConfig": {"buttonSize": "lg", "buttonType": "secondary", "type": "link"},
+									"fragmentFields": [{"id": "link", "value": {"fragmentLink": {"value": {"href": {"value_i18n": {"en_US": "#"}}}}, "text": {"value_i18n": {"en_US": "Explore the fragments"}}}}],
+									"indexed": true
+								},
+								"type": "Fragment"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {"fragmentStyle": {"paddingBottom": "6", "paddingTop": "6"}, "indexed": true, "layout": {"widthType": "Fixed"}, "name": "Cards"},
+				"pageElements": [
+					{
+						"definition": {"gutters": true, "indexed": true, "modulesPerRow": 3, "numberOfColumns": 3, "reverseOrder": false, "verticalAlignment": "top"},
+						"pageElements": [
+							{
+								"definition": {"columnViewports": [{"columnViewportDefinition": {"size": 12}, "id": "tablet"}, {"columnViewportDefinition": {}, "id": "landscapeMobile"}, {"columnViewportDefinition": {}, "id": "portraitMobile"}], "size": 4},
+								"pageElements": [{"definition": {"fragment": {"key": "BASIC_COMPONENT-card"}, "fragmentConfig": {"imageSize": "w-100"}, "fragmentFields": [{"id": "02-title", "value": {"text": {"value_i18n": {"en_US": "Fragments"}}}}, {"id": "03-content", "value": {"html": {"value_i18n": {"en_US": "<p>Rendered through FreeMarker with their configuration as controls.</p>"}}}}], "indexed": true}, "type": "Fragment"}],
+								"type": "Column"
+							},
+							{
+								"definition": {"columnViewports": [{"columnViewportDefinition": {"size": 12}, "id": "tablet"}, {"columnViewportDefinition": {}, "id": "landscapeMobile"}, {"columnViewportDefinition": {}, "id": "portraitMobile"}], "size": 4},
+								"pageElements": [{"definition": {"fragment": {"key": "BASIC_COMPONENT-card"}, "fragmentConfig": {"imageSize": "w-100"}, "fragmentFields": [{"id": "02-title", "value": {"text": {"value_i18n": {"en_US": "Themes"}}}}, {"id": "03-content", "value": {"html": {"value_i18n": {"en_US": "<p>Classic, Prism, Dialect and CMS, loaded from their compiled CSS.</p>"}}}}], "indexed": true}, "type": "Fragment"}],
+								"type": "Column"
+							},
+							{
+								"definition": {"columnViewports": [{"columnViewportDefinition": {"size": 12}, "id": "tablet"}, {"columnViewportDefinition": {}, "id": "landscapeMobile"}, {"columnViewportDefinition": {}, "id": "portraitMobile"}], "size": 4},
+								"pageElements": [{"definition": {"fragment": {"key": "BASIC_COMPONENT-card"}, "fragmentConfig": {"imageSize": "w-100"}, "fragmentFields": [{"id": "02-title", "value": {"text": {"value_i18n": {"en_US": "Style books"}}}}, {"id": "03-content", "value": {"html": {"value_i18n": {"en_US": "<p>Frontend tokens as props: change one and the whole page follows.</p>"}}}}], "indexed": true}, "type": "Fragment"}],
+								"type": "Column"
+							}
+						],
+						"type": "Row"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {"indexed": true, "layout": {"widthType": "Fixed"}, "name": "Accordion"},
+				"pageElements": [
+					{"definition": {"fragment": {"key": "BASIC_COMPONENT-separator"}, "fragmentStyle": {"marginBottom": "4"}, "indexed": true}, "type": "Fragment"},
+					{"definition": {"fragment": {"collectionKey": "accessible-fragments", "key": "accordion"}, "fragmentConfig": {}, "indexed": true}, "type": "Fragment"}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {},
+	"version": 1.1
+}

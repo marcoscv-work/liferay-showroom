@@ -1,0 +1,215 @@
+import {buildTokenCSS} from '../model/tokens';
+
+import type {Theme} from '../model/types';
+
+/**
+ * Builds the `srcdoc` of the preview iframe. The order matches a Liferay
+ * page: theme CSS (Clay + the theme's main.css), the `:root` style book
+ * variables, then fragment CSS, then the page markup and the fragment JS.
+ */
+
+export interface PreviewDocumentOptions {
+	bodyClass?: string;
+	css: string;
+	fragmentCSS: string;
+	html: string;
+	js: string;
+	mode: 'story' | 'template';
+	theme: Theme | null;
+	tokenValues: Record<string, string>;
+}
+
+export const BRIDGE_SCRIPT = `
+window.__storybookReport = function (message) {
+	parent.postMessage({type: 'storybook:warning', message: String(message)}, '*');
+};
+
+window.addEventListener('error', function (event) {
+	window.__storybookReport('JavaScript error: ' + event.message);
+});
+
+window.Liferay = window.Liferay || {
+	Language: {
+		available: {en_US: 'English (United States)'},
+		get: function (key) { return key; },
+		format: function (key) { return key; }
+	},
+	ThemeDisplay: {
+		getBCP47LanguageId: function () { return 'en-US'; },
+		getLanguageId: function () { return 'en_US'; },
+		getPathThemeImages: function () { return document.documentElement.getAttribute('data-images-path') || ''; },
+		getPathThemeRoot: function () { return ''; },
+		getPortalURL: function () { return ''; },
+		getScopeGroupId: function () { return '0'; },
+		getUserId: function () { return '0'; },
+		isSignedIn: function () { return false; }
+	},
+	Util: {
+		ns: function (namespace, object) { return object; },
+		escapeHTML: function (text) { return String(text).replace(/[&<>"']/g, function (c) { return ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'})[c]; }); },
+		getCheckedCheckboxes: function () { return ''; }
+	},
+	on: function () {},
+	once: function () {},
+	fire: function () {},
+	detach: function () {},
+	component: function () {},
+	componentReady: function () { return Promise.resolve(); },
+	Loader: {require: function () {}},
+	SPA: null,
+	authToken: 'storybook'
+};
+
+document.addEventListener('click', function (event) {
+	var target = event.target;
+
+	if (target && target.closest) {
+		var link = target.closest('a');
+
+		if (link && (link.getAttribute('href') || '').indexOf('#') !== 0) {
+			if (!link.getAttribute('target')) {
+				event.preventDefault();
+			}
+		}
+	}
+});
+
+(function () {
+	var mode = document.documentElement.getAttribute('data-storybook-mode');
+
+	if (mode !== 'template') {
+		return;
+	}
+
+	var selected = null;
+
+	function setSelected(id) {
+		if (selected) {
+			selected.classList.remove('storybook-selected');
+		}
+
+		selected = id ? document.querySelector('[data-item-id="' + id + '"]') : null;
+
+		if (selected) {
+			selected.classList.add('storybook-selected');
+		}
+	}
+
+	document.addEventListener('click', function (event) {
+		var item = event.target && event.target.closest ? event.target.closest('[data-item-id]') : null;
+
+		if (!item) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		parent.postMessage({type: 'storybook:select', id: item.getAttribute('data-item-id')}, '*');
+	}, true);
+
+	document.addEventListener('mouseover', function (event) {
+		var item = event.target && event.target.closest ? event.target.closest('[data-item-id]') : null;
+
+		document.querySelectorAll('.storybook-hover').forEach(function (element) {
+			element.classList.remove('storybook-hover');
+		});
+
+		if (item) {
+			item.classList.add('storybook-hover');
+		}
+	});
+
+	window.addEventListener('message', function (event) {
+		var data = event.data || {};
+
+		if (data.type === 'storybook:select') {
+			setSelected(data.id);
+
+			if (selected && data.scroll) {
+				selected.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+			}
+		}
+	});
+
+	parent.postMessage({type: 'storybook:ready'}, '*');
+})();
+`;
+
+export const PREVIEW_CSS = `
+.storybook-placeholder {
+	align-items: center;
+	background: repeating-linear-gradient(45deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 8px, rgba(0,0,0,0.08) 8px, rgba(0,0,0,0.08) 16px);
+	border: 1px dashed rgba(0,0,0,0.3);
+	color: rgba(0,0,0,0.6);
+	display: flex;
+	font-family: system-ui, sans-serif;
+	font-size: 13px;
+	justify-content: center;
+	min-height: 64px;
+	padding: 16px;
+}
+.lfr-drop-zone--empty {
+	border: 1px dashed rgba(0,0,0,0.3);
+	color: rgba(0,0,0,0.5);
+	font-family: system-ui, sans-serif;
+	font-size: 12px;
+	min-height: 48px;
+	padding: 12px;
+	text-align: center;
+}
+[data-storybook-mode="template"] [data-item-id] {
+	cursor: pointer;
+	position: relative;
+}
+[data-storybook-mode="template"] [data-item-id].storybook-hover {
+	outline: 1px dashed rgba(11, 95, 255, 0.6);
+	outline-offset: -1px;
+}
+[data-storybook-mode="template"] [data-item-id].storybook-selected {
+	outline: 2px solid #0b5fff;
+	outline-offset: -2px;
+}
+[data-storybook-mode="template"] .lfr-layout-structure-item-column:empty,
+[data-storybook-mode="template"] .lfr-layout-structure-item-container:empty {
+	min-height: 48px;
+	outline: 1px dashed rgba(0,0,0,0.2);
+	outline-offset: -1px;
+}
+[data-storybook-mode="template"] .lfr-layout-structure-item-column:empty::after,
+[data-storybook-mode="template"] .lfr-layout-structure-item-container:empty::after {
+	color: rgba(0,0,0,0.4);
+	content: 'Empty: select it and add a fragment';
+	display: block;
+	font-family: system-ui, sans-serif;
+	font-size: 12px;
+	padding: 14px;
+	text-align: center;
+}
+`;
+
+export function buildPreviewDocument(options: PreviewDocumentOptions): string {
+	const {bodyClass = '', css, fragmentCSS, html, js, mode, theme, tokenValues} = options;
+
+	const links = (theme?.css ?? []).map((href) => `<link rel="stylesheet" href="${href}">`).join('\n');
+
+	const tokenCSS = buildTokenCSS(theme, tokenValues);
+
+	return `<!doctype html>
+<html lang="en" data-storybook-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+${links}
+<style id="storybook-tokens">${tokenCSS}</style>
+<style id="storybook-fragment-css">${fragmentCSS}</style>
+<style id="storybook-item-css">${css}</style>
+<style id="storybook-preview-css">${PREVIEW_CSS}</style>
+<script>${BRIDGE_SCRIPT}</script>
+</head>
+<body class="${bodyClass}">
+${html}
+<script>${js}</script>
+</body>
+</html>`;
+}

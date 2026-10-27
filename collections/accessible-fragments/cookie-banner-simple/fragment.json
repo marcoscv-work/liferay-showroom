@@ -1,0 +1,9 @@
+{
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"htmlPath": "index.html",
+	"jsPath": "index.js",
+	"name": "Cookie Banner",
+	"thumbnailPath": "thumbnail.png",
+	"type": "section"
+}

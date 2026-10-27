@@ -1,0 +1,11 @@
+{
+	"cacheable": true,
+	"configurationPath": "configuration.json",
+	"cssPath": "index.css",
+	"htmlPath": "index.html",
+	"icon": "dropdown",
+	"jsPath": "index.js",
+	"name": "Accordion",
+	"thumbnailPath": "thumbnail.png",
+	"type": "component"
+}

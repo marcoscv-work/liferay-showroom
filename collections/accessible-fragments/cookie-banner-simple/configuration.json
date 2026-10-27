@@ -1,0 +1,44 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "normal",
+					"label": "fixed-style",
+					"name": "fixedStyle",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "none",
+								"value": ""
+							},
+							{
+								"label": "top",
+								"value": "banner-fixed-top"
+							},
+							{
+								"label": "bottom",
+								"value": "banner-fixed-bottom"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "Cookie consent",
+					"label": "aria-label",
+					"localizable": true,
+					"name": "ariaLabel",
+					"type": "text"
+				}
+			],
+			"label": "accessibility"
+		}
+	]
+}

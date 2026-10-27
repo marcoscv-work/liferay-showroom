@@ -1,0 +1,654 @@
+/*
+ * Layout for the storybook shell. Visual language comes from Clay's cadmin
+ * stylesheet (the Liferay admin look): buttons, forms, tables, navs, labels
+ * and alerts are Clay components. This file only lays them out.
+ */
+
+:root {
+	--sb-sidebar-width: 280px;
+	--sb-panel-height: 320px;
+}
+
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+}
+
+/*
+ * Clay's cadmin stylesheet bumps its selectors with `html:not(#__):not(#___)`
+ * so that it beats any theme. Every rule below carries the same prefix to win
+ * ties, and reads Clay's own tokens so the shell follows Clay's light and dark
+ * schemes.
+ */
+
+.storybook {
+	--sb-border: var(--cadmin-gray-300, #e7e7ed);
+	--sb-bg: var(--cadmin-white, #fff);
+	--sb-muted-bg: var(--cadmin-gray-100, #f1f2f5);
+	--sb-canvas-bg: var(--cadmin-gray-200, #e7e7ed);
+	--sb-text: var(--cadmin-gray-900, #272833);
+	--sb-gray-600: var(--cadmin-gray-600, #6b6c7e);
+	--sb-primary: var(--cadmin-primary, #0b5fff);
+	--sb-primary-l3: var(--cadmin-primary-l3, #f0f5ff);
+	--sb-danger: var(--cadmin-danger, #da1414);
+	--sb-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.06));
+}
+
+html:not(#__):not(#___) .storybook {
+	background: var(--sb-bg);
+	color: var(--sb-text);
+	display: grid;
+	grid-template-columns: var(--sb-sidebar-width) 1fr;
+	height: 100%;
+	min-height: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook--loading {
+	align-items: center;
+	color: var(--sb-gray-600);
+	display: flex;
+	grid-template-columns: 1fr;
+	justify-content: center;
+}
+
+html:not(#__):not(#___) .storybook .lexicon-icon {
+	fill: currentColor;
+	height: 1em;
+	width: 1em;
+}
+
+html:not(#__):not(#___) .storybook .btn-monospaced {
+	height: 2rem;
+	width: 2rem;
+}
+
+html:not(#__):not(#___) .storybook .btn-group .btn-monospaced.active {
+	background-color: var(--sb-primary-l3);
+	border-color: var(--sb-primary);
+	color: var(--sb-primary);
+}
+
+html:not(#__):not(#___) .storybook .storybook-armed {
+	background-color: var(--sb-danger) !important;
+	border-color: var(--sb-danger) !important;
+	color: #fff !important;
+}
+
+html:not(#__):not(#___) .storybook code {
+	font-size: 0.8125rem;
+}
+
+/* Sidebar ----------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-sidebar {
+	background: var(--sb-muted-bg);
+	border-right: 1px solid var(--sb-border);
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-sidebar__header {
+	padding: 1rem 1rem 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-brand {
+	align-items: center;
+	display: flex;
+	gap: 0.625rem;
+	margin-bottom: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-brand__logo {
+	align-items: center;
+	background: var(--sb-primary);
+	border-radius: 0.5rem;
+	color: var(--cadmin-white, #fff);
+	display: inline-flex;
+	flex: 0 0 auto;
+	font-size: 1.125rem;
+	height: 2.25rem;
+	justify-content: center;
+	width: 2.25rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-brand__title {
+	font-weight: 600;
+}
+
+html:not(#__):not(#___) .storybook .storybook-brand__subtitle {
+	font-size: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-sidebar__tree {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+	padding: 0 0.5rem 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-section__title {
+	align-items: center;
+	color: var(--sb-gray-600);
+	display: flex;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	justify-content: space-between;
+	letter-spacing: 0.08em;
+	padding: 0.75rem 0.5rem 0.25rem;
+	text-transform: uppercase;
+}
+
+html:not(#__):not(#___) .storybook .storybook-section__title .btn {
+	font-size: 0.75rem;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+html:not(#__):not(#___) .storybook .storybook-nav-row {
+	align-items: center;
+	display: flex;
+}
+
+html:not(#__):not(#___) .storybook .storybook-nav-row .nav-link,
+html:not(#__):not(#___) .storybook .storybook-nav-row .storybook-collection__toggle {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-nav-row__action {
+	flex: 0 0 auto;
+	opacity: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-nav-row:hover .storybook-nav-row__action,
+html:not(#__):not(#___) .storybook .storybook-nav-row__action:focus-visible,
+html:not(#__):not(#___) .storybook .storybook-nav-row__action.storybook-armed {
+	opacity: 1;
+}
+
+html:not(#__):not(#___) .storybook .storybook-collection__toggle {
+	align-items: center;
+	border-radius: 0.25rem;
+	display: flex;
+	font-weight: 600;
+	padding: 0.375rem 0.5rem;
+	text-align: left;
+}
+
+html:not(#__):not(#___) .storybook .storybook-collection__toggle:hover {
+	background: var(--sb-hover);
+}
+
+html:not(#__):not(#___) .storybook .storybook-collection__name {
+	flex: 1 1 auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-collection__items {
+	padding-left: 1rem;
+}
+
+html:not(#__):not(#___) .storybook .nav-stacked .nav-link {
+	align-items: center;
+	border-radius: 0.25rem;
+	color: var(--sb-text);
+	display: flex;
+	padding: 0.375rem 0.5rem;
+	text-align: left;
+	width: 100%;
+}
+
+html:not(#__):not(#___) .storybook .nav-stacked .nav-link:hover {
+	background: var(--sb-hover);
+}
+
+html:not(#__):not(#___) .storybook .nav-stacked .nav-link.active {
+	background: var(--sb-primary);
+	color: var(--cadmin-white, #fff);
+}
+
+html:not(#__):not(#___) .storybook .storybook-thumb {
+	background: var(--sb-bg);
+	border: 1px solid var(--sb-border);
+	border-radius: 2px;
+	flex: 0 0 auto;
+	height: 1.125rem;
+	object-fit: cover;
+	width: 1.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-sidebar__footer {
+	border-top: 1px solid var(--sb-border);
+	padding: 0.75rem 1rem;
+}
+
+/* Main --------------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-main {
+	display: grid;
+	grid-template-rows: auto 1fr var(--sb-panel-height);
+	min-height: 0;
+	min-width: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar {
+	align-items: center;
+	border-bottom: 1px solid var(--sb-border);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	min-height: 3.5rem;
+	padding: 0.5rem 1rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar__title {
+	flex: 1 1 10rem;
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0;
+	min-width: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar__group {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar__label {
+	align-items: center;
+	display: flex;
+	gap: 0.375rem;
+	margin: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar__label select {
+	max-width: 11rem;
+	width: auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-toolbar__actions {
+	margin-left: auto;
+}
+
+/* Canvas ------------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-canvas {
+	background: var(--sb-canvas-bg);
+	min-height: 0;
+	overflow: auto;
+	padding: 1rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-canvas__frame-wrapper {
+	background: #fff;
+	color-scheme: light;
+	border: 1px solid var(--sb-border);
+	border-radius: 0.25rem;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	transition: max-width 0.2s;
+}
+
+html:not(#__):not(#___) .storybook .storybook-canvas__frame {
+	background: #fff;
+	border: 0;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+/* Panel -------------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-panel {
+	border-top: 1px solid var(--sb-border);
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	position: relative;
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__resizer {
+	cursor: row-resize;
+	height: 6px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -3px;
+	z-index: 2;
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__resizer:hover,
+html:not(#__):not(#___) .storybook .storybook-panel__resizer:active {
+	background: var(--sb-primary);
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__tabs {
+	border-bottom: 1px solid var(--sb-border);
+	flex: 0 0 auto;
+	padding: 0 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link {
+	align-items: center;
+	display: flex;
+	padding: 0.625rem 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-panel__content {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+	padding: 0.75rem 1rem;
+}
+
+html:not(#__):not(#___) .storybook .sheet-title {
+	font-size: 1rem;
+	margin: 0 0 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .sheet-subtitle {
+	margin: 0.75rem 0 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-fieldset {
+	border: 0;
+	margin: 0 0 0.75rem;
+	padding: 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-fieldset legend {
+	float: none;
+	width: auto;
+}
+
+/* Tables and controls ------------------------------------------------------ */
+
+html:not(#__):not(#___) .storybook .storybook-table {
+	margin-bottom: 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-table th,
+html:not(#__):not(#___) .storybook .storybook-table td {
+	vertical-align: top;
+}
+
+html:not(#__):not(#___) .storybook .storybook-table__name {
+	font-weight: 600;
+	width: 28%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-table__name code {
+	display: block;
+}
+
+html:not(#__):not(#___) .storybook .storybook-table__row--changed .storybook-table__name code {
+	color: var(--sb-primary);
+}
+
+html:not(#__):not(#___) .storybook .storybook-table td .form-control,
+html:not(#__):not(#___) .storybook .storybook-table td textarea,
+html:not(#__):not(#___) .storybook .storybook-table td .storybook-color {
+	max-width: 28rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-color {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-color .form-control {
+	flex: 1 1 8rem;
+	width: auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-color__input {
+	background: none;
+	border: 1px solid var(--sb-border);
+	border-radius: 0.25rem;
+	flex: 0 0 auto;
+	height: 2rem;
+	padding: 1px;
+	width: 2.25rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-color__text {
+	flex: 1 1 7rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-swatch {
+	border: 1px solid var(--sb-border);
+	border-radius: 0.25rem;
+	display: inline-block;
+	flex: 0 0 auto;
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	max-width: 28rem;
+}
+
+html:not(#__):not(#___) .storybook .toggle-switch {
+	margin: 0;
+}
+
+/* Style book --------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-stylebook__header {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: space-between;
+	margin-bottom: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-stylebook__name {
+	width: 14rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-stylebook__header .input-group {
+	width: 14rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-stylebook__header select {
+	width: auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-stylebook__set-title {
+	color: var(--sb-gray-600);
+	font-size: 0.75rem;
+	font-weight: 600;
+	margin: 0.75rem 0 0.25rem;
+}
+
+/* Layout editor ------------------------------------------------------------ */
+
+html:not(#__):not(#___) .storybook .storybook-layout {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: minmax(15rem, 2fr) minmax(0, 3fr);
+	height: 100%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-layout__tree {
+	border-right: 1px solid var(--sb-border);
+	min-width: 0;
+	overflow: auto;
+	padding-right: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-layout__toolbar {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-layout__actions {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-input-group-auto {
+	width: auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-input-group-auto select {
+	max-width: 14rem;
+	min-width: 5.5rem;
+	padding-right: 1.75rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-layout__properties {
+	min-width: 0;
+	overflow: auto;
+}
+
+html:not(#__):not(#___) .storybook .storybook-tree__node {
+	gap: 0.25rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-tree__type {
+	background: var(--sb-bg);
+	border: 1px solid var(--sb-border);
+	border-radius: 0.25rem;
+	color: var(--sb-gray-600);
+	flex: 0 0 auto;
+	font-size: 0.625rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	margin-right: 0.375rem;
+	padding: 0 0.3125rem;
+	text-transform: uppercase;
+}
+
+html:not(#__):not(#___) .storybook .nav-link.active .storybook-tree__type {
+	background: transparent;
+	border-color: rgba(255, 255, 255, 0.6);
+	color: var(--cadmin-white, #fff);
+}
+
+html:not(#__):not(#___) .storybook .storybook-grid {
+	display: grid;
+	gap: 0 0.75rem;
+	grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+}
+
+html:not(#__):not(#___) .storybook .storybook-grid--4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+html:not(#__):not(#___) .storybook .storybook-field-label {
+	color: var(--sb-gray-600);
+	font-size: 0.75rem;
+	font-weight: 600;
+	margin-bottom: 0.125rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-group-title {
+	color: var(--sb-gray-600);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	margin: 0.75rem 0 0.5rem;
+	text-transform: uppercase;
+}
+
+html:not(#__):not(#___) .storybook .storybook-details {
+	border-top: 1px solid var(--sb-border);
+	margin-top: 0.75rem;
+	padding-top: 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-details__summary {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	font-weight: 600;
+	list-style: none;
+	padding: 0.25rem 0;
+}
+
+html:not(#__):not(#___) .storybook .storybook-details__summary::-webkit-details-marker {
+	display: none;
+}
+
+html:not(#__):not(#___) .storybook .storybook-details[open] .storybook-details__chevron {
+	transform: rotate(90deg);
+}
+
+html:not(#__):not(#___) .storybook .storybook-details__body {
+	padding-top: 0.5rem;
+}
+
+html:not(#__):not(#___) .storybook .storybook-code-input {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.75rem;
+}
+
+/* Code --------------------------------------------------------------------- */
+
+html:not(#__):not(#___) .storybook .storybook-code {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+html:not(#__):not(#___) .storybook .storybook-code__content {
+	background: var(--sb-muted-bg);
+	border-radius: 0.25rem;
+	flex: 1 1 auto;
+	font-size: 0.75rem;
+	margin: 0.625rem 0 0;
+	overflow: auto;
+	padding: 0.625rem 0.75rem;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+html:not(#__):not(#___) .storybook .storybook-warning {
+	white-space: pre-wrap;
+}
+
+@media (max-width: 1100px) {
+html:not(#__):not(#___) .storybook .storybook-layout {
+		grid-template-columns: 1fr;
+	}
+
+html:not(#__):not(#___) .storybook .storybook-layout__tree {
+		border-bottom: 1px solid var(--sb-border);
+		border-right: 0;
+		padding-bottom: 0.625rem;
+		padding-right: 0;
+	}
+
+html:not(#__):not(#___) .storybook .storybook-grid--4 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 900px) {
+html:not(#__):not(#___) .storybook {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
+	}
+
+html:not(#__):not(#___) .storybook .storybook-sidebar {
+		border-bottom: 1px solid var(--sb-border);
+		border-right: 0;
+		max-height: 40vh;
+	}
+}
