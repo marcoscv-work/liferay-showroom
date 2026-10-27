@@ -87,7 +87,7 @@ export function App() {
 					</span>
 					<div className="storybook-loading__title">Liferay Storybook</div>
 					<div className="storybook-loading__subtitle text-secondary">Fragments · Templates · Style books</div>
-					<span aria-hidden="true" className="loading-animation loading-animation-md storybook-loading__spinner" />
+					<span aria-hidden="true" className="storybook-loading__spinner" />
 					<div className="storybook-loading__text text-secondary">Loading themes, fragment collections and style books…</div>
 				</div>
 			</div>

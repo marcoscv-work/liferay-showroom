@@ -63,6 +63,10 @@ export function StyleBookPanel() {
 				</div>
 			</div>
 
+			<p className="text-secondary small mb-3">
+				The style book is page-level, as in Liferay: the values below apply to every fragment and page template rendered with the <strong>{theme.name}</strong> theme, not only to the one selected. Pick or create a style book in the toolbar.
+			</p>
+
 			{categories.map((currentCategory) => (
 				<section className="storybook-stylebook__category" key={currentCategory.name}>
 					<h3 className="sheet-subtitle">{humanize(currentCategory.label)}</h3>
