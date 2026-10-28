@@ -254,8 +254,8 @@
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-wash, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-map-network { display: none; }
 }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-glass-light { display: none; filter: saturate(1.3) brightness(0.93); }
-.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :where([data-mantine-color-scheme="light"]) .lsds-glass-dark { display: none; }
-.lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :where([data-mantine-color-scheme="light"]) .lsds-glass-light { display: revert; }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-glass-dark { display: none; }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .lsds-glass-light { display: revert; }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform .m_d08caa0 :where(h1, h2, h3, h4, h5, h6) { margin-bottom: var(--mantine-spacing-xs); text-wrap: var(--mantine-heading-text-wrap); font-family: var(--mantine-font-family-headings); }
 .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h1, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h2, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h3, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h4, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h5, .lsds-fragment-lsds-home-08-everything-you-need-in-one-platform :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
 

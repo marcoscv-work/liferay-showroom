@@ -213,6 +213,39 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 	const hasOnlyInline = (element) => [...element.children].every((child) => INLINE.has(child.tagName) && hasOnlyInline(child));
 	const hasText = (element) => element.textContent.trim().length > 0;
 
+	/*
+	 * A link editable replaces the anchor's whole content with the edited
+	 * text, in Liferay as here. So an anchor is a link editable only when it
+	 * holds a single run of text (a button, a plain link); a tile or a card
+	 * with several texts keeps its markup and exposes those texts instead.
+	 */
+	const FORMATTING = new Set(['STRONG', 'EM', 'B', 'I', 'U', 'SMALL', 'SUP', 'SUB', 'CODE', 'BR']);
+
+	const textRuns = (element) => {
+		const runs = new Set();
+
+		for (const node of [element, ...element.querySelectorAll('*')]) {
+			const ownText = [...node.childNodes].some((child) => child.nodeType === 3 && child.textContent.trim());
+
+			if (!ownText) {
+				continue;
+			}
+
+			let run = node;
+
+			while (run !== element && FORMATTING.has(run.tagName)) {
+				run = run.parentElement;
+			}
+
+			runs.add(run);
+		}
+
+		return runs.size;
+	};
+
+	/* An element with neither text nor an icon is structure (a 3D face, a divider): editing the link's text would destroy it */
+	const hasStructure = (element) => [...element.querySelectorAll('*')].some((node) => node.tagName !== 'SVG' && !node.closest('svg') && !node.textContent.trim() && !node.querySelector('svg'));
+
 	const candidates = [];
 
 	for (const element of [clone, ...clone.querySelectorAll('*')]) {
@@ -223,7 +256,7 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 			candidates.push({element, type: 'image'});
 		}
 		else if (tag === 'A') {
-			if (![...element.querySelectorAll('*')].some((descendant) => BLOCK_IN_LINK.has(descendant.tagName)) && hasText(element)) {
+			if (![...element.querySelectorAll('*')].some((descendant) => BLOCK_IN_LINK.has(descendant.tagName)) && hasText(element) && textRuns(element) <= 1 && !hasStructure(element)) {
 				candidates.push({element, type: 'link'});
 			}
 		}
@@ -365,6 +398,15 @@ const EXTRACT = ({bindings, index, rootSelector, scope, selectorsToLift, storybo
 	const scopePart = (part) => {
 		if (!scope) {
 			return part;
+		}
+
+		/* The DS keys its light and dark rules on `data-mantine-color-scheme` on <html>; the page marks its scheme with Liferay's `data-color-scheme` */
+		const scheme = /^(?::where\()?\[data-mantine-color-scheme(?:="(light|dark)")?\]\)?\s+(.+)$/.exec(part);
+
+		if (scheme) {
+			const head = scheme[1] === 'dark' ? 'html[data-color-scheme="dark"]' : scheme[1] === 'light' ? 'html:not([data-color-scheme="dark"])' : 'html';
+
+			return `${head} ${scope} ${scheme[2]}`;
 		}
 
 		/* A document-level head (`body:has(…)`, `html[...]`) stays in front of the scope */
@@ -854,7 +896,7 @@ for (const styleBook of STYLE_BOOKS) {
 		values.fontFamilyBase = {cssVariableMapping: 'font-family-base', value: '"Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'};
 	}
 
-	writeFileSync(join(dir, 'style-book.json'), JSON.stringify({frontendTokensValuesPath: 'frontend-tokens-values.json', name: styleBook.name, themeId: `${THEME.key}_WAR_${THEME.key}theme`}, null, '\t') + '\n');
+	writeFileSync(join(dir, 'style-book.json'), JSON.stringify({colorScheme: styleBook.scheme, frontendTokensValuesPath: 'frontend-tokens-values.json', name: styleBook.name, themeId: `${THEME.key}_WAR_${THEME.key}theme`}, null, '\t') + '\n');
 	writeFileSync(join(dir, 'frontend-tokens-values.json'), JSON.stringify(values, null, '\t') + '\n');
 
 	console.log(`${styleBook.name}: ${Object.keys(values).length} token values`);

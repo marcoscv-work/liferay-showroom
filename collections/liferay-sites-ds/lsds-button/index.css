@@ -55,8 +55,8 @@
 .lsds-fragment-lsds-button .m_77c9d27d:where([data-with-left-section]) { padding-inline-start: calc(var(--button-padding-x) / 1.5); }
 .lsds-fragment-lsds-button .m_77c9d27d:where([data-with-right-section]) { padding-inline-end: calc(var(--button-padding-x) / 1.5); }
 .lsds-fragment-lsds-button .m_77c9d27d::before { content: ""; pointer-events: none; position: absolute; inset: calc(-.0625rem * var(--mantine-scale)); border-radius: var(--button-radius, var(--mantine-radius-default)); transform: translateY(-100%); opacity: 0; filter: blur(12px); transition: transform 0.15s, opacity 0.1s; }
-.lsds-fragment-lsds-button :where([data-mantine-color-scheme="light"]) .m_77c9d27d::before { background-color: rgba(255, 255, 255, 0.15); }
-.lsds-fragment-lsds-button :where([data-mantine-color-scheme="dark"]) .m_77c9d27d::before { background-color: rgba(0, 0, 0, 0.15); }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-button .m_77c9d27d::before { background-color: rgba(255, 255, 255, 0.15); }
+html[data-color-scheme="dark"] .lsds-fragment-lsds-button .m_77c9d27d::before { background-color: rgba(0, 0, 0, 0.15); }
 @media (hover: hover) {
 .lsds-fragment-lsds-button .m_77c9d27d:hover:where(:not([data-loading], :disabled, [data-disabled])) { background-color: var(--button-hover, var(--mantine-primary-color-filled-hover)); color: var(--button-hover-color, var(--button-color)); }
 }

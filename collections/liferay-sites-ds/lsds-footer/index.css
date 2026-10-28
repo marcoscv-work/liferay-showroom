@@ -86,14 +86,14 @@
 .lsds-fragment-lsds-footer .lsds-footer-links { display: flex; flex-direction: column; gap: 16px; margin: 0px; padding: 0px; list-style: none; }
 .lsds-fragment-lsds-footer .lsds-footer-link-item { display: flex; }
 .lsds-fragment-lsds-footer .lsds-footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 80px; padding-block: 3px; font-size: 16px; line-height: 24px; }
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-base { background-color: var(--sds-surfaces-page-bg-base-default); color: var(--sds-surfaces-text-primary); box-shadow: rgba(111, 160, 255, 0.8) 0px 1px inset; }
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-base::after { display: none; }
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-base::before { background-image: radial-gradient(60% 90% at 50% 33%, rgba(251, 252, 254, 0.1), rgba(112, 162, 255, 0.1) 80%); }
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-base a[data-variant] { color: var(--sds-surfaces-text-primary); }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-base { background-color: var(--sds-surfaces-page-bg-base-default); color: var(--sds-surfaces-text-primary); box-shadow: rgba(111, 160, 255, 0.8) 0px 1px inset; }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-base::after { display: none; }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-base::before { background-image: radial-gradient(60% 90% at 50% 33%, rgba(251, 252, 254, 0.1), rgba(112, 162, 255, 0.1) 80%); }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-base a[data-variant] { color: var(--sds-surfaces-text-primary); }
 @media (hover: hover) {
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-base a[data-variant]:hover { color: var(--sds-action-link-hover-link); }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-base a[data-variant]:hover { color: var(--sds-action-link-hover-link); }
 }
-.lsds-fragment-lsds-footer :where([data-mantine-color-scheme="light"]) .lsds-footer-column-title { color: var(--sds-surfaces-text-secondary); }
+html:not([data-color-scheme="dark"]) .lsds-fragment-lsds-footer .lsds-footer-column-title { color: var(--sds-surfaces-text-secondary); }
 @media (forced-colors: active) {
 .lsds-fragment-lsds-footer .lsds-footer-base::before, .lsds-fragment-lsds-footer .lsds-footer-backdrop { display: none; }
 }
