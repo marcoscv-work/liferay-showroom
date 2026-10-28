@@ -150,6 +150,7 @@ function FragmentControls() {
 			<h3 className="sheet-subtitle mt-4">Editables</h3>
 			<EditableControls
 				editables={output.editables}
+				focused={state.focusedEditable}
 				onChange={(id, value) => {
 					const editables = {...args.editables};
 

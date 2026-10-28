@@ -1184,3 +1184,22 @@ html:not(#__):not(#___) .storybook .storybook-release__subtitle {
 html:not(#__):not(#___) .storybook .storybook-release__table {
 	font-size: 0.8125rem;
 }
+
+/* A control row the preview pointed at ------------------------------------ */
+
+html:not(#__):not(#___) .storybook .storybook-args .storybook-args__row--highlight > th,
+html:not(#__):not(#___) .storybook .storybook-args .storybook-args__row--highlight > td {
+	animation: storybook-row-flash 1.8s ease-out;
+	box-shadow: inset 3px 0 0 var(--sb-primary);
+}
+
+@keyframes storybook-row-flash {
+	0%,
+	40% {
+		background-color: var(--sb-primary-l3);
+	}
+
+	100% {
+		background-color: transparent;
+	}
+}

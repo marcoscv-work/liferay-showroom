@@ -124,6 +124,9 @@ export function App() {
 			if (data.type === 'storybook:warning') {
 				dispatch({message: String(data.message), type: 'runtimeWarning'});
 			}
+			else if (data.type === 'storybook:editable' && typeof data.id === 'string') {
+				dispatch({id: data.id, type: 'focusEditable'});
+			}
 			else if (data.type === 'storybook:select') {
 				dispatch({id: data.id ?? null, type: 'selectItem'});
 				dispatch({tab: 'layout', type: 'setPanelTab'});

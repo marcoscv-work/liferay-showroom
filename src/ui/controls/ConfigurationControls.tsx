@@ -98,9 +98,9 @@ export function ArgsTable({children, nameHeading = 'Name', valueHeading = 'Contr
 	);
 }
 
-export function ArgRow({children, defaultValue, description, name, tag}: {children: ReactNode; defaultValue?: string; description?: string; name: string; tag?: string}) {
+export function ArgRow({children, defaultValue, description, highlighted = false, name, rowRef, tag}: {children: ReactNode; defaultValue?: string; description?: string; highlighted?: boolean; name: string; rowRef?: (element: HTMLTableRowElement | null) => void; tag?: string}) {
 	return (
-		<tr>
+		<tr className={highlighted ? 'storybook-args__row--highlight' : undefined} ref={rowRef}>
 			<th className="storybook-args__name" scope="row">
 				<span className="storybook-args__id">{name}</span>
 				{tag && <span className="label label-secondary ml-2 align-middle">{tag}</span>}

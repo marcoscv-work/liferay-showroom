@@ -1,3 +1,5 @@
+import {useEffect, useRef, useState} from 'react';
+
 import {Toggle} from '../Icon';
 import {ArgRow, ArgsTable} from './ConfigurationControls';
 
@@ -5,6 +7,8 @@ import type {EditableInfo, EditableValue} from '../../model/fragmentRenderer';
 
 export interface EditableControlsProps {
 	editables: EditableInfo[];
+	/** The editable clicked in the preview: its row scrolls into view and lights up. */
+	focused?: {id: string; nonce: number} | null;
 	onChange: (id: string, value: EditableValue | null) => void;
 	values: Record<string, EditableValue>;
 }
@@ -14,7 +18,29 @@ export interface EditableControlsProps {
  * one to one to the `fragmentFields` of a page definition. Each field shows
  * the fragment's current content until it is overridden.
  */
-export function EditableControls({editables, onChange, values}: EditableControlsProps) {
+export function EditableControls({editables, focused = null, onChange, values}: EditableControlsProps) {
+	const rows = useRef(new Map<string, HTMLTableRowElement>());
+	const [highlighted, setHighlighted] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (!focused) {
+			return;
+		}
+
+		const row = rows.current.get(focused.id);
+
+		if (!row) {
+			return;
+		}
+
+		row.scrollIntoView({behavior: 'smooth', block: 'center'});
+		setHighlighted(focused.id);
+
+		const timer = window.setTimeout(() => setHighlighted((current) => (current === focused.id ? null : current)), 1800);
+
+		return () => window.clearTimeout(timer);
+	}, [focused]);
+
 	if (!editables.length) {
 		return <p className="text-secondary">This fragment has no editable fields.</p>;
 	}
@@ -41,7 +67,21 @@ export function EditableControls({editables, onChange, values}: EditableControls
 					const overridden = Boolean(values[editable.id]);
 
 					return (
-						<ArgRow description={(editable.type === 'image' || editable.type === 'background-image') && embedded && !value.src ? 'Embedded placeholder image' : undefined} key={editable.id} name={editable.id} tag={editable.type}>
+						<ArgRow
+							description={(editable.type === 'image' || editable.type === 'background-image') && embedded && !value.src ? 'Embedded placeholder image' : undefined}
+							highlighted={highlighted === editable.id}
+							key={editable.id}
+							name={editable.id}
+							rowRef={(element) => {
+								if (element) {
+									rows.current.set(editable.id, element);
+								}
+								else {
+									rows.current.delete(editable.id);
+								}
+							}}
+							tag={editable.type}
+						>
 							{(editable.type === 'image' || editable.type === 'background-image') && (
 								<div className="storybook-stack">
 									<input className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder="Image URL" type="text" value={shown.src} />
