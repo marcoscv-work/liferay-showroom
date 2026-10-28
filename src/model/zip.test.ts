@@ -40,6 +40,29 @@ describe('zip round trips', () => {
 		expect(result.collections[0].resources['logo.png']).toBe('data:image/png;base64,iVBORw0KGgo=');
 	});
 
+	it('fetches the resources a bundled collection serves as files', async () => {
+		const originalFetch = globalThis.fetch;
+		const requested: string[] = [];
+
+		globalThis.fetch = (async (input: any) => {
+			requested.push(String(input));
+
+			return new Response(new Uint8Array([137, 80, 78, 71]), {status: 200});
+		}) as typeof fetch;
+
+		try {
+			const blob = await exportCollectionZip({...collection, resources: {'hero.png': 'https://example.test/collections/test/resources/hero.png', 'logo.png': 'data:image/png;base64,iVBORw0KGgo='}, source: 'builtin'});
+			const zip = await JSZip.loadAsync(await blob.arrayBuffer());
+
+			expect(requested).toEqual(['https://example.test/collections/test/resources/hero.png']);
+			expect(Object.keys(zip.files).filter((name) => name.includes('/resources/') && !name.endsWith('/')).sort()).toEqual(['test/resources/hero.png', 'test/resources/logo.png']);
+			expect(await zip.file('test/resources/hero.png')!.async('uint8array')).toEqual(new Uint8Array([137, 80, 78, 71]));
+		}
+		finally {
+			globalThis.fetch = originalFetch;
+		}
+	});
+
 	it('exports and imports a page template', async () => {
 		const row = createRow(3);
 

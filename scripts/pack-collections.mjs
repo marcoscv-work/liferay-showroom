@@ -8,8 +8,11 @@
  *   collections/<collection>/<fragment>/fragment.json
  *   collections/<collection>/<fragment>/index.html|index.css|index.js|configuration.json|thumbnail.png
  *   collections/<collection>/resources/<file>
+ *
+ * Fragment files and thumbnails are inlined in the JSON; resources are copied
+ * next to it and referenced by path.
  */
-import {existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
+import {copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
 import {join, extname} from 'node:path';
 
 const root = new URL('../collections/', import.meta.url).pathname;
@@ -75,13 +78,21 @@ for (const collectionDir of readdirSync(root)) {
 		});
 	}
 
+	/* Resources are served as files (`public/collections/<collection>/resources/<file>`), not inlined: a set can carry megabytes of images and video */
+
 	const resources = {};
 
 	const resourcesPath = join(collectionPath, 'resources');
 
 	if (existsSync(resourcesPath)) {
+		const outResources = join(out, collectionDir, 'resources');
+
+		mkdirSync(outResources, {recursive: true});
+
 		for (const file of readdirSync(resourcesPath)) {
-			resources[file] = readDataURL(join(resourcesPath, file));
+			copyFileSync(join(resourcesPath, file), join(outResources, file));
+
+			resources[file] = `collections/${collectionDir}/resources/${file}`;
 		}
 	}
 

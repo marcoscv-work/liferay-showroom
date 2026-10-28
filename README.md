@@ -47,7 +47,7 @@ collections/<collection>/<fragment>/thumbnail.png
 collections/<collection>/resources/<file>
 ```
 
-`npm run pack` (run automatically by `dev` and `build`) packs them into `public/collections/`.
+`npm run pack` (run automatically by `dev` and `build`) packs them into `public/collections/`. Fragments reference a resource as `[resources:<file>]`, exactly as in Liferay; the packer serves the files from `public/collections/<collection>/resources/` and the fragment set export puts them back under `resources/`.
 
 Collections imported through the UI are kept in the browser's local storage.
 
@@ -78,7 +78,7 @@ A theme zip can also be imported at runtime; it is not persisted because the sty
 `scripts/build-lsds.mjs` converts the [Liferay Sites Design System](https://makenaford.github.io/liferay-sites-design-system) Storybook (React + Mantine) into plain Liferay assets, driven by `scripts/lsds/spec.mjs`:
 
 - `collections/liferay-sites-ds/`: the simplest story of each component as a fragment. The rendered markup is kept, the CSS the story actually uses is extracted (CSS-module names become `lsds-*`, every rule is scoped to the fragment's wrapper so fragments do not restyle each other on a page), headings, paragraphs, images and links become editables, and the component's basic props become `configuration.json` fields bound to the `data-variant` / `data-size` attributes the CSS keys on. Interactive parts (reveal on scroll, accordion, tabs, marquee, banner, progress, card spotlight) run on the plain JavaScript in `scripts/lsds/behaviors.js`.
-- `collections/liferay-sites-ds-pages/`: every block of a built page (header, hero, sections, footer) as a fragment, and `templates/<page>/page-definition.json` composing them into a page template.
+- `collections/liferay-sites-ds-pages/`: every block of a built page (header, hero, sections, footer) as a fragment, and `templates/<page>/page-definition.json` composing them into a page template. The images and videos the blocks use are downloaded into the collection's `resources/` and referenced as `[resources:<file>]` (`scripts/lsds/media.mjs`), so the exported fragment set is self-contained.
 - `public/themes/classic-lsds/`: the "Classic + Liferay Sites DS" theme, whose `frontend-token-definition.json` adds every design token the fragments read (`--sds-*` and the Mantine variables) to the Classic definition, and whose `css/fonts.css` loads the Source Sans 3 typeface once, the way the Storybook's preview head does.
 - `style-books/lsds-dark` and `style-books/lsds-light`: the two colour schemes as Liferay style books. Switching the style book restyles every LSDS fragment and page, which is what the tokens are for.
 

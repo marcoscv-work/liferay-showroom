@@ -415,10 +415,21 @@ export async function exportCollectionZip(collection: Collection): Promise<Blob>
 	const resources = folder.folder('resources')!;
 
 	for (const [name, data] of Object.entries(collection.resources)) {
-		const base64 = data.split(',')[1];
+		if (data.startsWith('data:')) {
+			const base64 = data.split(',')[1];
 
-		if (base64) {
-			resources.file(name, base64, {base64: true});
+			if (base64) {
+				resources.file(name, base64, {base64: true});
+			}
+		}
+		else {
+			// Bundled collections serve their resources as files next to the app.
+
+			const response = await fetch(data);
+
+			if (response.ok) {
+				resources.file(name, await response.arrayBuffer());
+			}
 		}
 	}
 

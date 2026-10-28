@@ -73,7 +73,7 @@ export async function loadBuiltinCollections(): Promise<Collection[]> {
 				fragments: (packed.fragments ?? []).map((fragment: any) => ({...fragment, collectionKey: entry.key})),
 				key: entry.key,
 				name: packed.name ?? entry.key,
-				resources: packed.resources ?? {},
+				resources: Object.fromEntries(Object.entries<string>(packed.resources ?? {}).map(([name, value]) => [name, value.startsWith('data:') ? value : assetURL(value)])),
 				collapsed: packed.collapsed === true,
 				source: 'builtin',
 				theme: packed.theme ?? null,

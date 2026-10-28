@@ -1,4 +1,4 @@
-import {readdirSync, readFileSync} from 'node:fs';
+import {existsSync, readdirSync, readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
 import {describe, expect, it} from 'vitest';
@@ -28,6 +28,31 @@ describe('bundled collections', () => {
 		catch {
 			continue;
 		}
+
+		it(`${collectionDir} ships every resource its fragments reference`, () => {
+			const missing = new Set<string>();
+
+			for (const fragmentDir of fragmentDirs) {
+				for (const name of ['index.html', 'index.css', 'configuration.json']) {
+					let text = '';
+
+					try {
+						text = readFileSync(join(collectionPath, fragmentDir, name), 'utf8');
+					}
+					catch {
+						continue;
+					}
+
+					for (const match of text.matchAll(/\[resources:([^\]]+)\]/g)) {
+						if (!existsSync(join(collectionPath, 'resources', match[1].trim()))) {
+							missing.add(match[1]);
+						}
+					}
+				}
+			}
+
+			expect([...missing]).toEqual([]);
+		});
 
 		for (const fragmentDir of fragmentDirs) {
 			const fragmentPath = join(collectionPath, fragmentDir);
