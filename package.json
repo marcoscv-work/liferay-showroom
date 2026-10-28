@@ -5,13 +5,15 @@
   "homepage": "https://marcoscv-work.github.io/liferay-storybook/",
   "type": "module",
   "scripts": {
-    "pack": "node scripts/pack-collections.mjs && vite-node scripts/catalog.ts",
+    "pack": "node scripts/pack-collections.mjs && vite-node scripts/catalog.ts && vite-node scripts/landing.ts",
     "dev": "npm run pack && vite",
     "build": "npm run pack && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "release": "vite-node scripts/release.ts",
-    "catalog": "vite-node scripts/catalog.ts"
+    "catalog": "vite-node scripts/catalog.ts",
+    "landing": "vite-node scripts/landing.ts",
+    "product-shot": "node scripts/product-shot.mjs"
   },
   "dependencies": {
     "dompurify": "^3.4.17",
@@ -25,6 +27,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "linkedom": "^0.18.14",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
     "vitest": "^2.1.8"

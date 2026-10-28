@@ -91,6 +91,10 @@ git add releases && git commit --amend --no-edit && git push --follow-tags
 
 Pushing the tag runs `.github/workflows/release.yml`, which records the release again on CI and attaches the zips and the manifest to the GitHub release. A past version can be recorded from a worktree at its tag with `npm run release -- --root <worktree> --version <version>`.
 
+### Landing
+
+`/landing/` is the product page, and it is itself a page template of the Liferay Sites DS fragments: `templates/landing/page-definition.json` (shown in the sidebar as "Product landing", editable and exportable like any other) rendered to static HTML by `scripts/landing.ts` on the LSDS Dark style book, as part of `npm run pack`. `npm run landing -- --compose` rewrites the definition from the composition in the script; `npm run product-shot` retakes the hero image from the running dev server with Playwright (`PLAYWRIGHT_MODULE` and `PLAYWRIGHT_CHANNEL` as for the LSDS build).
+
 ### AI catalog
 
 `npm run pack` also writes `public/catalog.json` and `public/llms.txt`: every fragment with its configuration fields, editables and docs, every template and style book, the token definition of each theme, and how to write a `page-definition.json`. An agent that reads either can compose a page from the fragment keys; dropping the resulting JSON on the site turns it into a template to review and export.

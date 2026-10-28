@@ -1,0 +1,684 @@
+{
+	"pageElement": {
+		"type": "Root",
+		"pageElements": [
+			{
+				"type": "Section",
+				"definition": {
+					"indexed": true,
+					"layout": {
+						"widthType": "Fluid"
+					},
+					"name": "Product landing"
+				},
+				"pageElements": [
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-hero"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "image-1",
+									"value": {
+										"fragmentImage": {
+											"url": {
+												"value": "https://marcoscv-work.github.io/liferay-storybook/images/product-shot.png"
+											},
+											"description": {
+												"value_i18n": {
+													"en_US": "The Storybook showing the LSDS Button fragment with its documentation"
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Open the Storybook"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "See the releases"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/releases"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "text-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Liferay Storybook"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Fragment sets, page templates and style books, rendered without a Liferay: documented, versioned and readable by agents. Everything you see is exactly what gets imported."
+											}
+										}
+									}
+								},
+								{
+									"id": "title-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Your Liferay design system, published"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-section-card-grid"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Read the docs"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/docs/getting-started"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "text-1",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>The site is built from Liferay’s own export formats, so there is no second truth: what a designer reviews here is what a developer imports there.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Fragments, templates, style books"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-3",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Every asset renders live with its configuration as controls and its editables as fields, on the theme and style book you pick in the toolbar."
+											}
+										}
+									}
+								},
+								{
+									"id": "text-4",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Versioned releases"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-5",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "A release is a tag and a manifest of every asset’s hash. The changelog is computed, so it is exact about which fragments changed, file by file."
+											}
+										}
+									}
+								},
+								{
+									"id": "text-6",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Readable by agents"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-7",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "catalog.json and llms.txt describe every fragment, field and token. An agent composes a page; drop the JSON on the site and it becomes a template."
+											}
+										}
+									}
+								},
+								{
+									"id": "title-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Exactly what you import"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-section-highlight-text"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Try it now"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "text-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Drop a Liferay export anywhere on the page."
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "A fragment set, a page template, a style book, a built theme or a bare page-definition.json: it renders at once, stays in your browser, and exports back as the zip Liferay imports."
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-section-faq"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "text-1",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>What teams ask before they publish.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Does it need a running Liferay?"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-3",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>No. It runs on GitHub Pages or any static host. A FreeMarker interpreter and Liferay’s own page structure render fragments and templates in the browser; Liferay is only where the zips go.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-4",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "How does a team version its assets?"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-5",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>With git. The folders are the Liferay export layout, a release is a tag, and the Releases page compares the manifests of two versions asset by asset, with a link to the history of each one.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-6",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Is this a Design Library?"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-7",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>It is its published face. The Design Library edits and owns the assets inside the portal; this site shows a version of them to anyone without a portal, and imports the same zips a Design Library exports.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "title-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Questions"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-banner"
+							},
+							"fragmentConfig": {
+								"tone": "brand",
+								"align": "center"
+							},
+							"fragmentFields": [
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Open the Storybook"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "text-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Publish your design system"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>Start from your own export, or from the Liferay Sites design system that ships with the site.</p>"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
+								"key": "lsds-footer"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Storybook"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-10",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Developing fragments"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "https://learn.liferay.com/w/dxp/site-building/creating-pages/page-fragments-and-widgets/developer-guide/developing-page-fragments"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-11",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Style books"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "https://learn.liferay.com/w/dxp/site-building/site-appearance/style-books"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-12",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Liferay"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "https://www.liferay.com/"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Getting started"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/docs/getting-started"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-3",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Tokens and style books"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/docs/tokens-and-style-books"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-4",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Page composition"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/docs/page-composition"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-5",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Releases"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../?path=/releases"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-6",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "GitHub"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "https://github.com/marcoscv-work/liferay-storybook"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-7",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "llms.txt"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../llms.txt"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-8",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "catalog.json"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../catalog.json"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "link-9",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Liferay Sites design system"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "https://makenaford.github.io/liferay-sites-design-system/"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "title-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Product"
+											}
+										}
+									}
+								},
+								{
+									"id": "title-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Resources"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					}
+				]
+			}
+		]
+	},
+	"settings": {},
+	"version": 1.1
+}

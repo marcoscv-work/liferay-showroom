@@ -12,6 +12,11 @@ export interface PreviewDocumentOptions {
 	bodyClass?: string;
 	colorScheme?: 'light' | 'dark';
 	css: string;
+	/** `<meta name="description">` of a standalone page. */
+	description?: string;
+	/** A page on its own (the landing): no editor bridge, links work, a `<title>`. */
+	standalone?: boolean;
+	title?: string;
 	fragmentCSS: string;
 	html: string;
 	js: string;
@@ -205,6 +210,24 @@ document.addEventListener('submit', function (event) {
 	parent.postMessage({type: 'storybook:ready'}, '*');
 })();
 
+/* In a story, clicking an editable points the editor at its control */
+
+(function () {
+	if (document.documentElement.getAttribute('data-storybook-mode') !== 'story' || window.parent === window) {
+		return;
+	}
+
+	document.addEventListener('click', function (event) {
+		var editable = event.target && event.target.closest ? event.target.closest('[data-lfr-editable-id], [data-lfr-background-image-id]') : null;
+
+		if (!editable) {
+			return;
+		}
+
+		parent.postMessage({type: 'storybook:editable', id: editable.getAttribute('data-lfr-editable-id') || editable.getAttribute('data-lfr-background-image-id')}, '*');
+	}, true);
+})();
+
 /* The documentation embeds size their frame with the height the document reports */
 
 (function () {
@@ -272,8 +295,12 @@ export const PREVIEW_CSS = `
 }
 `;
 
+function escapeHTML(text: string): string {
+	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 export function buildPreviewDocument(options: PreviewDocumentOptions): string {
-	const {bodyClass = '', colorScheme = 'light', css, fragmentCSS, html, js, mode, theme, tokenValues} = options;
+	const {bodyClass = '', colorScheme = 'light', css, description, fragmentCSS, html, js, mode, standalone = false, theme, title, tokenValues} = options;
 
 	const links = (theme?.css ?? []).map((href) => `<link rel="stylesheet" href="${href}">`).join('\n');
 
@@ -296,6 +323,8 @@ body { background-color: var(--body-bg); color: var(--body-color); }`
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+${title ? `<title>${escapeHTML(title)}</title>` : ''}
+${description ? `<meta name="description" content="${escapeHTML(description)}">` : ''}
 ${links}
 <style id="storybook-tokens">${tokenCSS}</style>
 <style id="storybook-scheme">${schemeCSS}</style>
@@ -303,7 +332,7 @@ ${links}
 <style id="storybook-item-css">${css}</style>
 <style id="storybook-preview-css">${PREVIEW_CSS}</style>
 ${importMap()}
-<script>${BRIDGE_SCRIPT}</script>
+${standalone ? '' : `<script>${BRIDGE_SCRIPT}</script>`}
 </head>
 <body class="${bodyClass}">
 ${html}

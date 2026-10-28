@@ -19,6 +19,8 @@ export interface State {
 	docs: DocPage[];
 	fragmentArgs: Record<string, FragmentArgs>;
 	loading: boolean;
+	/** The editable the preview was clicked on, for the Controls tab to scroll to. The nonce makes a repeated click count. */
+	focusedEditable: {id: string; nonce: number} | null;
 	panelTab: PanelTab;
 	releases: ReleaseManifest[];
 	runtimeWarnings: string[];
@@ -37,6 +39,7 @@ export const DEFAULT_STYLE_BOOK_KEY = 'theme-defaults';
 export const initialState: State = {
 	collections: [],
 	docs: [],
+	focusedEditable: null,
 	fragmentArgs: {},
 	loading: true,
 	panelTab: 'controls',
@@ -73,6 +76,7 @@ export type Action =
 	| {type: 'renameTemplate'; id: string; name: string}
 	| {type: 'removeTemplate'; id: string}
 	| {type: 'selectItem'; id: string | null}
+	| {type: 'focusEditable'; id: string}
 	| {type: 'runtimeWarning'; message: string}
 	| {type: 'clearRuntimeWarnings'}
 	| {type: 'resetAll'};
@@ -92,6 +96,64 @@ const STORAGE_KEY = 'liferay-storybook:v1';
 
 export function fragmentArgsKey(collectionKey: string, fragmentKey: string): string {
 	return `${collectionKey}/${fragmentKey}`;
+}
+
+/** The theme a selection wants: the collection's, or the first collection theme a template uses. */
+function wantedThemeFor(selection: Selection, collections: Collection[], templates: PageTemplate[]): string | null {
+	if (selection.kind === 'fragment') {
+		const {collectionKey} = selection;
+
+		return collections.find((candidate) => candidate.key === collectionKey)?.theme ?? null;
+	}
+
+	if (selection.kind === 'template') {
+		const {id} = selection;
+		const template = templates.find((candidate) => candidate.id === id);
+
+		const findTheme = (element: PageElement): string | null => {
+			if (element.type === 'Fragment') {
+				const reference = element.definition.fragment ?? {};
+				const collection = collections.find((candidate) => (reference.collectionKey ? candidate.key === reference.collectionKey : candidate.fragments.some((fragment) => fragment.key === reference.key)));
+
+				if (collection?.theme) {
+					return collection.theme;
+				}
+			}
+
+			for (const child of element.pageElements) {
+				const found = findTheme(child);
+
+				if (found) {
+					return found;
+				}
+			}
+
+			return null;
+		};
+
+		return template ? findTheme(template.root) : null;
+	}
+
+	return null;
+}
+
+/** Switches to the theme a selection wants, and to a style book of that theme when the current one belongs to another. */
+function followTheme(selection: Selection, current: {styleBookKey: string; styleBooks: StyleBook[]; themeKey: string; themes: Theme[]}, collections: Collection[], templates: PageTemplate[]): {styleBookKey: string; themeKey: string} {
+	let {styleBookKey, themeKey} = current;
+
+	const wanted = wantedThemeFor(selection, collections, templates);
+
+	if (wanted && wanted !== themeKey && current.themes.some((theme) => theme.key === wanted)) {
+		themeKey = wanted;
+
+		const styleBook = current.styleBooks.find((candidate) => candidate.key === styleBookKey);
+
+		if (styleBook?.themeKey && styleBook.themeKey !== themeKey) {
+			styleBookKey = current.styleBooks.find((candidate) => candidate.themeKey === themeKey)?.key ?? DEFAULT_STYLE_BOOK_KEY;
+		}
+	}
+
+	return {styleBookKey, themeKey};
 }
 
 function reducer(state: State, action: Action): State {
@@ -138,6 +200,8 @@ function reducer(state: State, action: Action): State {
 				selection = {kind: 'fragment', collectionKey: collections[0].key, fragmentKey: collections[0].fragments[0].key};
 			}
 
+			const followed = followTheme(selection, {styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY, styleBooks, themeKey, themes: action.themes}, collections, templates);
+
 			return {
 				...state,
 				collections,
@@ -147,66 +211,16 @@ function reducer(state: State, action: Action): State {
 				panelTab: selection.kind === 'template' ? 'layout' : 'controls',
 				releases: action.releases,
 				selection,
-				styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY,
+				styleBookKey: followed.styleBookKey,
 				styleBooks,
 				templates,
-				themeKey,
+				themeKey: followed.themeKey,
 				themes: action.themes,
 				viewport: persisted.viewport ?? 'desktop',
 			};
 		}
 		case 'select': {
-			let themeKey = state.themeKey;
-			let styleBookKey = state.styleBookKey;
-
-			let wantedTheme: string | null = null;
-
-			if (action.selection.kind === 'fragment') {
-				const {collectionKey} = action.selection;
-
-				wantedTheme = state.collections.find((candidate) => candidate.key === collectionKey)?.theme ?? null;
-			}
-			else if (action.selection.kind === 'template') {
-				const {id} = action.selection;
-				const template = state.templates.find((candidate) => candidate.id === id);
-
-				const findTheme = (element: PageElement): string | null => {
-					if (element.type === 'Fragment') {
-						const reference = element.definition.fragment ?? {};
-						const collection = state.collections.find((candidate) => (reference.collectionKey ? candidate.key === reference.collectionKey : candidate.fragments.some((fragment) => fragment.key === reference.key)));
-
-						if (collection?.theme) {
-							return collection.theme;
-						}
-					}
-
-					for (const child of element.pageElements) {
-						const found = findTheme(child);
-
-						if (found) {
-							return found;
-						}
-					}
-
-					return null;
-				};
-
-				wantedTheme = template ? findTheme(template.root) : null;
-			}
-
-			{
-				const collection = wantedTheme ? {theme: wantedTheme} : null;
-
-				if (collection?.theme && collection.theme !== state.themeKey && state.themes.some((theme) => theme.key === collection.theme)) {
-					themeKey = collection.theme;
-
-					const current = state.styleBooks.find((styleBook) => styleBook.key === state.styleBookKey);
-
-					if (current?.themeKey && current.themeKey !== themeKey) {
-						styleBookKey = state.styleBooks.find((styleBook) => styleBook.themeKey === themeKey)?.key ?? DEFAULT_STYLE_BOOK_KEY;
-					}
-				}
-			}
+			const {styleBookKey, themeKey} = followTheme(action.selection, state, state.collections, state.templates);
 
 			return {
 				...state,
@@ -297,6 +311,8 @@ function reducer(state: State, action: Action): State {
 		}
 		case 'selectItem':
 			return {...state, selectedItemId: action.id};
+		case 'focusEditable':
+			return state.panelTab === 'controls' && state.selection.kind === 'fragment' ? {...state, focusedEditable: {id: action.id, nonce: Date.now()}} : state;
 		case 'runtimeWarning':
 			return state.runtimeWarnings.includes(action.message) ? state : {...state, runtimeWarnings: [...state.runtimeWarnings, action.message]};
 		case 'clearRuntimeWarnings':

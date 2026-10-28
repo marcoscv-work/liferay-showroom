@@ -1,3 +1,5 @@
+import './lib/dom';
+
 import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 
@@ -56,7 +58,7 @@ const catalog = {
 					type: field.type,
 				})),
 				docs: fragment.docs ? markdownToText(fragment.docs) : undefined,
-				editables: editablesOf(rendered.html),
+				editables: rendered.editables.map((editable) => ({default: editable.defaultValue, id: editable.id, type: editable.type})),
 				key: fragment.key,
 				name: fragment.name,
 				type: fragment.type,
@@ -90,33 +92,6 @@ const catalog = {
 	})),
 	version: packageJSON.version,
 };
-
-/** The editables of a rendered fragment, read from the markup: there is no DOM outside the browser, so this is a scan, not the renderer's list. */
-function editablesOf(html: string): {id: string; type: string}[] {
-	const found = new Map<string, string>();
-
-	for (const match of html.matchAll(/<lfr-editable\b[^>]*\bid="([^"]+)"[^>]*\btype="([^"]+)"/g)) {
-		found.set(match[1], match[2]);
-	}
-
-	for (const match of html.matchAll(/<lfr-editable\b[^>]*\btype="([^"]+)"[^>]*\bid="([^"]+)"/g)) {
-		found.set(match[2], match[1]);
-	}
-
-	for (const match of html.matchAll(/data-lfr-editable-id="([^"]+)"[^>]*data-lfr-editable-type="([^"]+)"/g)) {
-		found.set(match[1], match[2]);
-	}
-
-	for (const match of html.matchAll(/data-lfr-editable-type="([^"]+)"[^>]*data-lfr-editable-id="([^"]+)"/g)) {
-		found.set(match[2], match[1]);
-	}
-
-	for (const match of html.matchAll(/data-lfr-background-image-id="([^"]+)"/g)) {
-		found.set(match[1], 'background-image');
-	}
-
-	return [...found.entries()].map(([id, type]) => ({id, type}));
-}
 
 function collectFragments(element: any): {collectionKey?: string; key?: string}[] {
 	const found: {collectionKey?: string; key?: string}[] = [];

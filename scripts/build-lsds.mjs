@@ -18,6 +18,7 @@ import {existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync}
 import {join} from 'node:path';
 
 import {localizeMedia} from './lsds/media.mjs';
+import {applyTransforms} from './lsds/transforms.mjs';
 import {COLLECTION, FRAGMENTS, PAGES, STORYBOOK_URL, STYLE_BOOKS, THEME, VARIANT_ROOTS} from './lsds/spec.mjs';
 
 const require = createRequire(import.meta.url);
@@ -610,7 +611,7 @@ for (const spec of FRAGMENTS) {
 
 	const dir = join(collectionDir, spec.key);
 
-	fragmentFiles(dir, {css, fields: spec.fields, html: wrapFragment(spec.key, result.html), icon: spec.icon, js: spec.js, key: spec.key, name: spec.name});
+	fragmentFiles(dir, {css, fields: spec.fields, html: wrapFragment(spec.key, applyTransforms(spec.key, result.html)), icon: spec.icon, js: spec.js, key: spec.key, name: spec.name});
 
 	await openStory(spec.story);
 
