@@ -26,6 +26,10 @@ import {useCurrentTemplate} from './useRender';
 import type {EditableValue} from '../model/fragmentRenderer';
 import type {Fragment, PageElement, PageTemplate, Theme} from '../model/types';
 
+const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+const MOD = IS_MAC ? '⌘' : 'Ctrl+';
+const ALT = IS_MAC ? '⌥' : 'Alt+';
+
 /**
  * The page template editor: a tree of the page definition, structural
  * actions (containers, rows, fragments) and the properties of the selected
@@ -43,72 +47,6 @@ export function LayoutPanel() {
 
 	const selected = editing.selected;
 
-	const update = (root: PageElement) => dispatch({id: template.id, root, type: 'updateTemplate'});
-
-	const move = (direction: -1 | 1) => {
-		if (!selected) {
-			return;
-		}
-
-		const parent = findParent(template.root, selected.id);
-
-		if (!parent) {
-			return;
-		}
-
-		update(
-			updateTree(template.root, parent.id, (node) => {
-				const index = node.pageElements.findIndex((child) => child.id === selected.id);
-				const next = index + direction;
-
-				if (next < 0 || next >= node.pageElements.length) {
-					return node;
-				}
-
-				const pageElements = [...node.pageElements];
-
-				[pageElements[index], pageElements[next]] = [pageElements[next], pageElements[index]];
-
-				return {...node, pageElements};
-			})
-		);
-	};
-
-	const remove = () => {
-		if (!selected || selected.type === 'Root') {
-			return;
-		}
-
-		update(removeFromTree(template.root, selected.id));
-		dispatch({id: null, type: 'selectItem'});
-	};
-
-	const duplicate = () => {
-		if (!selected || selected.type === 'Root') {
-			return;
-		}
-
-		const parent = findParent(template.root, selected.id);
-
-		if (!parent) {
-			return;
-		}
-
-		const clone = cloneSubtree(selected);
-
-		update(
-			updateTree(template.root, parent.id, (node) => {
-				const index = node.pageElements.findIndex((child) => child.id === selected.id);
-				const pageElements = [...node.pageElements];
-
-				pageElements.splice(index + 1, 0, clone);
-
-				return {...node, pageElements};
-			})
-		);
-		dispatch({id: clone.id, type: 'selectItem'});
-	};
-
 	const canEdit = Boolean(selected && selected.type !== 'Root');
 
 	return (
@@ -122,11 +60,17 @@ export function LayoutPanel() {
 						</button>
 						{adding && <AddMenu editing={editing} onClose={() => setAdding(false)} />}
 					</div>
+					<div className="showroom-layout__actions">
 					<div className="btn-group" role="group" aria-label="Selection actions">
-						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move up" onClick={() => move(-1)} symbol="order-arrow-up" />
-						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move down" onClick={() => move(1)} symbol="order-arrow-down" />
-						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Duplicate" onClick={duplicate} symbol="copy" />
-						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Delete" onClick={remove} symbol="trash" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label={`Move up (${ALT}↑)`} onClick={() => editing.move(-1)} symbol="order-arrow-up" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label={`Move down (${ALT}↓)`} onClick={() => editing.move(1)} symbol="order-arrow-down" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label={`Duplicate (${MOD}D)`} onClick={editing.duplicate} symbol="copy" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Delete (Delete or Backspace)" onClick={editing.remove} symbol="trash" />
+					</div>
+					<div className="btn-group" role="group" aria-label="History">
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!editing.canUndo} label={`Undo (${MOD}Z)`} onClick={editing.undo} symbol="undo" />
+						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!editing.canRedo} label={`Redo (${MOD}⇧Z)`} onClick={editing.redo} symbol="redo" />
+					</div>
 					</div>
 				</div>
 

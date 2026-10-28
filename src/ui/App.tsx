@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 
 import {importPageDefinition, importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
@@ -10,6 +10,9 @@ import {Icon} from './Icon';
 import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
 import {Toolbar} from './Toolbar';
+import {isTyping, runShortcut, useTemplateEditing} from './templateEditing';
+
+import type {ShortcutKey} from './templateEditing';
 
 /**
  * The URL mirrors the selection, Storybook style:
@@ -66,6 +69,39 @@ export function urlFromSelection(selection: Selection): string | null {
 
 export function App() {
 	const {dispatch, state} = useStore();
+	const editing = useTemplateEditing();
+	const editingRef = useRef(editing);
+
+	editingRef.current = editing;
+
+	/* Template editor shortcuts, typed in the shell or forwarded by the preview */
+	useEffect(() => {
+		const run = (key: ShortcutKey) => (editingRef.current ? runShortcut(editingRef.current, key, () => dispatch({id: null, type: 'selectItem'})) : false);
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (isTyping(event.target) || (event.target as HTMLElement | null)?.closest?.('.showroom-add')) {
+				return;
+			}
+
+			if (run({alt: event.altKey, ctrl: event.ctrlKey, key: event.key, meta: event.metaKey, shift: event.shiftKey})) {
+				event.preventDefault();
+			}
+		};
+
+		const onMessage = (event: MessageEvent) => {
+			if (event.data?.type === 'showroom:key') {
+				run(event.data.key);
+			}
+		};
+
+		window.addEventListener('keydown', onKeyDown);
+		window.addEventListener('message', onMessage);
+
+		return () => {
+			window.removeEventListener('keydown', onKeyDown);
+			window.removeEventListener('message', onMessage);
+		};
+	}, [dispatch]);
 
 	useEffect(() => {
 		let cancelled = false;

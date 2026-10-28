@@ -179,6 +179,27 @@ document.addEventListener('submit', function (event) {
 		reportRect();
 	}
 
+	document.addEventListener('keydown', function (event) {
+		var target = event.target;
+
+		if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+			return;
+		}
+
+		var mod = event.metaKey || event.ctrlKey;
+		var key = event.key;
+		var lower = key.toLowerCase();
+		var shortcut = (mod && (lower === 'z' || lower === 'y' || lower === 'd')) || (!mod && (key === 'Delete' || key === 'Backspace')) || (event.altKey && (key === 'ArrowUp' || key === 'ArrowDown')) || key === 'Escape';
+
+		if (!shortcut) {
+			return;
+		}
+
+		event.preventDefault();
+
+		parent.postMessage({type: 'showroom:key', key: {key: key, meta: event.metaKey, ctrl: event.ctrlKey, shift: event.shiftKey, alt: event.altKey}}, '*');
+	});
+
 	window.addEventListener('scroll', reportRect, true);
 	window.addEventListener('resize', reportRect);
 

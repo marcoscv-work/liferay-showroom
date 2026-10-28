@@ -26,6 +26,8 @@ export interface State {
 	runtimeWarnings: string[];
 	selectedItemId: string | null;
 	selection: Selection;
+	/** Undo and redo stacks of each template's tree, for this session only. */
+	templateHistory: Record<string, TemplateHistory>;
 	styleBookKey: string;
 	styleBooks: StyleBook[];
 	templates: PageTemplate[];
@@ -47,6 +49,7 @@ export const initialState: State = {
 	runtimeWarnings: [],
 	selectedItemId: null,
 	selection: {kind: 'none'},
+	templateHistory: {},
 	styleBookKey: DEFAULT_STYLE_BOOK_KEY,
 	styleBooks: [{key: DEFAULT_STYLE_BOOK_KEY, name: 'Theme defaults', source: 'builtin', themeKey: null, values: {}}],
 	templates: [],
@@ -73,6 +76,8 @@ export type Action =
 	| {type: 'addThemes'; themes: Theme[]}
 	| {type: 'addTemplates'; templates: PageTemplate[]; select?: boolean}
 	| {type: 'updateTemplate'; id: string; root: PageElement}
+	| {type: 'undoTemplate'; id: string}
+	| {type: 'redoTemplate'; id: string}
 	| {type: 'renameTemplate'; id: string; name: string}
 	| {type: 'removeTemplate'; id: string}
 	| {type: 'selectItem'; id: string | null}
@@ -90,6 +95,20 @@ export interface PersistedState {
 	templates: PageTemplate[];
 	themeKey: string;
 	viewport: ViewportId;
+}
+
+export interface TemplateHistory {
+	future: PageElement[];
+	/** When the last change was recorded: changes closer than COALESCE_MS (typing in a field) make one undo step. */
+	lastChange: number;
+	past: PageElement[];
+}
+
+const HISTORY_LIMIT = 100;
+const COALESCE_MS = 600;
+
+function containsId(element: PageElement, id: string): boolean {
+	return element.id === id || element.pageElements.some((child) => containsId(child, id));
 }
 
 const STORAGE_KEY = 'liferay-showroom:v1';
@@ -302,8 +321,47 @@ function reducer(state: State, action: Action): State {
 
 			return {...state, templates};
 		}
-		case 'updateTemplate':
-			return {...state, templates: state.templates.map((template) => (template.id === action.id ? {...template, root: action.root} : template))};
+		case 'updateTemplate': {
+			const current = state.templates.find((template) => template.id === action.id);
+
+			if (!current || current.root === action.root) {
+				return state;
+			}
+
+			const history = state.templateHistory[action.id] ?? {future: [], lastChange: 0, past: []};
+			const now = Date.now();
+			const coalesce = now - history.lastChange < COALESCE_MS && history.past.length > 0 && history.future.length === 0;
+
+			return {
+				...state,
+				templateHistory: {...state.templateHistory, [action.id]: {future: [], lastChange: now, past: coalesce ? history.past : [...history.past, current.root].slice(-HISTORY_LIMIT)}},
+				templates: state.templates.map((template) => (template.id === action.id ? {...template, root: action.root} : template)),
+			};
+		}
+		case 'undoTemplate':
+		case 'redoTemplate': {
+			const current = state.templates.find((template) => template.id === action.id);
+			const history = state.templateHistory[action.id];
+			const undo = action.type === 'undoTemplate';
+
+			if (!current || !history || !(undo ? history.past : history.future).length) {
+				return state;
+			}
+
+			const source = undo ? history.past : history.future;
+			const root = source[source.length - 1];
+			const rest = source.slice(0, -1);
+
+			return {
+				...state,
+				selectedItemId: state.selectedItemId && containsId(root, state.selectedItemId) ? state.selectedItemId : null,
+				templateHistory: {
+					...state.templateHistory,
+					[action.id]: undo ? {future: [...history.future, current.root], lastChange: 0, past: rest} : {future: rest, lastChange: 0, past: [...history.past, current.root]},
+				},
+				templates: state.templates.map((template) => (template.id === action.id ? {...template, root} : template)),
+			};
+		}
 		case 'renameTemplate':
 			return {...state, templates: state.templates.map((template) => (template.id === action.id ? {...template, name: action.name} : template))};
 		case 'removeTemplate': {
