@@ -499,6 +499,12 @@ const WRAPPER_CSS = `.lsds-fragment {
 }
 .lsds-fragment img, .lsds-fragment video {
 	max-width: 100%;
+}
+/* A link editable replaces the button's inner markup with plain text, in Liferay as here: the button lays that text out itself */
+.lsds-fragment a.mantine-Button-root, .lsds-fragment button.mantine-Button-root {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
 }`;
 
 /**

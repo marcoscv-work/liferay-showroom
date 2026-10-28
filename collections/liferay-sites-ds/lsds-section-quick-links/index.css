@@ -15,6 +15,12 @@
 .lsds-fragment img, .lsds-fragment video {
 	max-width: 100%;
 }
+/* A link editable replaces the button's inner markup with plain text, in Liferay as here: the button lays that text out itself */
+.lsds-fragment a.mantine-Button-root, .lsds-fragment button.mantine-Button-root {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+}
 
 .lsds-fragment-lsds-section-quick-links .lsds-card-root[data-align] { position: relative; display: flex; min-width: 0px; border-radius: 8px; background-color: transparent; color: var(--sds-surfaces-text-primary); text-decoration: none; isolation: isolate; }
 .lsds-fragment-lsds-section-quick-links .lsds-card-root[data-radius="pill"] { border-radius: 24px; }

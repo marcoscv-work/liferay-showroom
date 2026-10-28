@@ -15,6 +15,12 @@
 .lsds-fragment img, .lsds-fragment video {
 	max-width: 100%;
 }
+/* A link editable replaces the button's inner markup with plain text, in Liferay as here: the button lays that text out itself */
+.lsds-fragment a.mantine-Button-root, .lsds-fragment button.mantine-Button-root {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+}
 
 .lsds-fragment-lsds-section-resources .lsds-link[data-variant] { display: inline-flex; align-items: center; gap: var(--sds-link-gap); font-weight: 600; text-underline-offset: 0.2em; text-decoration-thickness: max(1px, 0.0625em); transition: color var(--sds-motion-fast) var(--sds-motion-ease); }
 @media (prefers-reduced-motion: reduce) {
