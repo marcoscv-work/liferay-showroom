@@ -77,8 +77,8 @@ describe('zip round trips', () => {
 		const blob = await exportTemplateZip(template);
 		const zip = await JSZip.loadAsync(await blob.arrayBuffer());
 
-		expect(Object.keys(zip.files).some((path) => path.endsWith('page-templates/storybook/landing/page-definition.json'))).toBe(true);
-		expect(Object.keys(zip.files).some((path) => path.endsWith('page-templates/storybook/landing/page-template.json'))).toBe(true);
+		expect(Object.keys(zip.files).some((path) => path.endsWith('page-templates/showroom/landing/page-definition.json'))).toBe(true);
+		expect(Object.keys(zip.files).some((path) => path.endsWith('page-templates/showroom/landing/page-template.json'))).toBe(true);
 
 		const result = await importZip(await blob.arrayBuffer(), 'landing.zip');
 
@@ -135,7 +135,7 @@ describe('zip round trips', () => {
 
 		const rendered = renderPage(result.templates[0].root, {collections: [collection], imagesPath: '', layoutMode: 'edit', theme: null});
 
-		expect(rendered.html).toContain('storybook-placeholder');
+		expect(rendered.html).toContain('showroom-placeholder');
 		expect(rendered.html).toContain('com_liferay_knowledge_base_web_portlet_DisplayPortlet');
 		expect(rendered.warnings).toEqual(['Fragment "dialect-text" is not in any loaded collection']);
 	});

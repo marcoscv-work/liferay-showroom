@@ -1,8 +1,8 @@
 {
-  "name": "liferay-storybook",
+  "name": "liferay-showroom",
   "private": true,
   "version": "1.2.0",
-  "homepage": "https://marcoscv-work.github.io/liferay-storybook/",
+  "homepage": "https://marcoscv-work.github.io/liferay-showroom/",
   "type": "module",
   "scripts": {
     "pack": "node scripts/pack-collections.mjs && vite-node scripts/catalog.ts && vite-node scripts/landing.ts",

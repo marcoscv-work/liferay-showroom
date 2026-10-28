@@ -32,7 +32,7 @@ if (!ds) {
 	throw new Error('The liferay-sites-ds collection is missing; run scripts/build-lsds.mjs first');
 }
 
-const STORYBOOK = '../';
+const SHOWROOM = '../';
 
 /* The product shot is addressed on the published site, so the template also shows it inside the app and after a Liferay import */
 const SITE = String(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).homepage ?? '').replace(/\/?$/, '/');
@@ -61,15 +61,15 @@ function block(key: string, values: Values): PageElement {
 function compose(): PageElement {
 	const section = createElement('Section', {indexed: true, layout: {widthType: 'Fluid'}, name: 'Product landing'}, [
 		block('lsds-hero', {
-			'image-1': {alt: 'The Storybook showing the LSDS Button fragment with its documentation', src: `${SITE}images/product-shot.png`},
-			'link-1': {href: STORYBOOK, text: 'Open the Storybook'},
-			'link-2': {href: `${STORYBOOK}?path=/releases`, text: 'See the releases'},
-			'text-1': {text: 'Liferay Storybook'},
+			'image-1': {alt: 'The Showroom showing the LSDS Button fragment with its documentation', src: `${SITE}images/product-shot.png`},
+			'link-1': {href: SHOWROOM, text: 'Open the Showroom'},
+			'link-2': {href: `${SHOWROOM}?path=/releases`, text: 'See the releases'},
+			'text-1': {text: 'Liferay Showroom'},
 			'text-2': {text: 'Fragment sets, page templates and style books, rendered without a Liferay: documented, versioned and readable by agents. Everything you see is exactly what gets imported.'},
 			'title-1': {text: 'Your Liferay design system, published'},
 		}),
 		block('lsds-section-card-grid', {
-			'link-1': {href: `${STORYBOOK}?path=/docs/getting-started`, text: 'Read the docs'},
+			'link-1': {href: `${SHOWROOM}?path=/docs/getting-started`, text: 'Read the docs'},
 			'text-1': {text: '<p>The site is built from Liferay’s own export formats, so there is no second truth: what a designer reviews here is what a developer imports there.</p>'},
 			'text-2': {text: 'Fragments, templates, style books'},
 			'text-3': {text: 'Every asset renders live with its configuration as controls and its editables as fields, on the theme and style book you pick in the toolbar.'},
@@ -80,7 +80,7 @@ function compose(): PageElement {
 			'title-1': {text: 'Exactly what you import'},
 		}),
 		block('lsds-section-highlight-text', {
-			'link-1': {href: STORYBOOK, text: 'Try it now'},
+			'link-1': {href: SHOWROOM, text: 'Try it now'},
 			'text-1': {text: 'Drop a Liferay export anywhere on the page.'},
 			'text-2': {text: 'A fragment set, a page template, a style book, a built theme or a bare page-definition.json: it renders at once, stays in your browser, and exports back as the zip Liferay imports.'},
 		}),
@@ -95,22 +95,22 @@ function compose(): PageElement {
 			'title-1': {text: 'Questions'},
 		}),
 		block('lsds-banner', {
-			'link-1': {href: STORYBOOK, text: 'Open the Storybook'},
+			'link-1': {href: SHOWROOM, text: 'Open the Showroom'},
 			'text-1': {text: 'Publish your design system'},
 			'text-2': {text: '<p>Start from your own export, or from the Liferay Sites design system that ships with the site.</p>'},
 		}),
 		block('lsds-footer', {
-			'link-1': {href: STORYBOOK, text: 'Storybook'},
+			'link-1': {href: SHOWROOM, text: 'Showroom'},
 			'link-10': {href: 'https://learn.liferay.com/w/dxp/site-building/creating-pages/page-fragments-and-widgets/developer-guide/developing-page-fragments', text: 'Developing fragments'},
 			'link-11': {href: 'https://learn.liferay.com/w/dxp/site-building/site-appearance/style-books', text: 'Style books'},
 			'link-12': {href: 'https://www.liferay.com/', text: 'Liferay'},
-			'link-2': {href: `${STORYBOOK}?path=/docs/getting-started`, text: 'Getting started'},
-			'link-3': {href: `${STORYBOOK}?path=/docs/tokens-and-style-books`, text: 'Tokens and style books'},
-			'link-4': {href: `${STORYBOOK}?path=/docs/page-composition`, text: 'Page composition'},
-			'link-5': {href: `${STORYBOOK}?path=/releases`, text: 'Releases'},
-			'link-6': {href: 'https://github.com/marcoscv-work/liferay-storybook', text: 'GitHub'},
-			'link-7': {href: `${STORYBOOK}llms.txt`, text: 'llms.txt'},
-			'link-8': {href: `${STORYBOOK}catalog.json`, text: 'catalog.json'},
+			'link-2': {href: `${SHOWROOM}?path=/docs/getting-started`, text: 'Getting started'},
+			'link-3': {href: `${SHOWROOM}?path=/docs/tokens-and-style-books`, text: 'Tokens and style books'},
+			'link-4': {href: `${SHOWROOM}?path=/docs/page-composition`, text: 'Page composition'},
+			'link-5': {href: `${SHOWROOM}?path=/releases`, text: 'Releases'},
+			'link-6': {href: 'https://github.com/marcoscv-work/liferay-showroom', text: 'GitHub'},
+			'link-7': {href: `${SHOWROOM}llms.txt`, text: 'llms.txt'},
+			'link-8': {href: `${SHOWROOM}catalog.json`, text: 'catalog.json'},
 			'link-9': {href: 'https://makenaford.github.io/liferay-sites-design-system/', text: 'Liferay Sites design system'},
 			'title-1': {text: 'Product'},
 			'title-2': {text: 'Resources'},
@@ -172,7 +172,7 @@ const html = buildPreviewDocument({
 	mode: 'template',
 	standalone: true,
 	theme,
-	title: 'Liferay Storybook: your Liferay design system, published',
+	title: 'Liferay Showroom: your Liferay design system, published',
 	tokenValues: styleBook?.values ?? {},
 });
 

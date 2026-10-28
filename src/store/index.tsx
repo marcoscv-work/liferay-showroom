@@ -92,7 +92,10 @@ export interface PersistedState {
 	viewport: ViewportId;
 }
 
-const STORAGE_KEY = 'liferay-storybook:v1';
+const STORAGE_KEY = 'liferay-showroom:v1';
+
+/** The key the app persisted under before it was renamed; read once, so nobody loses their imports. */
+const LEGACY_STORAGE_KEY = 'liferay-storybook:v1';
 
 export function fragmentArgsKey(collectionKey: string, fragmentKey: string): string {
 	return `${collectionKey}/${fragmentKey}`;
@@ -324,7 +327,7 @@ function reducer(state: State, action: Action): State {
 
 export function readPersistedState(): Partial<PersistedState> {
 	try {
-		const raw = localStorage.getItem(STORAGE_KEY);
+		const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
 
 		return raw ? JSON.parse(raw) : {};
 	}

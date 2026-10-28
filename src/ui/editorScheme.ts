@@ -6,12 +6,12 @@ import {useEffect, useState} from 'react';
  */
 export type EditorScheme = 'auto' | 'light' | 'dark';
 
-const STORAGE_KEY = 'liferay-storybook:editor-scheme';
-const EVENT = 'storybook:editor-scheme';
+const STORAGE_KEY = 'liferay-showroom:editor-scheme';
+const EVENT = 'showroom:editor-scheme';
 
 export function readEditorScheme(): EditorScheme {
 	try {
-		const stored = localStorage.getItem(STORAGE_KEY);
+		const stored = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem('liferay-storybook:editor-scheme');
 
 		return stored === 'light' || stored === 'dark' ? stored : 'auto';
 	}

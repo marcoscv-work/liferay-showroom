@@ -83,7 +83,7 @@ export function EditableControls({editables, focused = null, onChange, values}: 
 							tag={editable.type}
 						>
 							{(editable.type === 'image' || editable.type === 'background-image') && (
-								<div className="storybook-stack">
+								<div className="showroom-stack">
 									<input className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder="Image URL" type="text" value={shown.src} />
 									<input
 										accept="image/*"
@@ -109,7 +109,7 @@ export function EditableControls({editables, focused = null, onChange, values}: 
 							)}
 
 							{(editable.type === 'link' || editable.type === 'action') && (
-								<div className="storybook-stack">
+								<div className="showroom-stack">
 									<input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Link text" type="text" value={shown.text} />
 									<input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="https://" type="text" value={shown.href} />
 									<Toggle checked={shown.target === '_blank'} label="Open in a new tab" onChange={(checked) => update({target: checked ? '_blank' : undefined})} />

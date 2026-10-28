@@ -18,7 +18,7 @@ export function Canvas() {
 	}, [dispatch, output.document]);
 
 	useEffect(() => {
-		frame.current?.contentWindow?.postMessage({id: state.selectedItemId, scroll: true, type: 'storybook:select'}, '*');
+		frame.current?.contentWindow?.postMessage({id: state.selectedItemId, scroll: true, type: 'showroom:select'}, '*');
 	}, [state.selectedItemId, output.document]);
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ export function Canvas() {
 		}
 
 		const onLoad = () => {
-			iframe.contentWindow?.postMessage({id: state.selectedItemId, scroll: false, type: 'storybook:select'}, '*');
+			iframe.contentWindow?.postMessage({id: state.selectedItemId, scroll: false, type: 'showroom:select'}, '*');
 		};
 
 		iframe.addEventListener('load', onLoad);
@@ -46,9 +46,9 @@ export function Canvas() {
 	}
 
 	return (
-		<section aria-label="Preview" className="storybook-canvas">
-			<div className="storybook-canvas__frame-wrapper" style={{maxWidth: viewport.width ? `${viewport.width}px` : undefined}}>
-				<iframe className="storybook-canvas__frame" ref={frame} sandbox="allow-scripts allow-same-origin allow-popups allow-forms" srcDoc={output.document} title="Preview" />
+		<section aria-label="Preview" className="showroom-canvas">
+			<div className="showroom-canvas__frame-wrapper" style={{maxWidth: viewport.width ? `${viewport.width}px` : undefined}}>
+				<iframe className="showroom-canvas__frame" ref={frame} sandbox="allow-scripts allow-same-origin allow-popups allow-forms" srcDoc={output.document} title="Preview" />
 			</div>
 		</section>
 	);

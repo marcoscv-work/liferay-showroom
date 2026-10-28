@@ -38,9 +38,9 @@ export function Panel() {
 	const resize = usePanelResize();
 
 	return (
-		<section aria-label="Addons" className="storybook-panel">
-			<div aria-hidden="true" className="storybook-panel__resizer" onPointerDown={resize} title="Drag to resize" />
-			<ul className="nav nav-underline storybook-panel__tabs" role="tablist">
+		<section aria-label="Addons" className="showroom-panel">
+			<div aria-hidden="true" className="showroom-panel__resizer" onPointerDown={resize} title="Drag to resize" />
+			<ul className="nav nav-underline showroom-panel__tabs" role="tablist">
 				{tabs.map((tab) => (
 					<li className="nav-item" key={tab.id}>
 						<button aria-selected={tab.id === active} className={`nav-link btn btn-unstyled${tab.id === active ? ' active' : ''}`} onClick={() => dispatch({tab: tab.id, type: 'setPanelTab'})} role="tab" type="button">
@@ -51,7 +51,7 @@ export function Panel() {
 				))}
 			</ul>
 
-			<div className="storybook-panel__content">
+			<div className="showroom-panel__content">
 				{active === 'controls' && <FragmentControls />}
 				{active === 'docs' && output.fragment?.docs && <Markdown markdown={output.fragment.docs} />}
 				{active === 'layout' && <LayoutPanel />}
@@ -72,7 +72,7 @@ export function Panel() {
 								<span className="alert-indicator">
 									<Icon symbol="warning-full" />
 								</span>
-								<span className="storybook-mono storybook-warning">{warning}</span>
+								<span className="showroom-mono showroom-warning">{warning}</span>
 							</div>
 						))}
 					</div>
@@ -85,7 +85,7 @@ export function Panel() {
 function usePanelResize() {
 	const [height, setHeight] = useState(() => {
 		try {
-			return Number(localStorage.getItem('liferay-storybook:panel-height')) || 320;
+			return Number(localStorage.getItem('liferay-showroom:panel-height') ?? localStorage.getItem('liferay-storybook:panel-height')) || 320;
 		}
 		catch {
 			return 320;
@@ -96,7 +96,7 @@ function usePanelResize() {
 		document.documentElement.style.setProperty('--sb-panel-height', `${height}px`);
 
 		try {
-			localStorage.setItem('liferay-storybook:panel-height', String(height));
+			localStorage.setItem('liferay-showroom:panel-height', String(height));
 		}
 		catch {
 			// Not persisted.

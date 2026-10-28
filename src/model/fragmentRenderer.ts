@@ -5,7 +5,7 @@ import {buildLiferayContext} from './liferayContext';
 import type {Collection, Fragment, Theme} from './types';
 
 /**
- * A normalized editable value. It is what the storybook persists and what it
+ * A normalized editable value. It is what the showroom persists and what it
  * converts from/to the `fragmentFields` of a page definition.
  */
 export interface EditableValue {
@@ -328,7 +328,7 @@ try {
 ${js}
 }
 catch (error) {
-	window.__storybookReport && window.__storybookReport('index.js (' + fragmentNamespace + '): ' + (error && error.message ? error.message : error));
+	window.__showroomReport && window.__showroomReport('index.js (' + fragmentNamespace + '): ' + (error && error.message ? error.message : error));
 }
 })(document.getElementById(${JSON.stringify(`fragment-${namespace}`)}), ${JSON.stringify(configuration)}, ${JSON.stringify(namespace)}, ${JSON.stringify(layoutMode)}, ${JSON.stringify(namespace)});`;
 }

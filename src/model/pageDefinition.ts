@@ -8,7 +8,7 @@ import type {Collection, Fragment, PageElement, Theme} from './types';
 /**
  * Renders a Liferay `page-definition.json` tree (the headless and site
  * initializer format) into the markup the layout renderer produces, so that
- * page templates look in the storybook the way they look in the portal.
+ * page templates look in the showroom the way they look in the portal.
  */
 
 let counter = 0;
@@ -68,7 +68,7 @@ export function createFragmentElement(fragment: Fragment): PageElement {
 }
 
 /**
- * Assigns ids to an imported tree and normalizes the shapes the storybook
+ * Assigns ids to an imported tree and normalizes the shapes the showroom
  * relies on.
  */
 export function normalizeTree(element: any): PageElement {
@@ -82,7 +82,7 @@ export function normalizeTree(element: any): PageElement {
 
 /**
  * Produces the exportable tree: ids are internal and `fragment.collectionKey`
- * is a storybook hint Liferay ignores, so both are stripped.
+ * is a showroom hint Liferay ignores, so both are stripped.
  */
 export function exportTree(element: PageElement): any {
 	const definition: Record<string, any> = {...element.definition};
@@ -542,17 +542,17 @@ export function renderElement(element: PageElement, state: RenderState): string 
 		case 'FragmentDropZone':
 			return renderChildren(element, state);
 		case 'DropZone':
-			return `<div class="${itemClass(element, 'drop-zone')} storybook-placeholder" ${dataAttributes(element)}><span class="storybook-placeholder__label">Drop zone (master page content)</span>${renderChildren(element, state)}</div>`;
+			return `<div class="${itemClass(element, 'drop-zone')} showroom-placeholder" ${dataAttributes(element)}><span class="showroom-placeholder__label">Drop zone (master page content)</span>${renderChildren(element, state)}</div>`;
 		case 'Widget':
-			return `<div class="${itemClass(element, 'widget')} storybook-placeholder" ${dataAttributes(element)}><span class="storybook-placeholder__label">Widget ${escapeHTML(String(definition.widgetInstance?.widgetName ?? ''))} needs Liferay</span></div>`;
+			return `<div class="${itemClass(element, 'widget')} showroom-placeholder" ${dataAttributes(element)}><span class="showroom-placeholder__label">Widget ${escapeHTML(String(definition.widgetInstance?.widgetName ?? ''))} needs Liferay</span></div>`;
 		case 'Collection':
 			emitItemStyles(element, state);
 
-			return `<div class="${itemClass(element, 'collection')} storybook-placeholder" ${dataAttributes(element)}><span class="storybook-placeholder__label">Collection display needs Liferay data</span>${renderChildren(element, state)}</div>`;
+			return `<div class="${itemClass(element, 'collection')} showroom-placeholder" ${dataAttributes(element)}><span class="showroom-placeholder__label">Collection display needs Liferay data</span>${renderChildren(element, state)}</div>`;
 		case 'Form':
 			emitItemStyles(element, state);
 
-			return `<div class="${itemClass(element, 'form')} storybook-placeholder" ${dataAttributes(element)}><span class="storybook-placeholder__label">Form container needs Liferay objects</span>${renderChildren(element, state)}</div>`;
+			return `<div class="${itemClass(element, 'form')} showroom-placeholder" ${dataAttributes(element)}><span class="showroom-placeholder__label">Form container needs Liferay objects</span>${renderChildren(element, state)}</div>`;
 		default:
 			state.warnings.push(`Page element type "${element.type}" is not supported and was skipped`);
 
@@ -686,7 +686,7 @@ function renderFragmentElement(element: PageElement, state: RenderState): string
 	if (!found) {
 		state.warnings.push(`Fragment "${definition.fragment?.key ?? '?'}" is not in any loaded collection`);
 
-		return `<div class="${classes} storybook-placeholder" ${dataAttributes(element)}><span class="storybook-placeholder__label">Fragment ${escapeHTML(String(definition.fragment?.key ?? '?'))} is not loaded</span></div>`;
+		return `<div class="${classes} showroom-placeholder" ${dataAttributes(element)}><span class="showroom-placeholder__label">Fragment ${escapeHTML(String(definition.fragment?.key ?? '?'))} is not loaded</span></div>`;
 	}
 
 	const namespace = element.id.replace(/[^a-zA-Z0-9]/g, '');

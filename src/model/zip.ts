@@ -351,9 +351,9 @@ async function inlineRelativeURLs(css: string, zip: JSZip, base: string, files: 
 export async function exportTemplateZip(template: PageTemplate): Promise<Blob> {
 	const zip = new JSZip();
 
-	const setFolder = zip.folder('page-templates')!.folder('storybook')!;
+	const setFolder = zip.folder('page-templates')!.folder('showroom')!;
 
-	setFolder.file('page-template-collection.json', JSON.stringify({description: 'Page templates created with Liferay Storybook', name: 'Storybook'}, null, '\t'));
+	setFolder.file('page-template-collection.json', JSON.stringify({description: 'Page templates created with Liferay Showroom', name: 'Showroom'}, null, '\t'));
 
 	const folder = setFolder.folder(slug(template.name) || 'page-template')!;
 

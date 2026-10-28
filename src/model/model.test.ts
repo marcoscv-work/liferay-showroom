@@ -126,7 +126,7 @@ describe('page definition', () => {
 		expect(result.warnings).toEqual([]);
 	});
 
-	it('strips storybook-only data on export', () => {
+	it('strips showroom-only data on export', () => {
 		const fragment = createElement('Fragment', {fragment: {collectionKey: 'test', key: 'heading'}, fragmentConfig: {}});
 		const exported = exportTree(createElement('Root', {}, [fragment]));
 

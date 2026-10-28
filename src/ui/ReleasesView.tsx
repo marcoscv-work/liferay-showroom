@@ -31,17 +31,17 @@ export function ReleasesView() {
 	const releases = sortReleases(state.releases);
 
 	return (
-		<section aria-label="Releases" className="storybook-docs-view">
-			<article className="storybook-docs-view__page">
-				<div className="storybook-docs">
-					<div className="storybook-docs__prose">
+		<section aria-label="Releases" className="showroom-docs-view">
+			<article className="showroom-docs-view__page">
+				<div className="showroom-docs">
+					<div className="showroom-docs__prose">
 						<h1>Releases</h1>
 						<p>
 							Every release is a tag of the repository and a GitHub release with the zips Liferay imports. The list of changes is computed from the content of each asset, so it is exact about which fragments, templates and style
 							books changed, and the notes say why.
 						</p>
 					</div>
-					{!releases.length && <p className="text-secondary">No releases yet. Run <span className="storybook-mono">npm run release</span> to record the first one.</p>}
+					{!releases.length && <p className="text-secondary">No releases yet. Run <span className="showroom-mono">npm run release</span> to record the first one.</p>}
 					{releases.map((release, index) => (
 						<Release key={release.version} manifest={release} previous={releases[index + 1] ?? null} />
 					))}
@@ -61,9 +61,9 @@ function Release({manifest, previous}: {manifest: ReleaseManifest; previous: Rel
 	const styleBooks = manifest.assets.filter((asset) => asset.type === 'style-book');
 
 	return (
-		<section className="storybook-release">
-			<header className="storybook-release__header">
-				<h2 className="storybook-release__version">
+		<section className="showroom-release">
+			<header className="showroom-release__header">
+				<h2 className="showroom-release__version">
 					{manifest.version}
 					{!previous && <span className="label label-secondary ml-2">first release</span>}
 				</h2>
@@ -72,19 +72,19 @@ function Release({manifest, previous}: {manifest: ReleaseManifest; previous: Rel
 					{manifest.commit && (
 						<>
 							{' · '}
-							<span className="storybook-mono">{manifest.commit.slice(0, 7)}</span>
+							<span className="showroom-mono">{manifest.commit.slice(0, 7)}</span>
 						</>
 					)}
 				</span>
 			</header>
 
-			<p className="storybook-release__contents text-secondary small">
+			<p className="showroom-release__contents text-secondary small">
 				{fragmentSets.length} fragment set{fragmentSets.length === 1 ? '' : 's'} with {fragments.length} fragment{fragments.length === 1 ? '' : 's'}, {templates.length} page template{templates.length === 1 ? '' : 's'}, {styleBooks.length} style book
 				{styleBooks.length === 1 ? '' : 's'}.
 			</p>
 
 			{manifest.downloads && manifest.downloads.length > 0 && (
-				<ul className="storybook-release__downloads list-unstyled">
+				<ul className="showroom-release__downloads list-unstyled">
 					{manifest.downloads.map((download) => {
 						const url = downloadURL(manifest, download.file);
 
@@ -105,12 +105,12 @@ function Release({manifest, previous}: {manifest: ReleaseManifest; previous: Rel
 			)}
 
 			{manifest.notes && (
-				<div className="storybook-release__notes">
+				<div className="showroom-release__notes">
 					<Markdown markdown={manifest.notes} />
 				</div>
 			)}
 
-			<h3 className="storybook-release__subtitle">
+			<h3 className="showroom-release__subtitle">
 				Changes
 				{previous && (
 					<span className="text-secondary small font-weight-normal ml-2">
@@ -138,7 +138,7 @@ function Release({manifest, previous}: {manifest: ReleaseManifest; previous: Rel
 						<span className="label label-info mr-1">{diff.counts.changed} changed</span>
 						<span className="label label-danger">{diff.counts.removed} removed</span>
 					</p>
-					<table className="table table-sm storybook-release__table">
+					<table className="table table-sm showroom-release__table">
 						<thead>
 							<tr>
 								<th scope="col">Asset</th>
@@ -183,7 +183,7 @@ function ChangeRow({change, manifest}: {change: AssetChange; manifest: ReleaseMa
 			<td>
 				<Icon className="mr-2 text-secondary" symbol={TYPE_ICONS[asset.type]} />
 				{selectable ? (
-					<button className="btn btn-unstyled storybook-embed__link" onClick={select} type="button">
+					<button className="btn btn-unstyled showroom-embed__link" onClick={select} type="button">
 						{asset.name}
 					</button>
 				) : (
@@ -195,7 +195,7 @@ function ChangeRow({change, manifest}: {change: AssetChange; manifest: ReleaseMa
 				<span className={`label label-${change.kind === 'added' ? 'success' : change.kind === 'changed' ? 'info' : 'danger'}`}>{change.kind}</span>
 			</td>
 			<td>
-				{change.kind === 'changed' && change.files.length > 0 && <span className="storybook-mono">{change.files.join(', ')}</span>}
+				{change.kind === 'changed' && change.files.length > 0 && <span className="showroom-mono">{change.files.join(', ')}</span>}
 				{change.kind === 'changed' && !change.files.length && <span className="text-secondary">content</span>}
 				{history && (
 					<a className="ml-2 small" href={history} rel="noreferrer" target="_blank">

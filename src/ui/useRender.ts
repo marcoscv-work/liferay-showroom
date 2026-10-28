@@ -109,7 +109,7 @@ export function useRender(): RenderOutput {
 				colorScheme,
 				css: '',
 				fragmentCSS: '',
-				html: '<div class="container-fluid container-fluid-max-xl py-5"><h1>Liferay Storybook</h1><p class="lead">Pick a fragment or a page template from the sidebar.</p></div>',
+				html: '<div class="container-fluid container-fluid-max-xl py-5"><h1>Liferay Showroom</h1><p class="lead">Pick a fragment or a page template from the sidebar.</p></div>',
 				js: '',
 				mode: 'story',
 				theme,

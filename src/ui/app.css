@@ -1,5 +1,5 @@
 /*
- * Layout for the storybook shell. Visual language comes from Clay's cadmin
+ * Layout for the showroom shell. Visual language comes from Clay's cadmin
  * stylesheet (the Liferay admin look): buttons, forms, tables, navs, labels
  * and alerts are Clay components. This file only lays them out.
  */
@@ -23,8 +23,8 @@ body,
  * schemes.
  */
 
-.storybook,
-.storybook-loading {
+.showroom,
+.showroom-loading {
 	--sb-border: var(--cadmin-gray-300, #e7e7ed);
 	--sb-bg: var(--cadmin-white, #fff);
 	--sb-muted-bg: var(--cadmin-gray-100, #f1f2f5);
@@ -37,7 +37,7 @@ body,
 	--sb-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.06));
 }
 
-html:not(#__):not(#___) .storybook {
+html:not(#__):not(#___) .showroom {
 	background: var(--sb-bg);
 	color: var(--sb-text);
 	display: grid;
@@ -48,7 +48,7 @@ html:not(#__):not(#___) .storybook {
 
 /* Loading screen --------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook-loading {
+html:not(#__):not(#___) .showroom-loading {
 	align-items: center;
 	background: var(--cadmin-white, #fff);
 	color: var(--cadmin-gray-900, #272833);
@@ -58,7 +58,7 @@ html:not(#__):not(#___) .storybook-loading {
 	padding: 1rem;
 }
 
-html:not(#__):not(#___) .storybook-loading__card {
+html:not(#__):not(#___) .showroom-loading__card {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
@@ -67,26 +67,23 @@ html:not(#__):not(#___) .storybook-loading__card {
 	text-align: center;
 }
 
-html:not(#__):not(#___) .storybook-loading .storybook-loading__card .storybook-loading__logo {
-	background: var(--cadmin-primary, #0b5fff);
-	color: #fff;
-	font-size: 1.75rem;
+html:not(#__):not(#___) .showroom-loading .showroom-loading__card .showroom-loading__logo {
 	height: 3.5rem;
 	margin-bottom: 0.5rem;
 	width: 3.5rem;
 }
 
-html:not(#__):not(#___) .storybook-loading__title {
+html:not(#__):not(#___) .showroom-loading__title {
 	font-size: 1.25rem;
 	font-weight: 600;
 }
 
-html:not(#__):not(#___) .storybook-loading__subtitle {
+html:not(#__):not(#___) .showroom-loading__subtitle {
 	font-size: 0.875rem;
 }
 
-html:not(#__):not(#___) .storybook-loading .storybook-loading__spinner {
-	animation: storybook-spin 0.9s linear infinite;
+html:not(#__):not(#___) .showroom-loading .showroom-loading__spinner {
+	animation: showroom-spin 0.9s linear infinite;
 	border: 3px solid var(--sb-border);
 	border-radius: 50%;
 	border-top-color: var(--sb-primary);
@@ -96,45 +93,45 @@ html:not(#__):not(#___) .storybook-loading .storybook-loading__spinner {
 	width: 2rem;
 }
 
-@keyframes storybook-spin {
+@keyframes showroom-spin {
 	to {
 		transform: rotate(360deg);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	html:not(#__):not(#___) .storybook-loading .storybook-loading__spinner {
+	html:not(#__):not(#___) .showroom-loading .showroom-loading__spinner {
 		animation: none;
 	}
 }
 
-html:not(#__):not(#___) .storybook-loading__text {
+html:not(#__):not(#___) .showroom-loading__text {
 	font-size: 0.875rem;
 }
 
-html:not(#__):not(#___) .storybook .lexicon-icon,
-html:not(#__):not(#___) .storybook-loading .lexicon-icon {
+html:not(#__):not(#___) .showroom .lexicon-icon,
+html:not(#__):not(#___) .showroom-loading .lexicon-icon {
 	fill: currentColor;
 	height: 1em;
 	width: 1em;
 }
 
-html:not(#__):not(#___) .storybook .btn {
+html:not(#__):not(#___) .showroom .btn {
 	white-space: nowrap;
 }
 
-html:not(#__):not(#___) .storybook .btn-monospaced {
+html:not(#__):not(#___) .showroom .btn-monospaced {
 	height: 2rem;
 	width: 2rem;
 }
 
-html:not(#__):not(#___) .storybook .btn-group .btn-monospaced.active {
+html:not(#__):not(#___) .showroom .btn-group .btn-monospaced.active {
 	background-color: var(--sb-primary-l3);
 	border-color: var(--sb-primary);
 	color: var(--sb-primary);
 }
 
-html:not(#__):not(#___) .storybook .storybook-armed {
+html:not(#__):not(#___) .showroom .showroom-armed {
 	background-color: var(--sb-danger) !important;
 	border-color: var(--sb-danger) !important;
 	color: #fff !important;
@@ -150,7 +147,7 @@ html:not(#__):not(#___)[data-editor-scheme="dark"]:root .cadmin {
 	color-scheme: dark;
 }
 
-html:not(#__):not(#___) .storybook .storybook-editor-scheme {
+html:not(#__):not(#___) .showroom .showroom-editor-scheme {
 	align-items: center;
 	display: flex;
 	gap: 0.5rem;
@@ -160,7 +157,7 @@ html:not(#__):not(#___) .storybook .storybook-editor-scheme {
 
 /* Sidebar ----------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-sidebar {
+html:not(#__):not(#___) .showroom .showroom-sidebar {
 	background: var(--sb-muted-bg);
 	border-right: 1px solid var(--sb-border);
 	display: flex;
@@ -168,55 +165,56 @@ html:not(#__):not(#___) .storybook .storybook-sidebar {
 	min-height: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-sidebar__header {
+html:not(#__):not(#___) .showroom .showroom-sidebar__header {
 	flex: 0 0 auto;
 	padding: 1rem 1rem 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand {
+html:not(#__):not(#___) .showroom .showroom-brand {
 	align-items: center;
 	display: flex;
 	gap: 0.625rem;
 	margin-bottom: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand__logo,
-html:not(#__):not(#___) .storybook-loading .storybook-brand__logo {
-	align-items: center;
-	background: var(--sb-primary);
-	border-radius: 0.5rem;
-	color: var(--cadmin-white, #fff);
+html:not(#__):not(#___) .showroom .showroom-brand__logo,
+html:not(#__):not(#___) .showroom-loading .showroom-brand__logo {
 	display: inline-flex;
 	flex: 0 0 auto;
-	font-size: 1.125rem;
 	height: 2.25rem;
-	justify-content: center;
 	width: 2.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand__title {
+html:not(#__):not(#___) .showroom .showroom-brand__logo img,
+html:not(#__):not(#___) .showroom-loading .showroom-brand__logo img {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+html:not(#__):not(#___) .showroom .showroom-brand__title {
 	font-weight: 600;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand__subtitle {
+html:not(#__):not(#___) .showroom .showroom-brand__subtitle {
 	font-size: 0.75rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-html:not(#__):not(#___) .storybook .storybook-brand > div {
+html:not(#__):not(#___) .showroom .showroom-brand > div {
 	min-width: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-sidebar__tree {
+html:not(#__):not(#___) .showroom .showroom-sidebar__tree {
 	flex: 1 1 auto;
 	min-height: 0;
 	overflow: auto;
 	padding: 0 0.5rem 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-section__title {
+html:not(#__):not(#___) .showroom .showroom-section__title {
 	align-items: center;
 	color: var(--sb-gray-600);
 	display: flex;
@@ -228,35 +226,35 @@ html:not(#__):not(#___) .storybook .storybook-section__title {
 	text-transform: uppercase;
 }
 
-html:not(#__):not(#___) .storybook .storybook-section__title .btn {
+html:not(#__):not(#___) .showroom .showroom-section__title .btn {
 	font-size: 0.75rem;
 	letter-spacing: 0;
 	text-transform: none;
 }
 
-html:not(#__):not(#___) .storybook .storybook-nav-row {
+html:not(#__):not(#___) .showroom .showroom-nav-row {
 	align-items: center;
 	display: flex;
 }
 
-html:not(#__):not(#___) .storybook .storybook-nav-row .nav-link,
-html:not(#__):not(#___) .storybook .storybook-nav-row .storybook-collection__toggle {
+html:not(#__):not(#___) .showroom .showroom-nav-row .nav-link,
+html:not(#__):not(#___) .showroom .showroom-nav-row .showroom-collection__toggle {
 	flex: 1 1 auto;
 	min-width: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-nav-row__action {
+html:not(#__):not(#___) .showroom .showroom-nav-row__action {
 	flex: 0 0 auto;
 	opacity: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-nav-row:hover .storybook-nav-row__action,
-html:not(#__):not(#___) .storybook .storybook-nav-row__action:focus-visible,
-html:not(#__):not(#___) .storybook .storybook-nav-row__action.storybook-armed {
+html:not(#__):not(#___) .showroom .showroom-nav-row:hover .showroom-nav-row__action,
+html:not(#__):not(#___) .showroom .showroom-nav-row__action:focus-visible,
+html:not(#__):not(#___) .showroom .showroom-nav-row__action.showroom-armed {
 	opacity: 1;
 }
 
-html:not(#__):not(#___) .storybook .storybook-collection__toggle {
+html:not(#__):not(#___) .showroom .showroom-collection__toggle {
 	align-items: center;
 	border-radius: 0.25rem;
 	display: flex;
@@ -265,19 +263,19 @@ html:not(#__):not(#___) .storybook .storybook-collection__toggle {
 	text-align: left;
 }
 
-html:not(#__):not(#___) .storybook .storybook-collection__toggle:hover {
+html:not(#__):not(#___) .showroom .showroom-collection__toggle:hover {
 	background: var(--sb-hover);
 }
 
-html:not(#__):not(#___) .storybook .storybook-collection__name {
+html:not(#__):not(#___) .showroom .showroom-collection__name {
 	flex: 1 1 auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-collection__items {
+html:not(#__):not(#___) .showroom .showroom-collection__items {
 	padding-left: 1rem;
 }
 
-html:not(#__):not(#___) .storybook .nav-stacked .nav-link {
+html:not(#__):not(#___) .showroom .nav-stacked .nav-link {
 	align-items: center;
 	border-radius: 0.25rem;
 	color: var(--sb-text);
@@ -287,16 +285,16 @@ html:not(#__):not(#___) .storybook .nav-stacked .nav-link {
 	width: 100%;
 }
 
-html:not(#__):not(#___) .storybook .nav-stacked .nav-link:hover {
+html:not(#__):not(#___) .showroom .nav-stacked .nav-link:hover {
 	background: var(--sb-hover);
 }
 
-html:not(#__):not(#___) .storybook .nav-stacked .nav-link.active {
+html:not(#__):not(#___) .showroom .nav-stacked .nav-link.active {
 	background: var(--sb-primary);
 	color: var(--cadmin-white, #fff);
 }
 
-html:not(#__):not(#___) .storybook .storybook-thumb {
+html:not(#__):not(#___) .showroom .showroom-thumb {
 	background: var(--sb-bg);
 	border: 1px solid var(--sb-border);
 	border-radius: 2px;
@@ -306,7 +304,7 @@ html:not(#__):not(#___) .storybook .storybook-thumb {
 	width: 1.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-sidebar__footer {
+html:not(#__):not(#___) .showroom .showroom-sidebar__footer {
 	border-top: 1px solid var(--sb-border);
 	flex: 0 0 auto;
 	padding: 0.75rem 1rem;
@@ -314,14 +312,14 @@ html:not(#__):not(#___) .storybook .storybook-sidebar__footer {
 
 /* Main --------------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-main {
+html:not(#__):not(#___) .showroom .showroom-main {
 	display: grid;
 	grid-template-rows: auto 1fr var(--sb-panel-height);
 	min-height: 0;
 	min-width: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar {
+html:not(#__):not(#___) .showroom .showroom-toolbar {
 	align-items: center;
 	border-bottom: 1px solid var(--sb-border);
 	display: flex;
@@ -331,7 +329,7 @@ html:not(#__):not(#___) .storybook .storybook-toolbar {
 	padding: 0.5rem 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar__title {
+html:not(#__):not(#___) .showroom .showroom-toolbar__title {
 	flex: 1 1 10rem;
 	font-size: 1rem;
 	font-weight: 600;
@@ -339,13 +337,13 @@ html:not(#__):not(#___) .storybook .storybook-toolbar__title {
 	min-width: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar__group {
+html:not(#__):not(#___) .showroom .showroom-toolbar__group {
 	align-items: center;
 	display: flex;
 	gap: 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar__label {
+html:not(#__):not(#___) .showroom .showroom-toolbar__label {
 	align-items: center;
 	display: flex;
 	gap: 0.375rem;
@@ -353,25 +351,25 @@ html:not(#__):not(#___) .storybook .storybook-toolbar__label {
 	white-space: nowrap;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar__label select {
+html:not(#__):not(#___) .showroom .showroom-toolbar__label select {
 	max-width: 11rem;
 	width: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-toolbar__actions {
+html:not(#__):not(#___) .showroom .showroom-toolbar__actions {
 	margin-left: auto;
 }
 
 /* Canvas ------------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-canvas {
+html:not(#__):not(#___) .showroom .showroom-canvas {
 	background: var(--sb-canvas-bg);
 	min-height: 0;
 	overflow: auto;
 	padding: 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-canvas__frame-wrapper {
+html:not(#__):not(#___) .showroom .showroom-canvas__frame-wrapper {
 	background: var(--sb-bg);
 	border: 1px solid var(--sb-border);
 	border-radius: 0.25rem;
@@ -382,7 +380,7 @@ html:not(#__):not(#___) .storybook .storybook-canvas__frame-wrapper {
 	transition: max-width 0.2s;
 }
 
-html:not(#__):not(#___) .storybook .storybook-canvas__frame {
+html:not(#__):not(#___) .showroom .showroom-canvas__frame {
 	background: var(--sb-bg);
 	border: 0;
 	display: block;
@@ -392,7 +390,7 @@ html:not(#__):not(#___) .storybook .storybook-canvas__frame {
 
 /* Panel -------------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-panel {
+html:not(#__):not(#___) .showroom .showroom-panel {
 	border-top: 1px solid var(--sb-border);
 	display: flex;
 	flex-direction: column;
@@ -400,7 +398,7 @@ html:not(#__):not(#___) .storybook .storybook-panel {
 	position: relative;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__resizer {
+html:not(#__):not(#___) .showroom .showroom-panel__resizer {
 	cursor: row-resize;
 	height: 6px;
 	left: 0;
@@ -410,25 +408,25 @@ html:not(#__):not(#___) .storybook .storybook-panel__resizer {
 	z-index: 2;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__resizer:hover,
-html:not(#__):not(#___) .storybook .storybook-panel__resizer:active {
+html:not(#__):not(#___) .showroom .showroom-panel__resizer:hover,
+html:not(#__):not(#___) .showroom .showroom-panel__resizer:active {
 	background: var(--sb-primary);
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs {
 	border-bottom: 1px solid var(--sb-border);
 	flex: 0 0 auto;
 	padding: 0 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link {
 	align-items: center;
 	display: flex;
 	padding: 0.625rem 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link,
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link,
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link {
 	align-items: center;
 	border: 0;
 	border-bottom: 2px solid transparent;
@@ -439,63 +437,63 @@ html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link {
 	line-height: 1.25;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link:focus,
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link:focus {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link:focus,
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link:focus {
 	box-shadow: none;
 	outline: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link:focus-visible,
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link:focus-visible {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link:focus-visible,
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link:focus-visible {
 	outline: 2px solid var(--sb-primary);
 	outline-offset: -2px;
 }
 
-html:not(#__):not(#___) .storybook .storybook-code__tabs {
+html:not(#__):not(#___) .showroom .showroom-code__tabs {
 	border-bottom: 0;
 	flex: 1 1 auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link {
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link {
 	height: 2rem;
 	padding: 0 0.625rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link:hover,
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link:hover {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link:hover,
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link:hover {
 	color: var(--sb-text);
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__tabs .nav-link.active,
-html:not(#__):not(#___) .storybook .storybook-code__tabs .nav-link.active {
+html:not(#__):not(#___) .showroom .showroom-panel__tabs .nav-link.active,
+html:not(#__):not(#___) .showroom .showroom-code__tabs .nav-link.active {
 	border-bottom-color: var(--sb-primary);
 	color: var(--sb-primary);
 	font-weight: 600;
 }
 
-html:not(#__):not(#___) .storybook .storybook-panel__content {
+html:not(#__):not(#___) .showroom .showroom-panel__content {
 	flex: 1 1 auto;
 	min-height: 0;
 	overflow: auto;
 	padding: 0.75rem 1rem;
 }
 
-html:not(#__):not(#___) .storybook .sheet-title {
+html:not(#__):not(#___) .showroom .sheet-title {
 	font-size: 1rem;
 	margin: 0 0 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .sheet-subtitle {
+html:not(#__):not(#___) .showroom .sheet-subtitle {
 	margin: 0.75rem 0 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-fieldset {
+html:not(#__):not(#___) .showroom .showroom-fieldset {
 	border: 0;
 	margin: 0 0 0.75rem;
 	padding: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-fieldset legend {
+html:not(#__):not(#___) .showroom .showroom-fieldset legend {
 	float: none;
 	width: auto;
 }
@@ -504,7 +502,7 @@ html:not(#__):not(#___) .storybook .storybook-fieldset legend {
 
 /* Args table (Storybook style) ------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-args {
+html:not(#__):not(#___) .showroom .showroom-args {
 	border-collapse: separate;
 	border-spacing: 0;
 	margin-bottom: 0.5rem;
@@ -512,7 +510,7 @@ html:not(#__):not(#___) .storybook .storybook-args {
 	width: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args thead th {
+html:not(#__):not(#___) .showroom .showroom-args thead th {
 	background: transparent;
 	border-bottom: 1px solid var(--sb-border);
 	border-top: 0;
@@ -524,29 +522,29 @@ html:not(#__):not(#___) .storybook .storybook-args thead th {
 	text-transform: uppercase;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args .storybook-args__name-col {
+html:not(#__):not(#___) .showroom .showroom-args .showroom-args__name-col {
 	width: 30%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args tbody th,
-html:not(#__):not(#___) .storybook .storybook-args tbody td {
+html:not(#__):not(#___) .showroom .showroom-args tbody th,
+html:not(#__):not(#___) .showroom .showroom-args tbody td {
 	overflow-wrap: anywhere;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args tbody th,
-html:not(#__):not(#___) .storybook .storybook-args tbody td {
+html:not(#__):not(#___) .showroom .showroom-args tbody th,
+html:not(#__):not(#___) .showroom .showroom-args tbody td {
 	border-bottom: 1px solid var(--sb-border);
 	border-top: 0;
 	padding: 0.875rem 0.75rem;
 	vertical-align: top;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args tbody tr:last-child th,
-html:not(#__):not(#___) .storybook .storybook-args tbody tr:last-child td {
+html:not(#__):not(#___) .showroom .showroom-args tbody tr:last-child th,
+html:not(#__):not(#___) .showroom .showroom-args tbody tr:last-child td {
 	border-bottom: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args .storybook-args__group th {
+html:not(#__):not(#___) .showroom .showroom-args .showroom-args__group th {
 	background: var(--sb-muted-bg);
 	color: var(--sb-gray-600);
 	font-size: 0.6875rem;
@@ -556,18 +554,18 @@ html:not(#__):not(#___) .storybook .storybook-args .storybook-args__group th {
 	text-transform: uppercase;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args__name {
+html:not(#__):not(#___) .showroom .showroom-args__name {
 	font-weight: 600;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args__id {
+html:not(#__):not(#___) .showroom .showroom-args__id {
 	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.8125rem;
 	font-weight: 600;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args__description,
-html:not(#__):not(#___) .storybook .storybook-args__default {
+html:not(#__):not(#___) .showroom .showroom-args__description,
+html:not(#__):not(#___) .showroom .showroom-args__default {
 	color: var(--sb-gray-600);
 	display: block;
 	font-size: 0.75rem;
@@ -575,18 +573,18 @@ html:not(#__):not(#___) .storybook .storybook-args__default {
 	margin-top: 0.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args__default .storybook-mono {
+html:not(#__):not(#___) .showroom .showroom-args__default .showroom-mono {
 	font-size: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args__control > .form-control,
-html:not(#__):not(#___) .storybook .storybook-args__control > textarea,
-html:not(#__):not(#___) .storybook .storybook-args__control > .storybook-color,
-html:not(#__):not(#___) .storybook .storybook-args__control > .storybook-stack {
+html:not(#__):not(#___) .showroom .showroom-args__control > .form-control,
+html:not(#__):not(#___) .showroom .showroom-args__control > textarea,
+html:not(#__):not(#___) .showroom .showroom-args__control > .showroom-color,
+html:not(#__):not(#___) .showroom .showroom-args__control > .showroom-stack {
 	max-width: 30rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios {
+html:not(#__):not(#___) .showroom .showroom-radios {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
@@ -594,20 +592,20 @@ html:not(#__):not(#___) .storybook .storybook-radios {
 	min-height: 2rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control {
 	margin: 0;
 	min-height: 0;
 	padding-left: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label-text {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-label-text {
 	margin: 0;
 	padding: 0;
 }
 
 /* Radios: explicit states, since cadmin's checked dot does not survive the dark scheme */
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-label {
 	align-items: center;
 	cursor: pointer;
 	display: inline-flex;
@@ -618,7 +616,7 @@ html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label {
 	position: relative;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label::before {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-label::before {
 	background: var(--sb-bg);
 	border: 1px solid var(--cadmin-gray-400, #a7a9bc);
 	border-radius: 50%;
@@ -630,69 +628,69 @@ html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label::befo
 	width: 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-label::after {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-label::after {
 	content: none;
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-input:checked ~ .custom-control-label::before {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-input:checked ~ .custom-control-label::before {
 	background: var(--sb-primary);
 	border-color: var(--sb-primary);
 	box-shadow: inset 0 0 0 3px var(--sb-bg);
 }
 
-html:not(#__):not(#___) .storybook .storybook-radios .custom-control-input:focus-visible ~ .custom-control-label::before {
+html:not(#__):not(#___) .showroom .showroom-radios .custom-control-input:focus-visible ~ .custom-control-label::before {
 	outline: 2px solid var(--sb-primary);
 	outline-offset: 2px;
 }
 
-html:not(#__):not(#___) .storybook .storybook-args .toggle-switch {
+html:not(#__):not(#___) .showroom .showroom-args .toggle-switch {
 	min-height: 2rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-table {
+html:not(#__):not(#___) .showroom .showroom-table {
 	margin-bottom: 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-table th,
-html:not(#__):not(#___) .storybook .storybook-table td {
+html:not(#__):not(#___) .showroom .showroom-table th,
+html:not(#__):not(#___) .showroom .showroom-table td {
 	vertical-align: top;
 }
 
-html:not(#__):not(#___) .storybook .storybook-table__name {
+html:not(#__):not(#___) .showroom .showroom-table__name {
 	font-weight: 600;
 	width: 28%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-editable__default {
+html:not(#__):not(#___) .showroom .showroom-editable__default {
 	margin-top: 0.25rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-html:not(#__):not(#___) .storybook .storybook-table__row--changed .storybook-table__name .storybook-mono {
+html:not(#__):not(#___) .showroom .showroom-table__row--changed .showroom-table__name .showroom-mono {
 	color: var(--sb-primary);
 }
 
-html:not(#__):not(#___) .storybook .storybook-table td .form-control,
-html:not(#__):not(#___) .storybook .storybook-table td textarea,
-html:not(#__):not(#___) .storybook .storybook-table td .storybook-color {
+html:not(#__):not(#___) .showroom .showroom-table td .form-control,
+html:not(#__):not(#___) .showroom .showroom-table td textarea,
+html:not(#__):not(#___) .showroom .showroom-table td .showroom-color {
 	max-width: 28rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-color {
+html:not(#__):not(#___) .showroom .showroom-color {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.375rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-color .form-control {
+html:not(#__):not(#___) .showroom .showroom-color .form-control {
 	flex: 1 1 8rem;
 	width: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-color__input {
+html:not(#__):not(#___) .showroom .showroom-color__input {
 	background: none;
 	border: 1px solid var(--sb-border);
 	border-radius: 0.25rem;
@@ -702,11 +700,11 @@ html:not(#__):not(#___) .storybook .storybook-color__input {
 	width: 2.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-color__text {
+html:not(#__):not(#___) .showroom .showroom-color__text {
 	flex: 1 1 7rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-swatch {
+html:not(#__):not(#___) .showroom .showroom-swatch {
 	border: 1px solid var(--sb-border);
 	border-radius: 0.25rem;
 	display: inline-block;
@@ -715,20 +713,20 @@ html:not(#__):not(#___) .storybook .storybook-swatch {
 	width: 1.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-stack {
+html:not(#__):not(#___) .showroom .showroom-stack {
 	display: flex;
 	flex-direction: column;
 	gap: 0.375rem;
 	max-width: 28rem;
 }
 
-html:not(#__):not(#___) .storybook .toggle-switch {
+html:not(#__):not(#___) .showroom .toggle-switch {
 	margin: 0;
 }
 
 /* Style book --------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-stylebook__header {
+html:not(#__):not(#___) .showroom .showroom-stylebook__header {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
@@ -737,19 +735,19 @@ html:not(#__):not(#___) .storybook .storybook-stylebook__header {
 	margin-bottom: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-stylebook__name {
+html:not(#__):not(#___) .showroom .showroom-stylebook__name {
 	width: 14rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-stylebook__header .input-group {
+html:not(#__):not(#___) .showroom .showroom-stylebook__header .input-group {
 	width: 14rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-stylebook__header select {
+html:not(#__):not(#___) .showroom .showroom-stylebook__header select {
 	width: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-stylebook__set-title {
+html:not(#__):not(#___) .showroom .showroom-stylebook__set-title {
 	color: var(--sb-gray-600);
 	font-size: 0.75rem;
 	font-weight: 600;
@@ -758,74 +756,74 @@ html:not(#__):not(#___) .storybook .storybook-stylebook__set-title {
 
 /* Layout editor ------------------------------------------------------------ */
 
-html:not(#__):not(#___) .storybook .storybook-layout {
+html:not(#__):not(#___) .showroom .showroom-layout {
 	display: grid;
 	gap: 1rem;
 	grid-template-columns: minmax(15rem, 2fr) minmax(0, 3fr);
 	height: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__tree {
+html:not(#__):not(#___) .showroom .showroom-layout__tree {
 	border-right: 1px solid var(--sb-border);
 	min-width: 0;
 	overflow: auto;
 	padding-right: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__toolbar {
+html:not(#__):not(#___) .showroom .showroom-layout__toolbar {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 	margin-bottom: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__actions {
+html:not(#__):not(#___) .showroom .showroom-layout__actions {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.375rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-select-auto {
+html:not(#__):not(#___) .showroom .showroom-select-auto {
 	padding-right: 1.75rem;
 	width: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__picker {
+html:not(#__):not(#___) .showroom .showroom-layout__picker {
 	align-items: center;
 	display: flex;
 	gap: 0.375rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__picker select {
+html:not(#__):not(#___) .showroom .showroom-layout__picker select {
 	flex: 1 1 auto;
 	max-width: 22rem;
 	min-width: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__picker .btn {
+html:not(#__):not(#___) .showroom .showroom-layout__picker .btn {
 	flex: 0 0 auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-mono {
+html:not(#__):not(#___) .showroom .showroom-mono {
 	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.8125rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-table__name .storybook-mono {
+html:not(#__):not(#___) .showroom .showroom-table__name .showroom-mono {
 	display: block;
 }
 
-html:not(#__):not(#___) .storybook .storybook-layout__properties {
+html:not(#__):not(#___) .showroom .showroom-layout__properties {
 	min-width: 0;
 	overflow: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-tree__node {
+html:not(#__):not(#___) .showroom .showroom-tree__node {
 	gap: 0.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-tree__type {
+html:not(#__):not(#___) .showroom .showroom-tree__type {
 	color: var(--sb-gray-600);
 	flex: 0 0 auto;
 	font-size: 0.6875rem;
@@ -833,33 +831,33 @@ html:not(#__):not(#___) .storybook .storybook-tree__type {
 	padding-left: 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-tree__icon {
+html:not(#__):not(#___) .showroom .showroom-tree__icon {
 	flex: 0 0 auto;
 }
 
-html:not(#__):not(#___) .storybook .nav-link.active .storybook-tree__type,
-html:not(#__):not(#___) .storybook .nav-link.active .storybook-tree__icon {
+html:not(#__):not(#___) .showroom .nav-link.active .showroom-tree__type,
+html:not(#__):not(#___) .showroom .nav-link.active .showroom-tree__icon {
 	color: rgba(255, 255, 255, 0.8);
 }
 
-html:not(#__):not(#___) .storybook .storybook-grid {
+html:not(#__):not(#___) .showroom .showroom-grid {
 	display: grid;
 	gap: 0 0.75rem;
 	grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
 }
 
-html:not(#__):not(#___) .storybook .storybook-grid--4 {
+html:not(#__):not(#___) .showroom .showroom-grid--4 {
 	grid-template-columns: repeat(4, 1fr);
 }
 
-html:not(#__):not(#___) .storybook .storybook-field-label {
+html:not(#__):not(#___) .showroom .showroom-field-label {
 	color: var(--sb-gray-600);
 	font-size: 0.75rem;
 	font-weight: 600;
 	margin-bottom: 0.125rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-group-title {
+html:not(#__):not(#___) .showroom .showroom-group-title {
 	color: var(--sb-gray-600);
 	font-size: 0.6875rem;
 	font-weight: 600;
@@ -868,13 +866,13 @@ html:not(#__):not(#___) .storybook .storybook-group-title {
 	text-transform: uppercase;
 }
 
-html:not(#__):not(#___) .storybook .storybook-details {
+html:not(#__):not(#___) .showroom .showroom-details {
 	border-top: 1px solid var(--sb-border);
 	margin-top: 0.75rem;
 	padding-top: 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-details__summary {
+html:not(#__):not(#___) .showroom .showroom-details__summary {
 	align-items: center;
 	cursor: pointer;
 	display: flex;
@@ -883,32 +881,32 @@ html:not(#__):not(#___) .storybook .storybook-details__summary {
 	padding: 0.25rem 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-details__summary::-webkit-details-marker {
+html:not(#__):not(#___) .showroom .showroom-details__summary::-webkit-details-marker {
 	display: none;
 }
 
-html:not(#__):not(#___) .storybook .storybook-details[open] .storybook-details__chevron {
+html:not(#__):not(#___) .showroom .showroom-details[open] .showroom-details__chevron {
 	transform: rotate(90deg);
 }
 
-html:not(#__):not(#___) .storybook .storybook-details__body {
+html:not(#__):not(#___) .showroom .showroom-details__body {
 	padding-top: 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-code-input {
+html:not(#__):not(#___) .showroom .showroom-code-input {
 	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.75rem;
 }
 
 /* Code --------------------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-code {
+html:not(#__):not(#___) .showroom .showroom-code {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-code__content {
+html:not(#__):not(#___) .showroom .showroom-code__content {
 	background: var(--sb-muted-bg);
 	border-radius: 0.25rem;
 	flex: 1 1 auto;
@@ -920,34 +918,34 @@ html:not(#__):not(#___) .storybook .storybook-code__content {
 	word-break: break-word;
 }
 
-html:not(#__):not(#___) .storybook .storybook-warning {
+html:not(#__):not(#___) .showroom .showroom-warning {
 	white-space: pre-wrap;
 }
 
 @media (max-width: 1100px) {
-html:not(#__):not(#___) .storybook .storybook-layout {
+html:not(#__):not(#___) .showroom .showroom-layout {
 		grid-template-columns: 1fr;
 	}
 
-html:not(#__):not(#___) .storybook .storybook-layout__tree {
+html:not(#__):not(#___) .showroom .showroom-layout__tree {
 		border-bottom: 1px solid var(--sb-border);
 		border-right: 0;
 		padding-bottom: 0.625rem;
 		padding-right: 0;
 	}
 
-html:not(#__):not(#___) .storybook .storybook-grid--4 {
+html:not(#__):not(#___) .showroom .showroom-grid--4 {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (max-width: 900px) {
-html:not(#__):not(#___) .storybook {
+html:not(#__):not(#___) .showroom {
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr;
 	}
 
-html:not(#__):not(#___) .storybook .storybook-sidebar {
+html:not(#__):not(#___) .showroom .showroom-sidebar {
 		border-bottom: 1px solid var(--sb-border);
 		border-right: 0;
 		max-height: 40vh;
@@ -957,39 +955,39 @@ html:not(#__):not(#___) .storybook .storybook-sidebar {
 
 /* Documentation ---------------------------------------------------------- */
 
-html:not(#__):not(#___) .storybook .storybook-main--page {
+html:not(#__):not(#___) .showroom .showroom-main--page {
 	grid-template-rows: auto 1fr;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs-view {
+html:not(#__):not(#___) .showroom .showroom-docs-view {
 	background: var(--sb-bg);
 	min-height: 0;
 	overflow: auto;
 	padding: 1.5rem 2rem 4rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs-view__page {
+html:not(#__):not(#___) .showroom .showroom-docs-view__page {
 	margin: 0 auto;
 	max-width: 56rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs {
+html:not(#__):not(#___) .showroom .showroom-docs {
 	color: var(--sb-text);
 	font-size: 0.9375rem;
 	line-height: 1.6;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose > :first-child {
+html:not(#__):not(#___) .showroom .showroom-docs__prose > :first-child {
 	margin-top: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose h1 {
+html:not(#__):not(#___) .showroom .showroom-docs__prose h1 {
 	font-size: 1.75rem;
 	font-weight: 700;
 	margin: 0 0 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose h2 {
+html:not(#__):not(#___) .showroom .showroom-docs__prose h2 {
 	border-top: 1px solid var(--sb-border);
 	font-size: 1.25rem;
 	font-weight: 600;
@@ -997,31 +995,31 @@ html:not(#__):not(#___) .storybook .storybook-docs__prose h2 {
 	padding-top: 1.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose h3 {
+html:not(#__):not(#___) .showroom .showroom-docs__prose h3 {
 	font-size: 1rem;
 	font-weight: 600;
 	margin: 1.5rem 0 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose p,
-html:not(#__):not(#___) .storybook .storybook-docs__prose ul,
-html:not(#__):not(#___) .storybook .storybook-docs__prose ol,
-html:not(#__):not(#___) .storybook .storybook-docs__prose table,
-html:not(#__):not(#___) .storybook .storybook-docs__prose blockquote {
+html:not(#__):not(#___) .showroom .showroom-docs__prose p,
+html:not(#__):not(#___) .showroom .showroom-docs__prose ul,
+html:not(#__):not(#___) .showroom .showroom-docs__prose ol,
+html:not(#__):not(#___) .showroom .showroom-docs__prose table,
+html:not(#__):not(#___) .showroom .showroom-docs__prose blockquote {
 	margin: 0 0 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose li {
+html:not(#__):not(#___) .showroom .showroom-docs__prose li {
 	margin: 0.25rem 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose blockquote {
+html:not(#__):not(#___) .showroom .showroom-docs__prose blockquote {
 	border-left: 3px solid var(--sb-primary);
 	color: var(--sb-gray-600);
 	padding: 0.25rem 0 0.25rem 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose code {
+html:not(#__):not(#___) .showroom .showroom-docs__prose code {
 	background: var(--sb-muted-bg);
 	border-radius: 0.1875rem;
 	color: inherit;
@@ -1029,7 +1027,7 @@ html:not(#__):not(#___) .storybook .storybook-docs__prose code {
 	padding: 0.125rem 0.3125rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose pre {
+html:not(#__):not(#___) .showroom .showroom-docs__prose pre {
 	background: var(--sb-muted-bg);
 	border-radius: 0.25rem;
 	font-size: 0.8125rem;
@@ -1039,25 +1037,25 @@ html:not(#__):not(#___) .storybook .storybook-docs__prose pre {
 	padding: 0.75rem 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose pre code {
+html:not(#__):not(#___) .showroom .showroom-docs__prose pre code {
 	background: none;
 	padding: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose table {
+html:not(#__):not(#___) .showroom .showroom-docs__prose table {
 	border-collapse: collapse;
 	width: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose th,
-html:not(#__):not(#___) .storybook .storybook-docs__prose td {
+html:not(#__):not(#___) .showroom .showroom-docs__prose th,
+html:not(#__):not(#___) .showroom .showroom-docs__prose td {
 	border-bottom: 1px solid var(--sb-border);
 	padding: 0.375rem 0.5rem;
 	text-align: left;
 	vertical-align: top;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose th {
+html:not(#__):not(#___) .showroom .showroom-docs__prose th {
 	color: var(--sb-gray-600);
 	font-size: 0.75rem;
 	font-weight: 600;
@@ -1065,29 +1063,29 @@ html:not(#__):not(#___) .storybook .storybook-docs__prose th {
 	text-transform: uppercase;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose img {
+html:not(#__):not(#___) .showroom .showroom-docs__prose img {
 	max-width: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-docs__prose a {
+html:not(#__):not(#___) .showroom .showroom-docs__prose a {
 	color: var(--sb-primary);
 }
 
 /* Embeds */
 
-html:not(#__):not(#___) .storybook .storybook-embed {
+html:not(#__):not(#___) .showroom .showroom-embed {
 	border: 1px solid var(--sb-border);
 	border-radius: 0.25rem;
 	margin: 0 0 1.25rem;
 	overflow: hidden;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed--tokens {
+html:not(#__):not(#___) .showroom .showroom-embed--tokens {
 	border: 0;
 	overflow: visible;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__frame {
+html:not(#__):not(#___) .showroom .showroom-embed__frame {
 	background: var(--sb-bg);
 	border: 0;
 	display: block;
@@ -1095,7 +1093,7 @@ html:not(#__):not(#___) .storybook .storybook-embed__frame {
 	width: 100%;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__caption {
+html:not(#__):not(#___) .showroom .showroom-embed__caption {
 	align-items: center;
 	background: var(--sb-muted-bg);
 	border-top: 1px solid var(--sb-border);
@@ -1108,7 +1106,7 @@ html:not(#__):not(#___) .storybook .storybook-embed__caption {
 	text-align: left;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed--tokens .storybook-embed__caption {
+html:not(#__):not(#___) .showroom .showroom-embed--tokens .showroom-embed__caption {
 	background: none;
 	border: 0;
 	caption-side: top;
@@ -1116,84 +1114,84 @@ html:not(#__):not(#___) .storybook .storybook-embed--tokens .storybook-embed__ca
 	padding: 0.5rem 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__link {
+html:not(#__):not(#___) .showroom .showroom-embed__link {
 	color: var(--sb-primary);
 	font-size: inherit;
 	padding: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__link:hover {
+html:not(#__):not(#___) .showroom .showroom-embed__link:hover {
 	text-decoration: underline;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__args {
+html:not(#__):not(#___) .showroom .showroom-embed__args {
 	margin-left: auto;
 }
 
-html:not(#__):not(#___) .storybook .storybook-embed__missing {
+html:not(#__):not(#___) .showroom .showroom-embed__missing {
 	margin: 0 0 1.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-tokens-table {
+html:not(#__):not(#___) .showroom .showroom-tokens-table {
 	font-size: 0.8125rem;
 	margin-bottom: 1.25rem;
 }
 
 /* Releases */
 
-html:not(#__):not(#___) .storybook .storybook-release {
+html:not(#__):not(#___) .showroom .showroom-release {
 	border-top: 1px solid var(--sb-border);
 	margin-top: 1.5rem;
 	padding-top: 1.25rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__header {
+html:not(#__):not(#___) .showroom .showroom-release__header {
 	align-items: baseline;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__version {
+html:not(#__):not(#___) .showroom .showroom-release__version {
 	font-size: 1.375rem;
 	font-weight: 700;
 	margin: 0;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__contents {
+html:not(#__):not(#___) .showroom .showroom-release__contents {
 	margin: 0.25rem 0 0.75rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__downloads {
+html:not(#__):not(#___) .showroom .showroom-release__downloads {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 	margin: 0 0 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__notes {
+html:not(#__):not(#___) .showroom .showroom-release__notes {
 	margin: 0 0 1rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__subtitle {
+html:not(#__):not(#___) .showroom .showroom-release__subtitle {
 	font-size: 1rem;
 	font-weight: 600;
 	margin: 1rem 0 0.5rem;
 }
 
-html:not(#__):not(#___) .storybook .storybook-release__table {
+html:not(#__):not(#___) .showroom .showroom-release__table {
 	font-size: 0.8125rem;
 }
 
 /* A control row the preview pointed at ------------------------------------ */
 
-html:not(#__):not(#___) .storybook .storybook-args .storybook-args__row--highlight > th,
-html:not(#__):not(#___) .storybook .storybook-args .storybook-args__row--highlight > td {
-	animation: storybook-row-flash 1.8s ease-out;
+html:not(#__):not(#___) .showroom .showroom-args .showroom-args__row--highlight > th,
+html:not(#__):not(#___) .showroom .showroom-args .showroom-args__row--highlight > td {
+	animation: showroom-row-flash 1.8s ease-out;
 	box-shadow: inset 3px 0 0 var(--sb-primary);
 }
 
-@keyframes storybook-row-flash {
+@keyframes showroom-row-flash {
 	0%,
 	40% {
 		background-color: var(--sb-primary-l3);

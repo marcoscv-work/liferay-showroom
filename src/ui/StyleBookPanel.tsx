@@ -30,10 +30,10 @@ export function StyleBookPanel() {
 
 	return (
 		<div>
-			<div className="storybook-stylebook__header">
+			<div className="showroom-stylebook__header">
 				<div className="d-flex align-items-center flex-wrap">
 					{styleBook.key !== DEFAULT_STYLE_BOOK_KEY ? (
-						<input aria-label="Style book name" className="form-control form-control-sm storybook-stylebook__name mr-2" onChange={(event) => dispatch({key: styleBook.key, name: event.target.value, type: 'renameStyleBook'})} type="text" value={styleBook.name} />
+						<input aria-label="Style book name" className="form-control form-control-sm showroom-stylebook__name mr-2" onChange={(event) => dispatch({key: styleBook.key, name: event.target.value, type: 'renameStyleBook'})} type="text" value={styleBook.name} />
 					) : (
 						<strong className="mr-2">{styleBook.name}</strong>
 					)}
@@ -68,7 +68,7 @@ export function StyleBookPanel() {
 			</p>
 
 			{categories.map((currentCategory) => (
-				<section className="storybook-stylebook__category" key={currentCategory.name}>
+				<section className="showroom-stylebook__category" key={currentCategory.name}>
 					<h3 className="sheet-subtitle">{humanize(currentCategory.label)}</h3>
 
 					{currentCategory.sets.map((set) => {
@@ -80,9 +80,9 @@ export function StyleBookPanel() {
 
 						return (
 							<div className="mb-3" key={set.name}>
-								<h4 className="storybook-stylebook__set-title">{humanize(set.label)}</h4>
+								<h4 className="showroom-stylebook__set-title">{humanize(set.label)}</h4>
 
-								<table className="table table-autofit table-sm storybook-table">
+								<table className="table table-autofit table-sm showroom-table">
 									<thead>
 										<tr>
 											<th className="table-cell-expand-smaller" scope="col">
@@ -123,17 +123,17 @@ function TokenRow({onChange, token, value}: {onChange: (value: string | null) =>
 	const colorTokens = theme ? Object.values(theme.tokens).filter((candidate) => candidate.editorType === 'ColorPicker' && candidate.name !== token.name) : [];
 
 	return (
-		<tr className={overridden ? 'storybook-table__row--changed' : undefined}>
-			<th className="storybook-table__name" scope="row">
-				<span className="storybook-mono">{token.name}</span>
+		<tr className={overridden ? 'showroom-table__row--changed' : undefined}>
+			<th className="showroom-table__name" scope="row">
+				<span className="showroom-mono">{token.name}</span>
 				<span className="d-block text-secondary small font-weight-normal">{humanize(token.label)}</span>
 				<span className="d-block text-secondary small font-weight-normal">--{token.cssVariable}</span>
 			</th>
 			<td>
 				{token.editorType === 'ColorPicker' ? (
-					<div className="storybook-color">
-						<span className="storybook-swatch" style={{background: effective}} title={effective} />
-						<input aria-label={`${humanize(token.label)} color`} className="storybook-color__input" onChange={(event) => onChange(event.target.value)} type="color" value={/^#[0-9a-f]{6}$/i.test(current) ? current : '#000000'} />
+					<div className="showroom-color">
+						<span className="showroom-swatch" style={{background: effective}} title={effective} />
+						<input aria-label={`${humanize(token.label)} color`} className="showroom-color__input" onChange={(event) => onChange(event.target.value)} type="color" value={/^#[0-9a-f]{6}$/i.test(current) ? current : '#000000'} />
 						<select aria-label={`${humanize(token.label)} token reference`} className="form-control form-control-sm" onChange={(event) => onChange(event.target.value || null)} value={referencedToken ? current : ''}>
 							<option value="">Custom</option>
 							{colorTokens.map((candidate) => (
@@ -142,7 +142,7 @@ function TokenRow({onChange, token, value}: {onChange: (value: string | null) =>
 								</option>
 							))}
 						</select>
-						<input aria-label={`${humanize(token.label)} value`} className="form-control form-control-sm storybook-color__text" onChange={(event) => onChange(event.target.value)} type="text" value={current} />
+						<input aria-label={`${humanize(token.label)} value`} className="form-control form-control-sm showroom-color__text" onChange={(event) => onChange(event.target.value)} type="text" value={current} />
 					</div>
 				) : token.editorType === 'Select' && token.validValues ? (
 					<select className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={current}>
@@ -163,7 +163,7 @@ function TokenRow({onChange, token, value}: {onChange: (value: string | null) =>
 				)}
 			</td>
 			<td className="text-secondary">
-				<span className="storybook-mono">{token.defaultValue}</span>
+				<span className="showroom-mono">{token.defaultValue}</span>
 			</td>
 		</tr>
 	);

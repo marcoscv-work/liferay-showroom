@@ -60,7 +60,7 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 				{configuration.fieldSets.map((fieldSet, index) => (
 					<tbody key={`${fieldSet.label}-${index}`}>
 						{fieldSet.label && configuration.fieldSets.length > 1 && (
-							<tr className="storybook-args__group">
+							<tr className="showroom-args__group">
 								<th colSpan={2} scope="colgroup">
 									{humanize(fieldSet.label)}
 								</th>
@@ -80,14 +80,14 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 
 export function ArgsTable({children, nameHeading = 'Name', valueHeading = 'Control'}: {children: ReactNode; nameHeading?: string; valueHeading?: string}) {
 	return (
-		<table className="table storybook-args">
+		<table className="table showroom-args">
 			<colgroup>
-				<col className="storybook-args__name-col" />
+				<col className="showroom-args__name-col" />
 				<col />
 			</colgroup>
 			<thead>
 				<tr>
-					<th className="storybook-args__name-heading" scope="col">
+					<th className="showroom-args__name-heading" scope="col">
 						{nameHeading}
 					</th>
 					<th scope="col">{valueHeading}</th>
@@ -100,18 +100,18 @@ export function ArgsTable({children, nameHeading = 'Name', valueHeading = 'Contr
 
 export function ArgRow({children, defaultValue, description, highlighted = false, name, rowRef, tag}: {children: ReactNode; defaultValue?: string; description?: string; highlighted?: boolean; name: string; rowRef?: (element: HTMLTableRowElement | null) => void; tag?: string}) {
 	return (
-		<tr className={highlighted ? 'storybook-args__row--highlight' : undefined} ref={rowRef}>
-			<th className="storybook-args__name" scope="row">
-				<span className="storybook-args__id">{name}</span>
+		<tr className={highlighted ? 'showroom-args__row--highlight' : undefined} ref={rowRef}>
+			<th className="showroom-args__name" scope="row">
+				<span className="showroom-args__id">{name}</span>
 				{tag && <span className="label label-secondary ml-2 align-middle">{tag}</span>}
-				{description && <span className="storybook-args__description">{description}</span>}
+				{description && <span className="showroom-args__description">{description}</span>}
 				{defaultValue !== undefined && defaultValue !== '' && (
-					<span className="storybook-args__default">
-						default <span className="storybook-mono">{defaultValue}</span>
+					<span className="showroom-args__default">
+						default <span className="showroom-mono">{defaultValue}</span>
 					</span>
 				)}
 			</th>
-			<td className="storybook-args__control">{children}</td>
+			<td className="showroom-args__control">{children}</td>
 		</tr>
 	);
 }
@@ -130,7 +130,7 @@ export function RadioGroup({name, onChange, options, value}: {name: string; onCh
 	const id = useId();
 
 	return (
-		<div className="storybook-radios" role="radiogroup">
+		<div className="showroom-radios" role="radiogroup">
 			{options.map((option) => (
 				<div className="custom-control custom-radio custom-control-inline" key={option.value}>
 					<label>
@@ -171,8 +171,8 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			const colorTokens = theme ? Object.values(theme.tokens).filter((token) => token.editorType === 'ColorPicker') : [];
 
 			return (
-				<div className="storybook-color">
-					<span className="storybook-swatch" style={{background: swatchColor(current, theme)}} />
+				<div className="showroom-color">
+					<span className="showroom-swatch" style={{background: swatchColor(current, theme)}} />
 					<select
 						className="form-control form-control-sm"
 						onChange={(event) => {
@@ -209,8 +209,8 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			const isToken = Boolean(theme?.tokens[text]);
 
 			return (
-				<div className="storybook-color">
-					<input aria-label={`${humanize(field.label)} color`} className="storybook-color__input" onChange={(event) => onChange(event.target.value)} type="color" value={isToken ? '#000000' : /^#[0-9a-f]{6}$/i.test(text) ? text : '#000000'} />
+				<div className="showroom-color">
+					<input aria-label={`${humanize(field.label)} color`} className="showroom-color__input" onChange={(event) => onChange(event.target.value)} type="color" value={isToken ? '#000000' : /^#[0-9a-f]{6}$/i.test(text) ? text : '#000000'} />
 					<select className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={isToken ? text : ''}>
 						<option value="">Custom value</option>
 						{colorTokens.map((token) => (
@@ -219,7 +219,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 							</option>
 						))}
 					</select>
-					<input aria-label={`${humanize(field.label)} value`} className="form-control form-control-sm storybook-color__text" onChange={(event) => onChange(event.target.value)} type="text" value={text} />
+					<input aria-label={`${humanize(field.label)} value`} className="form-control form-control-sm showroom-color__text" onChange={(event) => onChange(event.target.value)} type="text" value={text} />
 				</div>
 			);
 		}
@@ -228,15 +228,15 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			const isNumber = validation?.type === 'number' || field.dataType === 'int' || field.dataType === 'double';
 
 			if (isNumber) {
-				return <input className="form-control form-control-sm storybook-args__input" max={validation?.max} min={validation?.min} onChange={(event) => onChange(event.target.value)} type="number" value={String(value ?? '')} />;
+				return <input className="form-control form-control-sm showroom-args__input" max={validation?.max} min={validation?.min} onChange={(event) => onChange(event.target.value)} type="number" value={String(value ?? '')} />;
 			}
 
-			return <input className="form-control form-control-sm storybook-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={String(value ?? '')} />;
+			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={String(value ?? '')} />;
 		}
 		case 'length':
-			return <input className="form-control form-control-sm storybook-args__input" onChange={(event) => onChange(event.target.value)} placeholder="e.g. 16px, 2rem, 50%" type="text" value={String(value ?? '')} />;
+			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="e.g. 16px, 2rem, 50%" type="text" value={String(value ?? '')} />;
 		case 'url':
-			return <input className="form-control form-control-sm storybook-args__input" onChange={(event) => onChange(event.target.value)} placeholder="https://" type="url" value={String(value ?? '')} />;
+			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="https://" type="url" value={String(value ?? '')} />;
 		case 'itemSelector':
 		case 'collectionSelector':
 		case 'navigationMenuSelector':
@@ -246,7 +246,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 					<span className="label label-secondary mr-1">{field.type}</span> needs Liferay content.
 					{field.type === 'videoSelector' && (
 						<input
-							className="form-control form-control-sm mt-1 storybook-args__input"
+							className="form-control form-control-sm mt-1 showroom-args__input"
 							onChange={(event) => onChange(event.target.value ? {url: event.target.value} : {})}
 							placeholder="Video URL"
 							type="url"
@@ -256,7 +256,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 				</div>
 			);
 		default:
-			return <input className="form-control form-control-sm storybook-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={typeof value === 'object' ? JSON.stringify(value) : String(value ?? '')} />;
+			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={typeof value === 'object' ? JSON.stringify(value) : String(value ?? '')} />;
 	}
 }
 

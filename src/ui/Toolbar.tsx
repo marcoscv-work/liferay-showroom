@@ -24,7 +24,7 @@ export function Toolbar() {
 	const doc = state.selection.kind === 'doc' ? state.docs.find((candidate) => candidate.slug === (state.selection as {slug: string}).slug) : null;
 	const showsFrame = state.selection.kind === 'fragment' || state.selection.kind === 'template' || state.selection.kind === 'none';
 
-	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Storybook';
+	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Showroom';
 
 	const createStyleBook = (copy: boolean) => {
 		const name = copy ? `${styleBook.name} copy` : `Style book ${state.styleBooks.length}`;
@@ -47,13 +47,13 @@ export function Toolbar() {
 	};
 
 	return (
-		<header className="storybook-toolbar">
-			<h1 className="storybook-toolbar__title text-truncate" title={title}>
+		<header className="showroom-toolbar">
+			<h1 className="showroom-toolbar__title text-truncate" title={title}>
 				{title}
 			</h1>
 
-			<div className="storybook-toolbar__group">
-				<label className="storybook-toolbar__label">
+			<div className="showroom-toolbar__group">
+				<label className="showroom-toolbar__label">
 					<span className="text-secondary small">Theme</span>
 					<select className="form-control form-control-sm" onChange={(event) => dispatch({key: event.target.value, type: 'setTheme'})} value={theme?.key ?? ''}>
 						{state.themes.map((candidate) => (
@@ -64,7 +64,7 @@ export function Toolbar() {
 					</select>
 				</label>
 
-				<label className="storybook-toolbar__label">
+				<label className="showroom-toolbar__label">
 					<span className="text-secondary small">Style book</span>
 					<select className="form-control form-control-sm" onChange={(event) => dispatch({key: event.target.value, type: 'setStyleBook'})} value={styleBook.key}>
 						{state.styleBooks.map((candidate) => (
@@ -106,7 +106,7 @@ export function Toolbar() {
 				))}
 			</div>
 
-			<div className="storybook-toolbar__group storybook-toolbar__actions">
+			<div className="showroom-toolbar__group showroom-toolbar__actions">
 				{output.fragment && output.collection && (
 					<button
 						className="btn btn-secondary btn-sm"

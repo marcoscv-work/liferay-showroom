@@ -70,7 +70,7 @@ export function buildLiferayContext(options: LiferayContextOptions): Record<stri
 		getSiteGroupId: () => 0,
 		getTimeZone: () => ({getID: () => Intl.DateTimeFormat().resolvedOptions().timeZone}),
 		getURLCurrent: () => '/',
-		getUser: () => ({getFullName: () => 'Storybook User', getFirstName: () => 'Storybook', getScreenName: () => 'storybook', isDefaultUser: () => true}),
+		getUser: () => ({getFullName: () => 'Showroom User', getFirstName: () => 'Showroom', getScreenName: () => 'showroom', isDefaultUser: () => true}),
 		getUserId: () => 0,
 		isSignedIn: () => false,
 		isStateMaximized: () => false,

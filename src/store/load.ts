@@ -4,7 +4,7 @@ import {parseStyleBookValues, parseTokenDefinition} from '../model/tokens';
 import type {Collection, DocPage, PageTemplate, ReleaseManifest, StyleBook, Theme} from '../model/types';
 
 /**
- * Loads the assets bundled with the storybook: the packed fragment
+ * Loads the assets bundled with the showroom: the packed fragment
  * collections and the built Liferay themes under `public/`.
  */
 

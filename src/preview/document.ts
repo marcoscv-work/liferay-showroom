@@ -61,12 +61,12 @@ export function importMap(): string {
 }
 
 export const BRIDGE_SCRIPT = `
-window.__storybookReport = function (message) {
-	parent.postMessage({type: 'storybook:warning', message: String(message)}, '*');
+window.__showroomReport = function (message) {
+	parent.postMessage({type: 'showroom:warning', message: String(message)}, '*');
 };
 
 window.addEventListener('error', function (event) {
-	window.__storybookReport('JavaScript error: ' + event.message);
+	window.__showroomReport('JavaScript error: ' + event.message);
 });
 
 window.Liferay = window.Liferay || {
@@ -110,12 +110,12 @@ window.Liferay = window.Liferay || {
 	componentReady: function () { return Promise.resolve(); },
 	Loader: {require: function () {}},
 	SPA: null,
-	authToken: 'storybook'
+	authToken: 'showroom'
 };
 
 /*
  * Links never navigate the preview: the document is a srcdoc, so even "#"
- * would resolve against the storybook's own URL and load the app inside the
+ * would resolve against the showroom's own URL and load the app inside the
  * frame. In-page anchors scroll, target="_blank" links open a tab, and
  * everything else is inert, like a page in the Liferay editor.
  */
@@ -149,7 +149,7 @@ document.addEventListener('submit', function (event) {
 });
 
 (function () {
-	var mode = document.documentElement.getAttribute('data-storybook-mode');
+	var mode = document.documentElement.getAttribute('data-showroom-mode');
 
 	/* Selection only makes sense inside the editor's canvas; the page opened on its own just works */
 
@@ -161,13 +161,13 @@ document.addEventListener('submit', function (event) {
 
 	function setSelected(id) {
 		if (selected) {
-			selected.classList.remove('storybook-selected');
+			selected.classList.remove('showroom-selected');
 		}
 
 		selected = id ? document.querySelector('[data-item-id="' + id + '"]') : null;
 
 		if (selected) {
-			selected.classList.add('storybook-selected');
+			selected.classList.add('showroom-selected');
 		}
 	}
 
@@ -180,25 +180,25 @@ document.addEventListener('submit', function (event) {
 
 		/* Select, but let the click reach the fragment: menus, accordions and tabs keep working while editing */
 
-		parent.postMessage({type: 'storybook:select', id: item.getAttribute('data-item-id')}, '*');
+		parent.postMessage({type: 'showroom:select', id: item.getAttribute('data-item-id')}, '*');
 	}, true);
 
 	document.addEventListener('mouseover', function (event) {
 		var item = event.target && event.target.closest ? event.target.closest('[data-item-id]') : null;
 
-		document.querySelectorAll('.storybook-hover').forEach(function (element) {
-			element.classList.remove('storybook-hover');
+		document.querySelectorAll('.showroom-hover').forEach(function (element) {
+			element.classList.remove('showroom-hover');
 		});
 
 		if (item) {
-			item.classList.add('storybook-hover');
+			item.classList.add('showroom-hover');
 		}
 	});
 
 	window.addEventListener('message', function (event) {
 		var data = event.data || {};
 
-		if (data.type === 'storybook:select') {
+		if (data.type === 'showroom:select') {
 			setSelected(data.id);
 
 			if (selected && data.scroll) {
@@ -207,13 +207,13 @@ document.addEventListener('submit', function (event) {
 		}
 	});
 
-	parent.postMessage({type: 'storybook:ready'}, '*');
+	parent.postMessage({type: 'showroom:ready'}, '*');
 })();
 
 /* In a story, clicking an editable points the editor at its control */
 
 (function () {
-	if (document.documentElement.getAttribute('data-storybook-mode') !== 'story' || window.parent === window) {
+	if (document.documentElement.getAttribute('data-showroom-mode') !== 'story' || window.parent === window) {
 		return;
 	}
 
@@ -224,7 +224,7 @@ document.addEventListener('submit', function (event) {
 			return;
 		}
 
-		parent.postMessage({type: 'storybook:editable', id: editable.getAttribute('data-lfr-editable-id') || editable.getAttribute('data-lfr-background-image-id')}, '*');
+		parent.postMessage({type: 'showroom:editable', id: editable.getAttribute('data-lfr-editable-id') || editable.getAttribute('data-lfr-background-image-id')}, '*');
 	}, true);
 })();
 
@@ -232,7 +232,7 @@ document.addEventListener('submit', function (event) {
 
 (function () {
 	var reportHeight = function () {
-		parent.postMessage({type: 'storybook:height', height: document.documentElement.scrollHeight}, '*');
+		parent.postMessage({type: 'showroom:height', height: document.documentElement.scrollHeight}, '*');
 	};
 
 	if (typeof ResizeObserver === 'function') {
@@ -244,7 +244,7 @@ document.addEventListener('submit', function (event) {
 `;
 
 export const PREVIEW_CSS = `
-.storybook-placeholder {
+.showroom-placeholder {
 	align-items: center;
 	background: repeating-linear-gradient(45deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 8px, rgba(0,0,0,0.08) 8px, rgba(0,0,0,0.08) 16px);
 	border: 1px dashed rgba(0,0,0,0.3);
@@ -265,26 +265,26 @@ export const PREVIEW_CSS = `
 	padding: 12px;
 	text-align: center;
 }
-[data-storybook-mode="template"] [data-item-id] {
+[data-showroom-mode="template"] [data-item-id] {
 	cursor: pointer;
 	position: relative;
 }
-[data-storybook-mode="template"] [data-item-id].storybook-hover {
+[data-showroom-mode="template"] [data-item-id].showroom-hover {
 	outline: 1px dashed rgba(11, 95, 255, 0.6);
 	outline-offset: -1px;
 }
-[data-storybook-mode="template"] [data-item-id].storybook-selected {
+[data-showroom-mode="template"] [data-item-id].showroom-selected {
 	outline: 2px solid #0b5fff;
 	outline-offset: -2px;
 }
-[data-storybook-mode="template"] .lfr-layout-structure-item-column:empty,
-[data-storybook-mode="template"] .lfr-layout-structure-item-container:empty {
+[data-showroom-mode="template"] .lfr-layout-structure-item-column:empty,
+[data-showroom-mode="template"] .lfr-layout-structure-item-container:empty {
 	min-height: 48px;
 	outline: 1px dashed rgba(0,0,0,0.2);
 	outline-offset: -1px;
 }
-[data-storybook-mode="template"] .lfr-layout-structure-item-column:empty::after,
-[data-storybook-mode="template"] .lfr-layout-structure-item-container:empty::after {
+[data-showroom-mode="template"] .lfr-layout-structure-item-column:empty::after,
+[data-showroom-mode="template"] .lfr-layout-structure-item-container:empty::after {
 	color: rgba(0,0,0,0.4);
 	content: 'Empty: select it and add a fragment';
 	display: block;
@@ -309,7 +309,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions): string {
 	/*
 	 * Liferay's dark mode marks the page with `data-color-scheme="dark"` and
 	 * applies the dark values of the style book. The canvas follows the
-	 * storybook's own scheme the same way: the attribute, `color-scheme`, and
+	 * showroom's own scheme the same way: the attribute, `color-scheme`, and
 	 * dark values for the page background and text tokens.
 	 */
 	const schemeCSS =
@@ -319,18 +319,18 @@ body { background-color: var(--body-bg); color: var(--body-color); }`
 			: '';
 
 	return `<!doctype html>
-<html lang="en" data-color-scheme="${colorScheme}" data-storybook-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
+<html lang="en" data-color-scheme="${colorScheme}" data-showroom-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ${title ? `<title>${escapeHTML(title)}</title>` : ''}
 ${description ? `<meta name="description" content="${escapeHTML(description)}">` : ''}
 ${links}
-<style id="storybook-tokens">${tokenCSS}</style>
-<style id="storybook-scheme">${schemeCSS}</style>
-<style id="storybook-fragment-css">${fragmentCSS}</style>
-<style id="storybook-item-css">${css}</style>
-<style id="storybook-preview-css">${PREVIEW_CSS}</style>
+<style id="showroom-tokens">${tokenCSS}</style>
+<style id="showroom-scheme">${schemeCSS}</style>
+<style id="showroom-fragment-css">${fragmentCSS}</style>
+<style id="showroom-item-css">${css}</style>
+<style id="showroom-preview-css">${PREVIEW_CSS}</style>
 ${importMap()}
 ${standalone ? '' : `<script>${BRIDGE_SCRIPT}</script>`}
 </head>

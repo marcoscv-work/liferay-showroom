@@ -35,7 +35,7 @@ export function ConfirmButton({
 
 	return (
 		<button
-			className={`${className}${armed ? ' storybook-armed' : ''}`}
+			className={`${className}${armed ? ' showroom-armed' : ''}`}
 			disabled={disabled}
 			onClick={() => {
 				if (armed) {

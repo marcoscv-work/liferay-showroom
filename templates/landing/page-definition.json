@@ -25,11 +25,11 @@
 									"value": {
 										"fragmentImage": {
 											"url": {
-												"value": "https://marcoscv-work.github.io/liferay-storybook/images/product-shot.png"
+												"value": "https://marcoscv-work.github.io/liferay-showroom/images/product-shot.png"
 											},
 											"description": {
 												"value_i18n": {
-													"en_US": "The Storybook showing the LSDS Button fragment with its documentation"
+													"en_US": "The Showroom showing the LSDS Button fragment with its documentation"
 												}
 											}
 										}
@@ -40,7 +40,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Open the Storybook"
+												"en_US": "Open the Showroom"
 											}
 										},
 										"fragmentLink": {
@@ -78,7 +78,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Liferay Storybook"
+												"en_US": "Liferay Showroom"
 											}
 										}
 									}
@@ -377,7 +377,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Open the Storybook"
+												"en_US": "Open the Showroom"
 											}
 										},
 										"fragmentLink": {
@@ -428,7 +428,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Storybook"
+												"en_US": "Showroom"
 											}
 										},
 										"fragmentLink": {
@@ -587,7 +587,7 @@
 											"value": {
 												"href": {
 													"value_i18n": {
-														"en_US": "https://github.com/marcoscv-work/liferay-storybook"
+														"en_US": "https://github.com/marcoscv-work/liferay-showroom"
 													}
 												}
 											}

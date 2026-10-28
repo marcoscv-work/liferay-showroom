@@ -3,6 +3,7 @@ import {useRef, useState} from 'react';
 import {createElement} from '../model/pageDefinition';
 import {downloadBlob, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
+import {assetURL} from '../store/load';
 import {importFile} from './App';
 import {ConfirmButton} from './ConfirmButton';
 import {useEditorScheme} from './editorScheme';
@@ -45,15 +46,15 @@ export function Sidebar() {
 	};
 
 	return (
-		<aside className="storybook-sidebar">
-			<div className="storybook-sidebar__header">
-				<div className="storybook-brand">
-					<span aria-hidden="true" className="storybook-brand__logo">
-						<Icon symbol="page-template" />
+		<aside className="showroom-sidebar">
+			<div className="showroom-sidebar__header">
+				<div className="showroom-brand">
+					<span aria-hidden="true" className="showroom-brand__logo">
+						<img alt="" src={assetURL('images/showroom-mark.svg')} />
 					</span>
 					<div>
-						<div className="storybook-brand__title">Liferay Storybook</div>
-						<div className="storybook-brand__subtitle text-secondary">Fragments · Templates · Style books</div>
+						<div className="showroom-brand__title">Liferay Showroom</div>
+						<div className="showroom-brand__subtitle text-secondary">Fragments · Templates · Style books</div>
 					</div>
 				</div>
 
@@ -69,10 +70,10 @@ export function Sidebar() {
 				</div>
 			</div>
 
-			<nav aria-label="Stories" className="storybook-sidebar__tree">
+			<nav aria-label="Stories" className="showroom-sidebar__tree">
 				{(state.docs.length > 0 || state.releases.length > 0) && (
-					<div className="storybook-section">
-						<div className="storybook-section__title">
+					<div className="showroom-section">
+						<div className="showroom-section__title">
 							<span>Docs</span>
 						</div>
 						<ul className="nav nav-stacked">
@@ -104,8 +105,8 @@ export function Sidebar() {
 					</div>
 				)}
 
-				<div className="storybook-section">
-					<div className="storybook-section__title">
+				<div className="showroom-section">
+					<div className="showroom-section__title">
 						<span>Fragments</span>
 						<button className="btn btn-unstyled btn-sm text-primary" onClick={() => fileInput.current?.click()} title="Import a fragment collection, page template, style book or theme zip" type="button">
 							<Icon className="mr-1" symbol="import" />
@@ -125,8 +126,8 @@ export function Sidebar() {
 					))}
 				</div>
 
-				<div className="storybook-section">
-					<div className="storybook-section__title">
+				<div className="showroom-section">
+					<div className="showroom-section__title">
 						<span>Page templates</span>
 						<button className="btn btn-unstyled btn-sm text-primary" onClick={createTemplate} type="button">
 							<Icon className="mr-1" symbol="plus" />
@@ -143,7 +144,7 @@ export function Sidebar() {
 								const active = state.selection.kind === 'template' && state.selection.id === template.id;
 
 								return (
-									<li className="nav-item storybook-nav-row" key={template.id}>
+									<li className="nav-item showroom-nav-row" key={template.id}>
 										<button
 											aria-current={active ? 'page' : undefined}
 											className={`nav-link btn btn-unstyled${active ? ' active' : ''}`}
@@ -153,7 +154,7 @@ export function Sidebar() {
 											<Icon className="mr-2" symbol="page" />
 											<span className="text-truncate">{template.name}</span>
 										</button>
-										<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced storybook-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({id: template.id, type: 'removeTemplate'})} title={`Delete ${template.name}`}>
+										<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({id: template.id, type: 'removeTemplate'})} title={`Delete ${template.name}`}>
 											<Icon symbol="times" />
 										</ConfirmButton>
 									</li>
@@ -163,7 +164,7 @@ export function Sidebar() {
 				</div>
 			</nav>
 
-			<div className="storybook-sidebar__footer">
+			<div className="showroom-sidebar__footer">
 				<input accept=".zip,.json" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
 				<button className="btn btn-secondary btn-block btn-sm" onClick={() => fileInput.current?.click()} type="button">
 					<Icon className="mr-1" symbol="upload" />
@@ -171,7 +172,7 @@ export function Sidebar() {
 				</button>
 				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books, built themes or a page-definition.json.</p>
 
-				<div className="storybook-editor-scheme">
+				<div className="showroom-editor-scheme">
 					<span className="text-secondary small">Editor theme</span>
 					<div aria-label="Editor colour scheme" className="btn-group" role="group" title="Colour scheme of this editor only; the preview keeps its theme and style book">
 						<IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Light editor" onClick={() => editorScheme.setScheme('light')} pressed={editorScheme.scheme === 'light'} symbol="sun" />
@@ -206,16 +207,16 @@ function CollectionNode({
 	}
 
 	return (
-		<div className="storybook-collection">
-			<div className="storybook-nav-row">
-				<button aria-expanded={!collapsed} className="btn btn-unstyled storybook-collection__toggle" onClick={onToggle} type="button">
+		<div className="showroom-collection">
+			<div className="showroom-nav-row">
+				<button aria-expanded={!collapsed} className="btn btn-unstyled showroom-collection__toggle" onClick={onToggle} type="button">
 					<Icon className="mr-2" symbol={collapsed ? 'angle-right-small' : 'angle-down-small'} />
-					<span className="storybook-collection__name text-truncate">{collection.name}</span>
+					<span className="showroom-collection__name text-truncate">{collection.name}</span>
 					<span className="label label-secondary ml-2">{collection.fragments.length}</span>
 				</button>
 				<button
 					aria-label={`Export ${collection.name} as a fragment set zip`}
-					className="btn btn-unstyled btn-sm btn-monospaced storybook-nav-row__action"
+					className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action"
 					onClick={async () => downloadBlob(await exportCollectionZip(collection), `${collection.key}-fragments.zip`)}
 					title="Export this collection as a Liferay fragment set zip"
 					type="button"
@@ -223,14 +224,14 @@ function CollectionNode({
 					<Icon symbol="download" />
 				</button>
 				{onRemove && (
-					<button aria-label={`Remove ${collection.name}`} className="btn btn-unstyled btn-sm btn-monospaced storybook-nav-row__action" onClick={onRemove} title="Remove this imported collection" type="button">
+					<button aria-label={`Remove ${collection.name}`} className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" onClick={onRemove} title="Remove this imported collection" type="button">
 						<Icon symbol="times" />
 					</button>
 				)}
 			</div>
 
 			{!collapsed && (
-				<ul className="nav nav-stacked storybook-collection__items">
+				<ul className="nav nav-stacked showroom-collection__items">
 					{fragments.map((fragment) => {
 						const active = state.selection.kind === 'fragment' && state.selection.collectionKey === collection.key && state.selection.fragmentKey === fragment.key;
 
@@ -242,7 +243,7 @@ function CollectionNode({
 									onClick={() => dispatch({selection: {collectionKey: collection.key, fragmentKey: fragment.key, kind: 'fragment'}, type: 'select'})}
 									type="button"
 								>
-									{fragment.thumbnail ? <img alt="" className="storybook-thumb mr-2" src={fragment.thumbnail} /> : <Icon className="mr-2" symbol="code" />}
+									{fragment.thumbnail ? <img alt="" className="showroom-thumb mr-2" src={fragment.thumbnail} /> : <Icon className="mr-2" symbol="code" />}
 									<span className="text-truncate">{fragment.name}</span>
 								</button>
 							</li>

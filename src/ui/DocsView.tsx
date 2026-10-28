@@ -10,7 +10,7 @@ export function DocsView({slug}: {slug: string}) {
 
 	if (!page) {
 		return (
-			<section aria-label="Documentation" className="storybook-docs-view">
+			<section aria-label="Documentation" className="showroom-docs-view">
 				<div className="alert alert-warning">
 					<span className="alert-indicator">
 						<Icon symbol="warning-full" />
@@ -22,8 +22,8 @@ export function DocsView({slug}: {slug: string}) {
 	}
 
 	return (
-		<section aria-label="Documentation" className="storybook-docs-view">
-			<article className="storybook-docs-view__page">
+		<section aria-label="Documentation" className="showroom-docs-view">
+			<article className="showroom-docs-view__page">
 				<Markdown markdown={page.markdown} />
 			</article>
 		</section>

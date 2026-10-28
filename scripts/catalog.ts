@@ -109,7 +109,7 @@ function collectFragments(element: any): {collectionKey?: string; key?: string}[
 
 const lines: string[] = [];
 
-lines.push(`# Liferay Storybook ${packageJSON.version}`, '');
+lines.push(`# Liferay Showroom ${packageJSON.version}`, '');
 lines.push(`> A published, versioned set of Liferay design assets: fragment sets, page templates and style books, rendered without a Liferay. Everything listed here is exactly what gets imported into Liferay. Site: ${site}`, '');
 lines.push(`Machine-readable catalog: ${site}catalog.json. Release manifests: ${site}collections/releases.json. Each fragment and template has a URL that shows it live; append the URL to point a reviewer at it.`, '');
 

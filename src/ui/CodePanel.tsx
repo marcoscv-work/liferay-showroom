@@ -36,9 +36,9 @@ export function CodePanel() {
 	}
 
 	return (
-		<div className="storybook-code">
+		<div className="showroom-code">
 			<div className="d-flex align-items-center">
-				<ul className="nav nav-underline storybook-code__tabs" role="tablist">
+				<ul className="nav nav-underline showroom-code__tabs" role="tablist">
 					{tabs.map((tab) => (
 						<li className="nav-item" key={tab.id}>
 							<button aria-selected={tab.id === current.id} className={`nav-link${tab.id === current.id ? ' active' : ''}`} onClick={() => setActive(tab.id)} role="tab" type="button">
@@ -52,7 +52,7 @@ export function CodePanel() {
 					Copy
 				</button>
 			</div>
-			<pre className="storybook-code__content">
+			<pre className="showroom-code__content">
 				<code>{current.content || '(empty)'}</code>
 			</pre>
 		</div>

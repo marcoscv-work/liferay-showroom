@@ -46,9 +46,9 @@ export function Markdown({markdown}: {markdown: string}) {
 	};
 
 	return (
-		<div className="storybook-docs" onClick={onClick}>
+		<div className="showroom-docs" onClick={onClick}>
 			{parsed.segments.map((segment, index) =>
-				segment.type === 'html' ? <div className="storybook-docs__prose" dangerouslySetInnerHTML={{__html: segment.html}} key={index} /> : <Embed key={index} spec={segment.spec} />
+				segment.type === 'html' ? <div className="showroom-docs__prose" dangerouslySetInnerHTML={{__html: segment.html}} key={index} /> : <Embed key={index} spec={segment.spec} />
 			)}
 		</div>
 	);
@@ -111,15 +111,15 @@ function FragmentEmbed({options}: {options: Record<string, string>}) {
 	const caption = options.title ?? `${found.collection.name} / ${found.fragment.name}`;
 
 	return (
-		<figure className="storybook-embed">
+		<figure className="showroom-embed">
 			<AutoFrame document={story.document} height={options.height} title={caption} />
-			<figcaption className="storybook-embed__caption">
+			<figcaption className="showroom-embed__caption">
 				<Icon className="mr-1" symbol="code" />
-				<button className="btn btn-unstyled storybook-embed__link" onClick={() => dispatch({selection: {collectionKey: found.collection.key, fragmentKey: found.fragment.key, kind: 'fragment'}, type: 'select'})} type="button">
+				<button className="btn btn-unstyled showroom-embed__link" onClick={() => dispatch({selection: {collectionKey: found.collection.key, fragmentKey: found.fragment.key, kind: 'fragment'}, type: 'select'})} type="button">
 					{caption}
 				</button>
 				{Object.keys(story.configurationRaw).length > 0 && (
-					<span className="storybook-embed__args storybook-mono">
+					<span className="showroom-embed__args showroom-mono">
 						{Object.entries(options)
 							.filter(([name]) => !RESERVED.has(name))
 							.map(([name, value]) => `${name}=${value}`)
@@ -146,11 +146,11 @@ function TemplateEmbed({options}: {options: Record<string, string>}) {
 	}
 
 	return (
-		<figure className="storybook-embed">
+		<figure className="showroom-embed">
 			<AutoFrame document={story.document} height={options.height ?? '480'} scroll title={template.name} />
-			<figcaption className="storybook-embed__caption">
+			<figcaption className="showroom-embed__caption">
 				<Icon className="mr-1" symbol="page" />
-				<button className="btn btn-unstyled storybook-embed__link" onClick={() => dispatch({selection: {id: template.id, kind: 'template'}, type: 'select'})} type="button">
+				<button className="btn btn-unstyled showroom-embed__link" onClick={() => dispatch({selection: {id: template.id, kind: 'template'}, type: 'select'})} type="button">
 					{options.title ?? template.name}
 				</button>
 			</figcaption>
@@ -187,10 +187,10 @@ function TokensEmbed({options}: {options: Record<string, string>}) {
 	}
 
 	return (
-		<div className="storybook-embed storybook-embed--tokens">
+		<div className="showroom-embed showroom-embed--tokens">
 			{sets.map((set) => (
-				<table className="table table-sm storybook-tokens-table" key={set.label}>
-					<caption className="storybook-embed__caption">{set.label}</caption>
+				<table className="table table-sm showroom-tokens-table" key={set.label}>
+					<caption className="showroom-embed__caption">{set.label}</caption>
 					<thead>
 						<tr>
 							<th scope="col">Token</th>
@@ -209,10 +209,10 @@ function TokensEmbed({options}: {options: Record<string, string>}) {
 										{token.label}
 										{overridden && <span className="label label-info ml-2">style book</span>}
 									</th>
-									<td className="storybook-mono">--{token.cssVariable}</td>
+									<td className="showroom-mono">--{token.cssVariable}</td>
 									<td>
-										{token.editorType === 'ColorPicker' && <span className="storybook-swatch mr-2" style={{background: value}} />}
-										<span className="storybook-mono">{value}</span>
+										{token.editorType === 'ColorPicker' && <span className="showroom-swatch mr-2" style={{background: value}} />}
+										<span className="showroom-mono">{value}</span>
 									</td>
 								</tr>
 							);
@@ -226,7 +226,7 @@ function TokensEmbed({options}: {options: Record<string, string>}) {
 
 function EmbedMissing({what}: {what: string}) {
 	return (
-		<div className="alert alert-warning storybook-embed__missing">
+		<div className="alert alert-warning showroom-embed__missing">
 			<span className="alert-indicator">
 				<Icon symbol="warning-full" />
 			</span>
@@ -242,7 +242,7 @@ function AutoFrame({document, height, scroll = false, title}: {document: string;
 
 	useEffect(() => {
 		const onMessage = (event: MessageEvent) => {
-			if (event.source === frame.current?.contentWindow && event.data?.type === 'storybook:height') {
+			if (event.source === frame.current?.contentWindow && event.data?.type === 'showroom:height') {
 				setReported(Math.ceil(Number(event.data.height) || 0));
 			}
 		};
@@ -255,5 +255,5 @@ function AutoFrame({document, height, scroll = false, title}: {document: string;
 	const fixed = height ? Number(height) : null;
 	const style = fixed ? {height: `${fixed}px`} : {height: `${Math.max(reported ?? 0, 48)}px`};
 
-	return <iframe className={`storybook-embed__frame${scroll ? ' storybook-embed__frame--scroll' : ''}`} ref={frame} sandbox="allow-scripts allow-same-origin" scrolling={scroll ? 'yes' : 'no'} srcDoc={document} style={style} title={title} />;
+	return <iframe className={`showroom-embed__frame${scroll ? ' showroom-embed__frame--scroll' : ''}`} ref={frame} sandbox="allow-scripts allow-same-origin" scrolling={scroll ? 'yes' : 'no'} srcDoc={document} style={style} title={title} />;
 }

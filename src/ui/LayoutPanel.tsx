@@ -135,14 +135,14 @@ export function LayoutPanel() {
 	const canEdit = Boolean(selected && selected.type !== 'Root');
 
 	return (
-		<div className="storybook-layout">
-			<div className="storybook-layout__tree">
-				<div className="storybook-layout__toolbar">
+		<div className="showroom-layout">
+			<div className="showroom-layout__tree">
+				<div className="showroom-layout__toolbar">
 					<span className="text-secondary small">
 						Add to <strong>{describe(target, state.collections)}</strong>
 						{selected && !acceptsChildren(selected) ? ' (after the selection)' : ''}
 					</span>
-					<div className="storybook-layout__actions">
+					<div className="showroom-layout__actions">
 						<button className="btn btn-secondary btn-sm" onClick={() => insert(createContainer())} type="button">
 							<Icon className="mr-1" symbol="container" />
 							Container
@@ -158,12 +158,12 @@ export function LayoutPanel() {
 					</div>
 				</div>
 
-				<ul className="nav nav-stacked storybook-tree">
+				<ul className="nav nav-stacked showroom-tree">
 					<TreeNode depth={0} element={template.root} template={template} />
 				</ul>
 			</div>
 
-			<div className="storybook-layout__properties">{selected ? <ItemProperties element={selected} template={template} /> : <p className="text-secondary">Click an element in the preview or the tree to edit it.</p>}</div>
+			<div className="showroom-layout__properties">{selected ? <ItemProperties element={selected} template={template} /> : <p className="text-secondary">Click an element in the preview or the tree to edit it.</p>}</div>
 		</div>
 	);
 }
@@ -215,14 +215,14 @@ function TreeNode({depth, element, template}: {depth: number; element: PageEleme
 			<li className="nav-item">
 				<button
 					aria-current={selected ? 'true' : undefined}
-					className={`nav-link btn btn-unstyled storybook-tree__node${selected ? ' active' : ''}`}
+					className={`nav-link btn btn-unstyled showroom-tree__node${selected ? ' active' : ''}`}
 					onClick={() => dispatch({id: element.id, type: 'selectItem'})}
 					style={{paddingLeft: `${8 + depth * 14}px`}}
 					type="button"
 				>
-					<Icon className="mr-2 text-secondary storybook-tree__icon" symbol={TYPE_ICONS[element.type] ?? 'code'} />
+					<Icon className="mr-2 text-secondary showroom-tree__icon" symbol={TYPE_ICONS[element.type] ?? 'code'} />
 					<span className="text-truncate">{describe(element, state.collections)}</span>
-					<span className="storybook-tree__type">{element.type === 'Section' ? 'Container' : element.type}</span>
+					<span className="showroom-tree__type">{element.type === 'Section' ? 'Container' : element.type}</span>
 				</button>
 			</li>
 			{element.pageElements.map((child) => (
@@ -237,7 +237,7 @@ function RowButton({onAdd}: {onAdd: (columns: number) => void}) {
 
 	return (
 		<>
-			<select aria-label="Number of columns for a new row" className="form-control form-control-sm storybook-select-auto" onChange={(event) => setColumns(Number(event.target.value))} value={columns}>
+			<select aria-label="Number of columns for a new row" className="form-control form-control-sm showroom-select-auto" onChange={(event) => setColumns(Number(event.target.value))} value={columns}>
 				{[1, 2, 3, 4, 6].map((n) => (
 					<option key={n} value={n}>
 						{n} {n === 1 ? 'column' : 'columns'}
@@ -257,7 +257,7 @@ function FragmentPicker({onAdd}: {onAdd: (fragment: Fragment) => void}) {
 	const [value, setValue] = useState('');
 
 	return (
-		<div className="storybook-layout__picker">
+		<div className="showroom-layout__picker">
 			<select aria-label="Fragment to add" className="form-control form-control-sm" onChange={(event) => setValue(event.target.value)} value={value}>
 				<option value="">Choose a fragment…</option>
 				{state.collections.map((collection) => (
@@ -298,7 +298,7 @@ function FragmentPicker({onAdd}: {onAdd: (fragment: Fragment) => void}) {
 function Field({children, label}: {children: React.ReactNode; label: string}) {
 	return (
 		<div className="form-group form-group-sm">
-			<label className="storybook-field-label">{label}</label>
+			<label className="showroom-field-label">{label}</label>
 			{children}
 		</div>
 	);
@@ -356,7 +356,7 @@ function ItemProperties({element, template}: {element: PageElement; template: Pa
 		return (
 			<div>
 				<h3 className="sheet-title">Container</h3>
-				<div className="storybook-grid">
+				<div className="showroom-grid">
 					<Field label="Name">
 						<input className="form-control form-control-sm" onChange={(event) => setDefinition('name', event.target.value)} type="text" value={definition.name ?? ''} />
 					</Field>
@@ -433,7 +433,7 @@ function ItemProperties({element, template}: {element: PageElement; template: Pa
 		return (
 			<div>
 				<h3 className="sheet-title">Row</h3>
-				<div className="storybook-grid">
+				<div className="showroom-grid">
 					<Field label="Columns">
 						<select className="form-control form-control-sm" onChange={(event) => setColumns(Number(event.target.value))} value={element.pageElements.length}>
 							{[1, 2, 3, 4, 5, 6].map((n) => (
@@ -481,7 +481,7 @@ function ItemProperties({element, template}: {element: PageElement; template: Pa
 		return (
 			<div>
 				<h3 className="sheet-title">Column</h3>
-				<div className="storybook-grid">
+				<div className="showroom-grid">
 					<Field label="Desktop size">
 						<input className="form-control form-control-sm" max={12} min={1} onChange={(event) => setDefinition('size', Number(event.target.value))} type="number" value={definition.size ?? 12} />
 					</Field>
@@ -615,13 +615,13 @@ const SPACING = ['', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
 function Section({children, count, title}: {children: React.ReactNode; count?: number; title: string}) {
 	return (
-		<details className="storybook-details">
-			<summary className="storybook-details__summary">
-				<Icon className="storybook-details__chevron mr-2" symbol="angle-right" />
+		<details className="showroom-details">
+			<summary className="showroom-details__summary">
+				<Icon className="showroom-details__chevron mr-2" symbol="angle-right" />
 				{title}
 				{count ? <span className="label label-secondary ml-2">{count}</span> : null}
 			</summary>
-			<div className="storybook-details__body">{children}</div>
+			<div className="showroom-details__body">{children}</div>
 		</details>
 	);
 }
@@ -633,8 +633,8 @@ function StyleEditor({definition, setStyle, theme}: {definition: Record<string, 
 
 	const colorField = (key: string, label: string) => (
 		<Field key={key} label={label}>
-			<div className="storybook-color">
-				<span className="storybook-swatch" style={{background: swatchColor(styles[key] ?? '', theme)}} />
+			<div className="showroom-color">
+				<span className="showroom-swatch" style={{background: swatchColor(styles[key] ?? '', theme)}} />
 				<select className="form-control form-control-sm" onChange={(event) => setStyle(key, event.target.value)} value={theme?.tokens[styles[key]] ? styles[key] : ''}>
 					<option value="">{styles[key] && !theme?.tokens[styles[key]] ? 'Custom' : 'None'}</option>
 					{colorTokens.map((token) => (
@@ -643,7 +643,7 @@ function StyleEditor({definition, setStyle, theme}: {definition: Record<string, 
 						</option>
 					))}
 				</select>
-				<input aria-label={`${label} custom value`} className="form-control form-control-sm storybook-color__text" onChange={(event) => setStyle(key, event.target.value)} placeholder="#hex" type="text" value={styles[key] ?? ''} />
+				<input aria-label={`${label} custom value`} className="form-control form-control-sm showroom-color__text" onChange={(event) => setStyle(key, event.target.value)} placeholder="#hex" type="text" value={styles[key] ?? ''} />
 			</div>
 		</Field>
 	);
@@ -669,8 +669,8 @@ function StyleEditor({definition, setStyle, theme}: {definition: Record<string, 
 
 	return (
 		<Section count={Object.keys(styles).length} title="Styles">
-			<h5 className="storybook-group-title">Spacing (spacer tokens)</h5>
-			<div className="storybook-grid storybook-grid--4">
+			<h5 className="showroom-group-title">Spacing (spacer tokens)</h5>
+			<div className="showroom-grid showroom-grid--4">
 				{spacingField('paddingTop', 'Padding top')}
 				{spacingField('paddingRight', 'Padding right')}
 				{spacingField('paddingBottom', 'Padding bottom')}
@@ -681,15 +681,15 @@ function StyleEditor({definition, setStyle, theme}: {definition: Record<string, 
 				{spacingField('marginLeft', 'Margin left')}
 			</div>
 
-			<h5 className="storybook-group-title">Colors</h5>
-			<div className="storybook-grid">
+			<h5 className="showroom-group-title">Colors</h5>
+			<div className="showroom-grid">
 				{colorField('backgroundColor', 'Background')}
 				{colorField('textColor', 'Text color')}
 				{colorField('borderColor', 'Border color')}
 			</div>
 
-			<h5 className="storybook-group-title">Size and shape</h5>
-			<div className="storybook-grid">
+			<h5 className="showroom-group-title">Size and shape</h5>
+			<div className="showroom-grid">
 				{textField('width', 'Width', 'e.g. 100%, 320px')}
 				{textField('maxWidth', 'Max width', 'e.g. 1200px')}
 				{textField('height', 'Height', 'e.g. 400px')}
@@ -742,7 +742,7 @@ function CustomCSSEditor({definition, setDefinition}: {definition: Record<string
 				/>
 			</Field>
 			<Field label="Custom CSS (use .[$FRAGMENT_CLASS$] for this element)">
-				<textarea className="form-control form-control-sm storybook-code-input" onChange={(event) => setDefinition('customCSS', event.target.value)} rows={4} spellCheck={false} value={definition.customCSS ?? ''} />
+				<textarea className="form-control form-control-sm showroom-code-input" onChange={(event) => setDefinition('customCSS', event.target.value)} rows={4} spellCheck={false} value={definition.customCSS ?? ''} />
 			</Field>
 		</Section>
 	);

@@ -4,7 +4,7 @@ import {importPageDefinition, importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
 
 import type {Selection} from '../store';
-import {loadBuiltinCollections, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
+import {assetURL, loadBuiltinCollections, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
 import {Canvas} from './Canvas';
 import {Icon} from './Icon';
 import {Panel} from './Panel';
@@ -121,13 +121,13 @@ export function App() {
 				return;
 			}
 
-			if (data.type === 'storybook:warning') {
+			if (data.type === 'showroom:warning') {
 				dispatch({message: String(data.message), type: 'runtimeWarning'});
 			}
-			else if (data.type === 'storybook:editable' && typeof data.id === 'string') {
+			else if (data.type === 'showroom:editable' && typeof data.id === 'string') {
 				dispatch({id: data.id, type: 'focusEditable'});
 			}
-			else if (data.type === 'storybook:select') {
+			else if (data.type === 'showroom:select') {
 				dispatch({id: data.id ?? null, type: 'selectItem'});
 				dispatch({tab: 'layout', type: 'setPanelTab'});
 			}
@@ -170,15 +170,15 @@ export function App() {
 
 	if (state.loading) {
 		return (
-			<div className="cadmin storybook-loading" role="status">
-				<div className="storybook-loading__card">
-					<span aria-hidden="true" className="storybook-brand__logo storybook-loading__logo">
-						<Icon symbol="page-template" />
+			<div className="cadmin showroom-loading" role="status">
+				<div className="showroom-loading__card">
+					<span aria-hidden="true" className="showroom-brand__logo showroom-loading__logo">
+						<img alt="" src={assetURL('images/showroom-mark.svg')} />
 					</span>
-					<div className="storybook-loading__title">Liferay Storybook</div>
-					<div className="storybook-loading__subtitle text-secondary">Fragments · Templates · Style books</div>
-					<span aria-hidden="true" className="storybook-loading__spinner" />
-					<div className="storybook-loading__text text-secondary">Loading themes, fragment collections and style books…</div>
+					<div className="showroom-loading__title">Liferay Showroom</div>
+					<div className="showroom-loading__subtitle text-secondary">Fragments · Templates · Style books</div>
+					<span aria-hidden="true" className="showroom-loading__spinner" />
+					<div className="showroom-loading__text text-secondary">Loading themes, fragment collections and style books…</div>
 				</div>
 			</div>
 		);
@@ -187,9 +187,9 @@ export function App() {
 	const showsPanel = state.selection.kind !== 'doc' && state.selection.kind !== 'releases';
 
 	return (
-		<div className="cadmin storybook">
+		<div className="cadmin showroom">
 			<Sidebar />
-			<main className={`storybook-main${showsPanel ? '' : ' storybook-main--page'}`}>
+			<main className={`showroom-main${showsPanel ? '' : ' showroom-main--page'}`}>
 				<Toolbar />
 				<Canvas />
 				{showsPanel && <Panel />}

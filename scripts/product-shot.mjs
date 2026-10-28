@@ -1,5 +1,5 @@
 /**
- * The product shot of the landing's hero: the Storybook itself at 1440×900,
+ * The product shot of the landing's hero: the Showroom itself at 1440×900,
  * device scale 2, on a fragment's Docs tab. Needs the dev server running.
  *
  *   PLAYWRIGHT_MODULE=<path to playwright> PLAYWRIGHT_CHANNEL=chrome node scripts/product-shot.mjs [http://localhost:5178]
@@ -21,15 +21,15 @@ const page = await browser.newPage({colorScheme: 'dark', deviceScaleFactor: 2, v
 
 await page.addInitScript(() => {
 	try {
-		localStorage.setItem('liferay-storybook:editor-scheme', 'dark');
-		localStorage.removeItem('liferay-storybook:v1');
+		localStorage.setItem('liferay-showroom:editor-scheme', 'dark');
+		localStorage.removeItem('liferay-showroom:v1');
 	}
 	catch (error) {}
 });
 
 await page.goto(`${base}/?path=/fragment/liferay-sites-ds/lsds-hero`, {waitUntil: 'networkidle'});
-await page.waitForSelector('.storybook-canvas__frame');
-await page.locator('.storybook-toolbar select').nth(1).selectOption('builtin-lsds-dark');
+await page.waitForSelector('.showroom-canvas__frame');
+await page.locator('.showroom-toolbar select').nth(1).selectOption('builtin-lsds-dark');
 await page.locator('[role="tab"]', {hasText: 'Docs'}).click();
 await page.waitForTimeout(2500);
 await page.screenshot({path: join(out, 'product-shot.png'), type: 'png'});

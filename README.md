@@ -1,4 +1,4 @@
-# Liferay Storybook
+# Liferay Showroom
 
 A Storybook-style explorer for Liferay design assets that runs anywhere a static site runs (GitHub Pages, Netlify, a `file://` folder): **no Liferay Portal, Docker or Tomcat involved**.
 
@@ -19,7 +19,7 @@ It renders fragments, page templates and style books the way Liferay does:
 
 ## Look and feel
 
-The storybook's own interface is built with Clay (`public/app/cadmin.css`, the admin flavour of Clay CSS that the Liferay Control Panel uses) and Lexicon icons from the Clay spritemap, so it follows the Lexicon design language, including Clay's light and dark colour schemes. The preview lives in an iframe, so the shell never interferes with the theme being previewed.
+The Showroom's own interface is built with Clay (`public/app/cadmin.css`, the admin flavour of Clay CSS that the Liferay Control Panel uses) and Lexicon icons from the Clay spritemap, so it follows the Lexicon design language, including Clay's light and dark colour schemes. The preview lives in an iframe, so the shell never interferes with the theme being previewed.
 
 ## Running it
 
