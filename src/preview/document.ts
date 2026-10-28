@@ -108,18 +108,39 @@ window.Liferay = window.Liferay || {
 	authToken: 'storybook'
 };
 
+/*
+ * Links never navigate the preview: the document is a srcdoc, so even "#"
+ * would resolve against the storybook's own URL and load the app inside the
+ * frame. In-page anchors scroll, target="_blank" links open a tab, and
+ * everything else is inert, like a page in the Liferay editor.
+ */
 document.addEventListener('click', function (event) {
 	var target = event.target;
+	var link = target && target.closest ? target.closest('a[href]') : null;
 
-	if (target && target.closest) {
-		var link = target.closest('a');
+	if (!link) {
+		return;
+	}
 
-		if (link && (link.getAttribute('href') || '').indexOf('#') !== 0) {
-			if (!link.getAttribute('target')) {
-				event.preventDefault();
-			}
+	if (link.getAttribute('target') === '_blank') {
+		return;
+	}
+
+	event.preventDefault();
+
+	var href = link.getAttribute('href') || '';
+
+	if (href.length > 1 && href.charAt(0) === '#') {
+		var anchor = document.getElementById(href.slice(1));
+
+		if (anchor) {
+			anchor.scrollIntoView({behavior: 'smooth', block: 'start'});
 		}
 	}
+});
+
+document.addEventListener('submit', function (event) {
+	event.preventDefault();
 });
 
 (function () {
