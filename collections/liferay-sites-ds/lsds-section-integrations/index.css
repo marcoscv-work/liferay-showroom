@@ -16,8 +16,6 @@
 	max-width: 100%;
 }
 
-.lsds-fragment-lsds-section-integrations .lsds-link { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; --sds-link-gap: 4px; }
-
 @keyframes _marquee-scroll_3d65a_1 { 
   0% { transform: translateZ(0px); }
   100% { transform: translate3d(calc(var(--sds-marquee-distance) * -1),0,0); }
@@ -156,3 +154,5 @@
 .lsds-fragment-lsds-section-integrations .m_d08caa0 :where(h1, h2, h3, h4, h5, h6) { margin-bottom: var(--mantine-spacing-xs); text-wrap: var(--mantine-heading-text-wrap); font-family: var(--mantine-font-family-headings); }
 .lsds-fragment-lsds-section-integrations :lang(ja) p, .lsds-fragment-lsds-section-integrations :lang(ja) li, .lsds-fragment-lsds-section-integrations :lang(ja) dd { line-height: 1.75em; }
 .lsds-fragment-lsds-section-integrations :lang(ja) h1, .lsds-fragment-lsds-section-integrations :lang(ja) h2, .lsds-fragment-lsds-section-integrations :lang(ja) h3, .lsds-fragment-lsds-section-integrations :lang(ja) h4, .lsds-fragment-lsds-section-integrations :lang(ja) h5, .lsds-fragment-lsds-section-integrations :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
+
+.lsds-fragment-lsds-section-integrations.lsds-fragment-lsds-section-integrations .lsds-link { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; --sds-link-gap: 4px; }

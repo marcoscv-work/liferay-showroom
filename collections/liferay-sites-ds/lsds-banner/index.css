@@ -16,8 +16,6 @@
 	max-width: 100%;
 }
 
-.lsds-fragment-lsds-banner .lsds-link { --text-fz: 14px; --text-lh: 20px; --sds-link-icon: 12px; --sds-link-gap: 4px; }
-
 .lsds-fragment-lsds-banner .lsds-link[data-variant] { display: inline-flex; align-items: center; gap: var(--sds-link-gap); font-weight: 600; text-underline-offset: 0.2em; text-decoration-thickness: max(1px, 0.0625em); transition: color var(--sds-motion-fast) var(--sds-motion-ease); }
 @media (prefers-reduced-motion: reduce) {
 .lsds-fragment-lsds-banner .lsds-link[data-variant] { transition: none; }
@@ -112,3 +110,5 @@
 .lsds-fragment-lsds-banner .m_849cf0da:where([data-underline="always"]) { text-decoration: underline; }
 .lsds-fragment-lsds-banner .m_849cf0da:where([data-variant="gradient"]), .lsds-fragment-lsds-banner .m_849cf0da:where([data-variant="gradient"]):hover { text-decoration: none; }
 .lsds-fragment-lsds-banner :lang(ja) p, .lsds-fragment-lsds-banner :lang(ja) li, .lsds-fragment-lsds-banner :lang(ja) dd { line-height: 1.75em; }
+
+.lsds-fragment-lsds-banner.lsds-fragment-lsds-banner .lsds-link { --text-fz: 14px; --text-lh: 20px; --sds-link-icon: 12px; --sds-link-gap: 4px; }

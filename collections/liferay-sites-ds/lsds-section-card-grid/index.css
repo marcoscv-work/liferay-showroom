@@ -16,8 +16,6 @@
 	max-width: 100%;
 }
 
-.lsds-fragment-lsds-section-card-grid .lsds-root { --button-height: 48px; --button-padding-x: 16px; --button-fz: 18px; --button-bg: transparent; --button-hover: transparent; --button-color: var(--sds-btn-outline-text); --button-bd: 1px solid transparent; --button-radius: 8px; --button-hover-color: var(--sds-btn-outline-text); --sds-button-gap: 8px; --sds-button-lh: 24px; }
-
 .lsds-fragment-lsds-section-card-grid .lsds-root { font-weight: 600; height: auto; min-height: var(--button-height); transition: background-image var(--sds-motion-fast) var(--sds-motion-ease),border-color var(--sds-motion-fast) var(--sds-motion-ease),box-shadow var(--sds-motion-fast) var(--sds-motion-ease); }
 .lsds-fragment-lsds-section-card-grid .lsds-root .lsds-label { white-space: normal; text-align: center; }
 .lsds-fragment-lsds-section-card-grid .lsds-root[data-with-left-section] { padding-inline-start: var(--button-padding-x); }
@@ -184,3 +182,5 @@
 @media (min-width: 62em) {
 .lsds-fragment-lsds-section-card-grid .lsds-grid-7 { --sg-cols: 3; }
 }
+
+.lsds-fragment-lsds-section-card-grid.lsds-fragment-lsds-section-card-grid .lsds-root { --button-height: 48px; --button-padding-x: 16px; --button-fz: 18px; --button-bg: transparent; --button-hover: transparent; --button-color: var(--sds-btn-outline-text); --button-bd: 1px solid transparent; --button-radius: 8px; --button-hover-color: var(--sds-btn-outline-text); --sds-button-gap: 8px; --sds-button-lh: 24px; }

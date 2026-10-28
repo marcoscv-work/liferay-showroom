@@ -16,10 +16,6 @@
 	max-width: 100%;
 }
 
-.lsds-fragment-lsds-section-content-media .lsds-root { --button-height: 56px; --button-padding-x: 18px; --button-fz: 21px; --button-bg: transparent; --button-hover: transparent; --button-color: var(--sds-action-neutral-inverted); --button-bd: 1px solid transparent; --button-radius: 8px; --button-hover-color: var(--sds-action-neutral-inverted); --sds-button-gap: 8px; --sds-button-lh: 28px; }
-.lsds-fragment-lsds-section-content-media .lsds-link { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; --sds-link-gap: 4px; }
-.lsds-fragment-lsds-section-content-media .lsds-label-root { --badge-height: 22px; --badge-padding-x: 8px; --badge-fz: var(--sds-size-paragraph-small); --badge-bg: transparent; --badge-color: var(--sds-surfaces-text-primary); --badge-bd: 1px solid transparent; --badge-lh: var(--sds-line-height-paragraph-small); --badge-radius: 4px; --badge-border-width: 1px; --sds-label-icon: 16px; --sds-label-gap: 4px; }
-
 .lsds-fragment-lsds-section-content-media .lsds-root { font-weight: 600; height: auto; min-height: var(--button-height); transition: background-image var(--sds-motion-fast) var(--sds-motion-ease),border-color var(--sds-motion-fast) var(--sds-motion-ease),box-shadow var(--sds-motion-fast) var(--sds-motion-ease); }
 .lsds-fragment-lsds-section-content-media .lsds-root .lsds-label { white-space: normal; text-align: center; }
 .lsds-fragment-lsds-section-content-media .lsds-root[data-with-left-section] { padding-inline-start: var(--button-padding-x); }
@@ -168,3 +164,7 @@
 .lsds-fragment-lsds-section-content-media :lang(ja) p, .lsds-fragment-lsds-section-content-media :lang(ja) li, .lsds-fragment-lsds-section-content-media :lang(ja) dd { line-height: 1.75em; }
 .lsds-fragment-lsds-section-content-media :lang(ja) h1, .lsds-fragment-lsds-section-content-media :lang(ja) h2, .lsds-fragment-lsds-section-content-media :lang(ja) h3, .lsds-fragment-lsds-section-content-media :lang(ja) h4, .lsds-fragment-lsds-section-content-media :lang(ja) h5, .lsds-fragment-lsds-section-content-media :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
 .lsds-fragment-lsds-section-content-media :lang(ja) [class*="label"], .lsds-fragment-lsds-section-content-media :lang(ja) [class*="eyebrow"], .lsds-fragment-lsds-section-content-media :lang(ja) [class*="overline"] { text-transform: none; letter-spacing: normal; }
+
+.lsds-fragment-lsds-section-content-media.lsds-fragment-lsds-section-content-media .lsds-root { --button-height: 56px; --button-padding-x: 18px; --button-fz: 21px; --button-bg: transparent; --button-hover: transparent; --button-color: var(--sds-action-neutral-inverted); --button-bd: 1px solid transparent; --button-radius: 8px; --button-hover-color: var(--sds-action-neutral-inverted); --sds-button-gap: 8px; --sds-button-lh: 28px; }
+.lsds-fragment-lsds-section-content-media.lsds-fragment-lsds-section-content-media .lsds-link { --text-fz: 21px; --text-lh: 28px; --sds-link-icon: 20px; --sds-link-gap: 4px; }
+.lsds-fragment-lsds-section-content-media.lsds-fragment-lsds-section-content-media .lsds-label-root { --badge-height: 22px; --badge-padding-x: 8px; --badge-fz: var(--sds-size-paragraph-small); --badge-bg: transparent; --badge-color: var(--sds-surfaces-text-primary); --badge-bd: 1px solid transparent; --badge-lh: var(--sds-line-height-paragraph-small); --badge-radius: 4px; --badge-border-width: 1px; --sds-label-icon: 16px; --sds-label-gap: 4px; }

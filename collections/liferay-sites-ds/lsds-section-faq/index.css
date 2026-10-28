@@ -16,8 +16,6 @@
 	max-width: 100%;
 }
 
-.lsds-fragment-lsds-section-faq .lsds-acc-root { --accordion-transition-duration: 240ms; --accordion-chevron-size: auto; --accordion-radius: 0; }
-
 @keyframes _acc-content-in_3d65a_1 { 
   0% { transform: translateY(-4px); }
   100% { transform: none; }
@@ -114,3 +112,5 @@
 .lsds-fragment-lsds-section-faq :lang(ja) p, .lsds-fragment-lsds-section-faq :lang(ja) li, .lsds-fragment-lsds-section-faq :lang(ja) dd { line-height: 1.75em; }
 .lsds-fragment-lsds-section-faq :lang(ja) h1, .lsds-fragment-lsds-section-faq :lang(ja) h2, .lsds-fragment-lsds-section-faq :lang(ja) h3, .lsds-fragment-lsds-section-faq :lang(ja) h4, .lsds-fragment-lsds-section-faq :lang(ja) h5, .lsds-fragment-lsds-section-faq :lang(ja) h6 { line-height: 1.35em; font-feature-settings: "palt"; }
 .lsds-fragment-lsds-section-faq :lang(ja) [class*="label"], .lsds-fragment-lsds-section-faq :lang(ja) [class*="eyebrow"], .lsds-fragment-lsds-section-faq :lang(ja) [class*="overline"] { text-transform: none; letter-spacing: normal; }
+
+.lsds-fragment-lsds-section-faq.lsds-fragment-lsds-section-faq .lsds-acc-root { --accordion-transition-duration: 240ms; --accordion-chevron-size: auto; --accordion-radius: 0; }

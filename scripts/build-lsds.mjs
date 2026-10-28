@@ -555,9 +555,11 @@ function buildVariantRules(samples) {
 }
 
 function buildCSS(css, variantRules, scope) {
-	const variants = variantRules.map(([selector, text]) => `${scope} ${selector} { ${text} }`).join('\n');
+	/* Lifted inline variables win over the component's own rules, as inline styles do in the DS: last in the cascade and one class more specific */
 
-	return [WRAPPER_CSS, variants, css].filter(Boolean).join('\n\n');
+	const variants = variantRules.map(([selector, text]) => `${scope}${scope} ${selector} { ${text} }`).join('\n');
+
+	return [WRAPPER_CSS, css, variants].filter(Boolean).join('\n\n');
 }
 
 /* ------------------------------------------------------------------------ */
