@@ -146,7 +146,9 @@ document.addEventListener('submit', function (event) {
 (function () {
 	var mode = document.documentElement.getAttribute('data-storybook-mode');
 
-	if (mode !== 'template') {
+	/* Selection only makes sense inside the editor's canvas; the page opened on its own just works */
+
+	if (mode !== 'template' || window.parent === window) {
 		return;
 	}
 
@@ -171,8 +173,7 @@ document.addEventListener('submit', function (event) {
 			return;
 		}
 
-		event.preventDefault();
-		event.stopPropagation();
+		/* Select, but let the click reach the fragment: menus, accordions and tabs keep working while editing */
 
 		parent.postMessage({type: 'storybook:select', id: item.getAttribute('data-item-id')}, '*');
 	}, true);
