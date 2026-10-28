@@ -5,12 +5,13 @@
   "homepage": "https://marcoscv-work.github.io/liferay-storybook/",
   "type": "module",
   "scripts": {
-    "pack": "node scripts/pack-collections.mjs",
+    "pack": "node scripts/pack-collections.mjs && vite-node scripts/catalog.ts",
     "dev": "npm run pack && vite",
     "build": "npm run pack && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "release": "vite-node scripts/release.ts"
+    "release": "vite-node scripts/release.ts",
+    "catalog": "vite-node scripts/catalog.ts"
   },
   "dependencies": {
     "dompurify": "^3.4.17",

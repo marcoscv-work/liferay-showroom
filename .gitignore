@@ -2,3 +2,5 @@ node_modules
 dist
 public/collections
 release
+public/catalog.json
+public/llms.txt
