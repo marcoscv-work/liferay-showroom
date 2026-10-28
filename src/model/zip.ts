@@ -237,6 +237,7 @@ async function importStyleBooks(zip: JSZip, files: string[], fileName: string, r
 			const name = styleBookJSON.name ?? dir.split('/').filter(Boolean).pop() ?? fileName;
 
 			result.styleBooks.push({
+				colorScheme: styleBookJSON.colorScheme === 'light' || styleBookJSON.colorScheme === 'dark' ? styleBookJSON.colorScheme : null,
 				key: `style-book-${slug(name)}-${Math.random().toString(36).slice(2, 7)}`,
 				name,
 				source: 'imported',

@@ -141,3 +141,15 @@ describe('page definition', () => {
 		expect(resolveStyleValue('width', '50%', null)).toBe('50%');
 	});
 });
+
+describe('style book scheme', () => {
+	it('is declared, or read from the body colour, or unknown', async () => {
+		const {styleBookScheme} = await import('./tokens');
+
+		expect(styleBookScheme({colorScheme: 'light', key: 'a', name: 'A', source: 'imported', themeKey: null, values: {mantineColorBody: '#000000'}}, null)).toBe('light');
+		expect(styleBookScheme({key: 'b', name: 'B', source: 'imported', themeKey: null, values: {mantineColorBody: '#070b13'}}, null)).toBe('dark');
+		expect(styleBookScheme({key: 'c', name: 'C', source: 'imported', themeKey: null, values: {bodyBgColor: 'rgb(250, 250, 252)'}}, null)).toBe('light');
+		expect(styleBookScheme({key: 'd', name: 'D', source: 'imported', themeKey: null, values: {brandColor: '#0b5fff'}}, null)).toBeNull();
+		expect(styleBookScheme(null, null)).toBeNull();
+	});
+});

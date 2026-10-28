@@ -57,6 +57,8 @@ export interface Theme {
 }
 
 export interface StyleBook {
+	/** The scheme the style book is designed for. Declared in `style-book.json` (`colorScheme`), or inferred from the body colour it sets. */
+	colorScheme?: 'light' | 'dark' | null;
 	key: string;
 	name: string;
 	source: 'builtin' | 'imported';

@@ -2,6 +2,7 @@ import {useMemo} from 'react';
 
 import {useEditorScheme} from './editorScheme';
 
+import {styleBookScheme} from '../model/tokens';
 import {fragmentArgsKey, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {buildPreviewDocument} from '../preview/document';
 import {buildFragmentStory, buildTemplateStory} from './story';
@@ -49,8 +50,13 @@ export function useCurrentTemplate(): PageTemplate | null {
 	return state.templates.find((template) => template.id === id) ?? null;
 }
 
+/** The scheme of the preview: the style book's when it declares or implies one, else the editor's. */
 export function useColorScheme(): 'light' | 'dark' {
-	return useEditorScheme().effective;
+	const editor = useEditorScheme().effective;
+	const theme = useCurrentTheme();
+	const styleBook = useCurrentStyleBook();
+
+	return styleBookScheme(styleBook, theme) ?? editor;
 }
 
 export function useRender(): RenderOutput {

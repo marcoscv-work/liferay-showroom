@@ -161,6 +161,7 @@ if (existsSync(styleBooksRoot)) {
 		const valuesPath = join(styleBooksRoot, dir, styleBook.frontendTokensValuesPath || 'frontend-tokens-values.json');
 
 		styleBooks.push({
+			colorScheme: styleBook.colorScheme || null,
 			key: dir,
 			name: styleBook.name || dir,
 			themeId: styleBook.themeId || null,

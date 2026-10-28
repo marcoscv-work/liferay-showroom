@@ -204,7 +204,7 @@ export function readCheckout(root: string): Checkout {
 
 		checkout.styleBooks.push({
 			files: {files: {'style-book.json': readFileSync(styleBookPath), ...(existsSync(valuesPath) ? {[valuesName]: readFileSync(valuesPath)} : {})}, path: `style-books/${dir}`},
-			styleBook: {key: `builtin-${dir}`, name: styleBookJSON.name || dir, source: 'builtin', themeKey: typeof styleBookJSON.themeId === 'string' ? styleBookJSON.themeId.split('_WAR_')[0] : null, values},
+			styleBook: {colorScheme: styleBookJSON.colorScheme === 'light' || styleBookJSON.colorScheme === 'dark' ? styleBookJSON.colorScheme : null, key: `builtin-${dir}`, name: styleBookJSON.name || dir, source: 'builtin', themeKey: typeof styleBookJSON.themeId === 'string' ? styleBookJSON.themeId.split('_WAR_')[0] : null, values},
 		});
 	}
 

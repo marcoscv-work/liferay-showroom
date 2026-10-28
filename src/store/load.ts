@@ -114,9 +114,10 @@ export async function loadBuiltinStyleBooks(): Promise<StyleBook[]> {
 			return [];
 		}
 
-		const packed: {key: string; name: string; themeId: string | null; values: any}[] = await response.json();
+		const packed: {colorScheme?: 'light' | 'dark' | null; key: string; name: string; themeId: string | null; values: any}[] = await response.json();
 
 		return packed.map((entry) => ({
+			colorScheme: entry.colorScheme ?? null,
 			key: `builtin-${entry.key}`,
 			name: entry.name,
 			source: 'builtin' as const,

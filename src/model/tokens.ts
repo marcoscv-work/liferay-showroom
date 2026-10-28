@@ -130,10 +130,71 @@ export function serializeStyleBook(styleBook: StyleBook, theme: Theme | null): {
 
 	return {
 		styleBookJSON: {
+			...(styleBook.colorScheme ? {colorScheme: styleBook.colorScheme} : {}),
 			frontendTokensValuesPath: 'frontend-tokens-values.json',
 			name: styleBook.name,
 			themeId: theme ? `${theme.key}_WAR_${theme.key}theme` : undefined,
 		},
 		tokenValuesJSON,
 	};
+}
+
+/** Tokens whose value tells the scheme of a style book: the page or body background. */
+const BODY_TOKENS = ['mantineColorBody', 'bodyBgColor', 'bodyBg', 'bodyBackgroundColor', 'sdsSurfacesPage', 'sdsSurfacesBackground'];
+
+export function colorLuminance(value: string): number | null {
+	const hex = value.trim().match(/^#([0-9a-f]{3,8})$/i);
+	let r: number, g: number, b: number;
+
+	if (hex) {
+		let digits = hex[1];
+
+		if (digits.length === 3 || digits.length === 4) {
+			digits = digits.split('').map((d) => d + d).join('');
+		}
+
+		r = parseInt(digits.slice(0, 2), 16);
+		g = parseInt(digits.slice(2, 4), 16);
+		b = parseInt(digits.slice(4, 6), 16);
+	}
+	else {
+		const rgb = value.trim().match(/^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/i);
+
+		if (!rgb) {
+			return null;
+		}
+
+		[r, g, b] = [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])];
+	}
+
+	return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+}
+
+/**
+ * The scheme a style book is designed for: what it declares, else what the
+ * body colour it sets says, else nothing (the editor's scheme applies).
+ */
+export function styleBookScheme(styleBook: StyleBook | null, theme: Theme | null): 'light' | 'dark' | null {
+	if (!styleBook) {
+		return null;
+	}
+
+	if (styleBook.colorScheme) {
+		return styleBook.colorScheme;
+	}
+
+	for (const name of BODY_TOKENS) {
+		if (styleBook.values[name] === undefined) {
+			continue;
+		}
+
+		const value = theme ? effectiveTokenValue(theme, styleBook, name) : styleBook.values[name];
+		const luminance = colorLuminance(value);
+
+		if (luminance !== null) {
+			return luminance < 0.5 ? 'dark' : 'light';
+		}
+	}
+
+	return null;
 }
