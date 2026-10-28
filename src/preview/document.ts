@@ -284,13 +284,20 @@ export const PREVIEW_CSS = `
 	cursor: pointer;
 	position: relative;
 }
-[data-showroom-mode="template"] [data-item-id].showroom-hover {
-	outline: 1px dashed rgba(11, 95, 255, 0.6);
-	outline-offset: -1px;
+/* Drawn on top of the item, not as an outline: an inset outline is covered by any child that paints a background (a hero, a full-bleed section) */
+[data-showroom-mode="template"] [data-item-id].showroom-hover::after,
+[data-showroom-mode="template"] [data-item-id].showroom-selected::after {
+	content: '';
+	inset: 0;
+	pointer-events: none;
+	position: absolute;
+	z-index: 2147483000;
 }
-[data-showroom-mode="template"] [data-item-id].showroom-selected {
-	outline: 2px solid #0b5fff;
-	outline-offset: -2px;
+[data-showroom-mode="template"] [data-item-id].showroom-hover::after {
+	border: 1px dashed rgba(11, 95, 255, 0.7);
+}
+[data-showroom-mode="template"] [data-item-id].showroom-selected::after {
+	border: 2px solid #0b5fff;
 }
 [data-showroom-mode="template"] .lfr-layout-structure-item-column:empty,
 [data-showroom-mode="template"] .lfr-layout-structure-item-container:empty {
