@@ -159,6 +159,12 @@ document.addEventListener('submit', function (event) {
 
 	var selected = null;
 
+	function reportRect() {
+		var rect = selected ? selected.getBoundingClientRect() : null;
+
+		parent.postMessage({type: 'showroom:rect', rect: rect ? {top: rect.top, left: rect.left, width: rect.width, height: rect.height} : null}, '*');
+	}
+
 	function setSelected(id) {
 		if (selected) {
 			selected.classList.remove('showroom-selected');
@@ -169,6 +175,15 @@ document.addEventListener('submit', function (event) {
 		if (selected) {
 			selected.classList.add('showroom-selected');
 		}
+
+		reportRect();
+	}
+
+	window.addEventListener('scroll', reportRect, true);
+	window.addEventListener('resize', reportRect);
+
+	if (typeof ResizeObserver === 'function') {
+		new ResizeObserver(reportRect).observe(document.documentElement);
 	}
 
 	document.addEventListener('click', function (event) {

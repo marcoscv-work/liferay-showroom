@@ -1,15 +1,14 @@
 import {useMemo, useState} from 'react';
 
+import {AddMenu} from './AddMenu';
+import {useTemplateEditing} from './templateEditing';
+
 import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
 import {renderFragment} from '../model/fragmentRenderer';
 import {humanize} from '../model/liferayContext';
 import {
-	acceptsChildren,
 	cloneSubtree,
-	createContainer,
 	createElement,
-	createFragmentElement,
-	createRow,
 	editableValuesFromFields,
 	fieldsFromEditableValues,
 	findElement,
@@ -35,38 +34,16 @@ import type {Fragment, PageElement, PageTemplate, Theme} from '../model/types';
 export function LayoutPanel() {
 	const {dispatch, state} = useStore();
 	const template = useCurrentTemplate();
+	const editing = useTemplateEditing();
+	const [adding, setAdding] = useState(false);
 
-	if (!template) {
+	if (!template || !editing) {
 		return <p className="text-secondary">Select or create a page template.</p>;
 	}
 
-	const selected = state.selectedItemId ? findElement(template.root, state.selectedItemId) : null;
-	const target = selected && acceptsChildren(selected) ? selected : selected ? findParent(template.root, selected.id) ?? template.root : template.root;
+	const selected = editing.selected;
 
 	const update = (root: PageElement) => dispatch({id: template.id, root, type: 'updateTemplate'});
-
-	const insert = (element: PageElement) => {
-		let root: PageElement;
-
-		if (selected && !acceptsChildren(selected)) {
-			const parent = findParent(template.root, selected.id) ?? template.root;
-
-			root = updateTree(template.root, parent.id, (node) => {
-				const index = node.pageElements.findIndex((child) => child.id === selected.id);
-				const pageElements = [...node.pageElements];
-
-				pageElements.splice(index + 1, 0, element);
-
-				return {...node, pageElements};
-			});
-		}
-		else {
-			root = updateTree(template.root, target.id, (node) => ({...node, pageElements: [...node.pageElements, element]}));
-		}
-
-		update(root);
-		dispatch({id: element.id, type: 'selectItem'});
-	};
 
 	const move = (direction: -1 | 1) => {
 		if (!selected) {
@@ -138,18 +115,13 @@ export function LayoutPanel() {
 		<div className="showroom-layout">
 			<div className="showroom-layout__tree">
 				<div className="showroom-layout__toolbar">
-					<span className="text-secondary small">
-						Add to <strong>{describe(target, state.collections)}</strong>
-						{selected && !acceptsChildren(selected) ? ' (after the selection)' : ''}
-					</span>
-					<div className="showroom-layout__actions">
-						<button className="btn btn-secondary btn-sm" onClick={() => insert(createContainer())} type="button">
-							<Icon className="mr-1" symbol="container" />
-							Container
+					<div className="showroom-layout__add">
+						<button aria-expanded={adding} className="btn btn-primary btn-sm" onClick={() => setAdding((open) => !open)} type="button">
+							<Icon className="mr-1" symbol="plus" />
+							Add{editing.after ? ` after ${describe(editing.after, state.collections)}` : editing.target.type === 'Root' ? ' to the page' : ` to ${describe(editing.target, state.collections)}`}
 						</button>
-						<RowButton onAdd={(columns) => insert(createRow(columns))} />
+						{adding && <AddMenu editing={editing} onClose={() => setAdding(false)} />}
 					</div>
-					<FragmentPicker onAdd={(fragment) => insert(createFragmentElement(fragment))} />
 					<div className="btn-group" role="group" aria-label="Selection actions">
 						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move up" onClick={() => move(-1)} symbol="order-arrow-up" />
 						<IconButton className="btn btn-secondary btn-sm btn-monospaced" disabled={!canEdit} label="Move down" onClick={() => move(1)} symbol="order-arrow-down" />
@@ -229,65 +201,6 @@ function TreeNode({depth, element, template}: {depth: number; element: PageEleme
 				<TreeNode depth={depth + 1} element={child} key={child.id} template={template} />
 			))}
 		</>
-	);
-}
-
-function RowButton({onAdd}: {onAdd: (columns: number) => void}) {
-	const [columns, setColumns] = useState(2);
-
-	return (
-		<>
-			<select aria-label="Number of columns for a new row" className="form-control form-control-sm showroom-select-auto" onChange={(event) => setColumns(Number(event.target.value))} value={columns}>
-				{[1, 2, 3, 4, 6].map((n) => (
-					<option key={n} value={n}>
-						{n} {n === 1 ? 'column' : 'columns'}
-					</option>
-				))}
-			</select>
-			<button className="btn btn-secondary btn-sm" onClick={() => onAdd(columns)} type="button">
-				<Icon className="mr-1" symbol="table" />
-				Row
-			</button>
-		</>
-	);
-}
-
-function FragmentPicker({onAdd}: {onAdd: (fragment: Fragment) => void}) {
-	const {state} = useStore();
-	const [value, setValue] = useState('');
-
-	return (
-		<div className="showroom-layout__picker">
-			<select aria-label="Fragment to add" className="form-control form-control-sm" onChange={(event) => setValue(event.target.value)} value={value}>
-				<option value="">Choose a fragment…</option>
-				{state.collections.map((collection) => (
-					<optgroup key={collection.key} label={collection.name}>
-						{collection.fragments.map((fragment) => (
-							<option key={fragment.key} value={`${collection.key}/${fragment.key}`}>
-								{fragment.name}
-							</option>
-						))}
-					</optgroup>
-				))}
-			</select>
-			<button
-				className="btn btn-primary btn-sm"
-				disabled={!value}
-				onClick={() => {
-					const [collectionKey, ...rest] = value.split('/');
-					const fragmentKey = rest.join('/');
-					const fragment = state.collections.find((collection) => collection.key === collectionKey)?.fragments.find((candidate) => candidate.key === fragmentKey);
-
-					if (fragment) {
-						onAdd(fragment);
-					}
-				}}
-				type="button"
-			>
-				<Icon className="mr-1" symbol="plus" />
-				Fragment
-			</button>
-		</div>
 	);
 }
 
