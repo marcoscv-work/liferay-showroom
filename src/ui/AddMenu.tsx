@@ -11,7 +11,13 @@ import type {TemplateEditing} from './templateEditing';
  * a fragment from the loaded collections, inserted where the selection says.
  * Opens from the floating button on the canvas and from the layout panel.
  */
-export function AddMenu({editing, onClose}: {editing: TemplateEditing; onClose: () => void}) {
+export interface AddMenuPlacement {
+	/** Height the menu may use, so it never leaves the area it opens in. */
+	maxHeight: number;
+	vertical: 'up' | 'down';
+}
+
+export function AddMenu({editing, onClose, placement}: {editing: TemplateEditing; onClose: () => void; placement?: AddMenuPlacement}) {
 	const {state} = useStore();
 	const [query, setQuery] = useState('');
 	const search = useRef<HTMLInputElement>(null);
@@ -52,9 +58,11 @@ export function AddMenu({editing, onClose}: {editing: TemplateEditing; onClose: 
 	const where = editing.after ? `after ${describeShort(editing.after)}` : `into ${editing.target.type === 'Root' ? 'the page' : describeShort(editing.target)}`;
 
 	return (
-		<div aria-label="Add to the page" className="showroom-add" ref={menu} role="dialog">
+		<div aria-label="Add to the page" className={`showroom-add${placement?.vertical === 'up' ? ' showroom-add--up' : ''}`} ref={menu} role="dialog" style={placement ? {maxHeight: `${placement.maxHeight}px`} : undefined}>
 			<div className="showroom-add__header">
-				<span className="text-secondary small">Add {where}</span>
+				<span className="text-secondary small" title={`Add ${where}`}>
+					Add {where}
+				</span>
 				<button aria-label="Close" className="btn btn-unstyled btn-sm btn-monospaced" onClick={onClose} type="button">
 					<Icon symbol="times" />
 				</button>
@@ -70,10 +78,10 @@ export function AddMenu({editing, onClose}: {editing: TemplateEditing; onClose: 
 						<button className="btn btn-secondary btn-sm" key={columns} onClick={() => add(createRow(columns))} title={`Row with ${columns} column${columns === 1 ? '' : 's'}`} type="button">
 							{columns === 1 ? <Icon className="mr-1" symbol="table" /> : null}
 							{columns}
+							{columns === 6 ? ' cols' : ''}
 						</button>
 					))}
 				</div>
-				<span className="text-secondary small">columns</span>
 			</div>
 
 			<input aria-label="Find a fragment" className="form-control form-control-sm showroom-add__search" onChange={(event) => setQuery(event.target.value)} placeholder="Find a fragment…" ref={search} type="search" value={query} />

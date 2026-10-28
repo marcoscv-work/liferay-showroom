@@ -101,15 +101,21 @@ function FloatingAdd({adding, editing, frameSize, rect, setAdding}: {adding: boo
 	const size = 36;
 	const margin = 8;
 
+	/* The frame's own scrollbar sits on its right edge; keep clear of it */
+	const scrollbar = 16;
+
 	/* On the selected element's bottom-right corner, kept inside the visible frame; in the frame's corner when the element is scrolled out of view */
 	const visible = rect && frameSize.height > 0 && rect.top < frameSize.height && rect.top + rect.height > 0;
 
-	const style = visible
-		? {
-				left: `${Math.min(Math.max(margin, rect.left + rect.width - size - margin), Math.max(margin, frameSize.width - size - margin))}px`,
-				top: `${Math.min(Math.max(margin, rect.top + rect.height - size / 2), Math.max(margin, frameSize.height - size - margin))}px`,
-		  }
-		: {bottom: '1rem', right: '1rem'};
+	const top = visible ? Math.min(Math.max(margin, rect.top + rect.height - size / 2), Math.max(margin, frameSize.height - size - margin)) : Math.max(margin, frameSize.height - size - 16);
+	const left = visible ? Math.min(Math.max(margin, rect.left + rect.width - size - margin), Math.max(margin, frameSize.width - size - margin - scrollbar)) : Math.max(margin, frameSize.width - size - 16 - scrollbar);
+
+	const style = {left: `${left}px`, top: `${top}px`};
+
+	/* The menu opens inside the preview, towards the side with more room, and scrolls within what is left */
+	const below = frameSize.height - top - size - margin * 2;
+	const above = top - margin * 2;
+	const placement = below >= 320 || below >= above ? {maxHeight: Math.max(160, below), vertical: 'down' as const} : {maxHeight: Math.max(160, above), vertical: 'up' as const};
 
 	const label = editing.after ? 'Add after the selected element' : editing.target.type === 'Root' ? 'Add to the page' : 'Add to the selected container';
 
@@ -118,7 +124,7 @@ function FloatingAdd({adding, editing, frameSize, rect, setAdding}: {adding: boo
 			<button aria-expanded={adding} aria-label={label} className="btn btn-primary btn-monospaced showroom-floating-add__button" onClick={() => setAdding(!adding)} title={label} type="button">
 				<Icon symbol="plus" />
 			</button>
-			{adding && <AddMenu editing={editing} onClose={() => setAdding(false)} />}
+			{adding && <AddMenu editing={editing} onClose={() => setAdding(false)} placement={placement} />}
 		</div>
 	);
 }
