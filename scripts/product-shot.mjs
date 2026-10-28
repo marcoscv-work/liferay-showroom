@@ -29,7 +29,7 @@ await page.addInitScript(() => {
 
 await page.goto(`${base}/?path=/fragment/liferay-sites-ds/lsds-hero`, {waitUntil: 'networkidle'});
 await page.waitForSelector('.storybook-canvas__frame');
-await page.locator('.storybook-toolbar select').nth(1).selectOption('builtin-lsds-light');
+await page.locator('.storybook-toolbar select').nth(1).selectOption('builtin-lsds-dark');
 await page.locator('[role="tab"]', {hasText: 'Docs'}).click();
 await page.waitForTimeout(2500);
 await page.screenshot({path: join(out, 'product-shot.png'), type: 'png'});
