@@ -79,6 +79,17 @@ function compose(): PageElement {
 			'text-7': {text: 'catalog.json and llms.txt describe every fragment, field and token. An agent composes a page; drop the JSON on the site and it becomes a template.'},
 			'title-1': {text: 'Exactly what you import'},
 		}),
+		block('lsds-section-card-grid', {
+			'link-1': {href: `${SHOWROOM}llms.txt`, text: 'Read llms.txt'},
+			'text-1': {text: '<p>A fragment is HTML, CSS, JavaScript and a JSON of options; a page is a JSON tree of fragment keys. No framework, no build, no runtime. What is simple for an editor is cheap for a machine, and it scales to whole sites where component code does not.</p>'},
+			'text-2': {text: 'Files, not programs'},
+			'text-3': {text: 'An agent writes a fragment in one pass: markup, styles, a script and the list of its options. Nothing to compile, type or bundle.'},
+			'text-4': {text: 'Pages as data'},
+			'text-5': {text: 'Composing a site is listing fragment keys in a page definition. Review it here, drop it on the site, import it into Liferay.'},
+			'text-6': {text: 'A catalog that fits'},
+			'text-7': {text: 'Because a fragment is fully described by its keys, options and editables, the whole system fits in one llms.txt an agent reads in one go.'},
+			'title-1': {text: 'Flat by design, fast for AI'},
+		}),
 		block('lsds-section-highlight-text', {
 			'link-1': {href: SHOWROOM, text: 'Try it now'},
 			'text-1': {text: 'Drop a Liferay export anywhere on the page.'},

@@ -1,6 +1,6 @@
 # Liferay Showroom
 
-A Storybook-style explorer for Liferay design assets that runs anywhere a static site runs (GitHub Pages, Netlify, a `file://` folder): **no Liferay Portal, Docker or Tomcat involved**.
+A Storybook-style explorer for Liferay design assets, built on the fact that those assets are flat files (HTML, CSS, JS and JSON) that an editor, a reviewer or an AI agent can read and write without a build, and that runs anywhere a static site runs (GitHub Pages, Netlify, a `file://` folder): **no Liferay Portal, Docker or Tomcat involved**.
 
 It renders fragments, page templates and style books the way Liferay does:
 

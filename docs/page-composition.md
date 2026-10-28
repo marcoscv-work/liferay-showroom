@@ -27,6 +27,8 @@ height: 560
 
 The `page-definition.json` format is stable and documented in the AI catalog at `/catalog.json` and `/llms.txt`. An agent that reads the catalog can compose a page from the fragment keys and hand back a definition; drop that file on this site and it becomes a template you can review, edit and export.
 
+This works as well as it does because Liferay's assets are flat. A fragment is `index.html`, `index.css`, `index.js` and a `configuration.json` that lists its options; a page is a JSON tree of fragment keys with their configuration and editable values. There is no framework to learn, no build to run and no runtime to break: an agent writes a fragment in one pass and composes a site by listing keys. Compared with generating React components and the code that composes them into pages, that is faster to produce, easier to review and it scales to hundreds of pages, which is why the catalog is short enough to read in one go.
+
 A minimal definition:
 
 ```json

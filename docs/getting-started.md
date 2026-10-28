@@ -26,6 +26,10 @@ Every asset exports as the zip Liferay imports, from the same place you see it:
 
 Each release lists the same zips attached to the GitHub release, so a team imports a version, not a snapshot of someone's browser.
 
+## Why flat assets matter
+
+Everything here is a file: a fragment is HTML, CSS, JavaScript and a JSON of options, a page template is a JSON tree, a style book is a JSON of values. That is what makes a Liferay design system simple to document, cheap to version and, for an AI agent, far faster to generate and compose than component code. See [Page composition](page-composition.md) for how an agent builds a page from the catalog.
+
 ## Bring your own assets
 
 Drop any Liferay export on the page: a fragment set, a page template, a style book, a built theme, or a bare `page-definition.json`. Imported assets stay in your browser and never leave it.

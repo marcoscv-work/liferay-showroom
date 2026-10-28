@@ -222,6 +222,117 @@
 						"type": "Fragment",
 						"definition": {
 							"fragment": {
+								"key": "lsds-section-card-grid"
+							},
+							"fragmentConfig": {},
+							"fragmentFields": [
+								{
+									"id": "link-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Read llms.txt"
+											}
+										},
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value_i18n": {
+														"en_US": "../llms.txt"
+													}
+												}
+											}
+										}
+									}
+								},
+								{
+									"id": "text-1",
+									"value": {
+										"html": {
+											"value_i18n": {
+												"en_US": "<p>A fragment is HTML, CSS, JavaScript and a JSON of options; a page is a JSON tree of fragment keys. No framework, no build, no runtime. What is simple for an editor is cheap for a machine, and it scales to whole sites where component code does not.</p>"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-2",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Files, not programs"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-3",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "An agent writes a fragment in one pass: markup, styles, a script and the list of its options. Nothing to compile, type or bundle."
+											}
+										}
+									}
+								},
+								{
+									"id": "text-4",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Pages as data"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-5",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Composing a site is listing fragment keys in a page definition. Review it here, drop it on the site, import it into Liferay."
+											}
+										}
+									}
+								},
+								{
+									"id": "text-6",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "A catalog that fits"
+											}
+										}
+									}
+								},
+								{
+									"id": "text-7",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Because a fragment is fully described by its keys, options and editables, the whole system fits in one llms.txt an agent reads in one go."
+											}
+										}
+									}
+								},
+								{
+									"id": "title-1",
+									"value": {
+										"text": {
+											"value_i18n": {
+												"en_US": "Flat by design, fast for AI"
+											}
+										}
+									}
+								}
+							],
+							"indexed": true
+						}
+					},
+					{
+						"type": "Fragment",
+						"definition": {
+							"fragment": {
 								"key": "lsds-section-highlight-text"
 							},
 							"fragmentConfig": {},
