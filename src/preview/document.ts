@@ -203,6 +203,20 @@ document.addEventListener('submit', function (event) {
 
 	parent.postMessage({type: 'storybook:ready'}, '*');
 })();
+
+/* The documentation embeds size their frame with the height the document reports */
+
+(function () {
+	var reportHeight = function () {
+		parent.postMessage({type: 'storybook:height', height: document.documentElement.scrollHeight}, '*');
+	};
+
+	if (typeof ResizeObserver === 'function') {
+		new ResizeObserver(reportHeight).observe(document.documentElement);
+	}
+
+	window.addEventListener('load', reportHeight);
+})();
 `;
 
 export const PREVIEW_CSS = `

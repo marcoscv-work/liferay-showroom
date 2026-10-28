@@ -1,7 +1,7 @@
 import {normalizeTree} from '../model/pageDefinition';
 import {parseStyleBookValues, parseTokenDefinition} from '../model/tokens';
 
-import type {Collection, PageTemplate, StyleBook, Theme} from '../model/types';
+import type {Collection, DocPage, PageTemplate, ReleaseManifest, StyleBook, Theme} from '../model/types';
 
 /**
  * Loads the assets bundled with the storybook: the packed fragment
@@ -123,6 +123,38 @@ export async function loadBuiltinStyleBooks(): Promise<StyleBook[]> {
 			themeKey: typeof entry.themeId === 'string' ? entry.themeId.split('_WAR_')[0] : null,
 			values: parseStyleBookValues(null, entry.values),
 		}));
+	}
+	catch {
+		return [];
+	}
+}
+
+export async function loadBuiltinDocs(): Promise<DocPage[]> {
+	try {
+		const response = await fetch(assetURL('collections/docs.json'));
+
+		if (!response.ok) {
+			return [];
+		}
+
+		const pages: any[] = await response.json();
+
+		return pages.map((page) => ({markdown: page.markdown ?? '', order: page.order ?? 0, slug: page.slug, source: 'builtin' as const, title: page.title ?? page.slug}));
+	}
+	catch {
+		return [];
+	}
+}
+
+export async function loadReleases(): Promise<ReleaseManifest[]> {
+	try {
+		const response = await fetch(assetURL('collections/releases.json'));
+
+		if (!response.ok) {
+			return [];
+		}
+
+		return await response.json();
 	}
 	catch {
 		return [];

@@ -151,10 +151,13 @@ async function importCollections(zip: JSZip, files: string[], fileName: string, 
 			const thumbnailName = fragmentJSON.thumbnailPath ?? 'thumbnail.png';
 			const thumbnailFile = zip.files[`${dir}${thumbnailName}`];
 
+			const docs = await read('README.md', 'README.md');
+
 			const fragment: Fragment = {
 				collectionKey: key,
 				configuration: await read(fragmentJSON.configurationPath, 'configuration.json'),
 				css: await read(fragmentJSON.cssPath, 'index.css'),
+				...(docs ? {docs} : {}),
 				html: await read(fragmentJSON.htmlPath, 'index.html'),
 				icon: fragmentJSON.icon ?? 'code',
 				js: await read(fragmentJSON.jsPath, 'index.js'),
@@ -358,6 +361,25 @@ export async function exportTemplateZip(template: PageTemplate): Promise<Blob> {
 	folder.file('page-definition.json', JSON.stringify({pageElement: exportTree(template.root), settings: {}, version: 1.1}, null, '\t'));
 
 	return zip.generateAsync({type: 'blob'});
+}
+
+/** A `page-definition.json` on its own, as an agent or the Liferay API hands it over. */
+export function importPageDefinition(text: string, fileName = 'page-definition.json'): {error: string | null; template: PageTemplate | null} {
+	try {
+		const json = JSON.parse(text);
+		const pageElement = json.pageElement ?? (json.type === 'Root' ? json : null);
+
+		if (!pageElement) {
+			return {error: `${fileName}: missing "pageElement"`, template: null};
+		}
+
+		const name = typeof json.name === 'string' && json.name ? json.name : fileName.replace(/\.json$/i, '').replace(/[-_]+/g, ' ');
+
+		return {error: null, template: {id: `template-${slug(name)}-${Math.random().toString(36).slice(2, 7)}`, name, root: normalizeTree(pageElement), source: 'imported'}};
+	}
+	catch (error) {
+		return {error: `${fileName}: ${(error as Error).message}`, template: null};
+	}
 }
 
 export function templateDefinitionJSON(template: PageTemplate): string {

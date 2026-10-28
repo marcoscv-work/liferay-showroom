@@ -70,6 +70,40 @@ export function Sidebar() {
 			</div>
 
 			<nav aria-label="Stories" className="storybook-sidebar__tree">
+				{(state.docs.length > 0 || state.releases.length > 0) && (
+					<div className="storybook-section">
+						<div className="storybook-section__title">
+							<span>Docs</span>
+						</div>
+						<ul className="nav nav-stacked">
+							{[...state.docs]
+								.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
+								.filter((doc) => matches(doc.title))
+								.map((doc) => {
+									const active = state.selection.kind === 'doc' && state.selection.slug === doc.slug;
+
+									return (
+										<li className="nav-item" key={doc.slug}>
+											<button aria-current={active ? 'page' : undefined} className={`nav-link btn btn-unstyled${active ? ' active' : ''}`} onClick={() => dispatch({selection: {kind: 'doc', slug: doc.slug}, type: 'select'})} type="button">
+												<Icon className="mr-2" symbol="document-text" />
+												<span className="text-truncate">{doc.title}</span>
+											</button>
+										</li>
+									);
+								})}
+							{state.releases.length > 0 && matches('releases') && (
+								<li className="nav-item">
+									<button aria-current={state.selection.kind === 'releases' ? 'page' : undefined} className={`nav-link btn btn-unstyled${state.selection.kind === 'releases' ? ' active' : ''}`} onClick={() => dispatch({selection: {kind: 'releases'}, type: 'select'})} type="button">
+										<Icon className="mr-2" symbol="tag" />
+										<span className="text-truncate">Releases</span>
+										<span className="label label-secondary ml-2">{state.releases.length}</span>
+									</button>
+								</li>
+							)}
+						</ul>
+					</div>
+				)}
+
 				<div className="storybook-section">
 					<div className="storybook-section__title">
 						<span>Fragments</span>
@@ -130,12 +164,12 @@ export function Sidebar() {
 			</nav>
 
 			<div className="storybook-sidebar__footer">
-				<input accept=".zip" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
+				<input accept=".zip,.json" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
 				<button className="btn btn-secondary btn-block btn-sm" onClick={() => fileInput.current?.click()} type="button">
 					<Icon className="mr-1" symbol="upload" />
 					Import zip…
 				</button>
-				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books or built themes.</p>
+				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books, built themes or a page-definition.json.</p>
 
 				<div className="storybook-editor-scheme">
 					<span className="text-secondary small">Editor theme</span>

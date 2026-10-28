@@ -6,6 +6,7 @@ import {ConfigurationControls} from './controls/ConfigurationControls';
 import {EditableControls} from './controls/EditableControls';
 import {Icon} from './Icon';
 import {LayoutPanel} from './LayoutPanel';
+import {Markdown} from './Markdown';
 import {StyleBookPanel} from './StyleBookPanel';
 import {useRender} from './useRender';
 
@@ -24,6 +25,10 @@ export function Panel() {
 	}
 	else {
 		tabs.push({id: 'controls', label: 'Controls', symbol: 'cog'});
+
+		if (output.fragment?.docs) {
+			tabs.push({id: 'docs', label: 'Docs', symbol: 'document-text'});
+		}
 	}
 
 	tabs.push({id: 'stylebook', label: 'Style book', symbol: 'color-picker'}, {id: 'code', label: 'Code', symbol: 'code'}, {id: 'warnings', label: warnings.length ? `Warnings (${warnings.length})` : 'Warnings', symbol: 'warning-full'});
@@ -48,6 +53,7 @@ export function Panel() {
 
 			<div className="storybook-panel__content">
 				{active === 'controls' && <FragmentControls />}
+				{active === 'docs' && output.fragment?.docs && <Markdown markdown={output.fragment.docs} />}
 				{active === 'layout' && <LayoutPanel />}
 				{active === 'stylebook' && <StyleBookPanel />}
 				{active === 'code' && <CodePanel />}

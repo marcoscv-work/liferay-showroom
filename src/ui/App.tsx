@@ -1,10 +1,10 @@
 import {useEffect} from 'react';
 
-import {importZip} from '../model/zip';
+import {importPageDefinition, importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
 
 import type {Selection} from '../store';
-import {loadBuiltinCollections, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes} from '../store/load';
+import {loadBuiltinCollections, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
 import {Canvas} from './Canvas';
 import {Icon} from './Icon';
 import {Panel} from './Panel';
@@ -13,7 +13,8 @@ import {Toolbar} from './Toolbar';
 
 /**
  * The URL mirrors the selection, Storybook style:
- * `?path=/fragment/<collection>/<fragment>` or `?path=/template/<id>`.
+ * `?path=/fragment/<collection>/<fragment>`, `?path=/template/<id>`,
+ * `?path=/docs/<slug>` or `?path=/releases`.
  */
 export function selectionFromURL(search: string): Selection | null {
 	const path = new URLSearchParams(search).get('path');
@@ -32,6 +33,14 @@ export function selectionFromURL(search: string): Selection | null {
 		return {id: decodeURIComponent(rest.join('/')), kind: 'template'};
 	}
 
+	if (kind === 'docs' && rest[0]) {
+		return {kind: 'doc', slug: decodeURIComponent(rest.join('/')).replace(/#.*$/, '')};
+	}
+
+	if (kind === 'releases') {
+		return {kind: 'releases'};
+	}
+
 	return null;
 }
 
@@ -44,6 +53,14 @@ export function urlFromSelection(selection: Selection): string | null {
 		return `/template/${encodeURIComponent(selection.id)}`;
 	}
 
+	if (selection.kind === 'doc') {
+		return `/docs/${encodeURIComponent(selection.slug)}`;
+	}
+
+	if (selection.kind === 'releases') {
+		return '/releases';
+	}
+
 	return null;
 }
 
@@ -53,12 +70,12 @@ export function App() {
 	useEffect(() => {
 		let cancelled = false;
 
-		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks()]).then(([collections, themes, templates, styleBooks]) => {
+		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks(), loadBuiltinDocs(), loadReleases()]).then(([collections, themes, templates, styleBooks, docs, releases]) => {
 			if (!cancelled) {
 				const persisted = readPersistedState();
 				const fromURL = selectionFromURL(window.location.search);
 
-				dispatch({collections, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, styleBooks, templates, themes, type: 'loaded'});
+				dispatch({collections, docs, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, releases, styleBooks, templates, themes, type: 'loaded'});
 			}
 		});
 
@@ -126,7 +143,7 @@ export function App() {
 		};
 
 		const onDrop = async (event: DragEvent) => {
-			const files = Array.from(event.dataTransfer?.files ?? []).filter((file) => file.name.toLowerCase().endsWith('.zip'));
+			const files = Array.from(event.dataTransfer?.files ?? []).filter((file) => /\.(zip|json)$/i.test(file.name));
 
 			if (!files.length) {
 				return;
@@ -164,19 +181,34 @@ export function App() {
 		);
 	}
 
+	const showsPanel = state.selection.kind !== 'doc' && state.selection.kind !== 'releases';
+
 	return (
 		<div className="cadmin storybook">
 			<Sidebar />
-			<main className="storybook-main">
+			<main className={`storybook-main${showsPanel ? '' : ' storybook-main--page'}`}>
 				<Toolbar />
 				<Canvas />
-				<Panel />
+				{showsPanel && <Panel />}
 			</main>
 		</div>
 	);
 }
 
 export async function importFile(file: File, dispatch: ReturnType<typeof useStore>['dispatch']): Promise<void> {
+	if (/\.json$/i.test(file.name)) {
+		const imported = importPageDefinition(await file.text(), file.name);
+
+		if (imported.template) {
+			dispatch({templates: [imported.template], type: 'addTemplates'});
+		}
+		else {
+			dispatch({message: `Import: ${imported.error}`, type: 'runtimeWarning'});
+		}
+
+		return;
+	}
+
 	const result = await importZip(await file.arrayBuffer(), file.name);
 
 	if (result.collections.length) {

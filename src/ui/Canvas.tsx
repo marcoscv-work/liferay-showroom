@@ -2,6 +2,8 @@ import {useEffect, useRef} from 'react';
 
 import {VIEWPORTS} from '../model/types';
 import {useStore} from '../store';
+import {DocsView} from './DocsView';
+import {ReleasesView} from './ReleasesView';
 import {useRender} from './useRender';
 
 export function Canvas() {
@@ -34,6 +36,14 @@ export function Canvas() {
 
 		return () => iframe.removeEventListener('load', onLoad);
 	}, [state.selectedItemId]);
+
+	if (state.selection.kind === 'doc') {
+		return <DocsView slug={state.selection.slug} />;
+	}
+
+	if (state.selection.kind === 'releases') {
+		return <ReleasesView />;
+	}
 
 	return (
 		<section aria-label="Preview" className="storybook-canvas">

@@ -2,11 +2,9 @@ import {useMemo} from 'react';
 
 import {useEditorScheme} from './editorScheme';
 
-import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
-import {renderFragment, wrapFragmentScript} from '../model/fragmentRenderer';
-import {renderPage} from '../model/pageDefinition';
 import {fragmentArgsKey, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {buildPreviewDocument} from '../preview/document';
+import {buildFragmentStory, buildTemplateStory} from './story';
 
 import type {EditableInfo} from '../model/fragmentRenderer';
 import type {Collection, Fragment, PageTemplate} from '../model/types';
@@ -67,58 +65,39 @@ export function useRender(): RenderOutput {
 
 	return useMemo(() => {
 		const tokenValues = styleBook.values;
+		const context = {collections: state.collections, colorScheme, styleBook, theme};
 
 		if (fragment) {
-			const {configuration} = parseConfiguration(fragment.configuration);
-			const configurationRaw: Record<string, any> = {};
-
-			for (const field of allFields(configuration)) {
-				configurationRaw[field.name] = args?.configuration[field.name] ?? defaultRawValue(field);
-			}
-
-			const namespace = 'story';
-
-			const result = renderFragment(fragment, {
-				collection,
-				configuration: configurationRaw,
-				editables: args?.editables ?? {},
-				imagesPath: theme?.imagesPath ?? '',
-				layoutMode: 'view',
-				namespace,
-				theme,
-			});
-
-			const html = `<div class="lfr-layout-structure-item-root" id="main-content"><div class="container-fluid container-fluid-max-xl py-4"><div class="lfr-layout-structure-item-fragment lfr-layout-structure-item-${fragment.key.toLowerCase()}" id="fragment-${namespace}">${result.html}</div></div></div>`;
-			const js = wrapFragmentScript(result.js, namespace, configurationRaw, 'view');
+			const story = buildFragmentStory(fragment, collection, args ?? {}, context);
 
 			return {
 				collection,
-				configurationRaw,
+				configurationRaw: story.configurationRaw,
 				css: '',
-				document: buildPreviewDocument({colorScheme, css: '', fragmentCSS: result.css, html, js, mode: 'story', theme, tokenValues}),
-				editables: result.editables,
+				document: story.document,
+				editables: story.editables,
 				fragment,
-				html: result.html,
-				js,
+				html: story.html,
+				js: story.js,
 				template: null,
-				warnings: result.warnings,
+				warnings: story.warnings,
 			};
 		}
 
 		if (template) {
-			const result = renderPage(template.root, {collections: state.collections, imagesPath: theme?.imagesPath ?? '', layoutMode: 'edit', theme});
+			const story = buildTemplateStory(template, context);
 
 			return {
 				collection: null,
 				configurationRaw: {},
-				css: result.css,
-				document: buildPreviewDocument({colorScheme, css: result.css, fragmentCSS: '', html: result.html, js: result.js, mode: 'template', theme, tokenValues}),
+				css: story.css,
+				document: story.document,
 				editables: [],
 				fragment: null,
-				html: result.html,
-				js: result.js,
+				html: story.html,
+				js: story.js,
 				template,
-				warnings: result.warnings,
+				warnings: story.warnings,
 			};
 		}
 
@@ -143,5 +122,5 @@ export function useRender(): RenderOutput {
 			template: null,
 			warnings: [],
 		};
-	}, [args, collection, colorScheme, fragment, state.collections, styleBook.values, template, theme]);
+	}, [args, collection, colorScheme, fragment, state.collections, styleBook, template, theme]);
 }

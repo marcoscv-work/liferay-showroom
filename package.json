@@ -1,17 +1,21 @@
 {
   "name": "liferay-storybook",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.2.0",
+  "homepage": "https://marcoscv-work.github.io/liferay-storybook/",
   "type": "module",
   "scripts": {
     "pack": "node scripts/pack-collections.mjs",
     "dev": "npm run pack && vite",
     "build": "npm run pack && tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "release": "vite-node scripts/release.ts"
   },
   "dependencies": {
+    "dompurify": "^3.4.17",
     "jszip": "^3.10.1",
+    "marked": "^18.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

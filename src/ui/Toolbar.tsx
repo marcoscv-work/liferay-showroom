@@ -21,7 +21,10 @@ export function Toolbar() {
 	const template = useCurrentTemplate();
 	const output = useRender();
 
-	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : template ? template.name : 'Liferay Storybook';
+	const doc = state.selection.kind === 'doc' ? state.docs.find((candidate) => candidate.slug === (state.selection as {slug: string}).slug) : null;
+	const showsFrame = state.selection.kind === 'fragment' || state.selection.kind === 'template' || state.selection.kind === 'none';
+
+	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Storybook';
 
 	const createStyleBook = (copy: boolean) => {
 		const name = copy ? `${styleBook.name} copy` : `Style book ${state.styleBooks.length}`;
@@ -91,7 +94,7 @@ export function Toolbar() {
 			</div>
 
 			<div aria-label="Viewport" className="btn-group" role="group">
-				{VIEWPORTS.map((viewport) => (
+				{showsFrame && VIEWPORTS.map((viewport) => (
 					<IconButton
 						className="btn btn-secondary btn-sm btn-monospaced"
 						key={viewport.id}
@@ -142,7 +145,7 @@ export function Toolbar() {
 						</button>
 					</>
 				)}
-				<IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Open the rendered page in a new tab" onClick={openPreview} symbol="shortcut" />
+				{showsFrame && <IconButton className="btn btn-secondary btn-sm btn-monospaced" label="Open the rendered page in a new tab" onClick={openPreview} symbol="shortcut" />}
 			</div>
 		</header>
 	);

@@ -2,6 +2,8 @@ export interface Fragment {
 	collectionKey: string;
 	configuration: string;
 	css: string;
+	/** Markdown next to the fragment (`README.md`), shown in the Docs tab. Never exported. */
+	docs?: string;
 	html: string;
 	icon: string;
 	js: string;
@@ -92,3 +94,39 @@ export const VIEWPORTS: Viewport[] = [
 	{id: 'landscapeMobile', label: 'Landscape phone', width: 576},
 	{id: 'portraitMobile', label: 'Portrait phone', width: 375},
 ];
+
+/** A Markdown page of the documentation (`docs/<slug>.md`). */
+export interface DocPage {
+	markdown: string;
+	order: number;
+	slug: string;
+	source: 'builtin' | 'imported';
+	title: string;
+}
+
+/** One exportable asset as recorded in a release manifest (`releases/<version>.json`). */
+export interface ReleaseAsset {
+	/** Per-file hashes (`index.html`, `index.css`, ...) so a change can be located. */
+	files?: Record<string, string>;
+	hash: string;
+	key: string;
+	name: string;
+	/** The collection a fragment belongs to. */
+	parent?: string;
+	/** Repository path, for the history link. */
+	path?: string;
+	type: 'fragment-set' | 'fragment' | 'page-template' | 'style-book';
+}
+
+export interface ReleaseManifest {
+	assets: ReleaseAsset[];
+	commit?: string;
+	date: string;
+	/** Zips attached to the GitHub release, by file name. */
+	downloads?: {file: string; name: string}[];
+	/** Hand-written notes for the release, Markdown. */
+	notes?: string;
+	/** `owner/name` on GitHub, for links. */
+	repository?: string;
+	version: string;
+}

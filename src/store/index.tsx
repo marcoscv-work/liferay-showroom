@@ -3,11 +3,11 @@ import {createContext, useContext, useEffect, useMemo, useReducer} from 'react';
 import type {Dispatch, ReactNode} from 'react';
 
 import type {EditableValue} from '../model/fragmentRenderer';
-import type {Collection, PageElement, PageTemplate, StyleBook, Theme, ViewportId} from '../model/types';
+import type {Collection, DocPage, PageElement, PageTemplate, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
-export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'template'; id: string} | {kind: 'none'};
+export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
 
-export type PanelTab = 'controls' | 'stylebook' | 'layout' | 'code' | 'warnings';
+export type PanelTab = 'controls' | 'docs' | 'stylebook' | 'layout' | 'code' | 'warnings';
 
 export interface FragmentArgs {
 	configuration: Record<string, any>;
@@ -16,9 +16,11 @@ export interface FragmentArgs {
 
 export interface State {
 	collections: Collection[];
+	docs: DocPage[];
 	fragmentArgs: Record<string, FragmentArgs>;
 	loading: boolean;
 	panelTab: PanelTab;
+	releases: ReleaseManifest[];
 	runtimeWarnings: string[];
 	selectedItemId: string | null;
 	selection: Selection;
@@ -34,9 +36,11 @@ export const DEFAULT_STYLE_BOOK_KEY = 'theme-defaults';
 
 export const initialState: State = {
 	collections: [],
+	docs: [],
 	fragmentArgs: {},
 	loading: true,
 	panelTab: 'controls',
+	releases: [],
 	runtimeWarnings: [],
 	selectedItemId: null,
 	selection: {kind: 'none'},
@@ -49,7 +53,7 @@ export const initialState: State = {
 };
 
 export type Action =
-	| {type: 'loaded'; collections: Collection[]; styleBooks: StyleBook[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
+	| {type: 'loaded'; collections: Collection[]; docs: DocPage[]; releases: ReleaseManifest[]; styleBooks: StyleBook[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
 	| {type: 'select'; selection: Selection}
 	| {type: 'setPanelTab'; tab: PanelTab}
 	| {type: 'setTheme'; key: string}
@@ -126,6 +130,10 @@ function reducer(state: State, action: Action): State {
 				}
 			}
 
+			if (selection.kind === 'doc' && !action.docs.some((doc) => doc.slug === (selection as {slug: string}).slug)) {
+				selection = {kind: 'none'};
+			}
+
 			if (selection.kind === 'none' && collections[0]?.fragments[0]) {
 				selection = {kind: 'fragment', collectionKey: collections[0].key, fragmentKey: collections[0].fragments[0].key};
 			}
@@ -133,9 +141,11 @@ function reducer(state: State, action: Action): State {
 			return {
 				...state,
 				collections,
+				docs: action.docs,
 				fragmentArgs: persisted.fragmentArgs ?? {},
 				loading: false,
 				panelTab: selection.kind === 'template' ? 'layout' : 'controls',
+				releases: action.releases,
 				selection,
 				styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY,
 				styleBooks,

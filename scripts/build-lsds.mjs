@@ -14,7 +14,7 @@
  *   PLAYWRIGHT_MODULE=<path to playwright> PLAYWRIGHT_CHANNEL=chrome node scripts/build-lsds.mjs
  */
 import {createRequire} from 'node:module';
-import {existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 
 import {localizeMedia} from './lsds/media.mjs';
@@ -30,6 +30,24 @@ const liveSelector = (selector) => selector.replace(/\.lsds-([a-z0-9-]+)/g, (_, 
 
 const collectionDir = join(root, 'collections', COLLECTION.key);
 const pagesCollectionDir = join(root, 'collections', `${COLLECTION.key}-pages`);
+
+/* Hand-written docs (`<fragment>/README.md`) survive the regeneration, like Liferay's *Impl classes survive buildService */
+
+const preservedDocs = new Map();
+
+for (const dir of [collectionDir, pagesCollectionDir]) {
+	if (!existsSync(dir)) {
+		continue;
+	}
+
+	for (const fragmentDir of readdirSync(dir)) {
+		const path = join(dir, fragmentDir, 'README.md');
+
+		if (existsSync(path)) {
+			preservedDocs.set(path, readFileSync(path, 'utf8'));
+		}
+	}
+}
 
 rmSync(collectionDir, {force: true, recursive: true});
 rmSync(pagesCollectionDir, {force: true, recursive: true});
@@ -720,6 +738,14 @@ writeFileSync(join(pagesCollectionDir, 'collection.json'), JSON.stringify({descr
 /* The images and videos the blocks load from the design system host become resources of the set */
 
 await localizeMedia(pagesCollectionDir, `${STORYBOOK_URL}/assets`);
+
+for (const [path, markdown] of preservedDocs) {
+	if (existsSync(join(path, '..'))) {
+		writeFileSync(path, markdown);
+	}
+}
+
+console.log(`${preservedDocs.size} README.md restored`);
 
 await browser.close();
 

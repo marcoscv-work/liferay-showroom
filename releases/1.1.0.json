@@ -1,0 +1,923 @@
+{
+	"assets": [
+		{
+			"hash": "b65664c2f3705c95a4b8e851810d4f553176b11f8d8605811b578263c09acb55",
+			"key": "basic-components",
+			"name": "Basic Components",
+			"path": "collections/basic-components",
+			"type": "fragment-set"
+		},
+		{
+			"files": {
+				"fragment.json": "610ff869d5f7d46148dc7f59fdb9190912d442a07b93198993f0db33a10528c7",
+				"index.html": "74600d24bd0203741dbf84bc8fadbb5c26e65b47678ffd257a91aea320572bd0",
+				"index.css": "29f58c7a189f4525f3a66e85ce172bc0aca445262d4c082e878a11b11a1b31ce",
+				"index.js": "caf37e725d5beccd45afb6375b35c43a4bf5b3ab678d0991b8aa4804a5528c1c"
+			},
+			"hash": "403973921cefa4785339ff102124639a10c3871f53e5a25597442c99c7a7da7e",
+			"key": "accordion",
+			"name": "accordion",
+			"parent": "basic-components",
+			"path": "collections/basic-components/accordion",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "d9689469637c832ab5ebc70de51ec84d2b3e6697e62364b7d0fdacbcd88ba990",
+				"index.html": "17243754cec1c2eee40701e3a1b5dcc955ed2d196a2d5d727b6554a84e7e9900",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "883c908b4c6bb7cfd37c09af920562e368d0d761d2f4cc4d837e6ebea0a02b44"
+			},
+			"hash": "abf013bdd42892e0d3e53542aae9c2d72b10f4907b932e723163ff2f4698c249",
+			"key": "button",
+			"name": "button",
+			"parent": "basic-components",
+			"path": "collections/basic-components/button",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "8e0740305dd010ac3286361321844b43ecf70b2cfc5dbb17df4d7f2034e5a927",
+				"index.html": "caa56a33b757dcfcc0315bfff4bea5ef45a58d71cf9193010309488be94cee0d",
+				"index.css": "3f165d455a6c1ba24b2e3fe184849030489af0ed3c1b9867d7dadcd00b7034f9",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "91dadb7cb77351a53bff9e1abaed790dc65571c8497218189f9bb5c16b4cd771"
+			},
+			"hash": "511a81d437421851784de656923ff9d8c220f2c747bc19490f6d569fbf2dae65",
+			"key": "card",
+			"name": "card",
+			"parent": "basic-components",
+			"path": "collections/basic-components/card",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "d94137221f98f6799357fce898b0fc984a9cc563224c7273b2c56f3fbfd1801b",
+				"index.html": "2e327c400a5753100c9b5bc96a3b3c9356329b0404235f1fd0de957231df5268",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			},
+			"hash": "a392292e28abbc26abd29d8399bd2cd73c44c538cc4b3df28c14fcbf4c17a3c2",
+			"key": "date",
+			"name": "date",
+			"parent": "basic-components",
+			"path": "collections/basic-components/date",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "57d88b0227b2bf47f06a8f19bef6f9cdd11826736aecbfa590e25d5c5bc59720",
+				"index.html": "e3a726d48cd5162808135423cf9ab2474e9c6a69e3035afda531b75c55b74633",
+				"index.css": "6583658e995091d67f47f255fb40e236c18d5f16c214836f70a87b9bd800165a",
+				"index.js": "7ed2923b6710d2da47ad9bc0d94ac2c7774b486b504fafdd98eca64e2f9136ef",
+				"configuration.json": "02e1e42eb40403de5ac752143ba66677c65a41fe957a30eb490778cde4399073"
+			},
+			"hash": "af26ad0326382527ee0b6c55c8fe301352caf90fbae0d06e28fe8ec8d3296082",
+			"key": "dropdown",
+			"name": "dropdown",
+			"parent": "basic-components",
+			"path": "collections/basic-components/dropdown",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "76020d76d5b21527e72c902921f84e879d6af7ab819994476f62e05bac5fcd01",
+				"index.html": "63643d0971940fbec40f237a706df19404dce15facd0cbaec83826dd075c9430",
+				"index.css": "f6be5a61e4173cd95fdd227d3c61041f939c854fdfd1edc594b58c9b336b2977",
+				"index.js": "7456f8b7cf6a268807d2b02f25c05b925b551a32804b8d4f27313c957c1d28b1",
+				"configuration.json": "21ec3fd24c409d33ed39d5db04a9eaa8190a082f354cda8953c95f568feed88f"
+			},
+			"hash": "30e47d03e412e5021aa57e69c0646aeff673d2b022167528d900857f658aad75",
+			"key": "external-video",
+			"name": "external-video",
+			"parent": "basic-components",
+			"path": "collections/basic-components/external-video",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "1377d0cd1730f2f25c395d896ba087feb21a253bc86b842399a6de873f13e55e",
+				"index.html": "475852a48c5711b46c31df95d0cb4a23f4e33a04ca4f7a0f0d74e8d5a0344abf",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0914a7b4bf69592199e7974a0b095e9762f0f3a1f29bb7fafa43beb009769d89"
+			},
+			"hash": "51fa32e1c2e30ed3a36adcad65d8bf322d2c11072c297e31663f0753c4519fb7",
+			"key": "heading",
+			"name": "heading",
+			"parent": "basic-components",
+			"path": "collections/basic-components/heading",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "ee0638485acdfd34574e998ef72253fddc0daf671ac6637e12cb506351db54ae",
+				"index.html": "04b50d24624e3545598f98bf95f13b2fb0d142cbbe204a54202d9e31b84e4845",
+				"index.css": "633711713ae09b5392d7f3465903982e46beb8157af46281c4bcfe64fb393bef",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			},
+			"hash": "3146ff368798d22aef15dea6e1e46ab1ffc1e6d625dcbac3eadcb570f1d5783a",
+			"key": "html",
+			"name": "html",
+			"parent": "basic-components",
+			"path": "collections/basic-components/html",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "e82a6f58d71f87b911107df7e62cb9df00018964bc85814ef4b009a5485eaf49",
+				"index.html": "a068d1c7a63fb4c0c200db279c1cb55a52c948084f9fdb2904be07d389d8b2c0",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "ae6560b61ead76d766a596d959b6b3a9554af9a18aafab60fe4f3d1f46ca1ddb"
+			},
+			"hash": "fdf6171c03654a5f8b12fa06a3e102d37faa7ea108144269194730877589c25d",
+			"key": "image",
+			"name": "image",
+			"parent": "basic-components",
+			"path": "collections/basic-components/image",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "bb4d8c2a30a3a5ea65137f891c5f08f48c1831a0bc7582ab3698eb9bcf35bf73",
+				"index.html": "fea898bd7666886a8076debbbc019f885664ab3478ab2a21bb04328a02eabbd2",
+				"index.css": "0af35462d4d01b92d19b4969d0ad0c0745f0aae42ebed32334105cf3d5c00b39",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			},
+			"hash": "cf1581a31250dba15f657d8eba26d4c55b9e0b192471c737ece4d38dae061058",
+			"key": "paragraph",
+			"name": "paragraph",
+			"parent": "basic-components",
+			"path": "collections/basic-components/paragraph",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "1fa429dbe927642c8802314c389ab1fa738b54365475b2fc2f77aa0ca3046752",
+				"index.html": "208a50708704dc5e16e871e205c3797e8706bf14be6927f2827d7e6c8c564455",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "89dae835885453a24d3b373541d3104828d028fbf908702c4d9f18f51c53968d"
+			},
+			"hash": "1b02a4f7b32b6c8008845c2310eae0b93211f3bbeac853fe31138d25dbb90cf1",
+			"key": "separator",
+			"name": "separator",
+			"parent": "basic-components",
+			"path": "collections/basic-components/separator",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "cffbe00abb37cd907c82cda42abd36aeb8400fbe2020fbd7c434406d66f4d5ce",
+				"index.html": "1d68d1087d05221b775cf4df05ac94d107ed1cd3bc857238de4ad4d419f3a6fe",
+				"index.css": "019c9b3dc75654e91f3241986442df17cafe479d229ef334ed34926c314aa3e3",
+				"index.js": "a081283d785d733c4c1d3f07004eac776d0370a52765fe9567e900996ccc475a",
+				"configuration.json": "90d9b673f8c909db4944f52e5b2fe20de4d320ea348fc89d873ac6d563e980a7"
+			},
+			"hash": "ad85c8954ccb1282f1d889b1c912e7892b2ccb6ad1d6ac1cdce476e297ad6d10",
+			"key": "slider",
+			"name": "slider",
+			"parent": "basic-components",
+			"path": "collections/basic-components/slider",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "2f8f980569121d68abe711d030972c078761b5ec61989258d0ef245a8a90c417",
+				"index.html": "fd9d2b410fcdf8aae4524133bd2a666e5c229da50dfaa8e5f26ceb59ee5eaf14",
+				"index.css": "a6eea7f7bf01713ae863e08f16a70863c84a3f3503ea1d132299619770e2ef05",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			},
+			"hash": "8fb3721a5c734323c74d374398c7bdfc0769c5923be731e86df0a9a20870f64a",
+			"key": "social",
+			"name": "social",
+			"parent": "basic-components",
+			"path": "collections/basic-components/social",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "6077fc8d3dc74d9517d059fdc3562fe43cee313cbe01375ca6042e9d7c06dcb2",
+				"index.html": "163d4f7b60e491f0deea5ad20df194095fa85e3f9b1b42363b74deb154a149c1",
+				"index.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "bff61093f55ac710838388bb91fc1830c6615a26c2e7fe2cd00261172284aa6e"
+			},
+			"hash": "55059c265deaf2ab3ce2c84c5d4a47e04c41106db5946cd21fbdf6e1bdd82d87",
+			"key": "spacer",
+			"name": "spacer",
+			"parent": "basic-components",
+			"path": "collections/basic-components/spacer",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "5d04779a76332b82573b6ac48b399ea5cd8e7db5c2a3a6d7439d69ff16e16361",
+				"index.html": "4a7fdbc6aa744e29d0402cfc168c0a156fd4f03343a6b3a5074e5c0013d34e24",
+				"index.css": "51ad109f72cbb2a89cbef0e6d93afb56aa8850b055c5d4f4edfc381398f69fc3",
+				"index.js": "efafeb2c9737449739b3d62f04179bef5282d7f330d7e699ee6f40ef265c89ce",
+				"configuration.json": "1479a352b4b1421f848882892cfb8776f5f9aab2a908bf1f9db8a48e7f082e4f"
+			},
+			"hash": "445088787e81ffcdac3ff0c13ad16424e4ba98802fe6d3f1386140b9f413675b",
+			"key": "tabs",
+			"name": "tabs",
+			"parent": "basic-components",
+			"path": "collections/basic-components/tabs",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "a0d5f147bdc83595c75fa0ce758a5b77c1844fb4f5b0533036f8745bfe434b21",
+				"index.html": "a7447c366921ca16186de2717b2ab0af814e19ec2c676ba62dd68223bb7b0f7e",
+				"index.css": "b288bcf7a17a9e93d838a5c61d003fbc53f0ef489e46e62cc93f7fcea3b50a61",
+				"index.js": "fcc8a698bb101b85e662e56763b25bda0d47e864f486783393c663db1f4739de",
+				"configuration.json": "69fb2a929b8e4db53261e82555261b1ebcf8fdcc39245264f334f7639937ee35"
+			},
+			"hash": "274b4d5cbc7e1829183b4d3a1ebb6b8ebdaf6354496056b06ce3d47889c3d495",
+			"key": "video",
+			"name": "video-url",
+			"parent": "basic-components",
+			"path": "collections/basic-components/video",
+			"type": "fragment"
+		},
+		{
+			"hash": "595d835b6ed8ec969f11eb5312a21a973e8201042c057f1a7784bc9444a96bc5",
+			"key": "liferay-sites-ds",
+			"name": "Liferay Sites DS",
+			"path": "collections/liferay-sites-ds",
+			"type": "fragment-set"
+		},
+		{
+			"files": {
+				"fragment.json": "6c1dc75319ab6bbb52fee3e32896272032db52b10aad201a9da43d320a38d22b",
+				"index.html": "74b83c73548fa33307f8f782b328a3b28711b8e78787a4fec76d7ab13b9332c9",
+				"index.css": "be790be7f4f1ccf46478a3a6e870941725f86f56d6a41f0bfa3e9944b05f2277",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "a97b4252e4ecc7b36d6d43b4af466e195058b206b533944837c0669f799c89b9"
+			},
+			"hash": "732a6d66a651f80cad7af63f2c628bd64bf7be0bde37f82784d75d0a31f0e4f4",
+			"key": "lsds-accordion",
+			"name": "LSDS Accordion",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-accordion",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "86e89d8cb16347033897c877ee105bc93a83e54076e65df45a714be9cd33ef5c",
+				"index.html": "5c97a1215d04010929611e8891025fc1029359ae5b6ec13ce7b5058030b643b9",
+				"index.css": "6d89dad64e91bd4d8f6d12df036402cdf703b6718d41e14d96637fbb4ebbf8e4",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "db3851e44fffb8de473f7cbc4672668fec85f248a68e9ec7e4874783cbbb45f7"
+			},
+			"hash": "6673e556f580b040e6938e41f37e7a643f3f9dc10ff2a6f392aa305c64067c4c",
+			"key": "lsds-banner",
+			"name": "LSDS Banner",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-banner",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "1fee9d0cd48ead8dbfd3d80483f3ccd1a3baa86dab16213531b003e1724231c9",
+				"index.html": "7996e8a586d7be017cd04f2ab203669955d1442f90a3b7b8525c96f5c86c7059",
+				"index.css": "836e42a2ce35f0dda67beb2f5c59ab3fdef063b5493a815429e9c73c84beaf06",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "7d2c4c9e57bcebfd293461928515e2a1da5c4cb69569c9bb60bafb1454be1145"
+			},
+			"hash": "88c8f11f444fad51292ccff8f3f3f822de56ef5bd77f7f98b7b43de092a8614e",
+			"key": "lsds-button",
+			"name": "LSDS Button",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-button",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "55902f34f24f6650d83725a0b379ff582c2a9796c79095eda10bf6b4073a6ea8",
+				"index.html": "b8911439d00f0deaffe72c30b5a7d6b86fa956853511fe2e22e854b45a99e733",
+				"index.css": "0b7502829ffe6d8f9146ef4afae8c2367234e59d465de8f7a4134e9194e876fa",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "704c5f09695b07ffc955084f018b128a3e32c3b54b8a8ddb3b20b84f0813b7be"
+			},
+			"hash": "18cab57d1c0f7dc087d32c4f8a37ef48cc74bb967e1f203208da2d715718d6b9",
+			"key": "lsds-card",
+			"name": "LSDS Card",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-card",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "9461a0eded856183c25e5b4723fd028536078db788144ec255d64dfb2ad901e3",
+				"index.html": "8b76d10ad69696d4e6a0c76d9bf0666847b0d43c5dd06d02a19b81806135e2db",
+				"index.css": "876284dc94cc476604866bb37b0b8a9d5b45cff771fe140bdfdacce8eb5fb7e6",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "9730b3496603f34e729b0c9e20c71797218c92249a4c9f18fc4e549893ce5fc4",
+			"key": "lsds-chip",
+			"name": "LSDS Chip",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-chip",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "9df07a2210be07f23b5b76a1d10a9b43d0781855dc7587230d1913b7b4083b21",
+				"index.html": "7719c517b92c8a0889a0b97b3b700514a5be1377d21f06380ef9fb5b9620c850",
+				"index.css": "be151d63a811b7cc847cb052e0adcfd051b4e63d50a98e509c969643380fdf2a",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "734f5b7bbb0d13c14c8b21a08fae42f7a0e70657d135a09fdc47e404a5deae20"
+			},
+			"hash": "cf1d4998fc1984ac1202c95f98901e718c6107524a1d40443a82beeaffdccec8",
+			"key": "lsds-divider",
+			"name": "LSDS Divider",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-divider",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "f2e663c4c303af1b832fb5d0c6d502783f94b0d1677973cf864d8e3e708408c0",
+				"index.html": "b3b778c041da19977a0d584185df89596b85ecc27e2d884fc804982765b87034",
+				"index.css": "863b21a44ef43645c3c4b13b097f40e1d6914a8a64945e5aec46b47d5fb301de",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "5997fa4b4ecc55ae7a1f945a4a0dacf2748a593d40d3bd56fd191c8cf08eb171",
+			"key": "lsds-footer",
+			"name": "LSDS Footer (minimal)",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-footer",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "6ccfb2b243e78dd25a5dffc11a8631d865d89925949699768f51b01d533e9ef3",
+				"index.html": "49e4b3ed2b47ff2ad05e59757276d77e328b236c7f23357a88e2238247bcae86",
+				"index.css": "58eb85687134e853b93eddc6a415499a9230f53f0bd08686f9d89cab6b6204c5",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "9fca2bb2b305067b08856118ad26e1a129b341c616bb25f14358ca17356f8710",
+			"key": "lsds-gradient-title",
+			"name": "LSDS Gradient title",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-gradient-title",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "e8a4095c042707b3753f0f550ca1f5f3e50f196db137bbb728c31a592247b661",
+				"index.html": "3cc0e28935641d8d65183c7f5a237be86f32d7e21f55104c69e77fd97b65488d",
+				"index.css": "c5547235f546cd5d4e9bbca645aefc63a0132d07dc251ef3fc11db8ec307cbda",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "a794058f4f341f6cd15580200e91c310abe8075f8628e1b254fa5ce51f8df7c7",
+			"key": "lsds-hero",
+			"name": "LSDS Hero",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-hero",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "6995d07730639c02b2311ecc84ce4c12d9f2f443ca8ddb4a4418d5570de5380d",
+				"index.html": "10100469471de73e5f4bdf98daa2b8feea776278955e0312c4c629262f052782",
+				"index.css": "ea3a63b339204101a6a0f86a69905dd9a890951acb266879cfdf3a834dc2fe98",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "e55395e8feaa3940205224ad9a873e81e60e8468c239a5fdfa79ab53d2991575",
+			"key": "lsds-image",
+			"name": "LSDS Image",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-image",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "acbf5475dc9466252ab7296b15151fc9a59ab21fdd9b617ba5540da21ab91100",
+				"index.html": "3c469ed8a98717ec0c3d949e4af70d5577dbd0aa9f1fe5239a4758118c092a24",
+				"index.css": "a07f86d7c362549bcadf061a2098b98e0f5a9c893d0d3e71ee978068a5813a3d",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "aef1d497bce8f459b827704a9fed0db43916e073d17368a88d8539bd2dd5e14e"
+			},
+			"hash": "738a6305e4ce613ed78335e88a67928a0d3f9d4465ea1741a93190644019c1ae",
+			"key": "lsds-label",
+			"name": "LSDS Label",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-label",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "4bb2d4fb1f4e4f247905e5f354e547fce06daadbaeeb0c3411d8ecbab211bb9d",
+				"index.html": "438256b256ac26781d87afebec3358be63de7660257b9eed178e05e204ea4856",
+				"index.css": "49ee40abfc33fc6fbc68498ba019ea750525187c53b522bbe680dd6d72b0a824",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "de31df99bbb38660735b4142ed3f951c11e39621d3e48c26e033f6e67e7ac40a"
+			},
+			"hash": "c2a6c3b3432704b3f4a19bd58ab8e59167394abfec9bd6128e6f83aeefe08a96",
+			"key": "lsds-link",
+			"name": "LSDS Link",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-link",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "7c8e6286497504eb7d68f0824df0ddc67f41c50f2d604b1cc62ac56c4665f9c9",
+				"index.html": "8c85d87fc980a784e84e0b8c840aedc86fbb760c92f487a77d39720ad4ea832d",
+				"index.css": "b6a3246adee8ef9c210d063b2d9e021b9d2514a563663b62978113d47596cce7",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "d4b30a72f4c40da96e11cbdde9f9a13aedb051e5b222ec5db2379cebd46ca338"
+			},
+			"hash": "481356a1e7e9452081f73f3fd0df87e6a760b3e331d92f696e0d59a13bc1904c",
+			"key": "lsds-list",
+			"name": "LSDS List",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-list",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "5526553df9690f23390636b5bb3fb3a168c773908fdb89a2513ecb4451f6aca7",
+				"index.html": "cf1f9a211f916aba3c56e6cb962f9bbcab632cf6eb5c0c8d96ba25625d9566ba",
+				"index.css": "9cdffc0dd7d6f05eb9f5815017122cbb78a94b3476dbd736a460894bb3ebf739",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "1d848207b502633c7c4205cd6a61861f968246db0e0fd5c85f169715d52f4b6a",
+			"key": "lsds-marquee",
+			"name": "LSDS Logo marquee",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-marquee",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "5be6936f67b9a68dba20afe8b2f363a4c43b379b67f81621f699906340abeced",
+				"index.html": "728ff47ce03407a426bbfd79318c93bff1afcd596ee89664507026e8f78eea65",
+				"index.css": "0f4c02adff7c963b6c69d6d068e26e486c4b3d18375609d3fac12d4213761152",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "3533a21f614acf43ca83cfaea752b1a1858cf5335fa620fe4454f1bd38527305"
+			},
+			"hash": "9b47fd92e5285633b06269ad787247ed1063209432cc51878bf65e3dc2ad0834",
+			"key": "lsds-progress",
+			"name": "LSDS Progress",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-progress",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "de33acb74750a8e6116706bc82dcf9b19a515fb94e354ab2741123fb2def1078",
+				"index.html": "05918f29387915b5dd1ace97f758ce7e86568f410a484de4691dc9add14f5072",
+				"index.css": "ba9d6254c916251218256cee5fd35e03ccc20b2540a03e87bcb590d9e998b83b",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "b0fb7bce74c173530ea9ad8f33471c1fcdff67e93507da4d4a17e63f8612b6c7",
+			"key": "lsds-section-card-grid",
+			"name": "LSDS Section: Card grid",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-card-grid",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "e1be5242c7d9663995c484f7858ffd5af05c1240a1175b76f50312bd350c5cd5",
+				"index.html": "18b211c85e5a8f7cb1add24f1e0eddd513f73dc6d905383fd51e46786390f582",
+				"index.css": "3c58daf08f45f43fb9ad0fde33664a97b10638848feacddb34cbbc416bd9ea05",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "d519880a229b56d3d89b81f11a9039b6e201619ab8b8b80900fe5f95129574e5"
+			},
+			"hash": "c9f11ba20ae4be8e8e8aa3d580022e09df260425a2356a1e2204e1a8b0c17900",
+			"key": "lsds-section-content-media",
+			"name": "LSDS Section: Content with media",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-content-media",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "391f43d14c1c32304bcb07b85e8f8991735895289862aa9bc7890b288855b09b",
+				"index.html": "a3dbfd029fadf0c910f7e25c622f44ae8ab582f50212905b2270a40180e6e993",
+				"index.css": "2c6121d56da90972a0f18200f0b01336bf0fe8301bc53c955dd0133a7b217d2b",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "f7339ec50173a357ae151544c6e4a2fd661c830fdf63c99ce729e26724f888f8",
+			"key": "lsds-section-faq",
+			"name": "LSDS Section: FAQ",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-faq",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "4791fe83b06967daf9730f86e2a6dadf232acc1568038f0c5d3bd4d636ca1472",
+				"index.html": "f1e5f2f5638e1d1f2c35054bf9e171fcdcdf0b6e6ae06f74c60ef808cf89c961",
+				"index.css": "46d730c69de5a0b4f58e6b412a84d7d0bfbbf8cbcb14af90b08b3ca128fd2ab7",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "5aafd018788c85129e02c1fe8220caeb2ad35057490e4c47d2d6e87aad76853d",
+			"key": "lsds-section-full-card",
+			"name": "LSDS Section: Full card",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-full-card",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "45d992f953d692a41c9219ea8eb29173f519957b96d8334fd86d83bf131bc830",
+				"index.html": "9dd5fe364709864a76a73d00679a6342902238471ed339beae2d963f23da943c",
+				"index.css": "0dce7f967200a42281b3e08c83f986de6ff6dbdb0d5bc7a18018f201a200ed23",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "808c083ace4e9dd16b8ef61022fd976f2fcb9c4bf16b386d9c50de8b5dbe90b9",
+			"key": "lsds-section-highlight-text",
+			"name": "LSDS Section: Highlight text",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-highlight-text",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "09f348b7c4c3a5227cf56229a99da027e03cfcb6bc5ad96346462dcb1e5337e4",
+				"index.html": "979dc1fdcfa2a5bc124d325f27443b61c13ceb4d057f4cf870e361d4558d76f9",
+				"index.css": "d1cc92adda02e8c82a7a018c3653583498da1285a155fbbb58c08a6dcdd96962",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "562f62dcd59968b2f0753b7569dec411d62ddda63cdf53ffdbbbcebc0bf47e7c",
+			"key": "lsds-section-integrations",
+			"name": "LSDS Section: Integrations",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-integrations",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "88397ed12369e411f2cdb6180af858dfdf708f9ce515523c93b0e6b33901feee",
+				"index.html": "eee0797bbfa19d5565768fe0687ac03f89b92dbd5327dfbe6c59ca71a91b14f6",
+				"index.css": "9673ce98d8dd8d8494617ad5e3cf712f9ffed3e6a66cb06d96eef0cd33cf87c4",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "1cd56d9c90fb3f0d006fe306fe72e5357cbed0583bff22dfb00ee8a83b305d38",
+			"key": "lsds-section-quick-links",
+			"name": "LSDS Section: Quick links",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-quick-links",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "9ac4fe59cffad17fb853b5c618613c468500f64857f6212becfe8693385173c3",
+				"index.html": "48347163395170276101d42fa0a5ac489d0a3b74d719136e95a34bc2f16d4fcd",
+				"index.css": "87bd5dc7d4fca211461f6dff5b79646dce29f302be936f2f1785065d7fd54451",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "8075d9a6013f383d3a057a798de08cfef757edc1d3cc622e3640ca0e0861d469",
+			"key": "lsds-section-quote",
+			"name": "LSDS Section: Quote",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-quote",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "1f12485ea66a852a87e633eb498c769dbfc58ba99f64cdd4402b491d7ac30527",
+				"index.html": "8bf8914e23da4bf8ef305487558152623dbb2e31b555122869b63244bb4dfd18",
+				"index.css": "2c547090091b73db8677a895a1774f82e97bc821ae926d976b699cc85fe33976",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "b8b4342ca836445d9ef5adddca437f10c5b1896395358c36918bc13f3f6712ae",
+			"key": "lsds-section-resources",
+			"name": "LSDS Section: Resources",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-section-resources",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "f0219f0b09caa69ee8ad3b2326f386b786bb265d4176b4edf479f72ce6e4dcb6",
+				"index.html": "fbb504cadeea72e6a0f08c77eef0106ceb1ff37130eaea04d851ab3e85dc211a",
+				"index.css": "d61b0d2f9e3b4046ce74f362fdbfdafd1411ad9fae29859ba27bc8dd811140b6",
+				"index.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "2c087f8508d5d624c4acdfef3d8da8e46147b71af0576eff0ee824d6aed2c6d0",
+			"key": "lsds-stat",
+			"name": "LSDS Stat",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-stat",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "23f241236c386098cd07573199a4b211ac414c1873a3687172dc526b97f51958",
+				"index.html": "6fb6590dc87cf03778dc39c1fba03298c33aa730e1e347b1162db518a0589542",
+				"index.css": "4b7ca19151973497baba7b4d976c021c115756a3cf6de66ce7ee7dcb9f1a69e0",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "c97800b99789868e4c1095ad3ff9a5c950160cef2252e48206b408798830cb60",
+			"key": "lsds-tabs",
+			"name": "LSDS Tabs",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-tabs",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "93e83f8b229ff342164755bc891a31a0d86036eac7036bf12db03552fd88ee01",
+				"index.html": "776977dd73de2a4c9fbc2a10a4c963b768ecfb1749e4df833dc9441b3b56b7ee",
+				"index.css": "18871549088153558786e2db99390085b52d65104f58c60f7df29b220463a782",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "a881fc984b7dac782767a75c9302081ab667fe18341266d3cfa9a82de81e41e9",
+			"key": "lsds-tabs-pills",
+			"name": "LSDS Tabs (pills)",
+			"parent": "liferay-sites-ds",
+			"path": "collections/liferay-sites-ds/lsds-tabs-pills",
+			"type": "fragment"
+		},
+		{
+			"hash": "7abcd227f82841001de24a5d2935d6141ae52d661ebbf128989b7665fc4cac50",
+			"key": "liferay-sites-ds-pages",
+			"name": "Liferay Sites DS pages",
+			"path": "collections/liferay-sites-ds-pages",
+			"type": "fragment-set"
+		},
+		{
+			"files": {
+				"fragment.json": "f51528742d6beb656ef4deef1f4ab344d68a1a03d1cf13818b266aa4265af9c7",
+				"index.html": "736098fd0405a6901b4640b58b254e4ff5406ecd8bfd31b00c380ccd3eb597f3",
+				"index.css": "bcaed7c59b71449c5f349553919f8825b1a39b99080d50f62451cafe907c8add",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "4026f8ea1f0a6325d820a7cee4dc90d3c2e40615ef878ad65ee77ab203eb7ab5",
+			"key": "lsds-home-01-header",
+			"name": "LSDS Home: 1. Header",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-01-header",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "fc842ece79a4741fc5c432cb92011870d79ba52bb2e9c63b0a3923fae2ba8610",
+				"index.html": "0df43d31a157572f690822f76d7b6930c0144c2377bbd0ad42ebae02efbb7111",
+				"index.css": "902c27bd0e4df9c8e9d7ce88ca387dfaccf971efe7093561c3bb41a685596320",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "ec9e31e0ada6c9f9a5055f2c5a430bc4ddec5c02b6e67aaa54dd13f5d4f04255",
+			"key": "lsds-home-02-launch-digital-experiences-that-convert-",
+			"name": "LSDS Home: 2. Launch Digital Experiences That Convert, Scale and Grow",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-02-launch-digital-experiences-that-convert-",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "61f874d41911295321c67befdd6df6d77fab6234c94ac901a51fddba9d00eec9",
+				"index.html": "60573428c5c7004c3cb425357a05d346edface94166b94fa8783972664862c5b",
+				"index.css": "a74a5fda7d78c1d037a81914281775d8dadc668123574f0299bca1d4b5ae782b",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "0b0a2f9dbc7ec4b9615bab78e0185dd4fad56e888c5111f74635efdbe01fad40",
+			"key": "lsds-home-03-section",
+			"name": "LSDS Home: 3. Section",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-03-section",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "3e18d6dbf81907400daae142568a75ddc000ad8a791f767d802d2e0f1d1d2b04",
+				"index.html": "975aee052c47e0f7ef1dc861abeae81e44a589a2a51d1f8744e856aba5d867dc",
+				"index.css": "ce3a83a635acbdadde5ad597a1e6898b26df77b4a185bacd2ca609dfa447c4d9",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "386d38a9d752f2a67a372a4c382ccf62e936bdb9799ac524e0dfb268ad3c7819",
+			"key": "lsds-home-04-what-teams-can-achieve-with-liferay",
+			"name": "LSDS Home: 4. What Teams Can Achieve with Liferay",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-04-what-teams-can-achieve-with-liferay",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "882864adf486afab450e93005237677c1eb3764bb5f08c44964187efcebaa47c",
+				"index.html": "a181fcfe8b1dbf6c45b81f6627f6b4bf4e5df489c0351a2c30165f34307d1dda",
+				"index.css": "9c23b20be81d0fc02edfd5167600e38b251c65e1b43ef639a26214701552272f",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "c89b052fdfb89cbc4ac23443f52b6b6ad7bd0352ec4ad29fd2f6a534232d51aa",
+			"key": "lsds-home-05-1-200-enterprises-move-the-needle-with-l",
+			"name": "LSDS Home: 5. 1,200+ Enterprises Move the Needle With Liferay",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-05-1-200-enterprises-move-the-needle-with-l",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "f01ad64c307cd89ef585fd51bae05a50344af45a05181dd8598d130e386f036a",
+				"index.html": "f18106533d8ec1fdf834933b04fed25adc57376e4a71f967449a0ec90d01898c",
+				"index.css": "3f6b9a263b92ffa09198fd2a18ad5ef5c87daaa857ee1449da1dcd845f1780c8",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "5fdc5921fe3feab1cb8a156db878b3963e2c255dc0c18b0f24fc25bb13a5eae4",
+			"key": "lsds-home-06-different-teams-one-platform",
+			"name": "LSDS Home: 6. Different Teams. One Platform.",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-06-different-teams-one-platform",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "ced4e64b70b5bdf87839ea105e77e4caeb8e6f8f8b0eef70e2145869094c1c1c",
+				"index.html": "a848adf25fabf4f60bf7f7a2068e84c713449754d1ee657db486a818046c6839",
+				"index.css": "99b8bd73aed6a1b6f5a8daf159fc4e48b2a8540fc61f18aab9ae8ae095d14af9",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "c98c9bb3c2dd970aa42b4fb6dad6a3f0d38c442a108dd0a669874a5339f1d502",
+			"key": "lsds-home-07-designed-for-your-industry-built-for-gro",
+			"name": "LSDS Home: 7. Designed for Your Industry. Built for Growth.",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-07-designed-for-your-industry-built-for-gro",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "ac4809864bf7fafc4cbc1c0815737ac287b828f22b97e2a6c2cca30e647efdf9",
+				"index.html": "18ec2b3c84e5d7b13394a8ff472050b042cc8610b93013d10da5d6a6006d9d32",
+				"index.css": "cb456fc2c016c069e992ff22ee24348f44dd38c0533ec76539334013864b65d5",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "ccc3ad3692b301a0e3cc6b04bd9a37aa4e3c46fa5af120811dee0b8c1be25522",
+			"key": "lsds-home-08-everything-you-need-in-one-platform",
+			"name": "LSDS Home: 8. Everything You Need in One Platform",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-08-everything-you-need-in-one-platform",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "31034330fd59bd2cdb8765bb26f23c9858e43a36bb935b7bb864f6a7eb21dbf1",
+				"index.html": "cc8f9728050e265288f254dd9f57fc9b1993cfe62abd2a2063ffcb65f51895b5",
+				"index.css": "f2d0219c7e0af83834f560299e0374d1c0834b6e050fc7af12005d4a23346067",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "5c07da0685ec0742799897af20140839eb827bb8854f752cdda4a5fc0c780a4b",
+			"key": "lsds-home-09-every-capability-your-enterprise-needs",
+			"name": "LSDS Home: 9. Every Capability Your Enterprise Needs",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-09-every-capability-your-enterprise-needs",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "66729876e202dafcb063f7937a46d0628b16dbe158f6353f32dc9d91c60be4bb",
+				"index.html": "4b885ad5eab08166701e9cf6b3303ab321cdd87a9fd5b15a6e83b414c7d0ab45",
+				"index.css": "c79a3544e2314c8dedf5e7b1fc57bcac09791dc803ffd938720b73ac14e9ae59",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "1a7725e90cf87d7ac8578327d6e4486ac1fe5c6ae99b8344b5a705e08be5f28b",
+			"key": "lsds-home-10-extend-your-platform-integrate-without-l",
+			"name": "LSDS Home: 10. Extend Your platform. Integrate without limits.",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-10-extend-your-platform-integrate-without-l",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "7e5dcc01af46553125f7bfca859de5448db17db786fb5c23d63d953245ffcdd8",
+				"index.html": "574f7d2606a80dee4b89e3078ace85ec704aa73d2cc02a2e437a28a1bd2a2fd9",
+				"index.css": "70f7fa0ba40eef7ffdbc4ed6c67d8b4a99d62c927bb868f6d905e3702b5eec6c",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "6388d62f6555ae3d3f8cf0cad6ae646c612a0d0fdf1102e1bf4f2fb8b5d013f6",
+			"key": "lsds-home-11-trending-now",
+			"name": "LSDS Home: 11. Trending Now",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-11-trending-now",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "11a25cc8e35aabc45cd5a00499b0b42479d744c1d7e4a8cf8a7e7231781609df",
+				"index.html": "cdb4ae0d9fa2082177b9fd0cefa1a1c7299e13f144127afff6e514a50e4e899e",
+				"index.css": "b97db7b27415ae63e51059c744ecb7503ae46ff74ce67f76465efacca1039793",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "edde63fa7c3d357ec1b95cbe778fa1b2e6bb20a616f6262b8c87d229da87a5a7",
+			"key": "lsds-home-12-our-latest-research-data",
+			"name": "LSDS Home: 12. Our Latest Research & Data",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-12-our-latest-research-data",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"fragment.json": "313316505bf781e177c01ad7dd727e4f80d82d7ae21c471dbfcb06dd7b6dbccd",
+				"index.html": "63b42f2a3d54fdb97a4ca9a5c0a19d605f8bb34811659cd1c99b8e785d213c11",
+				"index.css": "288ad08c0ab365c26f989de45de653fea65118db0a347c8f0cf2a31778697871",
+				"index.js": "11e65adf704f07fdd24db8c6df233d29cfc8f871ec5df8ed88df199b6e124297",
+				"configuration.json": "0088edbed4dad85521dd52988d3fdf677dd114eb12cc5b45c9867e830ab9a5ba"
+			},
+			"hash": "946b14c89ad1041c1fd39001c7d761b96f17c227fca2a0c6b5adbfdf135e39c9",
+			"key": "lsds-home-13-footer",
+			"name": "LSDS Home: 13. Footer",
+			"parent": "liferay-sites-ds-pages",
+			"path": "collections/liferay-sites-ds-pages/lsds-home-13-footer",
+			"type": "fragment"
+		},
+		{
+			"files": {
+				"page-definition.json": "62ba1b2bb13a451cd19c28f4425e15b31d9fca8d8e44677c3fe45f05eddf94e5",
+				"page-template.json": "00e5205f6ba5b454d1e58ff1ac2f93162c9f79ea08ec75295a3287863507d8ad"
+			},
+			"hash": "cf804aca53c1255fcc2770afec930b563bd0ec125bd8e51d2eeb1dba2e03a0bb",
+			"key": "lsds-home",
+			"name": "LSDS Home",
+			"path": "templates/lsds-home",
+			"type": "page-template"
+		},
+		{
+			"files": {
+				"style-book.json": "b9c6046dbe24b9d393ce588b01d194ba36beb450cb833ed48a1b200b51900d15",
+				"frontend-tokens-values.json": "4a900e0501d1f95601dc049c827f1b6f3d16d6939a5d95d954ea5d4c206327b4"
+			},
+			"hash": "3e2649fd54f2dabdbd8f599898310de222713bc11d2e4bbdcbf007333fe96f94",
+			"key": "lsds-dark",
+			"name": "LSDS Dark",
+			"path": "style-books/lsds-dark",
+			"type": "style-book"
+		},
+		{
+			"files": {
+				"style-book.json": "a22a7f51dfe9f72c68b790c6c131820814b01961cd615d2a977ce5bae422ecb7",
+				"frontend-tokens-values.json": "7a34e42a8c77718230e9891224c9045abbcee8ef02618b061140b495661d02c1"
+			},
+			"hash": "aaacfef652affc9db32f47b061f1744fce6412121236f4dbdc4cc02e2d48136f",
+			"key": "lsds-light",
+			"name": "LSDS Light",
+			"path": "style-books/lsds-light",
+			"type": "style-book"
+		}
+	],
+	"commit": "a6876d9d3153eb112ffb5c04b4bfc947abfb5b46",
+	"date": "2026-10-28T10:56:03.029Z",
+	"downloads": [
+		{
+			"file": "basic-components-fragments-1.1.0.zip",
+			"name": "Basic Components (fragment set)"
+		},
+		{
+			"file": "liferay-sites-ds-fragments-1.1.0.zip",
+			"name": "Liferay Sites DS (fragment set)"
+		},
+		{
+			"file": "liferay-sites-ds-pages-fragments-1.1.0.zip",
+			"name": "Liferay Sites DS pages (fragment set)"
+		},
+		{
+			"file": "lsds-home-page-template-1.1.0.zip",
+			"name": "LSDS Home (page template)"
+		},
+		{
+			"file": "lsds-dark-style-book-1.1.0.zip",
+			"name": "LSDS Dark (style book)"
+		},
+		{
+			"file": "lsds-light-style-book-1.1.0.zip",
+			"name": "LSDS Light (style book)"
+		}
+	],
+	"repository": "marcoscv-work/liferay-storybook",
+	"version": "1.1.0"
+}

@@ -65,9 +65,12 @@ for (const collectionDir of readdirSync(root)) {
 
 		const fragmentJSON = JSON.parse(readText(join(fragmentPath, 'fragment.json')) || '{}');
 
+		const docs = readText(join(fragmentPath, 'README.md'));
+
 		fragments.push({
 			configuration: readText(join(fragmentPath, fragmentJSON.configurationPath || 'configuration.json')),
 			css: readText(join(fragmentPath, fragmentJSON.cssPath || 'index.css')),
+			...(docs ? {docs} : {}),
 			html: readText(join(fragmentPath, fragmentJSON.htmlPath || 'index.html')),
 			icon: fragmentJSON.icon || 'code',
 			js: readText(join(fragmentPath, fragmentJSON.jsPath || 'index.js')),
@@ -167,6 +170,56 @@ if (existsSync(styleBooksRoot)) {
 }
 
 writeFileSync(join(out, 'style-books.json'), JSON.stringify(styleBooks));
+
+/* Documentation pages under `docs/<slug>.md` (frontmatter: title, order) */
+
+const docsRoot = new URL('../docs/', import.meta.url).pathname;
+const docs = [];
+
+if (existsSync(docsRoot)) {
+	for (const file of readdirSync(docsRoot).filter((name) => name.endsWith('.md')).sort()) {
+		const markdown = readFileSync(join(docsRoot, file), 'utf8');
+		const frontmatter = {};
+		const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+
+		for (const line of match ? match[1].split('\n') : []) {
+			const colon = line.indexOf(':');
+
+			if (colon > 0) {
+				frontmatter[line.slice(0, colon).trim()] = line.slice(colon + 1).trim();
+			}
+		}
+
+		const heading = markdown.replace(/^---[\s\S]*?---/, '').match(/^#\s+(.+)$/m);
+
+		docs.push({
+			markdown,
+			order: Number(frontmatter.order ?? 0),
+			slug: file.replace(/\.md$/, ''),
+			title: frontmatter.title || (heading ? heading[1].trim() : file.replace(/\.md$/, '')),
+		});
+	}
+}
+
+writeFileSync(join(out, 'docs.json'), JSON.stringify(docs));
+
+/* Release manifests under `releases/<version>.json`, with their notes in `releases/<version>.md` */
+
+const releasesRoot = new URL('../releases/', import.meta.url).pathname;
+const releases = [];
+
+if (existsSync(releasesRoot)) {
+	for (const file of readdirSync(releasesRoot).filter((name) => name.endsWith('.json')).sort()) {
+		const manifest = JSON.parse(readFileSync(join(releasesRoot, file), 'utf8'));
+		const notesPath = join(releasesRoot, file.replace(/\.json$/, '.md'));
+
+		releases.push({...manifest, ...(existsSync(notesPath) ? {notes: readFileSync(notesPath, 'utf8')} : {})});
+	}
+}
+
+writeFileSync(join(out, 'releases.json'), JSON.stringify(releases));
+
+console.log(`Packed ${docs.length} doc page(s) and ${releases.length} release(s)`);
 
 console.log(`Packed ${styleBooks.length} style book(s)`);
 

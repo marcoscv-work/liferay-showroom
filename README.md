@@ -51,6 +51,50 @@ collections/<collection>/resources/<file>
 
 Collections imported through the UI are kept in the browser's local storage.
 
+### Documentation
+
+Markdown, next to the asset it documents:
+
+- `collections/<set>/<fragment>/README.md` is the fragment's Docs tab. It travels inside a fragment set zip (the importer reads it) and never goes into an export.
+- `docs/<slug>.md` are the pages of the Docs section, with `title` and `order` in the frontmatter.
+
+Three fenced blocks embed the live system instead of a picture of it, on the theme and style book selected in the toolbar:
+
+````markdown
+```fragment
+key: lsds-button
+variant: outline
+editable.link-1: Watch the demo
+```
+
+```tokens
+set: sdsBrand
+```
+
+```template
+id: builtin-lsds-home
+height: 560
+```
+````
+
+Links to `other-page.md`, `fragment:<set>/<key>` and `template:<id>` select the page or asset in place.
+
+### Releases
+
+A release is a tag `v<version>` plus a manifest in `releases/<version>.json` listing every exportable asset with a hash of its files, and optional notes in `releases/<version>.md`. The Releases page compares consecutive manifests, so it is exact about which fragments, templates and style books changed, file by file, with links to the repository history.
+
+```bash
+npm version minor            # bumps package.json and tags v<version>
+npm run release              # writes releases/<version>.json and the zips under release/
+git add releases && git commit --amend --no-edit && git push --follow-tags
+```
+
+Pushing the tag runs `.github/workflows/release.yml`, which records the release again on CI and attaches the zips and the manifest to the GitHub release. A past version can be recorded from a worktree at its tag with `npm run release -- --root <worktree> --version <version>`.
+
+### AI catalog
+
+`npm run pack` also writes `public/catalog.json` and `public/llms.txt`: every fragment with its configuration fields, editables and docs, every template and style book, the token definition of each theme, and how to write a `page-definition.json`. An agent that reads either can compose a page from the fragment keys; dropping the resulting JSON on the site turns it into a template to review and export.
+
 ### Themes
 
 A bundled theme lives under `public/themes/<key>/` with:
