@@ -127,6 +127,15 @@ export function Toolbar() {
 					<>
 						<button
 							className="btn btn-secondary btn-sm"
+							onClick={() => dispatch({type: 'setAdvancedEditing', value: true})}
+							title="Edit the template full screen, with blocks, layers and drag and drop"
+							type="button"
+						>
+							<Icon className="mr-1" symbol="pencil" />
+							Advanced editing
+						</button>
+						<button
+							className="btn btn-secondary btn-sm"
 							onClick={() => downloadBlob(new Blob([templateDefinitionJSON(template)], {type: 'application/json'}), 'page-definition.json')}
 							title="Download page-definition.json"
 							type="button"

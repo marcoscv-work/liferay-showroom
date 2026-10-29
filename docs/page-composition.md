@@ -23,6 +23,17 @@ height: 560
 3. Click any element in the preview or in the tree to edit its styles: spacing, background, borders, the same options as the page editor, stored in `fragmentStyle` with the theme's spacer tokens.
 4. **Export template**, or copy `page-definition.json` from the Code tab.
 
+## Advanced editing
+
+**Advanced editing**, in the toolbar of any template, opens the template on its own, full screen, with nothing else of the showroom around it:
+
+- **Blocks** on the left: containers, rows and every loaded fragment as cards. Drag one onto the page, where a line or a box shows where it lands, or click it to add it after the selection.
+- **Layers** next to it: the tree of the page. Drag an element to reorder it or to move it into another container or column.
+- **The page** in the middle: the selected element carries a chip with its name; drag the chip to move the element. The grid button outlines containers, rows and columns.
+- **Properties** on the right, with the path to the selected element and its actions.
+
+The keyboard works the same in both views: Delete removes, ⌘D duplicates, ⌥↑ and ⌥↓ move, ⌘Z and ⌘⇧Z undo and redo. **Done** goes back, and the address keeps `edit=1` so a link opens straight into the editor.
+
 ## For agents
 
 The `page-definition.json` format is stable and documented in the AI catalog at `/catalog.json` and `/llms.txt`. An agent that reads the catalog can compose a page from the fragment keys and hand back a definition; drop that file on this site and it becomes a template you can review, edit and export.

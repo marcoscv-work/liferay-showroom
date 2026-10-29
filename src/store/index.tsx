@@ -15,6 +15,8 @@ export interface FragmentArgs {
 }
 
 export interface State {
+	/** Whether the selected page template is open in the advanced editor, the full-screen editing view. */
+	advancedEditing: boolean;
 	collections: Collection[];
 	docs: DocPage[];
 	fragmentArgs: Record<string, FragmentArgs>;
@@ -39,6 +41,7 @@ export interface State {
 export const DEFAULT_STYLE_BOOK_KEY = 'theme-defaults';
 
 export const initialState: State = {
+	advancedEditing: false,
 	collections: [],
 	docs: [],
 	focusedEditable: null,
@@ -81,6 +84,7 @@ export type Action =
 	| {type: 'renameTemplate'; id: string; name: string}
 	| {type: 'removeTemplate'; id: string}
 	| {type: 'selectItem'; id: string | null}
+	| {type: 'setAdvancedEditing'; value: boolean}
 	| {type: 'focusEditable'; id: string}
 	| {type: 'runtimeWarning'; message: string}
 	| {type: 'clearRuntimeWarnings'}
@@ -246,6 +250,7 @@ function reducer(state: State, action: Action): State {
 
 			return {
 				...state,
+				advancedEditing: action.selection.kind === 'template' && state.advancedEditing,
 				panelTab: action.selection.kind === 'template' ? (state.panelTab === 'controls' ? 'layout' : state.panelTab) : state.panelTab === 'layout' ? 'controls' : state.panelTab,
 				runtimeWarnings: [],
 				selectedItemId: null,
@@ -368,10 +373,12 @@ function reducer(state: State, action: Action): State {
 			const templates = state.templates.filter((template) => template.id !== action.id);
 			const selection = state.selection.kind === 'template' && state.selection.id === action.id ? ({kind: 'none'} as Selection) : state.selection;
 
-			return {...state, selection, templates};
+			return {...state, advancedEditing: selection.kind === 'template' && state.advancedEditing, selection, templates};
 		}
 		case 'selectItem':
 			return {...state, selectedItemId: action.id};
+		case 'setAdvancedEditing':
+			return {...state, advancedEditing: action.value && state.selection.kind === 'template'};
 		case 'focusEditable':
 			return state.panelTab === 'controls' && state.selection.kind === 'fragment' ? {...state, focusedEditable: {id: action.id, nonce: Date.now()}} : state;
 		case 'runtimeWarning':

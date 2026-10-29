@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {cloneElement, isValidElement, useId, useMemo, useState} from 'react';
 
 import {AddMenu} from './AddMenu';
 import {useTemplateEditing} from './templateEditing';
@@ -26,9 +26,9 @@ import {useCurrentTemplate} from './useRender';
 import type {EditableValue} from '../model/fragmentRenderer';
 import type {Fragment, PageElement, PageTemplate, Theme} from '../model/types';
 
-const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
-const MOD = IS_MAC ? '⌘' : 'Ctrl+';
-const ALT = IS_MAC ? '⌥' : 'Alt+';
+export const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+export const MOD = IS_MAC ? '⌘' : 'Ctrl+';
+export const ALT = IS_MAC ? '⌥' : 'Alt+';
 
 /**
  * The page template editor: a tree of the page definition, structural
@@ -84,7 +84,7 @@ export function LayoutPanel() {
 	);
 }
 
-function describe(element: PageElement, collections: ReturnType<typeof useStore>['state']['collections']): string {
+export function describe(element: PageElement, collections: ReturnType<typeof useStore>['state']['collections']): string {
 	switch (element.type) {
 		case 'Root':
 			return 'Page';
@@ -107,7 +107,7 @@ function describe(element: PageElement, collections: ReturnType<typeof useStore>
 	}
 }
 
-const TYPE_ICONS: Record<string, string> = {
+export const TYPE_ICONS: Record<string, string> = {
 	Collection: 'list',
 	Column: 'columns',
 	Container: 'container',
@@ -152,16 +152,22 @@ function TreeNode({depth, element, template}: {depth: number; element: PageEleme
 /* Properties                                                                */
 /* ------------------------------------------------------------------------ */
 
+/* The label names its control: a lone input, select or textarea gets an id the label points at */
 function Field({children, label}: {children: React.ReactNode; label: string}) {
+	const id = useId();
+	const control = isValidElement<{id?: string}>(children) && typeof children.type === 'string' && ['input', 'select', 'textarea'].includes(children.type);
+
 	return (
 		<div className="form-group form-group-sm">
-			<label className="showroom-field-label">{label}</label>
-			{children}
+			<label className="showroom-field-label" htmlFor={control ? id : undefined}>
+				{label}
+			</label>
+			{control ? cloneElement(children as React.ReactElement<{id?: string}>, {id}) : children}
 		</div>
 	);
 }
 
-function ItemProperties({element, template}: {element: PageElement; template: PageTemplate}) {
+export function ItemProperties({element, template}: {element: PageElement; template: PageTemplate}) {
 	const {dispatch, state} = useStore();
 	const theme = useCurrentTheme();
 

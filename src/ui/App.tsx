@@ -5,6 +5,7 @@ import {readPersistedState, useStore} from '../store';
 
 import type {Selection} from '../store';
 import {assetURL, loadBuiltinCollections, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
+import {AdvancedEditor} from './AdvancedEditor';
 import {Canvas} from './Canvas';
 import {Icon} from './Icon';
 import {Panel} from './Panel';
@@ -46,6 +47,11 @@ export function selectionFromURL(search: string): Selection | null {
 	}
 
 	return null;
+}
+
+/** Whether the URL opens the selected template in the advanced editor (`&edit=1`). */
+export function advancedEditingFromURL(search: string): boolean {
+	return new URLSearchParams(search).get('edit') === '1';
 }
 
 export function urlFromSelection(selection: Selection): string | null {
@@ -113,6 +119,7 @@ export function App() {
 				const fromURL = selectionFromURL(window.location.search);
 
 				dispatch({collections, docs, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, releases, styleBooks, templates, themes, type: 'loaded'});
+				dispatch({type: 'setAdvancedEditing', value: advancedEditingFromURL(window.location.search)});
 			}
 		});
 
@@ -129,12 +136,12 @@ export function App() {
 		const path = urlFromSelection(state.selection);
 		const url = new URL(window.location.href);
 
-		url.search = path ? `?path=${path}` : '';
+		url.search = path ? `?path=${path}${state.advancedEditing && state.selection.kind === 'template' ? '&edit=1' : ''}` : '';
 
 		if (url.href !== window.location.href) {
 			window.history.pushState(null, '', url);
 		}
-	}, [state.loading, state.selection]);
+	}, [state.advancedEditing, state.loading, state.selection]);
 
 	useEffect(() => {
 		const onPopState = () => {
@@ -143,6 +150,8 @@ export function App() {
 			if (selection) {
 				dispatch({selection, type: 'select'});
 			}
+
+			dispatch({type: 'setAdvancedEditing', value: advancedEditingFromURL(window.location.search)});
 		};
 
 		window.addEventListener('popstate', onPopState);
@@ -253,9 +262,10 @@ export function App() {
 	}
 
 	const showsPanel = state.selection.kind !== 'doc' && state.selection.kind !== 'releases';
+	const advanced = state.advancedEditing && state.selection.kind === 'template';
 
 	return (
-		<div className="cadmin showroom">
+		<div className={`cadmin showroom${advanced ? ' showroom--editor' : ''}`}>
 			<TooltipLayer />
 			{dragging && (
 				<div aria-live="polite" className="showroom-drop" role="status">
@@ -266,12 +276,18 @@ export function App() {
 					</div>
 				</div>
 			)}
-			<Sidebar />
-			<main className={`showroom-main${showsPanel ? '' : ' showroom-main--page'}`}>
-				<Toolbar />
-				<Canvas />
-				{showsPanel && <Panel />}
-			</main>
+			{advanced ? (
+				<AdvancedEditor />
+			) : (
+				<>
+					<Sidebar />
+					<main className={`showroom-main${showsPanel ? '' : ' showroom-main--page'}`}>
+						<Toolbar />
+						<Canvas />
+						{showsPanel && <Panel />}
+					</main>
+				</>
+			)}
 		</div>
 	);
 }

@@ -163,7 +163,242 @@ document.addEventListener('submit', function (event) {
 		var rect = selected ? selected.getBoundingClientRect() : null;
 
 		parent.postMessage({type: 'showroom:rect', rect: rect ? {top: rect.top, left: rect.left, width: rect.width, height: rect.height} : null}, '*');
+
+		placeChip();
 	}
+
+	/*
+	 * The advanced editor: the parent switches it on with a showroom:editor
+	 * message. The selected element gets a chip with its name and a grip to
+	 * drag it; blocks from the palette and moved elements are dropped before,
+	 * after or inside the element under the pointer, and the drop goes back
+	 * to the parent, which owns the tree.
+	 */
+
+	var advanced = false;
+	var labels = {};
+	var chip = null;
+	var indicator = null;
+	var movingId = null;
+
+	var INSIDE_ONLY = {Root: true, Column: true, FragmentDropZone: true, DropZone: true, CollectionItem: true};
+	var CONTAINERS = {Section: true, Container: true};
+
+	function ensureEditorUI() {
+		if (!document.body) {
+			return;
+		}
+
+		if (!indicator) {
+			indicator = document.createElement('div');
+			indicator.className = 'showroom-drop-indicator';
+			indicator.setAttribute('aria-hidden', 'true');
+			document.body.appendChild(indicator);
+		}
+
+		if (!chip) {
+			chip = document.createElement('div');
+			chip.className = 'showroom-chip';
+			chip.setAttribute('draggable', 'true');
+			chip.setAttribute('title', 'Drag to move');
+			chip.innerHTML = '<span class="showroom-chip__grip" aria-hidden="true"></span><span class="showroom-chip__label"></span>';
+
+			chip.addEventListener('dragstart', function (event) {
+				if (!selected) {
+					event.preventDefault();
+
+					return;
+				}
+
+				movingId = selected.getAttribute('data-item-id');
+				event.dataTransfer.setData('application/x-showroom-move', movingId);
+				event.dataTransfer.effectAllowed = 'move';
+				document.documentElement.setAttribute('data-showroom-dragging', '');
+			});
+
+			chip.addEventListener('dragend', function () {
+				movingId = null;
+				hideIndicator();
+			});
+
+			document.body.appendChild(chip);
+		}
+	}
+
+	function placeChip() {
+		if (!chip) {
+			return;
+		}
+
+		var id = selected ? selected.getAttribute('data-item-id') : null;
+
+		if (!advanced || !selected || !id) {
+			chip.style.display = 'none';
+
+			return;
+		}
+
+		var rect = selected.getBoundingClientRect();
+		var height = 22;
+
+		chip.querySelector('.showroom-chip__label').textContent = labels[id] || selected.getAttribute('data-item-type') || '';
+		chip.style.display = 'flex';
+		chip.style.left = Math.max(0, Math.min(rect.left, window.innerWidth - chip.offsetWidth)) + 'px';
+		chip.style.top = (rect.top >= height ? rect.top - height : Math.max(0, rect.top)) + 'px';
+		chip.classList.toggle('showroom-chip--inside', rect.top < height);
+	}
+
+	function hideIndicator() {
+		document.documentElement.removeAttribute('data-showroom-dragging');
+
+		if (indicator) {
+			indicator.style.display = 'none';
+		}
+	}
+
+	function dragKind(event) {
+		var types = Array.prototype.slice.call((event.dataTransfer && event.dataTransfer.types) || []);
+
+		if (types.indexOf('application/x-showroom-move') !== -1) {
+			return 'move';
+		}
+
+		if (types.indexOf('application/x-showroom-block') !== -1) {
+			return 'block';
+		}
+
+		return null;
+	}
+
+	function dropTarget(event) {
+		var item = event.target && event.target.closest ? event.target.closest('[data-item-id]') : null;
+
+		/* Never onto the element being moved or anything inside it */
+
+		if (item && movingId) {
+			var moving = document.querySelector('[data-item-id="' + movingId + '"]');
+
+			if (moving && moving.contains(item)) {
+				return {invalid: true};
+			}
+		}
+
+		if (!item) {
+			return {id: null, position: 'inside', rect: null};
+		}
+
+		var type = item.getAttribute('data-item-type');
+		var rect = item.getBoundingClientRect();
+		var y = event.clientY - rect.top;
+		var edge = Math.min(16, rect.height / 4);
+		var position;
+
+		if (INSIDE_ONLY[type]) {
+			position = 'inside';
+		}
+		else if (CONTAINERS[type]) {
+			position = y < edge ? 'before' : y > rect.height - edge ? 'after' : 'inside';
+		}
+		else {
+			position = y < rect.height / 2 ? 'before' : 'after';
+		}
+
+		return {id: item.getAttribute('data-item-id'), position: position, rect: rect};
+	}
+
+	function showIndicator(target) {
+		ensureEditorUI();
+
+		var style = indicator.style;
+
+		indicator.className = 'showroom-drop-indicator showroom-drop-indicator--' + (target.rect ? target.position : 'page');
+		style.display = 'block';
+
+		if (!target.rect) {
+			style.left = '4px';
+			style.top = '4px';
+			style.width = (window.innerWidth - 8) + 'px';
+			style.height = (window.innerHeight - 8) + 'px';
+
+			return;
+		}
+
+		var rect = target.rect;
+
+		style.left = rect.left + 'px';
+		style.width = rect.width + 'px';
+
+		if (target.position === 'inside') {
+			style.top = rect.top + 'px';
+			style.height = rect.height + 'px';
+		}
+		else {
+			style.top = (target.position === 'before' ? rect.top : rect.bottom) - 2 + 'px';
+			style.height = '4px';
+		}
+	}
+
+	document.addEventListener('dragover', function (event) {
+		if (!advanced || !dragKind(event)) {
+			return;
+		}
+
+		/* Scroll the page while dragging near its top or bottom edge */
+
+		if (event.clientY < 48) {
+			window.scrollBy(0, -16);
+		}
+		else if (event.clientY > window.innerHeight - 48) {
+			window.scrollBy(0, 16);
+		}
+
+		var target = dropTarget(event);
+
+		if (target.invalid) {
+			event.dataTransfer.dropEffect = 'none';
+			hideIndicator();
+
+			return;
+		}
+
+		event.preventDefault();
+		event.dataTransfer.dropEffect = dragKind(event) === 'move' ? 'move' : 'copy';
+		document.documentElement.setAttribute('data-showroom-dragging', '');
+		showIndicator(target);
+	});
+
+	document.addEventListener('dragleave', function (event) {
+		if (!event.relatedTarget) {
+			hideIndicator();
+		}
+	});
+
+	document.addEventListener('drop', function (event) {
+		var kind = advanced ? dragKind(event) : null;
+
+		if (!kind) {
+			return;
+		}
+
+		event.preventDefault();
+		hideIndicator();
+
+		var target = dropTarget(event);
+
+		if (target.invalid) {
+			return;
+		}
+
+		parent.postMessage({
+			type: 'showroom:drop',
+			block: kind === 'block' ? event.dataTransfer.getData('application/x-showroom-block') : null,
+			move: kind === 'move' ? movingId || event.dataTransfer.getData('application/x-showroom-move') : null,
+			position: target.position,
+			targetId: target.id
+		}, '*');
+
+		movingId = null;
+	});
 
 	function setSelected(id) {
 		if (selected) {
@@ -234,11 +469,33 @@ document.addEventListener('submit', function (event) {
 	window.addEventListener('message', function (event) {
 		var data = event.data || {};
 
+		if (data.type === 'showroom:editor') {
+			advanced = Boolean(data.advanced);
+			labels = data.labels || {};
+
+			if (advanced) {
+				document.documentElement.setAttribute('data-showroom-editor', 'advanced');
+				ensureEditorUI();
+			}
+			else {
+				document.documentElement.removeAttribute('data-showroom-editor');
+			}
+
+			if (data.outlines) {
+				document.documentElement.setAttribute('data-showroom-outlines', '');
+			}
+			else {
+				document.documentElement.removeAttribute('data-showroom-outlines');
+			}
+
+			placeChip();
+		}
+
 		if (data.type === 'showroom:select') {
 			setSelected(data.id);
 
 			if (selected && data.scroll) {
-				selected.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+				selected.scrollIntoView({behavior: data.scroll === 'instant' ? 'auto' : 'smooth', block: 'nearest'});
 			}
 		}
 	});
@@ -338,6 +595,80 @@ export const PREVIEW_CSS = `
 }
 `;
 
+/* The advanced editor's structure outlines, element chip and drop indicator */
+export const EDITOR_CSS = `
+[data-showroom-outlines] [data-item-type="Section"],
+[data-showroom-outlines] [data-item-type="Container"],
+[data-showroom-outlines] [data-item-type="Row"],
+[data-showroom-outlines] [data-item-type="Column"] {
+	outline: 1px dashed rgba(11, 95, 255, 0.35);
+	outline-offset: -1px;
+}
+[data-showroom-editor="advanced"] .lfr-layout-structure-item-column:empty::after,
+[data-showroom-editor="advanced"] .lfr-layout-structure-item-container:empty::after {
+	content: 'Drop a block here';
+}
+/* Empty slots take the page's own text color, so they read on light and dark designs alike */
+[data-showroom-mode="template"] .lfr-layout-structure-item-column:empty,
+[data-showroom-mode="template"] .lfr-layout-structure-item-container:empty {
+	outline-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+[data-showroom-mode="template"] .lfr-layout-structure-item-column:empty::after,
+[data-showroom-mode="template"] .lfr-layout-structure-item-container:empty::after {
+	color: color-mix(in srgb, currentColor 60%, transparent);
+}
+[data-showroom-dragging] [data-item-id].showroom-hover::after {
+	border: 0;
+}
+.showroom-drop-indicator {
+	background: #0b5fff;
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px #fff;
+	display: none;
+	pointer-events: none;
+	position: fixed;
+	z-index: 2147483646;
+}
+.showroom-drop-indicator--inside,
+.showroom-drop-indicator--page {
+	background: rgba(11, 95, 255, 0.08);
+	border: 2px dashed #0b5fff;
+	box-shadow: none;
+}
+.showroom-chip {
+	align-items: center;
+	background: #0b5fff;
+	border-radius: 4px 4px 0 0;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: grab;
+	display: none;
+	font: 600 12px/1 system-ui, -apple-system, sans-serif;
+	gap: 6px;
+	height: 22px;
+	max-width: 280px;
+	padding: 0 8px 0 6px;
+	position: fixed;
+	user-select: none;
+	white-space: nowrap;
+	z-index: 2147483647;
+}
+.showroom-chip--inside {
+	border-radius: 0 0 4px 0;
+}
+.showroom-chip__grip {
+	background-image: radial-gradient(circle, #fff 1px, transparent 1.5px);
+	background-size: 4px 4px;
+	flex: none;
+	height: 12px;
+	width: 8px;
+}
+.showroom-chip__label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+`;
+
 function escapeHTML(text: string): string {
 	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -373,7 +704,7 @@ ${links}
 <style id="showroom-scheme">${schemeCSS}</style>
 <style id="showroom-fragment-css">${fragmentCSS}</style>
 <style id="showroom-item-css">${css}</style>
-<style id="showroom-preview-css">${PREVIEW_CSS}</style>
+<style id="showroom-preview-css">${PREVIEW_CSS}${mode === 'template' && !standalone ? EDITOR_CSS : ''}</style>
 ${importMap()}
 ${standalone ? '' : `<script>${BRIDGE_SCRIPT}</script>`}
 </head>
