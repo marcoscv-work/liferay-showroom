@@ -1334,3 +1334,13 @@ html:not(#__):not(#___) .showroom .showroom-add__item {
 html:not(#__):not(#___) .showroom .showroom-add__item:hover {
 	background: var(--sb-hover);
 }
+
+html:not(#__):not(#___) .showroom .showroom-sidebar__transfer {
+	display: grid;
+	gap: 0.375rem;
+	grid-template-columns: 1fr 1fr;
+}
+
+html:not(#__):not(#___) .showroom .showroom-sidebar__transfer .btn {
+	white-space: nowrap;
+}

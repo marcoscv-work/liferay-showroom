@@ -24,6 +24,8 @@ Every asset exports as the zip Liferay imports, from the same place you see it:
 3. A page template: **Export template** in the toolbar, then **Site Builder → Page Templates → Import**. The `page-definition.json` button gives the definition alone, for the headless API or for an agent.
 4. A style book: the download icon in the style book group of the toolbar, then **Site Builder → Style Books → Import**.
 
+**Download all** in the sidebar packs everything loaded, including what you imported or edited in the browser, into one zip: a folder per type with one importable zip per asset, a `manifest.json` and a short readme. Import the fragment sets first, since the templates use them.
+
 Each release lists the same zips attached to the GitHub release, so a team imports a version, not a snapshot of someone's browser.
 
 ## Why flat assets matter

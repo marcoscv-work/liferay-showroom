@@ -2,7 +2,7 @@ import JSZip from 'jszip';
 import {describe, expect, it} from 'vitest';
 
 import {createContainer, createElement, createRow, renderPage} from './pageDefinition';
-import {exportCollectionZip, exportStyleBookZip, exportTemplateZip, importZip} from './zip';
+import {exportAllZip, exportCollectionZip, exportStyleBookZip, exportTemplateZip, importZip} from './zip';
 
 import type {Collection, PageTemplate, StyleBook} from './types';
 
@@ -160,5 +160,29 @@ describe('zip round trips', () => {
 		const result = await importZip(await zip.generateAsync({type: 'arraybuffer'}), 'empty.zip');
 
 		expect(result.errors).toHaveLength(1);
+	});
+});
+
+describe('download all', () => {
+	it('packs one importable zip per asset, a manifest and a readme', async () => {
+		const template: PageTemplate = {id: 'template-home', name: 'Home', root: createElement('Root'), source: 'created'};
+		const styleBooks: StyleBook[] = [
+			{key: 'theme-defaults', name: 'Theme defaults', source: 'builtin', themeKey: null, values: {}},
+			{key: 'dark', name: 'Dark', source: 'imported', themeKey: null, values: {brandColor1: '#0b5fff'}},
+		];
+
+		const {blob, manifest} = await exportAllZip({collections: [collection], name: 'Test', styleBooks, templates: [template], themes: []});
+		const zip = await JSZip.loadAsync(await blob.arrayBuffer());
+
+		expect(Object.keys(zip.files).filter((name) => !name.endsWith('/')).sort()).toEqual(['README.txt', 'fragment-sets/test-fragments.zip', 'manifest.json', 'page-templates/home-page-template.zip', 'style-books/dark-style-book.zip']);
+		expect(manifest.styleBooks.map((entry) => entry.name)).toEqual(['Dark']);
+
+		const inner = await importZip(await zip.file('fragment-sets/test-fragments.zip')!.async('arraybuffer'), 'test-fragments.zip');
+
+		expect(inner.collections[0].fragments.map((fragment) => fragment.key)).toEqual(['hello']);
+
+		const innerTemplate = await importZip(await zip.file('page-templates/home-page-template.zip')!.async('arraybuffer'), 'home.zip');
+
+		expect(innerTemplate.templates[0].name).toBe('Home');
 	});
 });

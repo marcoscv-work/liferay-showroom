@@ -459,6 +459,94 @@ export async function exportCollectionZip(collection: Collection): Promise<Blob>
 	return zip.generateAsync({type: 'blob'});
 }
 
+export interface ExportAllInput {
+	collections: Collection[];
+	/** Shown in the manifest and the readme. */
+	name: string;
+	styleBooks: StyleBook[];
+	templates: PageTemplate[];
+	themes: Theme[];
+}
+
+export interface ExportAllManifest {
+	fragmentSets: {file: string; fragments: number; key: string; name: string}[];
+	generated: string;
+	name: string;
+	pageTemplates: {file: string; id: string; name: string}[];
+	styleBooks: {file: string; key: string; name: string; theme: string | null}[];
+	version: 1;
+}
+
+/**
+ * Every loaded asset in one zip: one Liferay zip per asset under a folder per
+ * type, because each type is imported in its own Site Builder admin, plus a
+ * manifest of what is inside. The shape is meant to grow into a Design
+ * Library export: the manifest names the set, the folders hold its assets.
+ */
+export async function exportAllZip(input: ExportAllInput): Promise<{blob: Blob; manifest: ExportAllManifest}> {
+	const zip = new JSZip();
+
+	const manifest: ExportAllManifest = {fragmentSets: [], generated: new Date().toISOString(), name: input.name, pageTemplates: [], styleBooks: [], version: 1};
+
+	const unique = (folder: string, base: string) => {
+		let name = `${base}.zip`;
+
+		for (let index = 2; zip.file(`${folder}/${name}`); index++) {
+			name = `${base}-${index}.zip`;
+		}
+
+		return name;
+	};
+
+	for (const collection of input.collections) {
+		if (!collection.fragments.length) {
+			continue;
+		}
+
+		const file = unique('fragment-sets', `${slug(collection.key) || slug(collection.name) || 'fragment-set'}-fragments`);
+
+		zip.file(`fragment-sets/${file}`, await (await exportCollectionZip(collection)).arrayBuffer());
+		manifest.fragmentSets.push({file: `fragment-sets/${file}`, fragments: collection.fragments.length, key: collection.key, name: collection.name});
+	}
+
+	for (const template of input.templates) {
+		const file = unique('page-templates', `${slug(template.name) || 'page-template'}-page-template`);
+
+		zip.file(`page-templates/${file}`, await (await exportTemplateZip(template)).arrayBuffer());
+		manifest.pageTemplates.push({file: `page-templates/${file}`, id: template.id, name: template.name});
+	}
+
+	for (const styleBook of input.styleBooks) {
+		if (!Object.keys(styleBook.values).length) {
+			continue;
+		}
+
+		const theme = input.themes.find((candidate) => candidate.key === styleBook.themeKey) ?? null;
+		const file = unique('style-books', `${slug(styleBook.name) || 'style-book'}-style-book`);
+
+		zip.file(`style-books/${file}`, await (await exportStyleBookZip(styleBook, theme)).arrayBuffer());
+		manifest.styleBooks.push({file: `style-books/${file}`, key: styleBook.key, name: styleBook.name, theme: styleBook.themeKey});
+	}
+
+	zip.file('manifest.json', JSON.stringify(manifest, null, '\t'));
+	zip.file(
+		'README.txt',
+		[
+			`${input.name}, exported ${manifest.generated.slice(0, 10)} from Liferay Showroom.`,
+			'',
+			'Each zip inside is a Liferay export. Import them in Site Builder:',
+			`- fragment-sets/  (${manifest.fragmentSets.length})  Fragments > Import. Fragment sets first: templates use them.`,
+			`- page-templates/ (${manifest.pageTemplates.length})  Page Templates > Import.`,
+			`- style-books/    (${manifest.styleBooks.length})  Style Books > Import. The theme they name must be installed.`,
+			'',
+			'manifest.json lists every asset with the file it is in.',
+			'',
+		].join('\n')
+	);
+
+	return {blob: await zip.generateAsync({type: 'blob'}), manifest};
+}
+
 export function downloadBlob(blob: Blob, fileName: string): void {
 	const url = URL.createObjectURL(blob);
 	const link = document.createElement('a');

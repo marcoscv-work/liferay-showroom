@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 
 import {createElement} from '../model/pageDefinition';
-import {downloadBlob, exportCollectionZip} from '../model/zip';
+import {downloadBlob, exportAllZip, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
 import {assetURL} from '../store/load';
 import {importFile} from './App';
@@ -33,6 +33,25 @@ export function Sidebar() {
 		};
 
 		dispatch({templates: [template], type: 'addTemplates'});
+	};
+
+	const [exporting, setExporting] = useState(false);
+
+	const downloadAll = async () => {
+		setExporting(true);
+
+		try {
+			const name = 'Liferay Showroom assets';
+			const {blob} = await exportAllZip({collections: state.collections, name, styleBooks: state.styleBooks, templates: state.templates, themes: state.themes});
+
+			downloadBlob(blob, `liferay-showroom-assets-${new Date().toISOString().slice(0, 10)}.zip`);
+		}
+		catch (error) {
+			dispatch({message: `Download all: ${(error as Error).message}`, type: 'runtimeWarning'});
+		}
+		finally {
+			setExporting(false);
+		}
 	};
 
 	const onFiles = async (files: FileList | null) => {
@@ -166,10 +185,16 @@ export function Sidebar() {
 
 			<div className="showroom-sidebar__footer">
 				<input accept=".zip,.json" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
-				<button className="btn btn-secondary btn-block btn-sm" onClick={() => fileInput.current?.click()} type="button">
-					<Icon className="mr-1" symbol="upload" />
-					Import zip…
-				</button>
+				<div className="showroom-sidebar__transfer">
+					<button className="btn btn-secondary btn-sm" onClick={() => fileInput.current?.click()} type="button">
+						<Icon className="mr-1" symbol="upload" />
+						Import zip…
+					</button>
+					<button className="btn btn-secondary btn-sm" disabled={exporting} onClick={downloadAll} title="Every fragment set, page template and style book in one zip, ready to import in Liferay" type="button">
+						<Icon className="mr-1" symbol="download" />
+						{exporting ? 'Packing…' : 'Download all'}
+					</button>
+				</div>
 				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books, built themes or a page-definition.json.</p>
 
 				<div className="showroom-editor-scheme">
