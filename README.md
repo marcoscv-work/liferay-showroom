@@ -8,6 +8,10 @@ It renders fragments, page templates and style books the way Liferay does:
 2. The style book values are injected as the `:root { --token: value }` block Liferay generates.
 3. The fragment `index.html` (FreeMarker) is rendered with the fragment configuration, then `index.css` and `index.js` run exactly as in a content page.
 
+## Principle
+
+Showroom documents; Liferay edits. It shows the assets of a design system, their variants, tokens, usage and versions, and hands back the zips Liferay imports. Real pages, real content and real data never live here: they belong to the Liferay page editor.
+
 ## What you can do
 
 - **Browse fragments** from bundled (Liferay Sites DS, Basic Components) or imported collections, with their `configuration.json` fields shown as controls (like Storybook args) and their `data-lfr-editable` fields editable.

@@ -361,7 +361,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Drop a Liferay export anywhere on the page."
+												"en_US": "Ask any AI how to document a design system."
 											}
 										}
 									}
@@ -371,7 +371,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "A fragment set, a page template, a style book, a built theme or a bare page-definition.json: it renders at once, stays in your browser, and exports back as the zip Liferay imports."
+												"en_US": "Grok, ChatGPT, Gemini and Claude all answer Zeroheight, Supernova or Storybook: good tools, built for React components, not for fragments and style books. Showroom is the Liferay answer. Drop a Liferay export anywhere on the page and it is documented at once."
 											}
 										}
 									}
@@ -443,7 +443,7 @@
 									"value": {
 										"text": {
 											"value_i18n": {
-												"en_US": "Is this a Design Library?"
+												"en_US": "Is it another page editor?"
 											}
 										}
 									}
@@ -453,7 +453,7 @@
 									"value": {
 										"html": {
 											"value_i18n": {
-												"en_US": "<p>It is its published face. The Design Library edits and owns the assets inside the portal; this site shows a version of them to anyone without a portal, and imports the same zips a Design Library exports.</p>"
+												"en_US": "<p>No, and it will not become one. Showroom documents the design system a Design Library owns: assets, variants, tokens, usage and versions. Real pages, real content and real data live in Liferay, where the page editor works on them.</p>"
 											}
 										}
 									}

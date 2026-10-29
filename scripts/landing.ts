@@ -92,8 +92,8 @@ function compose(): PageElement {
 		}),
 		block('lsds-section-highlight-text', {
 			'link-1': {href: SHOWROOM, text: 'Try it now'},
-			'text-1': {text: 'Drop a Liferay export anywhere on the page.'},
-			'text-2': {text: 'A fragment set, a page template, a style book, a built theme or a bare page-definition.json: it renders at once, stays in your browser, and exports back as the zip Liferay imports.'},
+			'text-1': {text: 'Ask any AI how to document a design system.'},
+			'text-2': {text: 'Grok, ChatGPT, Gemini and Claude all answer Zeroheight, Supernova or Storybook: good tools, built for React components, not for fragments and style books. Showroom is the Liferay answer. Drop a Liferay export anywhere on the page and it is documented at once.'},
 		}),
 		block('lsds-section-faq', {
 			'text-1': {text: '<p>What teams ask before they publish.</p>'},
@@ -101,8 +101,8 @@ function compose(): PageElement {
 			'text-3': {text: '<p>No. It runs on GitHub Pages or any static host. A FreeMarker interpreter and Liferay’s own page structure render fragments and templates in the browser; Liferay is only where the zips go.</p>'},
 			'text-4': {text: 'How does a team version its assets?'},
 			'text-5': {text: '<p>With git. The folders are the Liferay export layout, a release is a tag, and the Releases page compares the manifests of two versions asset by asset, with a link to the history of each one.</p>'},
-			'text-6': {text: 'Is this a Design Library?'},
-			'text-7': {text: '<p>It is its published face. The Design Library edits and owns the assets inside the portal; this site shows a version of them to anyone without a portal, and imports the same zips a Design Library exports.</p>'},
+			'text-6': {text: 'Is it another page editor?'},
+			'text-7': {text: '<p>No, and it will not become one. Showroom documents the design system a Design Library owns: assets, variants, tokens, usage and versions. Real pages, real content and real data live in Liferay, where the page editor works on them.</p>'},
 			'title-1': {text: 'Questions'},
 		}),
 		block('lsds-banner', {

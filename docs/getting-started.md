@@ -28,6 +28,10 @@ Every asset exports as the zip Liferay imports, from the same place you see it:
 
 Each release lists the same zips attached to the GitHub release, so a team imports a version, not a snapshot of someone's browser.
 
+## What Showroom is not
+
+Showroom is interactive, visual documentation of a design system. It is not an editor of real pages and it never holds real content or data: those live in Liferay, where the page editor works on them with mappings, permissions, workflow and publishing. The page templates you compose here are examples of how the system fits together, documented next to the fragments they use.
+
 ## Why flat assets matter
 
 Everything here is a file: a fragment is HTML, CSS, JavaScript and a JSON of options, a page template is a JSON tree, a style book is a JSON of values. That is what makes a Liferay design system simple to document, cheap to version and, for an AI agent, far faster to generate and compose than component code. See [Page composition](page-composition.md) for how an agent builds a page from the catalog.
