@@ -1472,8 +1472,22 @@ html:not(#__):not(#___) .showroom .showroom-editor__name input {
 	width: 16rem;
 }
 
-html:not(#__):not(#___) .showroom .showroom-editor__badge {
+html:not(#__):not(#___) .showroom .showroom-save-status {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.5rem;
 	white-space: nowrap;
+}
+
+html:not(#__):not(#___) .showroom .showroom-save-status .lexicon-icon {
+	flex-shrink: 0;
+}
+
+html:not(#__):not(#___) .showroom .showroom-save-status__text {
+	align-items: center;
+	color: var(--sb-gray-600);
+	display: inline-flex;
+	font-size: 0.875rem;
 }
 
 html:not(#__):not(#___) .showroom .showroom-editor__notice {

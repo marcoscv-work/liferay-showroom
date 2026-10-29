@@ -2,6 +2,8 @@ import {createContext, useContext, useEffect, useMemo, useReducer} from 'react';
 
 import type {Dispatch, ReactNode} from 'react';
 
+import {exportTree} from '../model/pageDefinition';
+
 import type {EditableValue} from '../model/fragmentRenderer';
 import type {Collection, DocPage, PageElement, PageTemplate, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
@@ -17,6 +19,9 @@ export interface FragmentArgs {
 export interface State {
 	/** Whether the selected page template is open in the advanced editor, the full-screen editing view. */
 	advancedEditing: boolean;
+	/** The style books and templates as the showroom ships them, to tell a visitor's edits apart and to restore them. */
+	builtinStyleBooks: StyleBook[];
+	builtinTemplates: PageTemplate[];
 	collections: Collection[];
 	docs: DocPage[];
 	fragmentArgs: Record<string, FragmentArgs>;
@@ -42,6 +47,8 @@ export const DEFAULT_STYLE_BOOK_KEY = 'theme-defaults';
 
 export const initialState: State = {
 	advancedEditing: false,
+	builtinStyleBooks: [],
+	builtinTemplates: [],
 	collections: [],
 	docs: [],
 	focusedEditable: null,
@@ -82,6 +89,7 @@ export type Action =
 	| {type: 'undoTemplate'; id: string}
 	| {type: 'redoTemplate'; id: string}
 	| {type: 'renameTemplate'; id: string; name: string}
+	| {type: 'resetTemplate'; id: string}
 	| {type: 'removeTemplate'; id: string}
 	| {type: 'selectItem'; id: string | null}
 	| {type: 'setAdvancedEditing'; value: boolean}
@@ -182,7 +190,7 @@ function followTheme(selection: Selection, current: {styleBookKey: string; style
 	return {styleBookKey, themeKey};
 }
 
-function reducer(state: State, action: Action): State {
+export function reducer(state: State, action: Action): State {
 	switch (action.type) {
 		case 'loaded': {
 			const {persisted} = action;
@@ -230,6 +238,8 @@ function reducer(state: State, action: Action): State {
 
 			return {
 				...state,
+				builtinStyleBooks: action.styleBooks,
+				builtinTemplates: action.templates,
 				collections,
 				docs: action.docs,
 				fragmentArgs: persisted.fragmentArgs ?? {},
@@ -369,6 +379,23 @@ function reducer(state: State, action: Action): State {
 		}
 		case 'renameTemplate':
 			return {...state, templates: state.templates.map((template) => (template.id === action.id ? {...template, name: action.name} : template))};
+		case 'resetTemplate': {
+			const current = state.templates.find((template) => template.id === action.id);
+			const original = state.builtinTemplates.find((template) => template.id === action.id);
+
+			if (!current || !original || current === original) {
+				return state;
+			}
+
+			const history = state.templateHistory[action.id] ?? {future: [], lastChange: 0, past: []};
+
+			return {
+				...state,
+				selectedItemId: null,
+				templateHistory: {...state.templateHistory, [action.id]: {future: [], lastChange: 0, past: [...history.past, current.root].slice(-HISTORY_LIMIT)}},
+				templates: state.templates.map((template) => (template.id === action.id ? original : template)),
+			};
+		}
 		case 'removeTemplate': {
 			const templates = state.templates.filter((template) => template.id !== action.id);
 			const selection = state.selection.kind === 'template' && state.selection.id === action.id ? ({kind: 'none'} as Selection) : state.selection;
@@ -386,7 +413,7 @@ function reducer(state: State, action: Action): State {
 		case 'clearRuntimeWarnings':
 			return state.runtimeWarnings.length ? {...state, runtimeWarnings: []} : state;
 		case 'resetAll':
-			return {...state, fragmentArgs: {}, styleBookKey: DEFAULT_STYLE_BOOK_KEY, styleBooks: state.styleBooks.filter((styleBook) => styleBook.source === 'builtin'), templates: state.templates.filter((template) => template.source === 'builtin'), collections: state.collections.filter((collection) => collection.source === 'builtin')};
+			return {...state, fragmentArgs: {}, styleBookKey: DEFAULT_STYLE_BOOK_KEY, styleBooks: [...initialState.styleBooks, ...state.builtinStyleBooks], templates: state.builtinTemplates, collections: state.collections.filter((collection) => collection.source === 'builtin')};
 	}
 }
 
@@ -401,20 +428,48 @@ export function readPersistedState(): Partial<PersistedState> {
 	}
 }
 
-function persist(state: State): void {
-	const persisted: PersistedState = {
+/** Whether a built-in template differs from the version the showroom ships: a visitor's edit, or a copy saved before the built-in changed. */
+export function isModifiedBuiltin(template: PageTemplate, builtinTemplates: PageTemplate[]): boolean {
+	const original = builtinTemplates.find((candidate) => candidate.id === template.id);
+
+	if (template.source !== 'builtin' || !original || template === original) {
+		return false;
+	}
+
+	return template.name !== original.name || JSON.stringify(exportTree(template.root)) !== JSON.stringify(exportTree(original.root));
+}
+
+function isModifiedStyleBook(styleBook: StyleBook, builtinStyleBooks: StyleBook[]): boolean {
+	if (styleBook.key === DEFAULT_STYLE_BOOK_KEY) {
+		return Object.keys(styleBook.values).length > 0;
+	}
+
+	const original = builtinStyleBooks.find((candidate) => candidate.key === styleBook.key);
+
+	return !original || (styleBook !== original && JSON.stringify({name: styleBook.name, values: styleBook.values}) !== JSON.stringify({name: original.name, values: original.values}));
+}
+
+/**
+ * What is kept in the browser: imports, creations and edits. Built-ins the
+ * visitor did not change are left out, so a newer version of them shows up
+ * on the next visit instead of an old saved copy.
+ */
+export function persistedState(state: State): PersistedState {
+	return {
 		collections: state.collections.filter((collection) => collection.source === 'imported'),
 		fragmentArgs: state.fragmentArgs,
 		selection: state.selection,
 		styleBookKey: state.styleBookKey,
-		styleBooks: state.styleBooks.filter((styleBook) => styleBook.key !== DEFAULT_STYLE_BOOK_KEY || Object.keys(styleBook.values).length > 0),
-		templates: state.templates,
+		styleBooks: state.styleBooks.filter((styleBook) => isModifiedStyleBook(styleBook, state.builtinStyleBooks)),
+		templates: state.templates.filter((template) => template.source !== 'builtin' || isModifiedBuiltin(template, state.builtinTemplates)),
 		themeKey: state.themeKey,
 		viewport: state.viewport,
 	};
+}
 
+function persist(state: State): void {
 	try {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(persistedState(state)));
 	}
 	catch {
 		// Quota exceeded or storage disabled: the session simply is not persisted.

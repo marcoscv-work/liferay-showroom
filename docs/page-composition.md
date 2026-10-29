@@ -32,7 +32,9 @@ height: 560
 - **The page** in the middle: the selected element carries a chip with its name; drag the chip to move the element. The grid button outlines containers, rows and columns.
 - **Properties** on the right, with the path to the selected element and its actions.
 
-The keyboard works the same in both views: Delete removes, ⌘D duplicates, ⌥↑ and ⌥↓ move, ⌘Z and ⌘⇧Z undo and redo. **Done** goes back, and the address keeps `edit=1` so a link opens straight into the editor.
+The keyboard works the same in both views: Delete removes, ⌘D duplicates, ⌥↑ and ⌥↓ move, ⌘Z and ⌘⇧Z undo and redo. **Back** returns to the showroom, and the address keeps `edit=1` so a link opens straight into the editor.
+
+There is nothing to save. Every change is kept in your browser as you make it, which the toolbar confirms with **Saved in this browser**, and **Export template** takes it to Liferay. A built-in template you changed shows **Restore original**, which brings back the version the showroom ships; undo brings your changes back. Built-ins you did not change are not kept, so a newer version of them shows up on your next visit.
 
 ## For agents
 

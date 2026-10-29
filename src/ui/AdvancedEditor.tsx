@@ -7,6 +7,7 @@ import {downloadBlob, exportTemplateZip} from '../model/zip';
 import {useCurrentStyleBook, useStore} from '../store';
 import {Icon, IconButton} from './Icon';
 import {ALT, ItemProperties, MOD, TYPE_ICONS, describe} from './LayoutPanel';
+import {TemplateSaveStatus} from './SaveStatus';
 import {useTemplateEditing} from './templateEditing';
 import {useRender} from './useRender';
 
@@ -174,14 +175,14 @@ function EditorBar({editing, notice, outlines, setOutlines}: {editing: TemplateE
 
 	return (
 		<header className="showroom-editor__bar">
-			<button className="btn btn-secondary btn-sm" onClick={() => dispatch({type: 'setAdvancedEditing', value: false})} title="Leave advanced editing and go back to the showroom" type="button">
+			<button className="btn btn-secondary btn-sm" onClick={() => dispatch({type: 'setAdvancedEditing', value: false})} title="Back to the showroom. Your changes are already saved." type="button">
 				<Icon className="mr-1" symbol="angle-left" />
-				Done
+				Back
 			</button>
 
 			<div className="showroom-editor__name">
 				<input aria-label="Template name" className="form-control form-control-sm" onChange={(event) => dispatch({id: template.id, name: event.target.value, type: 'renameTemplate'})} type="text" value={template.name} />
-				<span className="label label-info showroom-editor__badge">Advanced editing</span>
+				<TemplateSaveStatus template={template} />
 			</div>
 
 			<div aria-label="History" className="btn-group" role="group">

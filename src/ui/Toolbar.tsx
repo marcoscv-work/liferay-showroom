@@ -3,6 +3,7 @@ import {downloadBlob, exportCollectionZip, exportStyleBookZip, exportTemplateZip
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {ConfirmButton} from './ConfirmButton';
 import {Icon, IconButton} from './Icon';
+import {TemplateSaveStatus} from './SaveStatus';
 import {useCurrentTemplate, useRender} from './useRender';
 
 import type {StyleBook, ViewportId} from '../model/types';
@@ -125,6 +126,7 @@ export function Toolbar() {
 				)}
 				{template && (
 					<>
+						<TemplateSaveStatus template={template} />
 						<button
 							className="btn btn-secondary btn-sm"
 							onClick={() => dispatch({type: 'setAdvancedEditing', value: true})}
