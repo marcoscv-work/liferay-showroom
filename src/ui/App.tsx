@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import {importPageDefinition, importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
@@ -10,6 +10,7 @@ import {Icon} from './Icon';
 import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
 import {Toolbar} from './Toolbar';
+import {TooltipLayer} from './TooltipLayer';
 import {isTyping, runShortcut, useTemplateEditing} from './templateEditing';
 
 import type {ShortcutKey} from './templateEditing';
@@ -174,14 +175,41 @@ export function App() {
 		return () => window.removeEventListener('message', onMessage);
 	}, [dispatch]);
 
+	/* Files dropped anywhere on the window are imported; while they are dragged over it, an overlay says so */
+	const [dragging, setDragging] = useState(false);
+
 	useEffect(() => {
+		let depth = 0;
+
+		const hasFiles = (event: DragEvent) => Boolean(event.dataTransfer?.types.includes('Files'));
+
+		const onDragEnter = (event: DragEvent) => {
+			if (hasFiles(event)) {
+				depth++;
+				setDragging(true);
+			}
+		};
+
+		const onDragLeave = (event: DragEvent) => {
+			if (hasFiles(event)) {
+				depth = Math.max(0, depth - 1);
+
+				if (!depth) {
+					setDragging(false);
+				}
+			}
+		};
+
 		const onDragOver = (event: DragEvent) => {
-			if (event.dataTransfer?.types.includes('Files')) {
+			if (hasFiles(event)) {
 				event.preventDefault();
 			}
 		};
 
 		const onDrop = async (event: DragEvent) => {
+			depth = 0;
+			setDragging(false);
+
 			const files = Array.from(event.dataTransfer?.files ?? []).filter((file) => /\.(zip|json)$/i.test(file.name));
 
 			if (!files.length) {
@@ -195,10 +223,14 @@ export function App() {
 			}
 		};
 
+		window.addEventListener('dragenter', onDragEnter);
+		window.addEventListener('dragleave', onDragLeave);
 		window.addEventListener('dragover', onDragOver);
 		window.addEventListener('drop', onDrop);
 
 		return () => {
+			window.removeEventListener('dragenter', onDragEnter);
+			window.removeEventListener('dragleave', onDragLeave);
 			window.removeEventListener('dragover', onDragOver);
 			window.removeEventListener('drop', onDrop);
 		};
@@ -224,6 +256,16 @@ export function App() {
 
 	return (
 		<div className="cadmin showroom">
+			<TooltipLayer />
+			{dragging && (
+				<div aria-live="polite" className="showroom-drop" role="status">
+					<div className="showroom-drop__card">
+						<Icon className="showroom-drop__icon" symbol="upload" />
+						<div className="showroom-drop__title">Drop to import</div>
+						<div className="showroom-drop__text">Fragment sets, page templates, style books, built themes or a page-definition.json</div>
+					</div>
+				</div>
+			)}
 			<Sidebar />
 			<main className={`showroom-main${showsPanel ? '' : ' showroom-main--page'}`}>
 				<Toolbar />

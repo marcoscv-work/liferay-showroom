@@ -186,16 +186,26 @@ export function Sidebar() {
 			<div className="showroom-sidebar__footer">
 				<input accept=".zip,.json" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
 				<div className="showroom-sidebar__transfer">
-					<button className="btn btn-secondary btn-sm" onClick={() => fileInput.current?.click()} type="button">
+					<button
+						className="btn btn-secondary btn-sm"
+						onClick={() => fileInput.current?.click()}
+						title="Import Liferay exports: fragment sets, page templates, style books, built themes or a page-definition.json. You can also drop the files anywhere on the window."
+						type="button"
+					>
 						<Icon className="mr-1" symbol="upload" />
-						Import zip…
+						Import
 					</button>
-					<button className="btn btn-secondary btn-sm" disabled={exporting} onClick={downloadAll} title="Every fragment set, page template and style book in one zip, ready to import in Liferay" type="button">
+					<button
+						className="btn btn-secondary btn-sm"
+						disabled={exporting}
+						onClick={downloadAll}
+						title="Download the Design Library: every fragment set, page template and style book loaded, including what you imported or edited, in one zip with a manifest, ready to import in Liferay."
+						type="button"
+					>
 						<Icon className="mr-1" symbol="download" />
-						{exporting ? 'Packing…' : 'Download all'}
+						{exporting ? 'Packing…' : 'Design Library'}
 					</button>
 				</div>
-				<p className="text-secondary small mt-2 mb-0">Drop Liferay exports anywhere: fragment collections, page templates, style books, built themes or a page-definition.json.</p>
 
 				<div className="showroom-editor-scheme">
 					<span className="text-secondary small">Editor theme</span>

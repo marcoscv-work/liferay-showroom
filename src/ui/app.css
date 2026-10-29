@@ -1344,3 +1344,90 @@ html:not(#__):not(#___) .showroom .showroom-sidebar__transfer {
 html:not(#__):not(#___) .showroom .showroom-sidebar__transfer .btn {
 	white-space: nowrap;
 }
+
+/* Sidebar footer ----------------------------------------------------------- */
+
+html:not(#__):not(#___) .showroom .showroom-sidebar__transfer {
+	grid-template-columns: auto 1fr;
+}
+
+html:not(#__):not(#___) .showroom .showroom-editor-scheme {
+	border-top: 1px solid var(--sb-border);
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+}
+
+/* Tooltips ----------------------------------------------------------------- */
+
+html:not(#__):not(#___) .showroom .showroom-tooltip {
+	/* Inverted against the editor: dark on the light editor, light on the dark one */
+	background: light-dark(#272833, #f1f2f5);
+	border-radius: 0.25rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	color: light-dark(#ffffff, #1c1c24);
+	font-size: 0.75rem;
+	font-weight: 400;
+	left: 0;
+	line-height: 1.4;
+	max-width: 18rem;
+	opacity: 0;
+	padding: 0.375rem 0.625rem;
+	pointer-events: none;
+	position: fixed;
+	text-align: left;
+	top: 0;
+	transition: opacity 0.12s;
+	visibility: hidden;
+	white-space: normal;
+	z-index: 2000;
+}
+
+html:not(#__):not(#___) .showroom .showroom-tooltip--shown {
+	opacity: 1;
+	pointer-events: auto;
+	visibility: visible;
+}
+
+/* Drop overlay ------------------------------------------------------------- */
+
+html:not(#__):not(#___) .showroom .showroom-drop {
+	align-items: center;
+	background: color-mix(in srgb, var(--sb-bg) 70%, transparent);
+	backdrop-filter: blur(2px);
+	display: flex;
+	inset: 0;
+	justify-content: center;
+	pointer-events: none;
+	position: fixed;
+	z-index: 1500;
+}
+
+html:not(#__):not(#___) .showroom .showroom-drop__card {
+	align-items: center;
+	background: var(--sb-bg);
+	border: 2px dashed var(--sb-primary);
+	border-radius: 0.75rem;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	max-width: 26rem;
+	padding: 2rem 2.5rem;
+	text-align: center;
+}
+
+html:not(#__):not(#___) .showroom .showroom-drop__icon {
+	color: var(--sb-primary);
+	height: 2rem;
+	width: 2rem;
+}
+
+html:not(#__):not(#___) .showroom .showroom-drop__title {
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+
+html:not(#__):not(#___) .showroom .showroom-drop__text {
+	color: var(--sb-gray-600);
+	font-size: 0.875rem;
+}
