@@ -3,24 +3,80 @@
 		{
 			"fields": [
 				{
-					"defaultValue": "empty",
-					"description": "Which illustration of the theme to show.",
-					"label": "Variant",
-					"name": "variant",
+					"defaultValue": "empty-state",
+					"description": "The illustration, a symbol of the theme's empty states spritemap.",
+					"label": "Symbol",
+					"name": "symbol",
 					"type": "select",
 					"typeOptions": {
 						"validValues": [
 							{
-								"label": "Empty",
-								"value": "empty"
+								"label": "Empty state",
+								"value": "empty-state"
 							},
 							{
-								"label": "Search",
-								"value": "search"
+								"label": "Search state",
+								"value": "search-state"
 							},
 							{
-								"label": "Success",
-								"value": "success"
+								"label": "Success state",
+								"value": "success-state"
+							},
+							{
+								"label": "Page builder",
+								"value": "pagebuilder"
+							},
+							{
+								"label": "Content types",
+								"value": "contenttypes"
+							},
+							{
+								"label": "Toolbar on canvas",
+								"value": "toolbar-canvas"
+							},
+							{
+								"label": "Discovery radar",
+								"value": "discovery"
+							},
+							{
+								"label": "Document",
+								"value": "document"
+							},
+							{
+								"label": "Audience radar",
+								"value": "audience"
+							},
+							{
+								"label": "Workflow",
+								"value": "workflow"
+							},
+							{
+								"label": "Toolbar on list",
+								"value": "toolbar-list"
+							},
+							{
+								"label": "Action toolbar",
+								"value": "action-toolbar"
+							},
+							{
+								"label": "AI burst",
+								"value": "ai-burst"
+							},
+							{
+								"label": "Knowledge graph",
+								"value": "knowledge-graph"
+							},
+							{
+								"label": "AI chat",
+								"value": "ai-chat"
+							},
+							{
+								"label": "AI workflow",
+								"value": "ai-workflow"
+							},
+							{
+								"label": "AI prompt",
+								"value": "ai-prompt"
 							}
 						]
 					}

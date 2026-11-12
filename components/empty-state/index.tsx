@@ -1,32 +1,35 @@
 import './empty-state.css';
 
-const IMAGES = {
-	empty: 'empty_state.svg',
-	search: 'search_state.svg',
-	success: 'success_state.svg',
-};
-
 export interface EmptyStateProps {
 	actionLabel?: string;
 	description?: string;
 	onAction?: () => void;
 	small?: boolean;
+
+	/** The theme's empty states spritemap, when the page has no `Liferay.ThemeDisplay`. */
+	spritemap?: string;
+
+	/** A symbol of `empty_states.svg`: `empty-state`, `search-state`, `success-state`, `ai-chat`... */
+	symbol?: string;
 	title: string;
-	variant?: keyof typeof IMAGES;
 }
 
 /**
- * The Clay empty state, as the portal's React apps render it. The
- * illustration comes from the theme, through `Liferay.ThemeDisplay`.
+ * The Clay empty state with one of the animated illustrations of the
+ * theme's `empty_states.svg`, as `ClayEmptyState` renders an `illustration`
+ * `ClayIcon`. The illustration follows the light and dark scheme and stops
+ * moving for people who prefer reduced motion.
  */
-export default function EmptyState({actionLabel, description, onAction, small = false, title, variant = 'empty'}: EmptyStateProps) {
-	const imagesPath = (window as any).Liferay?.ThemeDisplay?.getPathThemeImages?.() ?? '';
+export default function EmptyState({actionLabel, description, onAction, small = false, spritemap, symbol = 'empty-state', title}: EmptyStateProps) {
+	const href = spritemap ?? (window as any).Liferay?.ThemeDisplay?.getPathThemeEmptyStatesSpritemap?.() ?? '';
 
 	return (
 		<div className={`c-empty-state c-empty-state-animation empty-state${small ? ' c-empty-state-sm' : ''}`}>
 			<div className="c-empty-state-image">
-				<div className="c-empty-state-aspect-ratio">
-					<img alt="" className="aspect-ratio-item aspect-ratio-item-fluid" src={`${imagesPath}/states/${IMAGES[variant] ?? IMAGES.empty}`} />
+				<div className="c-empty-state-illustration">
+					<svg aria-hidden="true" className={`c-empty-state-icon c-empty-state-icon-${symbol}`} focusable="false">
+						<use href={`${href}#${symbol}`} />
+					</svg>
 				</div>
 			</div>
 

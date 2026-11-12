@@ -83,6 +83,7 @@ window.Liferay = window.Liferay || {
 		getBCP47LanguageId: function () { return 'en-US'; },
 		getLanguageId: function () { return 'en_US'; },
 		getPathThemeImages: function () { return document.documentElement.getAttribute('data-images-path') || ''; },
+		getPathThemeEmptyStatesSpritemap: function () { return (document.documentElement.getAttribute('data-images-path') || '') + '/clay/empty_states.svg'; },
 		getPathThemeRoot: function () { return ''; },
 		getPortalURL: function () { return ''; },
 		getScopeGroupId: function () { return '0'; },
@@ -541,6 +542,57 @@ document.addEventListener('submit', function (event) {
 `;
 
 export const PREVIEW_CSS = `
+/*
+ * Clay's illustrated empty states: the symbols of empty_states.svg, coloured
+ * by these properties. The bundled themes predate them, so the values newer
+ * Clay sets come from here, at zero specificity so a theme that has them wins.
+ */
+:where(:root) {
+	--c-empty-state-primary: light-dark(#0b5fff, #6198ff);
+	--c-empty-state-primary-d1: light-dark(#0053f0, #7aa8ff);
+	--c-empty-state-primary-d2: light-dark(#004ad7, #d6e4ff);
+	--c-empty-state-primary-l0: light-dark(#5791ff, #0f62ff);
+	--c-empty-state-primary-l1: light-dark(#80acff, #004cdb);
+	--c-empty-state-primary-l2: light-dark(#b3cdff, #003aa8);
+	--c-empty-state-primary-l3: light-dark(#f0f5ff, #001a4d);
+	--c-empty-state-purple: light-dark(#a3f, #c87aff);
+	--c-empty-state-purple-d1: light-dark(#9f1aff, #d499ff);
+	--c-empty-state-purple-d2: light-dark(#9500ff, #e1b8ff);
+	--c-empty-state-purple-d3: light-dark(#8600e6, #ecd1ff);
+	--c-empty-state-purple-d4: light-dark(#70c, #f5ebff);
+	--c-empty-state-purple-l1: light-dark(#bf66ff, #b54dff);
+	--c-empty-state-purple-l2: light-dark(#ca80ff, #9f1aff);
+	--c-empty-state-purple-l3: light-dark(#d499ff, #8c00f0);
+	--c-empty-state-purple-l4: light-dark(#dfb3ff, #6800b2);
+	--c-empty-state-purple-l5: light-dark(#f2e5ff, #47007a);
+	--c-empty-state-white: light-dark(#fff, #1b1b23);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.c-empty-state {
+		--c-empty-state-image-animation-speed: 0;
+	}
+}
+
+:where(.c-empty-state-image) .c-empty-state-illustration {
+	margin-bottom: -2.5rem;
+}
+
+:where(.c-empty-state-image) .c-empty-state-illustration > svg {
+	height: 288px;
+	width: 288px;
+}
+
+:where(.c-empty-state-sm) .c-empty-state-illustration {
+	display: flex;
+	margin-bottom: -0.5rem;
+}
+
+:where(.c-empty-state-sm) .c-empty-state-illustration > svg {
+	height: 138px;
+	width: 138px;
+}
+
 .showroom-placeholder {
 	align-items: center;
 	background: repeating-linear-gradient(45deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 8px, rgba(0,0,0,0.08) 8px, rgba(0,0,0,0.08) 16px);
