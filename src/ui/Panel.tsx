@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {componentArgsKey} from '../model/components';
 import {fragmentArgsKey, useCurrentTheme, useStore} from '../store';
@@ -40,7 +40,18 @@ export function Panel() {
 
 	return (
 		<section aria-label="Addons" className="showroom-panel">
-			<div aria-hidden="true" className="showroom-panel__resizer" onPointerDown={resize} title="Drag to resize" />
+			<div
+				aria-label="Resize the panel"
+				aria-orientation="horizontal"
+				aria-valuemax={clampPanelHeight(window.innerHeight)}
+				aria-valuemin={MIN_PANEL_HEIGHT}
+				aria-valuenow={resize.height}
+				className="showroom-panel__resizer"
+				role="separator"
+				tabIndex={0}
+				title="Drag to resize, or use the arrow keys"
+				{...resize.props}
+			/>
 			<ul className="nav nav-underline showroom-panel__tabs" role="tablist">
 				{tabs.map((tab) => (
 					<li className="nav-item" key={tab.id}>
@@ -83,7 +94,22 @@ export function Panel() {
 	);
 }
 
-function usePanelResize() {
+const MIN_PANEL_HEIGHT = 160;
+
+/** How much of the window the preview keeps whatever the panel is dragged to. */
+const PREVIEW_RESERVE = 200;
+
+function clampPanelHeight(height: number): number {
+	return Math.round(Math.min(Math.max(MIN_PANEL_HEIGHT, height), Math.max(MIN_PANEL_HEIGHT, window.innerHeight - PREVIEW_RESERVE)));
+}
+
+/**
+ * The bar that resizes the panel. It captures the pointer while it is
+ * dragged: the preview above it is an iframe, which would otherwise take the
+ * pointer the moment it moved over it, and the drag would stop following and
+ * never see the button released. The arrow keys resize it too.
+ */
+function usePanelResize(): {height: number; props: React.HTMLAttributes<HTMLDivElement>} {
 	const [height, setHeight] = useState(() => {
 		try {
 			return Number(localStorage.getItem('liferay-showroom:panel-height') ?? localStorage.getItem('liferay-storybook:panel-height')) || 320;
@@ -92,6 +118,8 @@ function usePanelResize() {
 			return 320;
 		}
 	});
+	const drag = useRef<{height: number; pointer: number; y: number} | null>(null);
+	const [dragging, setDragging] = useState(false);
 
 	useEffect(() => {
 		document.documentElement.style.setProperty('--sb-panel-height', `${height}px`);
@@ -104,25 +132,58 @@ function usePanelResize() {
 		}
 	}, [height]);
 
-	return useCallback(
-		(event: React.PointerEvent) => {
-			const startY = event.clientY;
-			const startHeight = height;
+	/* While dragging, nothing else reacts to the pointer and no text gets selected */
+	useEffect(() => {
+		document.documentElement.classList.toggle('showroom-resizing', dragging);
 
-			const onMove = (move: PointerEvent) => {
-				setHeight(Math.min(Math.max(160, startHeight + (startY - move.clientY)), window.innerHeight - 200));
-			};
+		return () => document.documentElement.classList.remove('showroom-resizing');
+	}, [dragging]);
 
-			const onUp = () => {
-				window.removeEventListener('pointermove', onMove);
-				window.removeEventListener('pointerup', onUp);
-			};
+	const stop = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+		if (!drag.current) {
+			return;
+		}
 
-			window.addEventListener('pointermove', onMove);
-			window.addEventListener('pointerup', onUp);
+		if (event.currentTarget.hasPointerCapture(drag.current.pointer)) {
+			event.currentTarget.releasePointerCapture(drag.current.pointer);
+		}
+
+		drag.current = null;
+		setDragging(false);
+	}, []);
+
+	return {
+		height,
+		props: {
+			onKeyDown: (event) => {
+				const step = event.shiftKey ? 64 : 16;
+				const next = event.key === 'ArrowUp' ? (current: number) => current + step : event.key === 'ArrowDown' ? (current: number) => current - step : event.key === 'Home' ? () => MIN_PANEL_HEIGHT : event.key === 'End' ? () => window.innerHeight : null;
+
+				if (next) {
+					event.preventDefault();
+					setHeight((current) => clampPanelHeight(next(current)));
+				}
+			},
+			onLostPointerCapture: stop,
+			onPointerCancel: stop,
+			onPointerDown: (event) => {
+				if (event.button !== 0) {
+					return;
+				}
+
+				event.preventDefault();
+				event.currentTarget.setPointerCapture(event.pointerId);
+				drag.current = {height, pointer: event.pointerId, y: event.clientY};
+				setDragging(true);
+			},
+			onPointerMove: (event) => {
+				if (drag.current) {
+					setHeight(clampPanelHeight(drag.current.height + (drag.current.y - event.clientY)));
+				}
+			},
+			onPointerUp: stop,
 		},
-		[height]
-	);
+	};
 }
 
 /** A React component's props, as the same controls a fragment's configuration gets. */

@@ -400,17 +400,31 @@ html:not(#__):not(#___) .showroom .showroom-panel {
 
 html:not(#__):not(#___) .showroom .showroom-panel__resizer {
 	cursor: row-resize;
-	height: 6px;
+	height: 8px;
 	left: 0;
 	position: absolute;
 	right: 0;
-	top: -3px;
+	top: -4px;
+	touch-action: none;
 	z-index: 2;
 }
 
 html:not(#__):not(#___) .showroom .showroom-panel__resizer:hover,
-html:not(#__):not(#___) .showroom .showroom-panel__resizer:active {
+html:not(#__):not(#___) .showroom .showroom-panel__resizer:focus-visible,
+html.showroom-resizing:not(#__):not(#___) .showroom .showroom-panel__resizer {
 	background: var(--sb-primary);
+	outline: none;
+}
+
+/* While the panel is resized the pointer belongs to the bar: frames take none of it, and nothing gets selected */
+html.showroom-resizing,
+html.showroom-resizing * {
+	cursor: row-resize !important;
+	user-select: none !important;
+}
+
+html.showroom-resizing iframe {
+	pointer-events: none;
 }
 
 html:not(#__):not(#___) .showroom .showroom-panel__tabs {
