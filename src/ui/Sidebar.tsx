@@ -1,13 +1,13 @@
-import {useRef, useState} from 'react';
+import {useState} from 'react';
 
 import {createElement} from '../model/pageDefinition';
 import {downloadBlob, exportAllZip, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
 import {assetURL} from '../store/load';
-import {importFile} from './App';
 import {ConfirmButton} from './ConfirmButton';
 import {useEditorScheme} from './editorScheme';
 import {Icon, IconButton} from './Icon';
+import {openImportDialog} from './importDialog';
 
 import type {Collection, PageTemplate} from '../model/types';
 
@@ -17,7 +17,6 @@ export function Sidebar() {
 	const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
 	const isCollapsed = (collection: Collection) => collapsed[collection.key] ?? collection.collapsed === true;
-	const fileInput = useRef<HTMLInputElement>(null);
 	const editorScheme = useEditorScheme();
 
 	const normalizedQuery = query.trim().toLowerCase();
@@ -51,16 +50,6 @@ export function Sidebar() {
 		}
 		finally {
 			setExporting(false);
-		}
-	};
-
-	const onFiles = async (files: FileList | null) => {
-		for (const file of Array.from(files ?? [])) {
-			await importFile(file, dispatch);
-		}
-
-		if (fileInput.current) {
-			fileInput.current.value = '';
 		}
 	};
 
@@ -127,7 +116,7 @@ export function Sidebar() {
 				<div className="showroom-section">
 					<div className="showroom-section__title">
 						<span>Fragments</span>
-						<button className="btn btn-unstyled btn-sm text-primary" onClick={() => fileInput.current?.click()} title="Import a fragment collection, page template, style book or theme zip" type="button">
+						<button className="btn btn-unstyled btn-sm text-primary" onClick={() => openImportDialog()} title="Import Liferay exports, or build from a design or a website with AI" type="button">
 							<Icon className="mr-1" symbol="import" />
 							Import
 						</button>
@@ -186,12 +175,11 @@ export function Sidebar() {
 			</nav>
 
 			<div className="showroom-sidebar__footer">
-				<input accept=".zip,.json" hidden multiple onChange={(event) => onFiles(event.target.files)} ref={fileInput} type="file" />
 				<div className="showroom-sidebar__transfer">
 					<button
 						className="btn btn-secondary btn-sm"
-						onClick={() => fileInput.current?.click()}
-						title="Import Liferay exports: fragment sets, page templates, style books, built themes or a page-definition.json. You can also drop the files anywhere on the window."
+						onClick={() => openImportDialog()}
+						title="Import Liferay exports: fragment sets, page templates, style books, built themes or a page-definition.json. Or build from a design or a website with AI. You can also drop files anywhere on the window."
 						type="button"
 					>
 						<Icon className="mr-1" symbol="upload" />

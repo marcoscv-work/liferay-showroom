@@ -63,3 +63,30 @@ describe('resetTemplate', () => {
 		expect(reducer(state, {id: 'mine', type: 'resetTemplate'})).toBe(state);
 	});
 });
+
+describe('AI drafts', () => {
+	const fragment = (key: string) => ({collectionKey: '', configuration: '', css: '', html: `<p>${key}</p>`, icon: 'stars', js: '', key, name: key, thumbnail: '', type: 'component'});
+	const drafts = {description: '', key: 'ai-drafts', name: 'AI drafts'};
+
+	it('creates the drafts collection once and adds to it after', () => {
+		let state = reducer(loaded(), {collection: drafts, fragments: [fragment('one')], theme: 'classic', type: 'addDraftFragments'});
+
+		state = reducer(state, {collection: drafts, fragments: [fragment('two')], theme: 'classic', type: 'addDraftFragments'});
+
+		expect(state.collections).toHaveLength(1);
+		expect(state.collections[0]).toMatchObject({key: 'ai-drafts', source: 'imported', theme: 'classic'});
+		expect(state.collections[0].fragments.map((candidate) => [candidate.collectionKey, candidate.key])).toEqual([
+			['ai-drafts', 'one'],
+			['ai-drafts', 'two'],
+		]);
+		expect(persistedState(state).collections).toHaveLength(1);
+	});
+
+	it('replaces a fragment of an imported collection only', () => {
+		let state = reducer(loaded(), {collection: drafts, fragments: [fragment('one')], theme: null, type: 'addDraftFragments'});
+
+		state = reducer(state, {collectionKey: 'ai-drafts', fragment: {...fragment('one'), html: '<p>changed</p>'}, type: 'updateFragment'});
+
+		expect(state.collections[0].fragments[0].html).toBe('<p>changed</p>');
+	});
+});

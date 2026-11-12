@@ -4,6 +4,7 @@ import {downloadBlob, exportCollectionZip, exportStyleBookZip, exportTemplateZip
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {ConfirmButton} from './ConfirmButton';
 import {Icon, IconButton} from './Icon';
+import {ImproveWithAI} from './ImproveWithAI';
 import {TemplateSaveStatus} from './SaveStatus';
 import {useCurrentTemplate, useRender} from './useRender';
 
@@ -109,6 +110,7 @@ export function Toolbar() {
 			</div>
 
 			<div className="showroom-toolbar__group showroom-toolbar__actions">
+				{output.fragment && output.collection && <ImproveWithAI collection={output.collection} fragment={output.fragment} />}
 				{output.fragment && output.collection && (
 					<button
 						className="btn btn-secondary btn-sm"

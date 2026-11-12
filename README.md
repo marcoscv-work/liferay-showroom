@@ -59,6 +59,10 @@ Collections imported through the UI are kept in the browser's local storage.
 
 React components the team uses elsewhere in Liferay can be documented next to the fragments, under `components/<name>/`: an `index.tsx` that default-exports the component, a `component.json` with its name, a `configuration.json` that describes its props in the fragment configuration format, and a `README.md`. Vite bundles them into the site; the preview runs each one with its own React, with its props as controls. They are not Liferay assets and are never exported. See `docs/react-components.md`.
 
+### AI features
+
+**Import** opens a dialog that also turns a design, a Figma frame or a website into drafts of fragments, a page template and a style book, and **Improve with AI** reworks a fragment (design tokens, accessibility, docs). The model comes from Liferay AI Hub, a link left open: the showroom ships no model or key, and a provider registers with `registerAIProvider` (`src/ai/provider.ts`). Until then every feature can copy its request as a brief for a coding agent, and `?ai=demo` shows the flows with sample output. See `docs/ai.md`.
+
 ### Documentation
 
 Markdown, next to the asset it documents:

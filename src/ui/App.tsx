@@ -12,6 +12,8 @@ import {Panel} from './Panel';
 import {Sidebar} from './Sidebar';
 import {Toolbar} from './Toolbar';
 import {TooltipLayer} from './TooltipLayer';
+import {closeImportDialog, isAssetFile, isImageFile, openImportDialog, readImages} from './importDialog';
+import {ImportModal} from './ImportModal';
 import {isTyping, runShortcut, useTemplateEditing} from './templateEditing';
 
 import type {ShortcutKey} from './templateEditing';
@@ -227,9 +229,11 @@ export function App() {
 			depth = 0;
 			setDragging(false);
 
-			const files = Array.from(event.dataTransfer?.files ?? []).filter((file) => /\.(zip|json)$/i.test(file.name));
+			const dropped = Array.from(event.dataTransfer?.files ?? []);
+			const files = dropped.filter(isAssetFile);
+			const pictures = dropped.filter(isImageFile);
 
-			if (!files.length) {
+			if (!files.length && !pictures.length) {
 				return;
 			}
 
@@ -237,6 +241,16 @@ export function App() {
 
 			for (const file of files) {
 				await importFile(file, dispatch);
+			}
+
+			/* An image is a design to build from: it opens the import dialog, where the AI features take it */
+			if (pictures.length) {
+				const {images, rejected} = await readImages(pictures);
+
+				openImportDialog(images, rejected.length ? `Too large to use (5 MB at most): ${rejected.join(', ')}.` : '');
+			}
+			else {
+				closeImportDialog();
 			}
 		};
 
@@ -275,12 +289,13 @@ export function App() {
 	return (
 		<div className={`cadmin showroom${advanced ? ' showroom--editor' : ''}`}>
 			<TooltipLayer />
+			<ImportModal />
 			{dragging && (
 				<div aria-live="polite" className="showroom-drop" role="status">
 					<div className="showroom-drop__card">
 						<Icon className="showroom-drop__icon" symbol="upload" />
 						<div className="showroom-drop__title">Drop to import</div>
-						<div className="showroom-drop__text">Fragment sets, page templates, style books, built themes or a page-definition.json</div>
+						<div className="showroom-drop__text">Fragment sets, page templates, style books, built themes or a page-definition.json. An image of a design opens the AI features.</div>
 					</div>
 				</div>
 			)}

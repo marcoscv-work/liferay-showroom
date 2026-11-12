@@ -5,7 +5,7 @@ import type {Dispatch, ReactNode} from 'react';
 import {exportTree} from '../model/pageDefinition';
 
 import type {EditableValue} from '../model/fragmentRenderer';
-import type {Collection, DocPage, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
+import type {Collection, DocPage, Fragment, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
 export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'component'; key: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
 
@@ -86,6 +86,8 @@ export type Action =
 	| {type: 'removeStyleBook'; key: string}
 	| {type: 'addCollections'; collections: Collection[]}
 	| {type: 'removeCollection'; key: string}
+	| {type: 'addDraftFragments'; collection: {key: string; name: string; description: string}; fragments: Fragment[]; theme: string | null}
+	| {type: 'updateFragment'; collectionKey: string; fragment: Fragment}
 	| {type: 'addThemes'; themes: Theme[]}
 	| {type: 'addTemplates'; templates: PageTemplate[]; select?: boolean}
 	| {type: 'updateTemplate'; id: string; root: PageElement}
@@ -337,6 +339,26 @@ export function reducer(state: State, action: Action): State {
 			};
 		case 'addCollections':
 			return {...state, collections: [...state.collections, ...action.collections]};
+		case 'addDraftFragments': {
+			if (!action.fragments.length) {
+				return state;
+			}
+
+			const fragments = action.fragments.map((fragment) => ({...fragment, collectionKey: action.collection.key}));
+
+			if (state.collections.some((collection) => collection.key === action.collection.key)) {
+				return {...state, collections: state.collections.map((collection) => (collection.key === action.collection.key ? {...collection, fragments: [...collection.fragments, ...fragments]} : collection))};
+			}
+
+			return {...state, collections: [...state.collections, {...action.collection, fragments, resources: {}, source: 'imported', theme: action.theme}]};
+		}
+		case 'updateFragment':
+			return {
+				...state,
+				collections: state.collections.map((collection) =>
+					collection.key === action.collectionKey && collection.source === 'imported' ? {...collection, fragments: collection.fragments.map((fragment) => (fragment.key === action.fragment.key ? {...action.fragment, collectionKey: collection.key} : fragment))} : collection
+				),
+			};
 		case 'removeCollection': {
 			const collections = state.collections.filter((collection) => collection.key !== action.key);
 
