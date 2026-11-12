@@ -84,7 +84,7 @@ export function EditableControls({editables, focused = null, onChange, values}: 
 						>
 							{(editable.type === 'image' || editable.type === 'background-image') && (
 								<div className="showroom-stack">
-									<input className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder="Image URL" type="text" value={shown.src} />
+									<input aria-label={`${editable.id}: image URL`} className="form-control form-control-sm" onChange={(event) => update({src: event.target.value})} placeholder="Image URL" type="text" value={shown.src} />
 									<input
 										accept="image/*"
 										aria-label={`Upload image for ${editable.id}`}
@@ -103,22 +103,22 @@ export function EditableControls({editables, focused = null, onChange, values}: 
 										}}
 										type="file"
 									/>
-									{editable.type === 'image' && <input className="form-control form-control-sm" onChange={(event) => update({alt: event.target.value})} placeholder="Alternative text" type="text" value={shown.alt} />}
-									{editable.type === 'image' && <input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="Link URL (optional)" type="text" value={value.href ?? ''} />}
+									{editable.type === 'image' && <input aria-label={`${editable.id}: alternative text`} className="form-control form-control-sm" onChange={(event) => update({alt: event.target.value})} placeholder="Alternative text" type="text" value={shown.alt} />}
+									{editable.type === 'image' && <input aria-label={`${editable.id}: link URL`} className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="Link URL (optional)" type="text" value={value.href ?? ''} />}
 								</div>
 							)}
 
 							{(editable.type === 'link' || editable.type === 'action') && (
 								<div className="showroom-stack">
-									<input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Link text" type="text" value={shown.text} />
-									<input className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="https://" type="text" value={shown.href} />
+									<input aria-label={`${editable.id}: link text`} className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Link text" type="text" value={shown.text} />
+									<input aria-label={`${editable.id}: URL`} className="form-control form-control-sm" onChange={(event) => update({href: event.target.value})} placeholder="https://" type="text" value={shown.href} />
 									<Toggle checked={shown.target === '_blank'} label="Open in a new tab" onChange={(checked) => update({target: checked ? '_blank' : undefined})} />
 								</div>
 							)}
 
-							{(editable.type === 'rich-text' || editable.type === 'html') && <textarea className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="HTML content" rows={3} value={shown.text} />}
+							{(editable.type === 'rich-text' || editable.type === 'html') && <textarea aria-label={`${editable.id}: HTML`} className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="HTML content" rows={3} value={shown.text} />}
 
-							{(editable.type === 'text' || editable.type === 'date-time') && <input className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Text" type="text" value={shown.text} />}
+							{(editable.type === 'text' || editable.type === 'date-time') && <input aria-label={`${editable.id}: text`} className="form-control form-control-sm" onChange={(event) => update({text: event.target.value})} placeholder="Text" type="text" value={shown.text} />}
 
 							{overridden && (
 								<button className="btn btn-unstyled btn-sm text-primary mt-1" onClick={() => onChange(editable.id, null)} type="button">

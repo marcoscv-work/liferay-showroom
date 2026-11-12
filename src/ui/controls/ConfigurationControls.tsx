@@ -1,4 +1,4 @@
-import {useId} from 'react';
+import {createContext, useContext, useId} from 'react';
 
 import {allFields, defaultRawValue, parseConfiguration} from '../../model/configuration';
 import {humanize} from '../../model/liferayContext';
@@ -16,6 +16,8 @@ const RADIO_LIMIT = 6;
 
 export interface ConfigurationControlsProps {
 	configurationJSON: string;
+	/** What to say when there are no fields. */
+	emptyText?: string;
 	onChange: (name: string, value: any) => void;
 	onReset?: () => void;
 	theme: Theme | null;
@@ -27,7 +29,7 @@ export interface ConfigurationControlsProps {
  * description and default on the left and a control on the right. Values
  * are stored in the shape the page editor persists in `fragmentConfig`.
  */
-export function ConfigurationControls({configurationJSON, onChange, onReset, theme, values}: ConfigurationControlsProps) {
+export function ConfigurationControls({configurationJSON, emptyText = 'This fragment has no configuration fields.', onChange, onReset, theme, values}: ConfigurationControlsProps) {
 	const {configuration, error} = parseConfiguration(configurationJSON);
 
 	if (error) {
@@ -42,7 +44,7 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 	}
 
 	if (!allFields(configuration).length) {
-		return <p className="text-secondary">This fragment has no configuration fields.</p>;
+		return <p className="text-secondary">{emptyText}</p>;
 	}
 
 	return (
@@ -78,6 +80,9 @@ export function ConfigurationControls({configurationJSON, onChange, onReset, the
 	);
 }
 
+/** The id of the row's name, so the control in the row is labelled by it. */
+const ArgLabel = createContext<string | undefined>(undefined);
+
 export function ArgsTable({children, nameHeading = 'Name', valueHeading = 'Control'}: {children: ReactNode; nameHeading?: string; valueHeading?: string}) {
 	return (
 		<table className="table showroom-args">
@@ -99,10 +104,14 @@ export function ArgsTable({children, nameHeading = 'Name', valueHeading = 'Contr
 }
 
 export function ArgRow({children, defaultValue, description, highlighted = false, name, rowRef, tag}: {children: ReactNode; defaultValue?: string; description?: string; highlighted?: boolean; name: string; rowRef?: (element: HTMLTableRowElement | null) => void; tag?: string}) {
+	const id = useId();
+
 	return (
 		<tr className={highlighted ? 'showroom-args__row--highlight' : undefined} ref={rowRef}>
 			<th className="showroom-args__name" scope="row">
-				<span className="showroom-args__id">{name}</span>
+				<span className="showroom-args__id" id={id}>
+					{name}
+				</span>
 				{tag && <span className="label label-secondary ml-2 align-middle">{tag}</span>}
 				{description && <span className="showroom-args__description">{description}</span>}
 				{defaultValue !== undefined && defaultValue !== '' && (
@@ -111,7 +120,9 @@ export function ArgRow({children, defaultValue, description, highlighted = false
 					</span>
 				)}
 			</th>
-			<td className="showroom-args__control">{children}</td>
+			<td className="showroom-args__control">
+				<ArgLabel.Provider value={id}>{children}</ArgLabel.Provider>
+			</td>
 		</tr>
 	);
 }
@@ -128,9 +139,10 @@ function formatDefault(field: ConfigurationField): string {
 
 export function RadioGroup({name, onChange, options, value}: {name: string; onChange: (value: string) => void; options: {label: string; value: string}[]; value: string}) {
 	const id = useId();
+	const labelledBy = useContext(ArgLabel);
 
 	return (
-		<div className="showroom-radios" role="radiogroup">
+		<div aria-labelledby={labelledBy} className="showroom-radios" role="radiogroup">
 			{options.map((option) => (
 				<div className="custom-control custom-radio custom-control-inline" key={option.value}>
 					<label>
@@ -146,9 +158,11 @@ export function RadioGroup({name, onChange, options, value}: {name: string; onCh
 }
 
 function FieldControl({field, onChange, theme, value}: {field: ConfigurationField; onChange: (value: any) => void; theme: Theme | null; value: any}) {
+	const labelledBy = useContext(ArgLabel);
+
 	switch (field.type) {
 		case 'checkbox':
-			return <Toggle checked={value === true || value === 'true'} label={value === true || value === 'true' ? 'true' : 'false'} onChange={onChange} />;
+			return <Toggle checked={value === true || value === 'true'} labelledBy={labelledBy} label={value === true || value === 'true' ? 'true' : 'false'} onChange={onChange} />;
 		case 'select': {
 			const options: {label: string; value: string}[] = (field.typeOptions?.validValues ?? []).map((option: any) => ({label: humanize(String(option.label ?? option.value)), value: String(option.value)}));
 
@@ -157,7 +171,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			}
 
 			return (
-				<select className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={String(value ?? '')}>
+				<select aria-labelledby={labelledBy} className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={String(value ?? '')}>
 					{options.map((option) => (
 						<option key={option.value} value={option.value}>
 							{option.label}
@@ -211,7 +225,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			return (
 				<div className="showroom-color">
 					<input aria-label={`${humanize(field.label)} color`} className="showroom-color__input" onChange={(event) => onChange(event.target.value)} type="color" value={isToken ? '#000000' : /^#[0-9a-f]{6}$/i.test(text) ? text : '#000000'} />
-					<select className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={isToken ? text : ''}>
+					<select aria-labelledby={labelledBy} className="form-control form-control-sm" onChange={(event) => onChange(event.target.value)} value={isToken ? text : ''}>
 						<option value="">Custom value</option>
 						{colorTokens.map((token) => (
 							<option key={token.name} value={token.name}>
@@ -228,15 +242,15 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 			const isNumber = validation?.type === 'number' || field.dataType === 'int' || field.dataType === 'double';
 
 			if (isNumber) {
-				return <input className="form-control form-control-sm showroom-args__input" max={validation?.max} min={validation?.min} onChange={(event) => onChange(event.target.value)} type="number" value={String(value ?? '')} />;
+				return <input aria-labelledby={labelledBy} className="form-control form-control-sm showroom-args__input" max={validation?.max} min={validation?.min} onChange={(event) => onChange(event.target.value)} type="number" value={String(value ?? '')} />;
 			}
 
-			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={String(value ?? '')} />;
+			return <input aria-labelledby={labelledBy} className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={String(value ?? '')} />;
 		}
 		case 'length':
-			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="e.g. 16px, 2rem, 50%" type="text" value={String(value ?? '')} />;
+			return <input aria-labelledby={labelledBy} className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="e.g. 16px, 2rem, 50%" type="text" value={String(value ?? '')} />;
 		case 'url':
-			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="https://" type="url" value={String(value ?? '')} />;
+			return <input aria-labelledby={labelledBy} className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} placeholder="https://" type="url" value={String(value ?? '')} />;
 		case 'itemSelector':
 		case 'collectionSelector':
 		case 'navigationMenuSelector':
@@ -246,6 +260,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 					<span className="label label-secondary mr-1">{field.type}</span> needs Liferay content.
 					{field.type === 'videoSelector' && (
 						<input
+							aria-labelledby={labelledBy}
 							className="form-control form-control-sm mt-1 showroom-args__input"
 							onChange={(event) => onChange(event.target.value ? {url: event.target.value} : {})}
 							placeholder="Video URL"
@@ -256,7 +271,7 @@ function FieldControl({field, onChange, theme, value}: {field: ConfigurationFiel
 				</div>
 			);
 		default:
-			return <input className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={typeof value === 'object' ? JSON.stringify(value) : String(value ?? '')} />;
+			return <input aria-labelledby={labelledBy} className="form-control form-control-sm showroom-args__input" onChange={(event) => onChange(event.target.value)} type="text" value={typeof value === 'object' ? JSON.stringify(value) : String(value ?? '')} />;
 	}
 }
 

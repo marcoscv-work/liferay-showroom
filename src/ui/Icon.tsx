@@ -36,10 +36,10 @@ export function IconButton({
 	);
 }
 
-export function Toggle({checked, label, onChange}: {checked: boolean; label?: string; onChange: (checked: boolean) => void}) {
+export function Toggle({checked, label, labelledBy, onChange}: {checked: boolean; label?: string; labelledBy?: string; onChange: (checked: boolean) => void}) {
 	return (
 		<label className="toggle-switch">
-			<input checked={checked} className="toggle-switch-check" onChange={(event) => onChange(event.target.checked)} type="checkbox" />
+			<input aria-labelledby={labelledBy} checked={checked} className="toggle-switch-check" onChange={(event) => onChange(event.target.checked)} type="checkbox" />
 			<span aria-hidden="true" className="toggle-switch-bar">
 				<span className="toggle-switch-handle" />
 			</span>
