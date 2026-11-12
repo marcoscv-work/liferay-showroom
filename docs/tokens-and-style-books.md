@@ -56,20 +56,35 @@ set: sdsSize
 
 Create or duplicate a style book from the toolbar, edit any token in the Style book tab under a fragment, and export it. The export is the zip Liferay's Style Books admin imports, and it keeps a reference to the theme it belongs to.
 
-The Style book tab starts with its **Colours**. "From the theme" is every colour token as a swatch, with a dot on the ones this style book changes: pick one to find it in the table. "Only the tokens this style book changes" narrows the table to what makes the style book what it is.
+The Style book tab has three parts above the table of tokens:
 
-## Colours of your own
+- **Added to this style book**: the tokens the style book adds to its theme. See below.
+- **Palette**: the theme's colours with this style book's values. A scale the token names describe, such as the grays from 100 to 900 or a colour from its lightest to its darkest shade, shows as one strip; the colours that belong to no scale follow. A dot marks the ones this style book changes, and picking a colour finds its token in the table.
+- **Contrast**: the pairs of text and background the token names describe (a button's colour on its background colour, a text colour on the page background), each with its WCAG ratio and what that is enough for, worst first. It opens by itself when a pair is below 4.5:1.
 
-A theme decides which tokens exist, and a brand usually has colours none of them covers. **Added to this style book** is where those go: give a colour a name and a value, and it becomes a token of the style book.
+"Only the tokens this style book changes" narrows the table to what makes the style book what it is.
 
-- It is a CSS custom property named after its label: "Brand purple" is `var(--brand-purple)` in any fragment, and it shows up in the colour pickers of fragment configuration next to the theme's tokens.
-- Rename it, change it or remove it there. Next to each one is its contrast with the page background and what that is enough for by WCAG 2.2 AA: text, large text and controls, or decoration.
-- The export carries them the way Liferay does since 2026.Q4, in a `frontend-token-definition.json` next to the values, so the Style Books admin imports them with the style book. A style book exported from Liferay with tokens created in its editor brings them here too.
+## Tokens of your own
 
-Liferay names a token created in its editor with a generated id. The ones made here have readable names, which the definition format allows; check the first import of a style book with its own colours on your Liferay version.
+A theme decides which tokens exist, and a brand usually has values none of them covers. **Added to this style book** is where those go: pick a kind, give it a name and a value, and it becomes a token of the style book.
+
+| Kind | For | Example value |
+|---|---|---|
+| Colour | A brand colour the theme has no token for | `#7414ff` |
+| Font family | A display or a brand font | `Georgia, "Times New Roman", serif` |
+| Font size | A size outside the theme's scale | `2.5rem` |
+| Font weight | A weight | `600` |
+| Spacing | A gap or a padding | `4rem` |
+| Radius | A corner | `1rem` |
+
+- Each is a CSS custom property named after its label: "Brand purple" is `var(--brand-purple)` in any fragment, and a colour shows up in the colour pickers of fragment configuration next to the theme's tokens.
+- Rename it, change it or remove it there. A small sample shows what the value looks like, and a colour has its contrast with the page background next to it.
+- The export carries them the way Liferay does since 2026.Q4, in a `frontend-token-definition.json` next to the values, so the Style Books admin imports them with the style book. A style book exported from Liferay with tokens created in its editor brings them here too, filed where Liferay filed them.
+
+Liferay names a token created in its editor with a generated id. The ones made here have readable names, which the definition format allows; check the first import of a style book with its own tokens on your Liferay version.
 
 ## From the colours of a site
 
-**Import** has **Style book from a website**. Paste the site's stylesheet, its custom properties or a design tokens file (the W3C format, Style Dictionary or a Figma variables export) and the showroom reads the colours itself, with no AI: the ones declared under the name of a theme token go to that token, and the rest are offered as colours of the style book. A website address or a screenshot needs a model to read it, which also decides the role of each colour instead of going by its name; see AI features.
+**Import** has **Style book from a website**. Paste the site's stylesheet, its custom properties or a design tokens file (the W3C format, Style Dictionary or a Figma variables export) and the showroom reads the colours itself, with no AI: the ones declared under the name of a theme token go to that token, and the rest are offered as colours of the style book's own. A website address or a screenshot needs a model to read it, which also decides the role of each colour instead of going by its name; see AI features.
 
 Either way you get the same review: each token with its colour now and the one proposed, each new colour with a name you can change, the contrast of each with the page background, and a box to leave any of them out.

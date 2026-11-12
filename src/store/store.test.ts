@@ -137,3 +137,17 @@ describe('removeFragment', () => {
 		expect(reducer(state, {collectionKey: 'basic', fragmentKey: 'button', type: 'removeFragment'})).toBe(state);
 	});
 });
+
+describe('theme defaults', () => {
+	it('come back with what was changed or added on them', () => {
+		let state = loaded();
+
+		state = reducer(state, {name: '--brand', type: 'setTokenValue', value: '#123456'});
+		state = reducer(state, {tokens: [{cssVariable: 'gap', defaultValue: '2rem', editorType: 'Length', label: 'Gap', name: 'gap'}], type: 'addCustomTokens'});
+
+		const persisted = persistedState(state);
+		const again = reducer(initialState, {collections: [], docs: [], persisted, releases: [], styleBooks: [], templates: [], themes: [], type: 'loaded'});
+
+		expect(again.styleBooks[0]).toMatchObject({customTokens: [{name: 'gap'}], key: 'theme-defaults', values: {'--brand': '#123456'}});
+	});
+});

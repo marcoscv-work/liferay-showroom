@@ -2,7 +2,8 @@ import {allFields, defaultRawValue, parseConfiguration} from '../model/configura
 import {renderFragment} from '../model/fragmentRenderer';
 import {colorLabel, normalizeColor} from '../model/colors';
 import {normalizeTree} from '../model/pageDefinition';
-import {createCustomColor, effectiveTokenValue} from '../model/tokens';
+import {resolvedColor} from '../model/palette';
+import {createCustomColor} from '../model/tokens';
 
 import type {ExtractedColor} from '../model/colors';
 import type {Collection, Fragment, FrontendToken, PageElement, PageTemplate, StyleBook} from '../model/types';
@@ -298,7 +299,7 @@ function themeColorTokens(context: AIContext): Record<string, FrontendToken> {
 }
 
 function currentValue(token: FrontendToken, context: AIContext): string {
-	return context.theme ? effectiveTokenValue(context.theme, context.styleBook, token.name) : token.defaultValue;
+	return context.theme ? resolvedColor(context.theme, context.styleBook, token.name) : token.defaultValue;
 }
 
 /** The proposal a model made for a style book, with everything that is not a colour for a colour token dropped. */

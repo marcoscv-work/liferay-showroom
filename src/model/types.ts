@@ -47,6 +47,9 @@ export interface ReactComponent {
 
 export interface FrontendToken {
 	cssVariable: string;
+
+	/** Where a token a style book adds is filed, so its definition goes back to Liferay as it came. */
+	group?: {category: string; categoryLabel: string; set: string; setLabel: string};
 	defaultValue: string;
 	editorType: 'ColorPicker' | 'Length' | 'Text' | 'Select';
 	label: string;
@@ -82,9 +85,10 @@ export interface StyleBook {
 	colorScheme?: 'light' | 'dark' | null;
 
 	/**
-	 * Tokens the style book adds to the ones its theme defines, such as the
-	 * colours of a brand. Liferay keeps them in the style book's own
-	 * `frontend-token-definition.json`; each one's value is its `defaultValue`.
+	 * Tokens the style book adds to the ones its theme defines: the colours
+	 * of a brand, a font, a spacing or a radius. Liferay keeps them in the
+	 * style book's own `frontend-token-definition.json`; each one's value is
+	 * its `defaultValue`.
 	 */
 	customTokens?: FrontendToken[];
 	key: string;

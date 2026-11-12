@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 import {humanize} from '../model/liferayContext';
-import {CUSTOM_CATEGORY, effectiveTokenValue} from '../model/tokens';
+import {effectiveTokenValue} from '../model/tokens';
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {Icon} from './Icon';
-import {StyleBookColors} from './StyleBookColors';
+import {StyleBookOwnTokens, StyleBookPalette} from './StyleBookColors';
 
 import type {FrontendToken} from '../model/types';
 
@@ -19,6 +19,7 @@ export function StyleBookPanel() {
 	const [query, setQuery] = useState('');
 	const [category, setCategory] = useState<string>('');
 	const [changedOnly, setChangedOnly] = useState(false);
+	const tokens = useRef<HTMLHeadingElement>(null);
 
 	if (!theme) {
 		return <p className="text-secondary">No theme loaded.</p>;
@@ -26,12 +27,20 @@ export function StyleBookPanel() {
 
 	const normalizedQuery = query.trim().toLowerCase();
 
-	/* The style book's own colours have their editor above the table */
-	const themeCategories = theme.categories.filter((candidate) => candidate.name !== CUSTOM_CATEGORY.name);
-	const categories = themeCategories.filter((candidate) => !category || candidate.name === category);
+	/* The style book's own tokens have their editor above the table, which lists the theme's */
+	const own = new Set((styleBook.customTokens ?? []).map((token) => token.name));
+	const themeCategories = theme.categories.map((candidate) => ({...candidate, sets: candidate.sets.map((set) => ({...set, tokens: set.tokens.filter((token) => !own.has(token.name))})).filter((set) => set.tokens.length)})).filter((candidate) => candidate.sets.length);
 
-	const changed = Object.keys(styleBook.values).filter((name) => theme.tokens[name]).length;
-	const added = styleBook.customTokens?.length ?? 0;
+	const matches = (token: FrontendToken) => (!changedOnly || styleBook.values[token.name] !== undefined) && (!normalizedQuery || token.name.toLowerCase().includes(normalizedQuery) || token.label.toLowerCase().includes(normalizedQuery) || token.cssVariable.includes(normalizedQuery));
+
+	/* Only the categories and sets with something to show, so a filter leaves no empty headings */
+	const categories = themeCategories
+		.filter((candidate) => !category || candidate.name === category)
+		.map((candidate) => ({...candidate, sets: candidate.sets.map((set) => ({...set, tokens: set.tokens.filter(matches)})).filter((set) => set.tokens.length)}))
+		.filter((candidate) => candidate.sets.length);
+
+	const changed = Object.keys(styleBook.values).filter((name) => theme.tokens[name] && !own.has(name)).length;
+	const added = own.size;
 
 	return (
 		<div>
@@ -44,7 +53,7 @@ export function StyleBookPanel() {
 					)}
 					<span className="text-secondary mr-2">on {theme.name}</span>
 					<span className={`label ${changed ? 'label-info' : 'label-secondary'}`}>{changed ? `${changed} token${changed === 1 ? '' : 's'} overridden` : 'theme defaults'}</span>
-					{added > 0 && <span className="label label-info ml-1">{`${added} colour${added === 1 ? '' : 's'} added`}</span>}
+					{added > 0 && <span className="label label-info ml-1">{`${added} token${added === 1 ? '' : 's'} added`}</span>}
 				</div>
 
 				<div className="d-flex">
@@ -73,32 +82,37 @@ export function StyleBookPanel() {
 				The style book is page-level, as in Liferay: the values below apply to every fragment and page template rendered with the <strong>{theme.name}</strong> theme, not only to the one selected. Pick or create a style book in the toolbar.
 			</p>
 
-			<StyleBookColors
+			<StyleBookOwnTokens />
+
+			<StyleBookPalette
 				onPick={(name) => {
 					setCategory('');
 					setChangedOnly(false);
 					setQuery(name);
+					window.requestAnimationFrame(() => tokens.current?.scrollIntoView({behavior: 'smooth', block: 'start'}));
 				}}
 			/>
+
+			<h3 className="sheet-subtitle" ref={tokens}>
+				Tokens of the theme
+			</h3>
 
 			<label className="showroom-stylebook__changed">
 				<input checked={changedOnly} onChange={(event) => setChangedOnly(event.target.checked)} type="checkbox" /> Only the tokens this style book changes
 			</label>
 
+			{!categories.length && <p className="text-secondary">No token matches.</p>}
+
 			{categories.map((currentCategory) => (
 				<section className="showroom-stylebook__category" key={currentCategory.name}>
-					<h3 className="sheet-subtitle">{humanize(currentCategory.label)}</h3>
+					<h4 className="showroom-stylebook__category-title">{humanize(currentCategory.label)}</h4>
 
 					{currentCategory.sets.map((set) => {
-						const tokens = set.tokens.filter((token) => (!changedOnly || styleBook.values[token.name] !== undefined) && (!normalizedQuery || token.name.toLowerCase().includes(normalizedQuery) || token.label.toLowerCase().includes(normalizedQuery) || token.cssVariable.includes(normalizedQuery)));
-
-						if (!tokens.length) {
-							return null;
-						}
+						const {tokens} = set;
 
 						return (
 							<div className="mb-3" key={set.name}>
-								<h4 className="showroom-stylebook__set-title">{humanize(set.label)}</h4>
+								<h5 className="showroom-stylebook__set-title">{humanize(set.label)}</h5>
 
 								<table className="table table-autofit table-sm showroom-table">
 									<thead>

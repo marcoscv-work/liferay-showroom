@@ -44,15 +44,55 @@ export function parseTokenDefinition(json: any): {categories: FrontendTokenCateg
 	return {categories, tokens};
 }
 
-/** Where a style book's own tokens sit among the theme's: a category and a set of their own, as Liferay's editor creates them. */
+/** Where a style book's own tokens sit among the theme's, unless they say otherwise: a category of their own, as Liferay's editor can create. */
 export const CUSTOM_CATEGORY = {label: 'Custom', name: 'custom'};
 
 export const CUSTOM_SET = {label: 'Colors', name: 'customColors'};
 
+/** What a style book can add: each kind has the editor Liferay gives it, a set to live in and a value to start from. */
+export type CustomTokenKind = 'color' | 'fontFamily' | 'fontSize' | 'fontWeight' | 'radius' | 'spacing';
+
+export const CUSTOM_TOKEN_KINDS: Record<CustomTokenKind, {editorType: FrontendToken['editorType']; label: string; set: {label: string; name: string}; value: string; word: string}> = {
+	color: {editorType: 'ColorPicker', label: 'Colour', set: CUSTOM_SET, value: '#7414ff', word: 'color'},
+	fontFamily: {editorType: 'Text', label: 'Font family', set: {label: 'Typography', name: 'customTypography'}, value: 'Georgia, "Times New Roman", serif', word: 'font'},
+	fontSize: {editorType: 'Length', label: 'Font size', set: {label: 'Typography', name: 'customTypography'}, value: '1.25rem', word: 'size'},
+	fontWeight: {editorType: 'Text', label: 'Font weight', set: {label: 'Typography', name: 'customTypography'}, value: '600', word: 'weight'},
+	radius: {editorType: 'Length', label: 'Radius', set: {label: 'Radius', name: 'customRadius'}, value: '0.5rem', word: 'radius'},
+	spacing: {editorType: 'Length', label: 'Spacing', set: {label: 'Spacing', name: 'customSpacing'}, value: '1.5rem', word: 'space'},
+};
+
+/** What kind a token a style book adds is, read from where it is filed and what its value looks like. */
+export function customTokenKind(token: FrontendToken): CustomTokenKind | 'other' {
+	if (token.editorType === 'ColorPicker') {
+		return 'color';
+	}
+
+	const set = token.group?.set;
+
+	if (set === CUSTOM_TOKEN_KINDS.spacing.set.name) {
+		return 'spacing';
+	}
+
+	if (set === CUSTOM_TOKEN_KINDS.radius.set.name) {
+		return 'radius';
+	}
+
+	if (set === CUSTOM_TOKEN_KINDS.fontFamily.set.name) {
+		return token.editorType === 'Length' ? 'fontSize' : /^(\d{3}|bold|bolder|lighter|normal)$/i.test(token.defaultValue.trim()) ? 'fontWeight' : 'fontFamily';
+	}
+
+	return 'other';
+}
+
+function sameGroup(a: {name: string}, name: string): boolean {
+	return a.name === name;
+}
+
 /**
- * The theme as a style book extends it: the style book's own tokens after
- * the theme's, so everything that reads the theme (the CSS, the colour
- * pickers, the style book panel) sees them as tokens like any other.
+ * The theme as a style book extends it: the style book's own tokens filed
+ * in their category and set, joining the theme's where it has them, so
+ * everything that reads the theme (the CSS, the colour pickers, the style
+ * book panel) sees them as tokens like any other.
  */
 export function withCustomTokens(theme: Theme | null, styleBook: StyleBook | null): Theme | null {
 	const custom = (styleBook?.customTokens ?? []).filter((token) => !theme?.tokens[token.name]);
@@ -61,11 +101,28 @@ export function withCustomTokens(theme: Theme | null, styleBook: StyleBook | nul
 		return theme;
 	}
 
-	return {
-		...theme,
-		categories: [...theme.categories, {...CUSTOM_CATEGORY, sets: [{...CUSTOM_SET, tokens: custom}]}],
-		tokens: {...theme.tokens, ...Object.fromEntries(custom.map((token) => [token.name, token]))},
-	};
+	const categories = theme.categories.map((category) => ({...category, sets: category.sets.map((set) => ({...set, tokens: [...set.tokens]}))}));
+
+	for (const token of custom) {
+		const group = token.group ?? {category: CUSTOM_CATEGORY.name, categoryLabel: CUSTOM_CATEGORY.label, set: CUSTOM_SET.name, setLabel: CUSTOM_SET.label};
+		let category = categories.find((candidate) => sameGroup(candidate, group.category));
+
+		if (!category) {
+			category = {label: group.categoryLabel, name: group.category, sets: []};
+			categories.push(category);
+		}
+
+		let set = category.sets.find((candidate) => sameGroup(candidate, group.set));
+
+		if (!set) {
+			set = {label: group.setLabel, name: group.set, tokens: []};
+			category.sets.push(set);
+		}
+
+		set.tokens.push(token);
+	}
+
+	return {...theme, categories, tokens: {...theme.tokens, ...Object.fromEntries(custom.map((token) => [token.name, token]))}};
 }
 
 function words(label: string): string[] {
@@ -78,17 +135,18 @@ function words(label: string): string[] {
 }
 
 /**
- * A colour a style book adds: named after its label the way a theme names
+ * A token a style book adds: named after its label the way a theme names
  * its tokens (`brandPurple`, exposed as `--brand-purple`), and unique among
  * the names taken.
  */
-export function createCustomColor(label: string, value: string, taken: Iterable<string> = []): FrontendToken {
+export function createCustomToken(kind: CustomTokenKind, label: string, value: string, taken: Iterable<string> = []): FrontendToken {
+	const definition = CUSTOM_TOKEN_KINDS[kind];
 	const parts = words(label);
 	const used = new Set(Array.from(taken, (name) => name.toLowerCase()));
-	const base = parts.length ? parts : ['color'];
+	const base = parts.length ? parts : [definition.word];
 
 	/* A CSS custom property may start with a digit, a JavaScript-style token name reads better without */
-	const prefixed = /^[0-9]/.test(base[0]) ? ['color', ...base] : base;
+	const prefixed = /^[0-9]/.test(base[0]) ? [definition.word, ...base] : base;
 
 	let suffix = 1;
 	let candidate = prefixed;
@@ -101,10 +159,15 @@ export function createCustomColor(label: string, value: string, taken: Iterable<
 	return {
 		cssVariable: candidate.join('-'),
 		defaultValue: value,
-		editorType: 'ColorPicker',
-		label: label.trim() || 'Color',
+		editorType: definition.editorType,
+		group: {category: CUSTOM_CATEGORY.name, categoryLabel: CUSTOM_CATEGORY.label, set: definition.set.name, setLabel: definition.set.label},
+		label: label.trim() || definition.label,
 		name: candidate.map((word, index) => (index ? word.charAt(0).toUpperCase() + word.slice(1) : word)).join(''),
 	};
+}
+
+export function createCustomColor(label: string, value: string, taken: Iterable<string> = []): FrontendToken {
+	return createCustomToken('color', label, value, taken);
 }
 
 /** A style book's own tokens as the `frontend-token-definition.json` Liferay exports with it, or `null` when it has none. */
@@ -113,31 +176,40 @@ export function serializeCustomTokens(tokens: FrontendToken[] | undefined): any 
 		return null;
 	}
 
-	return {
-		frontendTokenCategories: [
-			{
-				...CUSTOM_CATEGORY,
-				frontendTokenSets: [
-					{
-						...CUSTOM_SET,
-						frontendTokens: tokens.map((token) => ({
-							defaultValue: token.defaultValue,
-							editorType: token.editorType,
-							label: token.label,
-							mappings: [{type: 'cssVariable', value: token.cssVariable}],
-							name: token.name,
-							type: 'String',
-						})),
-					},
-				],
-			},
-		],
-	};
+	const categories: {frontendTokenSets: {frontendTokens: any[]; label: string; name: string}[]; label: string; name: string}[] = [];
+
+	for (const token of tokens) {
+		const group = token.group ?? {category: CUSTOM_CATEGORY.name, categoryLabel: CUSTOM_CATEGORY.label, set: CUSTOM_SET.name, setLabel: CUSTOM_SET.label};
+		let category = categories.find((candidate) => sameGroup(candidate, group.category));
+
+		if (!category) {
+			category = {frontendTokenSets: [], label: group.categoryLabel, name: group.category};
+			categories.push(category);
+		}
+
+		let set = category.frontendTokenSets.find((candidate) => sameGroup(candidate, group.set));
+
+		if (!set) {
+			set = {frontendTokens: [], label: group.setLabel, name: group.set};
+			category.frontendTokenSets.push(set);
+		}
+
+		set.frontendTokens.push({
+			defaultValue: token.defaultValue,
+			editorType: token.editorType,
+			label: token.label,
+			mappings: [{type: 'cssVariable', value: token.cssVariable}],
+			name: token.name,
+			type: 'String',
+		});
+	}
+
+	return {frontendTokenCategories: categories};
 }
 
-/** The tokens a style book's own definition declares, whatever category it files them under. */
+/** The tokens a style book's own definition declares, each with the category and set it is filed under. */
 export function parseCustomTokens(json: any): FrontendToken[] {
-	return Object.values(parseTokenDefinition(json).tokens);
+	return parseTokenDefinition(json).categories.flatMap((category) => category.sets.flatMap((set) => set.tokens.map((token) => ({...token, group: {category: category.name, categoryLabel: category.label, set: set.name, setLabel: set.label}}))));
 }
 
 /**

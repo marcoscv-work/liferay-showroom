@@ -215,8 +215,10 @@ export function reducer(state: State, action: Action): State {
 			const collections = [...action.collections, ...(persisted.collections ?? [])];
 			const components = action.components ?? [];
 			const persistedStyleBooks = (persisted.styleBooks ?? []).filter((styleBook) => styleBook.key !== DEFAULT_STYLE_BOOK_KEY);
+			/* The theme defaults keep what was changed or added on them */
+			const persistedDefault = (persisted.styleBooks ?? []).find((styleBook) => styleBook.key === DEFAULT_STYLE_BOOK_KEY);
 			const styleBooks = [
-				...initialState.styleBooks,
+				...(persistedDefault ? [{...initialState.styleBooks[0], customTokens: persistedDefault.customTokens, values: persistedDefault.values ?? {}}] : initialState.styleBooks),
 				...action.styleBooks.map((styleBook) => persistedStyleBooks.find((candidate) => candidate.key === styleBook.key) ?? styleBook),
 				...persistedStyleBooks.filter((styleBook) => !styleBook.key.startsWith('builtin-')),
 			];
