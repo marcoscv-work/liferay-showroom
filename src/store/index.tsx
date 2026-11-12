@@ -3,9 +3,11 @@ import {createContext, useContext, useEffect, useMemo, useReducer} from 'react';
 import type {Dispatch, ReactNode} from 'react';
 
 import {exportTree} from '../model/pageDefinition';
+import {canDeleteFragment} from '../model/permissions';
+import {withCustomTokens} from '../model/tokens';
 
 import type {EditableValue} from '../model/fragmentRenderer';
-import type {Collection, DocPage, Fragment, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
+import type {Collection, DocPage, Fragment, FrontendToken, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
 export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'component'; key: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
 
@@ -81,6 +83,9 @@ export type Action =
 	| {type: 'setFragmentArgs'; key: string; args: FragmentArgs}
 	| {type: 'resetFragmentArgs'; key: string}
 	| {type: 'setTokenValue'; name: string; value: string | null}
+	| {type: 'addCustomTokens'; tokens: FrontendToken[]}
+	| {type: 'updateCustomToken'; name: string; label?: string; value?: string}
+	| {type: 'removeCustomToken'; name: string}
 	| {type: 'addStyleBook'; styleBook: StyleBook; select?: boolean}
 	| {type: 'renameStyleBook'; key: string; name: string}
 	| {type: 'removeStyleBook'; key: string}
@@ -88,6 +93,7 @@ export type Action =
 	| {type: 'removeCollection'; key: string}
 	| {type: 'addDraftFragments'; collection: {key: string; name: string; description: string}; fragments: Fragment[]; theme: string | null}
 	| {type: 'updateFragment'; collectionKey: string; fragment: Fragment}
+	| {type: 'removeFragment'; collectionKey: string; fragmentKey: string}
 	| {type: 'addThemes'; themes: Theme[]}
 	| {type: 'addTemplates'; templates: PageTemplate[]; select?: boolean}
 	| {type: 'updateTemplate'; id: string; root: PageElement}
@@ -327,6 +333,36 @@ export function reducer(state: State, action: Action): State {
 					return {...styleBook, values};
 				}),
 			};
+		case 'addCustomTokens':
+		case 'updateCustomToken':
+		case 'removeCustomToken':
+			return {
+				...state,
+				styleBooks: state.styleBooks.map((styleBook) => {
+					if (styleBook.key !== state.styleBookKey) {
+						return styleBook;
+					}
+
+					const current = styleBook.customTokens ?? [];
+
+					if (action.type === 'addCustomTokens') {
+						const names = new Set(current.map((token) => token.name));
+
+						return {...styleBook, customTokens: [...current, ...action.tokens.filter((token) => !names.has(token.name) && names.add(token.name))]};
+					}
+
+					if (action.type === 'updateCustomToken') {
+						return {...styleBook, customTokens: current.map((token) => (token.name === action.name ? {...token, defaultValue: action.value ?? token.defaultValue, label: action.label ?? token.label} : token))};
+					}
+
+					/* Its value goes with it, so nothing is left pointing at a token that is gone */
+					const values = {...styleBook.values};
+
+					delete values[action.name];
+
+					return {...styleBook, customTokens: current.filter((token) => token.name !== action.name), values};
+				}),
+			};
 		case 'addStyleBook':
 			return {...state, styleBookKey: action.select === false ? state.styleBookKey : action.styleBook.key, styleBooks: [...state.styleBooks, action.styleBook]};
 		case 'renameStyleBook':
@@ -359,6 +395,22 @@ export function reducer(state: State, action: Action): State {
 					collection.key === action.collectionKey && collection.source === 'imported' ? {...collection, fragments: collection.fragments.map((fragment) => (fragment.key === action.fragment.key ? {...action.fragment, collectionKey: collection.key} : fragment))} : collection
 				),
 			};
+		case 'removeFragment': {
+			const collection = state.collections.find((candidate) => candidate.key === action.collectionKey);
+
+			if (!collection || !canDeleteFragment(collection) || !collection.fragments.some((fragment) => fragment.key === action.fragmentKey)) {
+				return state;
+			}
+
+			const fragments = collection.fragments.filter((fragment) => fragment.key !== action.fragmentKey);
+
+			/* A set left empty goes with its last fragment */
+			const collections = fragments.length ? state.collections.map((candidate) => (candidate === collection ? {...collection, fragments} : candidate)) : state.collections.filter((candidate) => candidate !== collection);
+			const selected = state.selection.kind === 'fragment' && state.selection.collectionKey === action.collectionKey && state.selection.fragmentKey === action.fragmentKey;
+			const next = fragments[0] ?? collections[0]?.fragments[0];
+
+			return {...state, collections, selection: selected ? (next ? {collectionKey: next.collectionKey, fragmentKey: next.key, kind: 'fragment'} : {kind: 'none'}) : state.selection};
+		}
 		case 'removeCollection': {
 			const collections = state.collections.filter((collection) => collection.key !== action.key);
 
@@ -482,12 +534,13 @@ export function isModifiedBuiltin(template: PageTemplate, builtinTemplates: Page
 
 function isModifiedStyleBook(styleBook: StyleBook, builtinStyleBooks: StyleBook[]): boolean {
 	if (styleBook.key === DEFAULT_STYLE_BOOK_KEY) {
-		return Object.keys(styleBook.values).length > 0;
+		return Object.keys(styleBook.values).length > 0 || Boolean(styleBook.customTokens?.length);
 	}
 
 	const original = builtinStyleBooks.find((candidate) => candidate.key === styleBook.key);
+	const comparable = (candidate: StyleBook) => JSON.stringify({customTokens: candidate.customTokens ?? [], name: candidate.name, values: candidate.values});
 
-	return !original || (styleBook !== original && JSON.stringify({name: styleBook.name, values: styleBook.values}) !== JSON.stringify({name: original.name, values: original.values}));
+	return !original || (styleBook !== original && comparable(styleBook) !== comparable(original));
 }
 
 /**
@@ -543,10 +596,13 @@ export function useStore() {
 	return store;
 }
 
+/** The theme in use, with the tokens the style book in use adds to it. */
 export function useCurrentTheme(): Theme | null {
 	const {state} = useStore();
+	const theme = state.themes.find((candidate) => candidate.key === state.themeKey) ?? state.themes[0] ?? null;
+	const customTokens = (state.styleBooks.find((styleBook) => styleBook.key === state.styleBookKey) ?? state.styleBooks[0])?.customTokens;
 
-	return state.themes.find((theme) => theme.key === state.themeKey) ?? state.themes[0] ?? null;
+	return useMemo(() => withCustomTokens(theme, customTokens?.length ? ({customTokens} as StyleBook) : null), [customTokens, theme]);
 }
 
 export function useCurrentStyleBook(): StyleBook {

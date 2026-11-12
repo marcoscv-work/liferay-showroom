@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 import {createElement} from '../model/pageDefinition';
+import {canDeleteCollection, canDeleteFragment, canDeleteTemplate} from '../model/permissions';
 import {downloadBlob, exportAllZip, exportCollectionZip} from '../model/zip';
 import {useStore} from '../store';
 import {assetURL} from '../store/load';
@@ -128,7 +129,7 @@ export function Sidebar() {
 							collection={collection}
 							key={collection.key}
 							matches={matches}
-							onRemove={collection.source === 'imported' ? () => dispatch({key: collection.key, type: 'removeCollection'}) : undefined}
+							onRemove={canDeleteCollection(collection) ? () => dispatch({key: collection.key, type: 'removeCollection'}) : undefined}
 							onToggle={() => setCollapsed({...collapsed, [collection.key]: !isCollapsed(collection)})}
 						/>
 					))}
@@ -162,9 +163,11 @@ export function Sidebar() {
 											<Icon className="mr-2" symbol="page" />
 											<span className="text-truncate">{template.name}</span>
 										</button>
-										<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({id: template.id, type: 'removeTemplate'})} title={`Delete ${template.name}`}>
-											<Icon symbol="times" />
-										</ConfirmButton>
+										{canDeleteTemplate(template) && (
+											<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({id: template.id, type: 'removeTemplate'})} title={`Delete ${template.name}`}>
+												<Icon symbol="times" />
+											</ConfirmButton>
+										)}
 									</li>
 								);
 							})}
@@ -294,7 +297,7 @@ function CollectionNode({
 						const active = state.selection.kind === 'fragment' && state.selection.collectionKey === collection.key && state.selection.fragmentKey === fragment.key;
 
 						return (
-							<li className="nav-item" key={fragment.key}>
+							<li className="nav-item showroom-nav-row" key={fragment.key}>
 								<button
 									aria-current={active ? 'page' : undefined}
 									className={`nav-link btn btn-unstyled${active ? ' active' : ''}`}
@@ -304,6 +307,11 @@ function CollectionNode({
 									{fragment.thumbnail ? <img alt="" className="showroom-thumb mr-2" src={fragment.thumbnail} /> : <Icon className="mr-2" symbol="code" />}
 									<span className="text-truncate">{fragment.name}</span>
 								</button>
+								{canDeleteFragment(collection) && (
+									<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({collectionKey: collection.key, fragmentKey: fragment.key, type: 'removeFragment'})} title={`Delete ${fragment.name}`}>
+										<Icon symbol="times" />
+									</ConfirmButton>
+								)}
 							</li>
 						);
 					})}

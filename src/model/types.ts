@@ -80,6 +80,13 @@ export interface Theme {
 export interface StyleBook {
 	/** The scheme the style book is designed for. Declared in `style-book.json` (`colorScheme`), or inferred from the body colour it sets. */
 	colorScheme?: 'light' | 'dark' | null;
+
+	/**
+	 * Tokens the style book adds to the ones its theme defines, such as the
+	 * colours of a brand. Liferay keeps them in the style book's own
+	 * `frontend-token-definition.json`; each one's value is its `defaultValue`.
+	 */
+	customTokens?: FrontendToken[];
 	key: string;
 	name: string;
 	source: 'builtin' | 'imported';

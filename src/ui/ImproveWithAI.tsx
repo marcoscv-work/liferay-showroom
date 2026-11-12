@@ -4,6 +4,7 @@ import {AI_ACTIONS, buildRequest} from '../ai/actions';
 import {diffHunks, diffLines} from '../ai/diff';
 import {useAIProvider} from '../ai/provider';
 import {DRAFTS_KEY, DRAFTS_NAME, changedFiles, readImprovement, slug} from '../ai/results';
+import {canEditCollection} from '../model/permissions';
 import {useStore} from '../store';
 import {AIError, AIMessages, AIWorking, CopyBriefButton, GenerateButton, ProviderStatus, useAIContext} from './ai/parts';
 import {useAIRun} from './ai/useAIRun';
@@ -127,7 +128,7 @@ function Review({action, answer, collection, context, fragment, notice, onClose,
 	const files = useMemo(() => changedFiles(fragment, improvement.fragment), [fragment, improvement]);
 	const [active, setActive] = useState(0);
 	const file = files[Math.min(active, files.length - 1)];
-	const editable = collection.source === 'imported';
+	const editable = canEditCollection(collection);
 
 	const apply = () => {
 		if (editable) {

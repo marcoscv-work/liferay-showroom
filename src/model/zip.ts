@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 
-import {parseStyleBookValues, parseTokenDefinition, serializeStyleBook} from './tokens';
+import {parseCustomTokens, parseStyleBookValues, parseTokenDefinition, serializeCustomTokens, serializeStyleBook} from './tokens';
 import {exportTree, normalizeTree} from './pageDefinition';
 
 import type {Collection, Fragment, PageTemplate, StyleBook, Theme} from './types';
@@ -236,8 +236,13 @@ async function importStyleBooks(zip: JSZip, files: string[], fileName: string, r
 
 			const name = styleBookJSON.name ?? dir.split('/').filter(Boolean).pop() ?? fileName;
 
+			/* The tokens the style book adds to its theme's, when it has any */
+			const definitionFile = zip.files[`${dir}${styleBookJSON.frontendTokenDefinitionPath ?? 'frontend-token-definition.json'}`];
+			const customTokens = definitionFile ? parseCustomTokens(JSON.parse(await definitionFile.async('string'))) : [];
+
 			result.styleBooks.push({
 				colorScheme: styleBookJSON.colorScheme === 'light' || styleBookJSON.colorScheme === 'dark' ? styleBookJSON.colorScheme : null,
+				...(customTokens.length ? {customTokens} : {}),
 				key: `style-book-${slug(name)}-${Math.random().toString(36).slice(2, 7)}`,
 				name,
 				source: 'imported',
@@ -394,8 +399,14 @@ export async function exportStyleBookZip(styleBook: StyleBook, theme: Theme | nu
 
 	const folder = zip.folder('style-books')!.folder(slug(styleBook.name) || 'style-book')!;
 
+	const definition = serializeCustomTokens(styleBook.customTokens);
+
 	folder.file('style-book.json', JSON.stringify(styleBookJSON, null, '\t'));
 	folder.file('frontend-tokens-values.json', JSON.stringify(tokenValuesJSON, null, '\t'));
+
+	if (definition) {
+		folder.file('frontend-token-definition.json', JSON.stringify(definition, null, '\t'));
+	}
 
 	return zip.generateAsync({type: 'blob'});
 }
@@ -517,7 +528,7 @@ export async function exportAllZip(input: ExportAllInput): Promise<{blob: Blob; 
 	}
 
 	for (const styleBook of input.styleBooks) {
-		if (!Object.keys(styleBook.values).length) {
+		if (!Object.keys(styleBook.values).length && !styleBook.customTokens?.length) {
 			continue;
 		}
 

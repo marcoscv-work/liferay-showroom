@@ -90,3 +90,50 @@ describe('AI drafts', () => {
 		expect(state.collections[0].fragments[0].html).toBe('<p>changed</p>');
 	});
 });
+
+describe('custom colours', () => {
+	const color = {cssVariable: 'brand-purple', defaultValue: '#7414ff', editorType: 'ColorPicker' as const, label: 'Brand purple', name: 'brandPurple'};
+
+	it('adds, changes and removes them on the style book in use, and keeps the change', () => {
+		let state = reducer(loaded(), {key: 'builtin-dark', type: 'setStyleBook'});
+
+		state = reducer(state, {tokens: [color, color], type: 'addCustomTokens'});
+		state = reducer(state, {name: 'brandPurple', type: 'setTokenValue', value: '#000000'});
+		state = reducer(state, {label: 'Purple', name: 'brandPurple', type: 'updateCustomToken', value: '#8a2be2'});
+
+		const styleBook = state.styleBooks.find((candidate) => candidate.key === 'builtin-dark')!;
+
+		expect(styleBook.customTokens).toEqual([{...color, defaultValue: '#8a2be2', label: 'Purple'}]);
+		expect(persistedState(state).styleBooks.map((candidate) => candidate.key)).toEqual(['builtin-dark']);
+
+		state = reducer(state, {name: 'brandPurple', type: 'removeCustomToken'});
+
+		expect(state.styleBooks.find((candidate) => candidate.key === 'builtin-dark')).toMatchObject({customTokens: [], values: {'--brand': '#000'}});
+	});
+});
+
+describe('removeFragment', () => {
+	const fragment = (key: string) => ({collectionKey: '', configuration: '', css: '', html: `<p>${key}</p>`, icon: 'stars', js: '', key, name: key, thumbnail: '', type: 'component'});
+	const drafts = {description: '', key: 'ai-drafts', name: 'AI drafts'};
+
+	it('deletes one fragment, moves the selection on, and drops a set left empty', () => {
+		let state = reducer(loaded(), {collection: drafts, fragments: [fragment('one'), fragment('two')], theme: null, type: 'addDraftFragments'});
+
+		state = reducer(state, {selection: {collectionKey: 'ai-drafts', fragmentKey: 'one', kind: 'fragment'}, type: 'select'});
+		state = reducer(state, {collectionKey: 'ai-drafts', fragmentKey: 'one', type: 'removeFragment'});
+
+		expect(state.collections[0].fragments.map((candidate) => candidate.key)).toEqual(['two']);
+		expect(state.selection).toEqual({collectionKey: 'ai-drafts', fragmentKey: 'two', kind: 'fragment'});
+
+		state = reducer(state, {collectionKey: 'ai-drafts', fragmentKey: 'two', type: 'removeFragment'});
+
+		expect(state.collections).toEqual([]);
+		expect(state.selection).toEqual({kind: 'none'});
+	});
+
+	it('leaves what ships with the showroom alone', () => {
+		const state = {...loaded(), collections: [{description: '', fragments: [{...fragment('button'), collectionKey: 'basic'}], key: 'basic', name: 'Basic', resources: {}, source: 'builtin' as const}]};
+
+		expect(reducer(state, {collectionKey: 'basic', fragmentKey: 'button', type: 'removeFragment'})).toBe(state);
+	});
+});

@@ -1,4 +1,5 @@
 import {usageSnippet} from '../model/components';
+import {canDeleteStyleBook} from '../model/permissions';
 import {VIEWPORTS} from '../model/types';
 import {downloadBlob, exportCollectionZip, exportStyleBookZip, exportTemplateZip, templateDefinitionJSON} from '../model/zip';
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
@@ -88,7 +89,7 @@ export function Toolbar() {
 						onClick={async () => downloadBlob(await exportStyleBookZip(styleBook, theme), `${styleBook.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-style-book.zip`)}
 						symbol="download"
 					/>
-					{styleBook.key !== DEFAULT_STYLE_BOOK_KEY && (
+					{canDeleteStyleBook(styleBook, DEFAULT_STYLE_BOOK_KEY) && (
 						<ConfirmButton className="btn btn-secondary btn-sm btn-monospaced" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({key: styleBook.key, type: 'removeStyleBook'})} title="Delete the style book">
 							<Icon symbol="trash" />
 						</ConfirmButton>

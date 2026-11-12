@@ -274,7 +274,37 @@ function docs(fragment: Fragment) {
 	};
 }
 
+function styleBook(request: AIRequest) {
+	const found = Array.isArray(request.data.colors) ? (request.data.colors as {hex: string; name: string | null}[]) : [];
+	const brand = found.find((color) => /brand|primary/i.test(color.name ?? ''))?.hex ?? found[0]?.hex ?? '#7414ff';
+	const source = found.length ? 'the pasted source' : 'sample palette';
+
+	const mapped = tokens(request)
+		.filter((token) => /^(primary|brand-?color-?1)$/i.test(token.name))
+		.map((token) => ({name: token.name, source, value: brand}));
+
+	const custom = found.length
+		? found.filter((color) => color.name && color.hex !== brand).slice(0, 6).map((color) => ({label: color.name!.replace(/^--/, '').replace(/[-_.]+/g, ' '), source: color.name!, value: color.hex}))
+		: [
+				{label: 'Brand purple', source, value: '#7414ff'},
+				{label: 'Ink', source, value: '#1c1c24'},
+				{label: 'Mint', source, value: '#3ddc97'},
+			];
+
+	let name = 'Sample brand';
+
+	try {
+		name = new URL(request.url ?? '').hostname.replace(/^www\./, '') || name;
+	}
+	catch {
+		// No address to name it after.
+	}
+
+	return {customColors: custom, name, notes: ['Demo mode: nothing was read by a model. The mapping is a sample.'], tokens: mapped};
+}
+
 const STEPS: Record<AIRequest['action'], string[]> = {
+	'style-book-from-website': ['Reading the colours', 'Deciding the role of each', 'Matching them to the theme tokens'],
 	'design-system-from-website': ['Reading the site', 'Collecting colours and type', 'Writing the fragments', 'Composing the home page'],
 	'fragment-from-design': ['Looking at the design', 'Matching the tokens', 'Writing the fragment'],
 	'review-accessibility': ['Reading the fragment', 'Checking it against WCAG 2.2 AA'],
@@ -308,6 +338,8 @@ export function demoAnswer(request: AIRequest): unknown {
 			return {fragments: [HIGHLIGHT], notes: ['Demo mode: the design was not read. This is a sample fragment.']};
 		case 'template-from-design':
 			return {fragments: [HIGHLIGHT, QUOTE], name: 'Sample page', notes: ['Demo mode: the design was not read. This is a sample page.'], pageDefinition: pageDefinition()};
+		case 'style-book-from-website':
+			return styleBook(request);
 		case 'design-system-from-website':
 			return designSystem(request);
 		case 'tokenize-fragment':

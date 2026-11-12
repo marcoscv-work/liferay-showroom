@@ -1,5 +1,5 @@
 import {normalizeTree} from '../model/pageDefinition';
-import {parseStyleBookValues, parseTokenDefinition} from '../model/tokens';
+import {parseCustomTokens, parseStyleBookValues, parseTokenDefinition} from '../model/tokens';
 
 import type {Collection, DocPage, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme} from '../model/types';
 
@@ -114,10 +114,11 @@ export async function loadBuiltinStyleBooks(): Promise<StyleBook[]> {
 			return [];
 		}
 
-		const packed: {colorScheme?: 'light' | 'dark' | null; key: string; name: string; themeId: string | null; values: any}[] = await response.json();
+		const packed: {colorScheme?: 'light' | 'dark' | null; definition?: any; key: string; name: string; themeId: string | null; values: any}[] = await response.json();
 
 		return packed.map((entry) => ({
 			colorScheme: entry.colorScheme ?? null,
+			...(entry.definition ? {customTokens: parseCustomTokens(entry.definition)} : {}),
 			key: `builtin-${entry.key}`,
 			name: entry.name,
 			source: 'builtin' as const,

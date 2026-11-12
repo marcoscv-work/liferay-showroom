@@ -152,6 +152,20 @@ describe('zip round trips', () => {
 		expect(result.styleBooks[0].values).toEqual({brandColor1: '#111111', spacer5: '4rem'});
 	});
 
+	it('carries the colours a style book adds, as Liferay exports them', async () => {
+		const styleBook: StyleBook = {customTokens: [{cssVariable: 'brand-purple', defaultValue: '#7414ff', editorType: 'ColorPicker', label: 'Brand purple', name: 'brandPurple'}], key: 'sb', name: 'Acme', source: 'imported', themeKey: 'classic', values: {}};
+
+		const blob = await exportStyleBookZip(styleBook, null);
+		const zip = await JSZip.loadAsync(await blob.arrayBuffer());
+
+		expect(JSON.parse(await zip.file('style-books/acme/style-book.json')!.async('string')).frontendTokenDefinitionPath).toBe('frontend-token-definition.json');
+		expect(JSON.parse(await zip.file('style-books/acme/frontend-token-definition.json')!.async('string')).frontendTokenCategories[0].frontendTokenSets[0].frontendTokens[0]).toMatchObject({mappings: [{type: 'cssVariable', value: 'brand-purple'}], name: 'brandPurple'});
+
+		const result = await importZip(await blob.arrayBuffer(), 'acme.zip');
+
+		expect(result.styleBooks[0].customTokens).toMatchObject(styleBook.customTokens!);
+	});
+
 	it('reports a zip without Liferay content', async () => {
 		const zip = new JSZip();
 

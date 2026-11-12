@@ -144,7 +144,7 @@ if (existsSync(templatesRoot)) {
 
 writeFileSync(join(out, 'templates.json'), JSON.stringify(templates));
 
-/* Style books under `style-books/<name>/style-book.json` + `frontend-tokens-values.json` */
+/* Style books under `style-books/<name>/style-book.json` + `frontend-tokens-values.json`, and `frontend-token-definition.json` when one adds tokens of its own */
 
 const styleBooksRoot = new URL('../style-books/', import.meta.url).pathname;
 const styleBooks = [];
@@ -159,9 +159,11 @@ if (existsSync(styleBooksRoot)) {
 
 		const styleBook = JSON.parse(readFileSync(styleBookPath, 'utf8'));
 		const valuesPath = join(styleBooksRoot, dir, styleBook.frontendTokensValuesPath || 'frontend-tokens-values.json');
+		const definitionPath = join(styleBooksRoot, dir, styleBook.frontendTokenDefinitionPath || 'frontend-token-definition.json');
 
 		styleBooks.push({
 			colorScheme: styleBook.colorScheme || null,
+			...(existsSync(definitionPath) ? {definition: JSON.parse(readFileSync(definitionPath, 'utf8'))} : {}),
 			key: dir,
 			name: styleBook.name || dir,
 			themeId: styleBook.themeId || null,

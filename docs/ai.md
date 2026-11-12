@@ -11,15 +11,16 @@ Everything a model writes arrives as a **draft**. Nothing is published, nothing 
 
 ## Bringing something in
 
-**Import** opens a dialog. Liferay exports go in as before, by dropping or choosing them. Under them, **Create with AI** has three features:
+**Import** opens a dialog. Liferay exports go in as before, by dropping or choosing them. Under them, **Create with AI** has four features:
 
 - **Fragment from a design.** A screenshot, a mockup or a Figma frame becomes a fragment with its configuration and editables, written on the tokens of the style book in use, not on the colours of the picture.
 - **Page template from a design.** A page design becomes a page template composed with the fragments already in the catalog. A new fragment is written only for a block none of them covers.
+- **Style book from a website.** The colours of a brand become a style book: each mapped to the theme token with the same role, and the ones no token covers added as colours of the style book. Its review is a table of colours with their contrast. From a pasted stylesheet or tokens file it works with no model at all; see Tokens and style books.
 - **Design system from a website.** A website or a published design system becomes a style book, a first set of fragments and a template of its home page.
 
 Each takes images, a link, or both, and a note in your own words. An image dropped anywhere on the window opens the dialog with the image in it.
 
-What comes back is listed before anything is added: the drafts, the notes the model left on what it assumed or could not match, and what the showroom's own checks found. **Keep as drafts** puts the fragments in the "AI drafts" set of your browser, where you open, edit, export or delete them like any imported set.
+What comes back is listed before anything is added: the drafts, the notes the model left on what it assumed or could not match, and what the showroom's own checks found. **Keep as drafts** puts the fragments in the "AI drafts" set of your browser, where you open, export or delete each one, as in any set you imported.
 
 ## Reworking a fragment
 

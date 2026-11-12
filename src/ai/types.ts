@@ -1,4 +1,4 @@
-import type {Fragment, PageTemplate, StyleBook} from '../model/types';
+import type {Fragment, FrontendToken, PageTemplate, StyleBook} from '../model/types';
 
 /**
  * The AI features of the showroom: what each one asks a model for and what
@@ -7,7 +7,7 @@ import type {Fragment, PageTemplate, StyleBook} from '../model/types';
  * features are ready for whichever provider is registered (see `provider.ts`).
  */
 
-export type AIActionId = 'fragment-from-design' | 'template-from-design' | 'design-system-from-website' | 'tokenize-fragment' | 'review-accessibility' | 'write-docs';
+export type AIActionId = 'fragment-from-design' | 'template-from-design' | 'style-book-from-website' | 'design-system-from-website' | 'tokenize-fragment' | 'review-accessibility' | 'write-docs';
 
 /** An image a request carries: a screenshot, a mockup or an exported frame. */
 export interface AIImage {
@@ -62,6 +62,19 @@ export interface AIResult {
 	template: PageTemplate | null;
 
 	/** What the showroom's own checks found in the answer. */
+	warnings: string[];
+}
+
+/**
+ * The colours proposed for a style book, each for the person to accept or
+ * not: values for tokens the theme has, and colours no token covers, which
+ * the style book would add as tokens of its own.
+ */
+export interface StyleBookProposal {
+	customColors: {label: string; source: string; suggested: boolean; value: string}[];
+	mappings: {current: string; source: string; token: FrontendToken; value: string}[];
+	name: string;
+	notes: string[];
 	warnings: string[];
 }
 

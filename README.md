@@ -63,6 +63,12 @@ React components the team uses elsewhere in Liferay can be documented next to th
 
 **Import** opens a dialog that also turns a design, a Figma frame or a website into drafts of fragments, a page template and a style book, and **Improve with AI** reworks a fragment (design tokens, accessibility, docs). The model comes from Liferay AI Hub, a link left open: the showroom ships no model or key, and a provider registers with `registerAIProvider` (`src/ai/provider.ts`). Until then every feature can copy its request as a brief for a coding agent, and `?ai=demo` shows the flows with sample output. See `docs/ai.md`.
 
+### Style book colours
+
+A style book can add colours to the tokens of its theme (the Style book tab, "Added to this style book"). They are kept as Liferay keeps the tokens created in its editor: `style-books/<name>/frontend-token-definition.json`, named in `style-book.json` as `frontendTokenDefinitionPath`. **Import → Style book from a website** builds one from a pasted stylesheet or design tokens file, with no AI for that part.
+
+What can be deleted or changed in the browser is decided in `src/model/permissions.ts`: today, only what a person imported or created there, never what ships with the showroom.
+
 ### Documentation
 
 Markdown, next to the asset it documents:

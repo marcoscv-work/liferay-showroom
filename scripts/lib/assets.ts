@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs';
 import {extname, join} from 'node:path';
 
-import {parseTokenDefinition} from '../../src/model/tokens';
+import {parseCustomTokens, parseTokenDefinition} from '../../src/model/tokens';
 import {normalizeTree} from '../../src/model/pageDefinition';
 
 import type {Collection, Fragment, PageTemplate, StyleBook, Theme} from '../../src/model/types';
@@ -202,9 +202,13 @@ export function readCheckout(root: string): Checkout {
 			values[name] = typeof entry === 'object' && entry !== null ? String(entry.value ?? '') : String(entry);
 		}
 
+		const definitionName = styleBookJSON.frontendTokenDefinitionPath || 'frontend-token-definition.json';
+		const definitionPath = join(styleBooksRoot, dir, definitionName);
+		const customTokens = existsSync(definitionPath) ? parseCustomTokens(readJSON(definitionPath)) : [];
+
 		checkout.styleBooks.push({
-			files: {files: {'style-book.json': readFileSync(styleBookPath), ...(existsSync(valuesPath) ? {[valuesName]: readFileSync(valuesPath)} : {})}, path: `style-books/${dir}`},
-			styleBook: {colorScheme: styleBookJSON.colorScheme === 'light' || styleBookJSON.colorScheme === 'dark' ? styleBookJSON.colorScheme : null, key: `builtin-${dir}`, name: styleBookJSON.name || dir, source: 'builtin', themeKey: typeof styleBookJSON.themeId === 'string' ? styleBookJSON.themeId.split('_WAR_')[0] : null, values},
+			files: {files: {'style-book.json': readFileSync(styleBookPath), ...(existsSync(valuesPath) ? {[valuesName]: readFileSync(valuesPath)} : {}), ...(existsSync(definitionPath) ? {[definitionName]: readFileSync(definitionPath)} : {})}, path: `style-books/${dir}`},
+			styleBook: {colorScheme: styleBookJSON.colorScheme === 'light' || styleBookJSON.colorScheme === 'dark' ? styleBookJSON.colorScheme : null, ...(customTokens.length ? {customTokens} : {}), key: `builtin-${dir}`, name: styleBookJSON.name || dir, source: 'builtin', themeKey: typeof styleBookJSON.themeId === 'string' ? styleBookJSON.themeId.split('_WAR_')[0] : null, values},
 		});
 	}
 

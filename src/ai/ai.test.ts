@@ -6,7 +6,7 @@ import {AI_ACTIONS, buildRequest} from './actions';
 import {agentBrief} from './brief';
 import {demoAnswer} from './demo';
 import {diffHunks, diffLines} from './diff';
-import {DRAFTS_KEY, changedFiles, readImprovement, readResult} from './results';
+import {DRAFTS_KEY, changedFiles, proposalFromColors, readImprovement, readResult, readStyleBookProposal, styleBookFromProposal} from './results';
 
 import type {Collection, Fragment, StyleBook, Theme} from '../model/types';
 import type {AIContext} from './actions';
@@ -20,6 +20,7 @@ const theme: Theme = {
 	name: 'Classic',
 	source: 'builtin',
 	tokens: {
+		bodyBgColor: {cssVariable: 'body-bg', defaultValue: '#ffffff', editorType: 'ColorPicker', label: 'Body background', name: 'bodyBgColor'},
 		'font-family-base': {cssVariable: 'font-family-base', defaultValue: 'sans-serif', editorType: 'Text', label: 'Font', name: 'font-family-base'},
 		primary: {cssVariable: 'primary', defaultValue: '#0b5fff', editorType: 'ColorPicker', label: 'Primary', name: 'primary'},
 	},
@@ -61,6 +62,14 @@ describe('requests', () => {
 		expect(template.prompt).toContain('From the person asking: Keep it short');
 		expect(template.prompt).toContain('- primary: var(--primary), ColorPicker, now #0b5fff');
 		expect(template.data.fragments).toHaveLength(1);
+	});
+
+	it('hands a style book the colours found and only the colour tokens', () => {
+		const request = buildRequest('style-book-from-website', {colors: [{hex: '#7414ff', name: '--brand', uses: 3}]}, context);
+
+		expect(request.prompt).toContain('- #7414ff, --brand, used 3 time(s)');
+		expect(request.prompt).toContain('- bodyBgColor: var(--body-bg), ColorPicker, now #ffffff');
+		expect(request.prompt).not.toContain('font-family-base');
 	});
 
 	it('turns a request into a brief an agent can follow', () => {
@@ -150,5 +159,63 @@ describe('diff', () => {
 			{kind: 'added', text: 'D'},
 		]);
 		expect(diffHunks(lines, 1).map((line) => line?.text ?? '…')).toEqual(['c', 'd', 'D', 'e']);
+	});
+});
+
+describe('style book proposals', () => {
+	it('keeps only colours for colour tokens the theme has', () => {
+		const proposal = readStyleBookProposal(
+			{
+				customColors: [{label: 'Mint', source: 'hero', value: 'rgb(61, 220, 151)'}, {label: 'Mint again', source: 'footer', value: '#3ddc97'}, {label: '', value: '#000'}],
+				name: 'Acme',
+				tokens: [{name: 'primary', source: '--brand', value: '#7414FF'}, {name: 'primary', value: '#000'}, {name: 'font-family-base', value: '#000'}, {name: 'ghost', value: '#000'}, {name: 'bodyBgColor', value: 'not a colour'}],
+			},
+			context
+		);
+
+		expect(proposal.mappings.map((mapping) => [mapping.token.name, mapping.current, mapping.value, mapping.source])).toEqual([['primary', '#0b5fff', '#7414ff', '--brand']]);
+		expect(proposal.customColors).toEqual([{label: 'Mint', source: 'hero', suggested: true, value: '#3ddc97'}]);
+		expect(proposal.warnings).toHaveLength(2);
+		expect(readStyleBookProposal(null, context).warnings).toEqual(['No colours came back.']);
+	});
+
+	it('proposes without a model: tokens by name, the rest as colours to add', () => {
+		const proposal = proposalFromColors(
+			[
+				{hex: '#7414ff', name: '--primary', uses: 4},
+				{hex: '#101014', name: '--body-bg', uses: 1},
+				{hex: '#3ddc97', name: '--brand-mint', uses: 2},
+				{hex: '#abcdef', name: null, uses: 7},
+			],
+			context
+		);
+
+		expect(proposal.mappings.map((mapping) => [mapping.token.name, mapping.value])).toEqual([
+			['primary', '#7414ff'],
+			['bodyBgColor', '#101014'],
+		]);
+		expect(proposal.customColors).toEqual([
+			{label: 'Brand mint', source: '--brand-mint', suggested: true, value: '#3ddc97'},
+			{label: '#abcdef', source: 'used 7 time(s)', suggested: false, value: '#abcdef'},
+		]);
+	});
+
+	it('makes the style book from what was accepted', () => {
+		const proposal = proposalFromColors([{hex: '#7414ff', name: '--primary', uses: 0}, {hex: '#3ddc97', name: '--primary-soft', uses: 0}], context);
+		const created = styleBookFromProposal('Acme', proposal.mappings, [...proposal.customColors, {label: 'Primary', source: '', suggested: true, value: '#000000'}], context);
+
+		expect(created).toMatchObject({name: 'Acme', source: 'imported', themeKey: 'classic', values: {primary: '#7414ff'}});
+		expect(created.customTokens?.map((token) => [token.name, token.cssVariable, token.defaultValue])).toEqual([
+			['primarySoft', 'primary-soft', '#3ddc97'],
+			['primary2', 'primary-2', '#000000'],
+		]);
+	});
+
+	it('answers the demo with a proposal', () => {
+		const proposal = readStyleBookProposal(demoAnswer(buildRequest('style-book-from-website', {url: 'https://www.acme.com'}, context)), context);
+
+		expect(proposal.name).toBe('acme.com');
+		expect(proposal.mappings.map((mapping) => mapping.token.name)).toEqual(['primary']);
+		expect(proposal.customColors).toHaveLength(3);
 	});
 });

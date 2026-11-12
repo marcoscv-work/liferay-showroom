@@ -10,6 +10,7 @@ import {useAIRun} from './ai/useAIRun';
 import {Icon} from './Icon';
 import {closeImportDialog, isAssetFile, readImages, setImportImages, useImportDialog} from './importDialog';
 import {Modal} from './Modal';
+import {StyleBookImport} from './StyleBookImport';
 
 import type {AIAction, AIContext} from '../ai/actions';
 import type {AIImage, AIResult} from '../ai/types';
@@ -36,7 +37,9 @@ function ImportDialog({images, notice}: {images: AIImage[]; notice: string}) {
 
 	return (
 		<Modal className="showroom-import" onClose={closeImportDialog} title={action ? action.title : 'Import'}>
-			{action ? <ActionView action={action} images={images} onBack={() => setAction(null)} /> : <Home images={images} notice={notice} onPick={setAction} />}
+			{!action && <Home images={images} notice={notice} onPick={setAction} />}
+			{action?.id === 'style-book-from-website' && <StyleBookImport action={action} images={images} onBack={() => setAction(null)} />}
+			{action && action.id !== 'style-book-from-website' && <ActionView action={action} images={images} onBack={() => setAction(null)} />}
 		</Modal>
 	);
 }

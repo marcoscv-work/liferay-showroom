@@ -1,10 +1,13 @@
 import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
 import {renderFragment} from '../model/fragmentRenderer';
+import {colorLabel, normalizeColor} from '../model/colors';
 import {normalizeTree} from '../model/pageDefinition';
+import {createCustomColor, effectiveTokenValue} from '../model/tokens';
 
-import type {Collection, Fragment, PageElement, PageTemplate, StyleBook} from '../model/types';
+import type {ExtractedColor} from '../model/colors';
+import type {Collection, Fragment, FrontendToken, PageElement, PageTemplate, StyleBook} from '../model/types';
 import type {AIContext} from './actions';
-import type {AIActionId, AIImprovement, AIResult} from './types';
+import type {AIActionId, AIImprovement, AIResult, StyleBookProposal} from './types';
 
 /**
  * Turns a model's answer into showroom assets. An answer is never trusted
@@ -281,4 +284,121 @@ export function changedFiles(before: Fragment, after: Fragment): {after: string;
 	];
 
 	return files.filter(([, from, to]) => from.trim() !== to.trim()).map(([name, from, to]) => ({after: to, before: from, name}));
+}
+
+/* ------------------------------------------------------------------------ */
+/* Style books from colours                                                  */
+/* ------------------------------------------------------------------------ */
+
+/** The theme's own colour tokens: the ones a new style book can set, whatever the style book in use adds. */
+function themeColorTokens(context: AIContext): Record<string, FrontendToken> {
+	const added = new Set((context.styleBook.customTokens ?? []).map((token) => token.name));
+
+	return Object.fromEntries(Object.entries(context.theme?.tokens ?? {}).filter(([name, token]) => token.editorType === 'ColorPicker' && !added.has(name)));
+}
+
+function currentValue(token: FrontendToken, context: AIContext): string {
+	return context.theme ? effectiveTokenValue(context.theme, context.styleBook, token.name) : token.defaultValue;
+}
+
+/** The proposal a model made for a style book, with everything that is not a colour for a colour token dropped. */
+export function readStyleBookProposal(raw: unknown, context: AIContext): StyleBookProposal {
+	const answer = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
+	const warnings: string[] = [];
+	const mappings: StyleBookProposal['mappings'] = [];
+	const customColors: StyleBookProposal['customColors'] = [];
+	const unknown: string[] = [];
+	const colorTokens = themeColorTokens(context);
+
+	for (const item of Array.isArray(answer.tokens) ? answer.tokens : []) {
+		const name = string((item as any)?.name).trim();
+		const value = normalizeColor(string((item as any)?.value));
+		const token = colorTokens[name];
+
+		if (!name) {
+			continue;
+		}
+
+		if (!token) {
+			unknown.push(name);
+		}
+		else if (!value) {
+			warnings.push(`The value for ${name} is not a colour and was left out.`);
+		}
+		else if (!mappings.some((mapping) => mapping.token.name === name)) {
+			mappings.push({current: currentValue(token, context), source: string((item as any)?.source).trim(), token, value});
+		}
+	}
+
+	if (unknown.length) {
+		warnings.push(`${unknown.length} value(s) were for colour tokens the theme does not have and were left out: ${unknown.slice(0, 6).join(', ')}${unknown.length > 6 ? '…' : ''}.`);
+	}
+
+	for (const item of Array.isArray(answer.customColors) ? answer.customColors : []) {
+		const value = normalizeColor(string((item as any)?.value));
+		const label = string((item as any)?.label).trim();
+
+		if (value && label && !customColors.some((color) => color.value === value)) {
+			customColors.push({label, source: string((item as any)?.source).trim(), suggested: true, value});
+		}
+	}
+
+	if (!mappings.length && !customColors.length) {
+		warnings.push('No colours came back.');
+	}
+
+	return {customColors, mappings, name: string(answer.name).trim() || 'Brand', notes: strings(answer.notes), warnings};
+}
+
+/**
+ * A proposal made without a model, from colours read off a stylesheet or a
+ * tokens file: a colour declared under the name of a theme token goes to
+ * that token, and the others are offered as colours of the style book,
+ * the named ones picked and the bare ones left for the person to choose.
+ */
+export function proposalFromColors(colors: ExtractedColor[], context: AIContext): StyleBookProposal {
+	const mappings: StyleBookProposal['mappings'] = [];
+	const customColors: StyleBookProposal['customColors'] = [];
+	const tokens = Object.values(themeColorTokens(context));
+
+	for (const color of colors) {
+		const bare = (color.name ?? '').replace(/^--/, '');
+		const token = bare ? tokens.find((candidate) => candidate.cssVariable === bare || candidate.name === bare) : undefined;
+
+		if (token) {
+			if (!mappings.some((mapping) => mapping.token.name === token.name)) {
+				mappings.push({current: currentValue(token, context), source: color.name!, token, value: color.hex});
+			}
+		}
+		else if (!customColors.some((candidate) => candidate.value === color.hex)) {
+			customColors.push({label: colorLabel(color), source: color.name ?? `used ${color.uses} time(s)`, suggested: Boolean(color.name), value: color.hex});
+		}
+	}
+
+	return {customColors, mappings, name: 'Brand', notes: [], warnings: colors.length ? [] : ['No colours were found in that text.']};
+}
+
+/** The style book the accepted part of a proposal makes: values for the theme's tokens and the new colours as tokens of its own. */
+export function styleBookFromProposal(name: string, mappings: StyleBookProposal['mappings'], customColors: StyleBookProposal['customColors'], context: AIContext): StyleBook {
+	const added = new Set((context.styleBook.customTokens ?? []).map((token) => token.name));
+	const taken = Object.values(context.theme?.tokens ?? {})
+		.filter((token) => !added.has(token.name))
+		.flatMap((token) => [token.name, token.cssVariable.replace(/-/g, '')]);
+	const customTokens: FrontendToken[] = [];
+
+	for (const color of customColors) {
+		const token = createCustomColor(color.label, color.value, taken);
+
+		taken.push(token.name, token.cssVariable.replace(/-/g, ''));
+		customTokens.push(token);
+	}
+
+	return {
+		...(customTokens.length ? {customTokens} : {}),
+		key: `style-book-${slug(name) || 'brand'}-${Math.random().toString(36).slice(2, 7)}`,
+		name: name.trim() || 'Brand',
+		source: 'imported',
+		themeKey: context.theme?.key ?? null,
+		values: Object.fromEntries(mappings.map((mapping) => [mapping.token.name, mapping.value])),
+	};
 }

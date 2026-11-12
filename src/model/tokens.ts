@@ -44,6 +44,102 @@ export function parseTokenDefinition(json: any): {categories: FrontendTokenCateg
 	return {categories, tokens};
 }
 
+/** Where a style book's own tokens sit among the theme's: a category and a set of their own, as Liferay's editor creates them. */
+export const CUSTOM_CATEGORY = {label: 'Custom', name: 'custom'};
+
+export const CUSTOM_SET = {label: 'Colors', name: 'customColors'};
+
+/**
+ * The theme as a style book extends it: the style book's own tokens after
+ * the theme's, so everything that reads the theme (the CSS, the colour
+ * pickers, the style book panel) sees them as tokens like any other.
+ */
+export function withCustomTokens(theme: Theme | null, styleBook: StyleBook | null): Theme | null {
+	const custom = (styleBook?.customTokens ?? []).filter((token) => !theme?.tokens[token.name]);
+
+	if (!theme || !custom.length) {
+		return theme;
+	}
+
+	return {
+		...theme,
+		categories: [...theme.categories, {...CUSTOM_CATEGORY, sets: [{...CUSTOM_SET, tokens: custom}]}],
+		tokens: {...theme.tokens, ...Object.fromEntries(custom.map((token) => [token.name, token]))},
+	};
+}
+
+function words(label: string): string[] {
+	return (
+		label
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '')
+			.match(/[A-Za-z]+|[0-9]+/g) ?? []
+	).map((word) => word.toLowerCase());
+}
+
+/**
+ * A colour a style book adds: named after its label the way a theme names
+ * its tokens (`brandPurple`, exposed as `--brand-purple`), and unique among
+ * the names taken.
+ */
+export function createCustomColor(label: string, value: string, taken: Iterable<string> = []): FrontendToken {
+	const parts = words(label);
+	const used = new Set(Array.from(taken, (name) => name.toLowerCase()));
+	const base = parts.length ? parts : ['color'];
+
+	/* A CSS custom property may start with a digit, a JavaScript-style token name reads better without */
+	const prefixed = /^[0-9]/.test(base[0]) ? ['color', ...base] : base;
+
+	let suffix = 1;
+	let candidate = prefixed;
+
+	while (used.has(candidate.join('').toLowerCase())) {
+		suffix++;
+		candidate = [...prefixed, String(suffix)];
+	}
+
+	return {
+		cssVariable: candidate.join('-'),
+		defaultValue: value,
+		editorType: 'ColorPicker',
+		label: label.trim() || 'Color',
+		name: candidate.map((word, index) => (index ? word.charAt(0).toUpperCase() + word.slice(1) : word)).join(''),
+	};
+}
+
+/** A style book's own tokens as the `frontend-token-definition.json` Liferay exports with it, or `null` when it has none. */
+export function serializeCustomTokens(tokens: FrontendToken[] | undefined): any | null {
+	if (!tokens?.length) {
+		return null;
+	}
+
+	return {
+		frontendTokenCategories: [
+			{
+				...CUSTOM_CATEGORY,
+				frontendTokenSets: [
+					{
+						...CUSTOM_SET,
+						frontendTokens: tokens.map((token) => ({
+							defaultValue: token.defaultValue,
+							editorType: token.editorType,
+							label: token.label,
+							mappings: [{type: 'cssVariable', value: token.cssVariable}],
+							name: token.name,
+							type: 'String',
+						})),
+					},
+				],
+			},
+		],
+	};
+}
+
+/** The tokens a style book's own definition declares, whatever category it files them under. */
+export function parseCustomTokens(json: any): FrontendToken[] {
+	return Object.values(parseTokenDefinition(json).tokens);
+}
+
 /**
  * Converts a style book's token values into the `:root {}` rule Liferay
  * injects in the page head.
@@ -123,7 +219,7 @@ export function serializeStyleBook(styleBook: StyleBook, theme: Theme | null): {
 
 	for (const [name, value] of Object.entries(styleBook.values)) {
 		tokenValuesJSON[name] = {
-			cssVariableMapping: theme?.tokens[name]?.cssVariable ?? name,
+			cssVariableMapping: theme?.tokens[name]?.cssVariable ?? styleBook.customTokens?.find((token) => token.name === name)?.cssVariable ?? name,
 			value,
 		};
 	}
@@ -131,6 +227,7 @@ export function serializeStyleBook(styleBook: StyleBook, theme: Theme | null): {
 	return {
 		styleBookJSON: {
 			...(styleBook.colorScheme ? {colorScheme: styleBook.colorScheme} : {}),
+			...(styleBook.customTokens?.length ? {frontendTokenDefinitionPath: 'frontend-token-definition.json'} : {}),
 			frontendTokensValuesPath: 'frontend-tokens-values.json',
 			name: styleBook.name,
 			themeId: theme ? `${theme.key}_WAR_${theme.key}theme` : undefined,
@@ -140,7 +237,7 @@ export function serializeStyleBook(styleBook: StyleBook, theme: Theme | null): {
 }
 
 /** Tokens whose value tells the scheme of a style book: the page or body background. */
-const BODY_TOKENS = ['mantineColorBody', 'bodyBgColor', 'bodyBg', 'bodyBackgroundColor', 'sdsSurfacesPage', 'sdsSurfacesBackground'];
+export const BODY_TOKENS = ['mantineColorBody', 'bodyBgColor', 'bodyBg', 'bodyBackgroundColor', 'sdsSurfacesPage', 'sdsSurfacesBackground'];
 
 export function colorLuminance(value: string): number | null {
 	const hex = value.trim().match(/^#([0-9a-f]{3,8})$/i);
@@ -197,4 +294,21 @@ export function styleBookScheme(styleBook: StyleBook | null, theme: Theme | null
 	}
 
 	return null;
+}
+
+/** The colour pages sit on with this theme and style book, to measure contrast against. White when no token says. */
+export function pageBackground(theme: Theme | null, styleBook: StyleBook | null): string {
+	if (theme) {
+		for (const name of [...BODY_TOKENS.filter((candidate) => styleBook?.values[candidate] !== undefined), ...BODY_TOKENS]) {
+			if (theme.tokens[name]) {
+				const value = effectiveTokenValue(theme, styleBook, name);
+
+				if (colorLuminance(value) !== null) {
+					return value;
+				}
+			}
+		}
+	}
+
+	return '#ffffff';
 }
