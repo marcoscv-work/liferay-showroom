@@ -1,10 +1,12 @@
+import {componentProps, componentRawValues} from '../model/components';
 import {allFields, defaultRawValue, parseConfiguration} from '../model/configuration';
 import {renderFragment, wrapFragmentScript} from '../model/fragmentRenderer';
 import {renderPage} from '../model/pageDefinition';
 import {buildPreviewDocument} from '../preview/document';
+import {assetURL} from '../store/load';
 
 import type {EditableInfo, EditableValue} from '../model/fragmentRenderer';
-import type {Collection, Fragment, PageTemplate, StyleBook, Theme} from '../model/types';
+import type {Collection, Fragment, PageTemplate, ReactComponent, StyleBook, Theme} from '../model/types';
 
 /**
  * Builds the preview documents the canvas and the documentation embeds share:
@@ -100,4 +102,60 @@ export function findFragmentByKey(collections: Collection[], key: string, collec
 	}
 
 	return null;
+}
+
+export interface ComponentStory {
+	configurationRaw: Record<string, any>;
+	document: string;
+	props: Record<string, any>;
+}
+
+const PROPS_ELEMENT = /<script type="application\/json" id="showroom-component-props">[\s\S]*?<\/script>/;
+
+/** The frame document without its props: the same key means the frame keeps running and only the props are posted to it. */
+export function componentFrameKey(document: string): string {
+	return document.replace(PROPS_ELEMENT, '');
+}
+
+/**
+ * The scripts that load the in-frame runtime (`src/components/runtime.tsx`).
+ * The build emits it as `assets/component-runtime.js`; the dev server serves
+ * the source, after the React Refresh preamble its transform expects.
+ */
+function componentRuntimeScripts(): string {
+	if (import.meta.env.DEV) {
+		return `<script type="module">
+import RefreshRuntime from ${JSON.stringify(assetURL('@react-refresh'))};
+RefreshRuntime.injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;
+window.__vite_plugin_react_preamble_installed__ = true;
+</script>
+<script type="module" src="${assetURL('src/components/runtime.tsx')}"></script>`;
+	}
+
+	return `<script type="module" src="${assetURL('assets/component-runtime.js')}"></script>`;
+}
+
+export function buildComponentStory(component: ReactComponent, values: Record<string, any>, context: StoryContext): ComponentStory {
+	const configurationRaw = componentRawValues(component, values);
+	const props = componentProps(component, configurationRaw, context.theme);
+	const json = JSON.stringify(props).replace(/</g, '\\u003c');
+
+	return {
+		configurationRaw,
+		document: buildPreviewDocument({
+			bodyEnd: `<script type="application/json" id="showroom-component-props">${json}</script>\n${componentRuntimeScripts()}`,
+			colorScheme: context.colorScheme,
+			css: '',
+			fragmentCSS: '',
+			html: '<div class="container-fluid container-fluid-max-xl py-4"><div id="showroom-component-root"></div></div>',
+			htmlAttributes: `data-showroom-component="${component.key.replace(/[^\w-]/g, '')}"`,
+			js: '',
+			mode: 'story',
+			theme: context.theme,
+			tokenValues: context.styleBook.values,
+		}),
+		props,
+	};
 }

@@ -181,6 +181,8 @@ export function Sidebar() {
 							})}
 					</ul>
 				</div>
+
+				{state.components.length > 0 && <ComponentsSection matches={matches} />}
 			</nav>
 
 			<div className="showroom-sidebar__footer">
@@ -217,6 +219,39 @@ export function Sidebar() {
 				</div>
 			</div>
 		</aside>
+	);
+}
+
+/** React components used elsewhere in Liferay: optional, after the Liferay assets, and only when the repository has some. */
+function ComponentsSection({matches}: {matches: (text: string) => boolean}) {
+	const {dispatch, state} = useStore();
+
+	const components = state.components.filter((component) => matches(component.name) || matches('react'));
+
+	if (!components.length) {
+		return null;
+	}
+
+	return (
+		<div className="showroom-section">
+			<div className="showroom-section__title">
+				<span>React components</span>
+			</div>
+			<ul className="nav nav-stacked">
+				{components.map((component) => {
+					const active = state.selection.kind === 'component' && state.selection.key === component.key;
+
+					return (
+						<li className="nav-item" key={component.key}>
+							<button aria-current={active ? 'page' : undefined} className={`nav-link btn btn-unstyled${active ? ' active' : ''}`} onClick={() => dispatch({selection: {key: component.key, kind: 'component'}, type: 'select'})} title={component.description || undefined} type="button">
+								<Icon className="mr-2" symbol="code" />
+								<span className="text-truncate">{component.name}</span>
+							</button>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
 	);
 }
 

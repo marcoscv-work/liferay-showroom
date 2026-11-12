@@ -48,6 +48,7 @@ collections/<set>/<fragment>/README.md     the Docs tab, never exported
 collections/<set>/resources/<file>         [resources:<file>] in the fragments
 templates/<template>/page-definition.json
 style-books/<style-book>/frontend-tokens-values.json
+components/<name>/index.tsx               optional React components, see React components
 docs/<page>.md                             these pages
 releases/<version>.json                    one manifest per release
 ```

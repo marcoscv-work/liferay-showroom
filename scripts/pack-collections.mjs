@@ -172,6 +172,55 @@ if (existsSync(styleBooksRoot)) {
 
 writeFileSync(join(out, 'style-books.json'), JSON.stringify(styleBooks));
 
+/*
+ * React components under `components/<key>/`, optional: `index.tsx` (or .jsx,
+ * .ts, .js) default-exports the component, `component.json` names it,
+ * `configuration.json` describes its props as fragment configuration fields,
+ * and `README.md` documents it. The code itself is bundled by Vite; this
+ * packs what the app shows about it.
+ */
+
+const componentsRoot = new URL('../components/', import.meta.url).pathname;
+const components = [];
+
+if (existsSync(componentsRoot)) {
+	for (const componentDir of readdirSync(componentsRoot).sort()) {
+		const componentPath = join(componentsRoot, componentDir);
+
+		if (!statSync(componentPath).isDirectory()) {
+			continue;
+		}
+
+		const entry = ['index.tsx', 'index.jsx', 'index.ts', 'index.js'].find((file) => existsSync(join(componentPath, file)));
+
+		if (!entry) {
+			console.warn(`components/${componentDir}: no index.tsx, skipped`);
+
+			continue;
+		}
+
+		const componentJSON = JSON.parse(readText(join(componentPath, 'component.json')) || '{}');
+		const sourceFile = componentJSON.sourcePath || entry;
+		const docs = readText(join(componentPath, 'README.md'));
+
+		components.push({
+			configuration: readText(join(componentPath, 'configuration.json')),
+			description: componentJSON.description || '',
+			...(docs ? {docs} : {}),
+			...(componentJSON.import ? {importStatement: componentJSON.import} : {}),
+			key: componentDir,
+			name: componentJSON.name || componentDir,
+			source: readText(join(componentPath, sourceFile)),
+			sourceFile,
+			theme: componentJSON.theme || null,
+		});
+	}
+}
+
+writeFileSync(join(out, 'components.json'), JSON.stringify(components));
+
+console.log(`Packed ${components.length} React component(s)`);
+
 /* Documentation pages under `docs/<slug>.md` (frontmatter: title, order) */
 
 const docsRoot = new URL('../docs/', import.meta.url).pathname;

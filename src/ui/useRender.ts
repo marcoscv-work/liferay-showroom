@@ -5,13 +5,17 @@ import {useEditorScheme} from './editorScheme';
 import {styleBookScheme} from '../model/tokens';
 import {fragmentArgsKey, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
 import {buildPreviewDocument} from '../preview/document';
-import {buildFragmentStory, buildTemplateStory} from './story';
+import {componentArgsKey} from '../model/components';
+import {buildComponentStory, buildFragmentStory, buildTemplateStory} from './story';
 
 import type {EditableInfo} from '../model/fragmentRenderer';
-import type {Collection, Fragment, PageTemplate} from '../model/types';
+import type {Collection, Fragment, PageTemplate, ReactComponent} from '../model/types';
 
 export interface RenderOutput {
 	collection: Collection | null;
+	/** The selected React component, and the props it renders with. */
+	component: ReactComponent | null;
+	componentProps: Record<string, any> | null;
 	configurationRaw: Record<string, any>;
 	css: string;
 	document: string;
@@ -36,6 +40,18 @@ export function useCurrentFragment(): {collection: Collection | null; fragment: 
 	const fragment = collection?.fragments.find((candidate) => candidate.key === fragmentKey) ?? null;
 
 	return {collection, fragment};
+}
+
+export function useCurrentComponent(): ReactComponent | null {
+	const {state} = useStore();
+
+	if (state.selection.kind !== 'component') {
+		return null;
+	}
+
+	const {key} = state.selection;
+
+	return state.components.find((component) => component.key === key) ?? null;
 }
 
 export function useCurrentTemplate(): PageTemplate | null {
@@ -66,8 +82,9 @@ export function useRender(): RenderOutput {
 	const styleBook = useCurrentStyleBook();
 	const {collection, fragment} = useCurrentFragment();
 	const template = useCurrentTemplate();
+	const component = useCurrentComponent();
 
-	const args = fragment ? state.fragmentArgs[fragmentArgsKey(fragment.collectionKey, fragment.key)] : undefined;
+	const args = fragment ? state.fragmentArgs[fragmentArgsKey(fragment.collectionKey, fragment.key)] : component ? state.fragmentArgs[componentArgsKey(component.key)] : undefined;
 
 	return useMemo(() => {
 		const tokenValues = styleBook.values;
@@ -78,6 +95,8 @@ export function useRender(): RenderOutput {
 
 			return {
 				collection,
+				component: null,
+				componentProps: null,
 				configurationRaw: story.configurationRaw,
 				css: '',
 				document: story.document,
@@ -90,11 +109,32 @@ export function useRender(): RenderOutput {
 			};
 		}
 
+		if (component) {
+			const story = buildComponentStory(component, args?.configuration ?? {}, context);
+
+			return {
+				collection: null,
+				component,
+				componentProps: story.props,
+				configurationRaw: story.configurationRaw,
+				css: '',
+				document: story.document,
+				editables: [],
+				fragment: null,
+				html: '',
+				js: '',
+				template: null,
+				warnings: [],
+			};
+		}
+
 		if (template) {
 			const story = buildTemplateStory(template, context);
 
 			return {
 				collection: null,
+				component: null,
+				componentProps: null,
 				configurationRaw: {},
 				css: story.css,
 				document: story.document,
@@ -109,6 +149,8 @@ export function useRender(): RenderOutput {
 
 		return {
 			collection: null,
+			component: null,
+			componentProps: null,
 			configurationRaw: {},
 			css: '',
 			document: buildPreviewDocument({
@@ -128,5 +170,5 @@ export function useRender(): RenderOutput {
 			template: null,
 			warnings: [],
 		};
-	}, [args, collection, colorScheme, fragment, state.collections, styleBook, template, theme]);
+	}, [args, collection, colorScheme, component, fragment, state.collections, styleBook, template, theme]);
 }

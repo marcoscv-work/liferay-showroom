@@ -5,9 +5,9 @@ import type {Dispatch, ReactNode} from 'react';
 import {exportTree} from '../model/pageDefinition';
 
 import type {EditableValue} from '../model/fragmentRenderer';
-import type {Collection, DocPage, PageElement, PageTemplate, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
+import type {Collection, DocPage, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
-export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
+export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'component'; key: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
 
 export type PanelTab = 'controls' | 'docs' | 'stylebook' | 'layout' | 'code' | 'warnings';
 
@@ -23,6 +23,8 @@ export interface State {
 	builtinStyleBooks: StyleBook[];
 	builtinTemplates: PageTemplate[];
 	collections: Collection[];
+	/** React components documented next to the fragments, optional. */
+	components: ReactComponent[];
 	docs: DocPage[];
 	fragmentArgs: Record<string, FragmentArgs>;
 	loading: boolean;
@@ -50,6 +52,7 @@ export const initialState: State = {
 	builtinStyleBooks: [],
 	builtinTemplates: [],
 	collections: [],
+	components: [],
 	docs: [],
 	focusedEditable: null,
 	fragmentArgs: {},
@@ -69,7 +72,7 @@ export const initialState: State = {
 };
 
 export type Action =
-	| {type: 'loaded'; collections: Collection[]; docs: DocPage[]; releases: ReleaseManifest[]; styleBooks: StyleBook[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
+	| {type: 'loaded'; collections: Collection[]; components?: ReactComponent[]; docs: DocPage[]; releases: ReleaseManifest[]; styleBooks: StyleBook[]; templates: PageTemplate[]; themes: Theme[]; persisted: Partial<PersistedState>}
 	| {type: 'select'; selection: Selection}
 	| {type: 'setPanelTab'; tab: PanelTab}
 	| {type: 'setTheme'; key: string}
@@ -133,7 +136,13 @@ export function fragmentArgsKey(collectionKey: string, fragmentKey: string): str
 }
 
 /** The theme a selection wants: the collection's, or the first collection theme a template uses. */
-function wantedThemeFor(selection: Selection, collections: Collection[], templates: PageTemplate[]): string | null {
+function wantedThemeFor(selection: Selection, collections: Collection[], templates: PageTemplate[], components: ReactComponent[] = []): string | null {
+	if (selection.kind === 'component') {
+		const {key} = selection;
+
+		return components.find((component) => component.key === key)?.theme ?? null;
+	}
+
 	if (selection.kind === 'fragment') {
 		const {collectionKey} = selection;
 
@@ -172,10 +181,10 @@ function wantedThemeFor(selection: Selection, collections: Collection[], templat
 }
 
 /** Switches to the theme a selection wants, and to a style book of that theme when the current one belongs to another. */
-function followTheme(selection: Selection, current: {styleBookKey: string; styleBooks: StyleBook[]; themeKey: string; themes: Theme[]}, collections: Collection[], templates: PageTemplate[]): {styleBookKey: string; themeKey: string} {
+function followTheme(selection: Selection, current: {styleBookKey: string; styleBooks: StyleBook[]; themeKey: string; themes: Theme[]}, collections: Collection[], templates: PageTemplate[], components: ReactComponent[] = []): {styleBookKey: string; themeKey: string} {
 	let {styleBookKey, themeKey} = current;
 
-	const wanted = wantedThemeFor(selection, collections, templates);
+	const wanted = wantedThemeFor(selection, collections, templates, components);
 
 	if (wanted && wanted !== themeKey && current.themes.some((theme) => theme.key === wanted)) {
 		themeKey = wanted;
@@ -196,6 +205,7 @@ export function reducer(state: State, action: Action): State {
 			const {persisted} = action;
 
 			const collections = [...action.collections, ...(persisted.collections ?? [])];
+			const components = action.components ?? [];
 			const persistedStyleBooks = (persisted.styleBooks ?? []).filter((styleBook) => styleBook.key !== DEFAULT_STYLE_BOOK_KEY);
 			const styleBooks = [
 				...initialState.styleBooks,
@@ -226,6 +236,14 @@ export function reducer(state: State, action: Action): State {
 				}
 			}
 
+			if (selection.kind === 'component') {
+				const {key} = selection;
+
+				if (!components.some((component) => component.key === key)) {
+					selection = {kind: 'none'};
+				}
+			}
+
 			if (selection.kind === 'doc' && !action.docs.some((doc) => doc.slug === (selection as {slug: string}).slug)) {
 				selection = {kind: 'none'};
 			}
@@ -234,13 +252,14 @@ export function reducer(state: State, action: Action): State {
 				selection = {kind: 'fragment', collectionKey: collections[0].key, fragmentKey: collections[0].fragments[0].key};
 			}
 
-			const followed = followTheme(selection, {styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY, styleBooks, themeKey, themes: action.themes}, collections, templates);
+			const followed = followTheme(selection, {styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY, styleBooks, themeKey, themes: action.themes}, collections, templates, components);
 
 			return {
 				...state,
 				builtinStyleBooks: action.styleBooks,
 				builtinTemplates: action.templates,
 				collections,
+				components,
 				docs: action.docs,
 				fragmentArgs: persisted.fragmentArgs ?? {},
 				loading: false,
@@ -256,7 +275,7 @@ export function reducer(state: State, action: Action): State {
 			};
 		}
 		case 'select': {
-			const {styleBookKey, themeKey} = followTheme(action.selection, state, state.collections, state.templates);
+			const {styleBookKey, themeKey} = followTheme(action.selection, state, state.collections, state.templates, state.components);
 
 			return {
 				...state,

@@ -1,0 +1,58 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"defaultValue": "empty",
+					"description": "Which illustration of the theme to show.",
+					"label": "Variant",
+					"name": "variant",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "Empty",
+								"value": "empty"
+							},
+							{
+								"label": "Search",
+								"value": "search"
+							},
+							{
+								"label": "Success",
+								"value": "success"
+							}
+						]
+					}
+				},
+				{
+					"defaultValue": "No items yet",
+					"label": "Title",
+					"name": "title",
+					"type": "text"
+				},
+				{
+					"defaultValue": "Items you add appear here.",
+					"label": "Description",
+					"name": "description",
+					"type": "text"
+				},
+				{
+					"defaultValue": "Add item",
+					"description": "Empty for no action.",
+					"label": "Action label",
+					"name": "actionLabel",
+					"type": "text"
+				},
+				{
+					"defaultValue": false,
+					"description": "The compact size, for panels and dialogs.",
+					"label": "Small",
+					"name": "small",
+					"type": "checkbox"
+				}
+			],
+			"label": "Props"
+		}
+	]
+}

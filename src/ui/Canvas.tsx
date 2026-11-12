@@ -7,6 +7,7 @@ import {DocsView} from './DocsView';
 import {Icon} from './Icon';
 import {useTemplateEditing} from './templateEditing';
 import {ReleasesView} from './ReleasesView';
+import {componentFrameKey} from './story';
 import {useRender} from './useRender';
 
 export function Canvas() {
@@ -20,6 +21,32 @@ export function Canvas() {
 	const [adding, setAdding] = useState(false);
 	const wrapper = useRef<HTMLDivElement>(null);
 	const [frameSize, setFrameSize] = useState({height: 0, width: 0});
+
+	/* A React component's frame keeps running while only its props change: they are posted to it instead of reloading it */
+	const frameKey = output.component ? componentFrameKey(output.document) : output.document;
+	const loaded = useRef({document: output.document, key: frameKey});
+
+	if (loaded.current.key !== frameKey) {
+		loaded.current = {document: output.document, key: frameKey};
+	}
+
+	const srcDoc = loaded.current.document;
+	const componentProps = useRef(output.componentProps);
+
+	componentProps.current = output.componentProps;
+
+	useEffect(() => {
+		if (output.componentProps) {
+			frame.current?.contentWindow?.postMessage({props: output.componentProps, type: 'showroom:component-props'}, '*');
+		}
+	}, [output.componentProps]);
+
+	/* The frame may load with props older than the controls: bring it up to date */
+	const onFrameLoad = () => {
+		if (componentProps.current) {
+			frame.current?.contentWindow?.postMessage({props: componentProps.current, type: 'showroom:component-props'}, '*');
+		}
+	};
 
 	useEffect(() => {
 		const element = wrapper.current;
@@ -86,7 +113,7 @@ export function Canvas() {
 	return (
 		<section aria-label="Preview" className="showroom-canvas">
 			<div className="showroom-canvas__frame-wrapper" ref={wrapper} style={{maxWidth: viewport.width ? `${viewport.width}px` : undefined}}>
-				<iframe className="showroom-canvas__frame" ref={frame} sandbox="allow-scripts allow-same-origin allow-popups allow-forms" srcDoc={output.document} title="Preview" />
+				<iframe className="showroom-canvas__frame" onLoad={onFrameLoad} ref={frame} sandbox="allow-scripts allow-same-origin allow-popups allow-forms" srcDoc={srcDoc} title="Preview" />
 				{editing && <FloatingAdd adding={adding} editing={editing} frameSize={frameSize} rect={state.selectedItemId ? rect : null} setAdding={setAdding} />}
 			</div>
 		</section>

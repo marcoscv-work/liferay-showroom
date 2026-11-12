@@ -1,0 +1,4 @@
+{
+	"description": "The Clay empty state the portal's React apps show when a list has nothing yet, a search finds nothing or a task is done: an illustration, a title, a line of text and an optional action.",
+	"name": "Empty state"
+}

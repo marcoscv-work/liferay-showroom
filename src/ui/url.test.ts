@@ -10,6 +10,13 @@ describe('URL state', () => {
 		expect(urlFromSelection(selection!)).toBe('/template/builtin-lsds-home');
 	});
 
+	it('round-trips a React component selection', () => {
+		const selection = selectionFromURL('?path=/component/empty-state');
+
+		expect(selection).toEqual({key: 'empty-state', kind: 'component'});
+		expect(urlFromSelection(selection!)).toBe('/component/empty-state');
+	});
+
 	it('opens the advanced editor only with edit=1', () => {
 		expect(advancedEditingFromURL('?path=/template/home&edit=1')).toBe(true);
 		expect(advancedEditingFromURL('?path=/template/home')).toBe(false);

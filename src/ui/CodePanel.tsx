@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+import {usageSnippet} from '../model/components';
 import {templateDefinitionJSON} from '../model/zip';
 import {Icon} from './Icon';
 import {useRender} from './useRender';
@@ -17,6 +18,14 @@ export function CodePanel() {
 			{content: output.fragment.js, id: 'js', label: 'index.js'},
 			{content: output.fragment.configuration, id: 'configuration', label: 'configuration.json'},
 			{content: JSON.stringify(output.configurationRaw, null, '\t'), id: 'fragmentConfig', label: 'fragmentConfig'}
+		);
+	}
+	else if (output.component) {
+		tabs.push(
+			{content: usageSnippet(output.component, output.componentProps ?? {}), id: 'usage', label: 'Usage'},
+			{content: output.component.source, id: 'source', label: output.component.sourceFile},
+			{content: output.component.configuration, id: 'configuration', label: 'configuration.json'},
+			{content: JSON.stringify(output.componentProps ?? {}, null, '\t'), id: 'props', label: 'props'}
 		);
 	}
 	else if (output.template) {

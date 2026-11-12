@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 
+import {componentArgsKey} from '../model/components';
 import {fragmentArgsKey, useCurrentTheme, useStore} from '../store';
 import {CodePanel} from './CodePanel';
 import {ConfigurationControls} from './controls/ConfigurationControls';
@@ -26,7 +27,7 @@ export function Panel() {
 	else {
 		tabs.push({id: 'controls', label: 'Controls', symbol: 'cog'});
 
-		if (output.fragment?.docs) {
+		if (output.fragment?.docs || output.component?.docs) {
 			tabs.push({id: 'docs', label: 'Docs', symbol: 'document-text'});
 		}
 	}
@@ -52,8 +53,8 @@ export function Panel() {
 			</ul>
 
 			<div className="showroom-panel__content">
-				{active === 'controls' && <FragmentControls />}
-				{active === 'docs' && output.fragment?.docs && <Markdown markdown={output.fragment.docs} />}
+				{active === 'controls' && (output.component ? <ComponentControls /> : <FragmentControls />)}
+				{active === 'docs' && (output.fragment?.docs || output.component?.docs) && <Markdown markdown={(output.fragment?.docs || output.component?.docs)!} />}
 				{active === 'layout' && <LayoutPanel />}
 				{active === 'stylebook' && <StyleBookPanel />}
 				{active === 'code' && <CodePanel />}
@@ -121,6 +122,31 @@ function usePanelResize() {
 			window.addEventListener('pointerup', onUp);
 		},
 		[height]
+	);
+}
+
+/** A React component's props, as the same controls a fragment's configuration gets. */
+function ComponentControls() {
+	const {dispatch, state} = useStore();
+	const theme = useCurrentTheme();
+	const output = useRender();
+
+	if (!output.component) {
+		return null;
+	}
+
+	const key = componentArgsKey(output.component.key);
+	const args = state.fragmentArgs[key] ?? {configuration: {}, editables: {}};
+
+	return (
+		<ConfigurationControls
+			configurationJSON={output.component.configuration}
+			emptyText="This component declares no props. Describe them in its configuration.json to get controls."
+			onChange={(name, value) => dispatch({args: {...args, configuration: {...args.configuration, [name]: value}}, key, type: 'setFragmentArgs'})}
+			onReset={() => dispatch({key, type: 'resetFragmentArgs'})}
+			theme={theme}
+			values={output.configurationRaw}
+		/>
 	);
 }
 

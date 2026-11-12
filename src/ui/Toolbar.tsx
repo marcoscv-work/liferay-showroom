@@ -1,3 +1,4 @@
+import {usageSnippet} from '../model/components';
 import {VIEWPORTS} from '../model/types';
 import {downloadBlob, exportCollectionZip, exportStyleBookZip, exportTemplateZip, templateDefinitionJSON} from '../model/zip';
 import {DEFAULT_STYLE_BOOK_KEY, useCurrentStyleBook, useCurrentTheme, useStore} from '../store';
@@ -23,9 +24,9 @@ export function Toolbar() {
 	const output = useRender();
 
 	const doc = state.selection.kind === 'doc' ? state.docs.find((candidate) => candidate.slug === (state.selection as {slug: string}).slug) : null;
-	const showsFrame = state.selection.kind === 'fragment' || state.selection.kind === 'template' || state.selection.kind === 'none';
+	const showsFrame = state.selection.kind === 'fragment' || state.selection.kind === 'component' || state.selection.kind === 'template' || state.selection.kind === 'none';
 
-	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Showroom';
+	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : output.component ? `React components / ${output.component.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Showroom';
 
 	const createStyleBook = (copy: boolean) => {
 		const name = copy ? `${styleBook.name} copy` : `Style book ${state.styleBooks.length}`;
@@ -123,6 +124,17 @@ export function Toolbar() {
 						<Icon className="mr-1" symbol="download" />
 						Export fragment
 					</button>
+				)}
+				{output.component && (
+					<>
+						<span className="label label-secondary" title="A React component used elsewhere in Liferay: documented here, not imported into Liferay">
+							React
+						</span>
+						<button className="btn btn-primary btn-sm" onClick={() => navigator.clipboard?.writeText(usageSnippet(output.component!, output.componentProps ?? {}))} title="Copy the import and the JSX with the props set in the controls" type="button">
+							<Icon className="mr-1" symbol="copy" />
+							Copy usage
+						</button>
+					</>
 				)}
 				{template && (
 					<>

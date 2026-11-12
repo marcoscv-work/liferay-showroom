@@ -55,6 +55,10 @@ collections/<collection>/resources/<file>
 
 Collections imported through the UI are kept in the browser's local storage.
 
+### React components (optional)
+
+React components the team uses elsewhere in Liferay can be documented next to the fragments, under `components/<name>/`: an `index.tsx` that default-exports the component, a `component.json` with its name, a `configuration.json` that describes its props in the fragment configuration format, and a `README.md`. Vite bundles them into the site; the preview runs each one with its own React, with its props as controls. They are not Liferay assets and are never exported. See `docs/react-components.md`.
+
 ### Documentation
 
 Markdown, next to the asset it documents:

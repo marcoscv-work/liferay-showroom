@@ -10,6 +10,8 @@ import type {Theme} from '../model/types';
 
 export interface PreviewDocumentOptions {
 	bodyClass?: string;
+	/** Markup after the page script, such as module scripts. */
+	bodyEnd?: string;
 	colorScheme?: 'light' | 'dark';
 	css: string;
 	/** `<meta name="description">` of a standalone page. */
@@ -18,6 +20,8 @@ export interface PreviewDocumentOptions {
 	standalone?: boolean;
 	title?: string;
 	fragmentCSS: string;
+	/** Extra attributes for `<html>`, already escaped. */
+	htmlAttributes?: string;
 	html: string;
 	js: string;
 	mode: 'story' | 'template';
@@ -674,7 +678,7 @@ function escapeHTML(text: string): string {
 }
 
 export function buildPreviewDocument(options: PreviewDocumentOptions): string {
-	const {bodyClass = '', colorScheme = 'light', css, description, fragmentCSS, html, js, mode, standalone = false, theme, title, tokenValues} = options;
+	const {bodyClass = '', bodyEnd = '', colorScheme = 'light', css, description, fragmentCSS, html, htmlAttributes = '', js, mode, standalone = false, theme, title, tokenValues} = options;
 
 	const links = (theme?.css ?? []).map((href) => `<link rel="stylesheet" href="${href}">`).join('\n');
 
@@ -693,7 +697,7 @@ body { background-color: var(--body-bg); color: var(--body-color); }`
 			: '';
 
 	return `<!doctype html>
-<html lang="en" data-color-scheme="${colorScheme}" data-showroom-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}">
+<html lang="en" data-color-scheme="${colorScheme}" data-showroom-mode="${mode}" data-images-path="${theme?.imagesPath ?? ''}"${htmlAttributes ? ` ${htmlAttributes}` : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -711,6 +715,7 @@ ${standalone ? '' : `<script>${BRIDGE_SCRIPT}</script>`}
 <body class="${bodyClass}">
 ${html}
 <script>${js}</script>
+${bodyEnd}
 </body>
 </html>`;
 }

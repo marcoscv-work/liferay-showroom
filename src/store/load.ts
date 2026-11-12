@@ -1,7 +1,7 @@
 import {normalizeTree} from '../model/pageDefinition';
 import {parseStyleBookValues, parseTokenDefinition} from '../model/tokens';
 
-import type {Collection, DocPage, PageTemplate, ReleaseManifest, StyleBook, Theme} from '../model/types';
+import type {Collection, DocPage, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme} from '../model/types';
 
 /**
  * Loads the assets bundled with the showroom: the packed fragment
@@ -141,6 +141,17 @@ export async function loadBuiltinDocs(): Promise<DocPage[]> {
 		const pages: any[] = await response.json();
 
 		return pages.map((page) => ({markdown: page.markdown ?? '', order: page.order ?? 0, slug: page.slug, source: 'builtin' as const, title: page.title ?? page.slug}));
+	}
+	catch {
+		return [];
+	}
+}
+
+export async function loadBuiltinComponents(): Promise<ReactComponent[]> {
+	try {
+		const response = await fetch(assetURL('collections/components.json'));
+
+		return response.ok ? await response.json() : [];
 	}
 	catch {
 		return [];

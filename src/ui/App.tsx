@@ -4,7 +4,7 @@ import {importPageDefinition, importZip} from '../model/zip';
 import {readPersistedState, useStore} from '../store';
 
 import type {Selection} from '../store';
-import {assetURL, loadBuiltinCollections, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
+import {assetURL, loadBuiltinCollections, loadBuiltinComponents, loadBuiltinDocs, loadBuiltinStyleBooks, loadBuiltinTemplates, loadBuiltinThemes, loadReleases} from '../store/load';
 import {AdvancedEditor} from './AdvancedEditor';
 import {Canvas} from './Canvas';
 import {Icon} from './Icon';
@@ -18,7 +18,7 @@ import type {ShortcutKey} from './templateEditing';
 
 /**
  * The URL mirrors the selection, Storybook style:
- * `?path=/fragment/<collection>/<fragment>`, `?path=/template/<id>`,
+ * `?path=/fragment/<collection>/<fragment>`, `?path=/component/<key>`, `?path=/template/<id>`,
  * `?path=/docs/<slug>` or `?path=/releases`.
  */
 export function selectionFromURL(search: string): Selection | null {
@@ -32,6 +32,10 @@ export function selectionFromURL(search: string): Selection | null {
 
 	if (kind === 'fragment' && rest.length >= 2) {
 		return {collectionKey: decodeURIComponent(rest[0]), fragmentKey: decodeURIComponent(rest.slice(1).join('/')), kind: 'fragment'};
+	}
+
+	if (kind === 'component' && rest[0]) {
+		return {key: decodeURIComponent(rest.join('/')), kind: 'component'};
 	}
 
 	if (kind === 'template' && rest[0]) {
@@ -57,6 +61,10 @@ export function advancedEditingFromURL(search: string): boolean {
 export function urlFromSelection(selection: Selection): string | null {
 	if (selection.kind === 'fragment') {
 		return `/fragment/${encodeURIComponent(selection.collectionKey)}/${encodeURIComponent(selection.fragmentKey)}`;
+	}
+
+	if (selection.kind === 'component') {
+		return `/component/${encodeURIComponent(selection.key)}`;
 	}
 
 	if (selection.kind === 'template') {
@@ -113,12 +121,12 @@ export function App() {
 	useEffect(() => {
 		let cancelled = false;
 
-		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks(), loadBuiltinDocs(), loadReleases()]).then(([collections, themes, templates, styleBooks, docs, releases]) => {
+		Promise.all([loadBuiltinCollections(), loadBuiltinThemes(), loadBuiltinTemplates(), loadBuiltinStyleBooks(), loadBuiltinDocs(), loadReleases(), loadBuiltinComponents()]).then(([collections, themes, templates, styleBooks, docs, releases, components]) => {
 			if (!cancelled) {
 				const persisted = readPersistedState();
 				const fromURL = selectionFromURL(window.location.search);
 
-				dispatch({collections, docs, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, releases, styleBooks, templates, themes, type: 'loaded'});
+				dispatch({collections, components, docs, persisted: fromURL ? {...persisted, selection: fromURL} : persisted, releases, styleBooks, templates, themes, type: 'loaded'});
 				dispatch({type: 'setAdvancedEditing', value: advancedEditingFromURL(window.location.search)});
 			}
 		});

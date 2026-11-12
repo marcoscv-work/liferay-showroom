@@ -24,6 +24,27 @@ export interface Collection {
 	theme?: string | null;
 }
 
+/**
+ * A React component documented next to the fragments, from
+ * `components/<key>/`. Optional and not a Liferay asset: it is rendered with
+ * its props as controls and never exported.
+ */
+export interface ReactComponent {
+	/** Its props as controls, in the fragment `configuration.json` format. */
+	configuration: string;
+	description: string;
+	/** `README.md` next to it, shown in the Docs tab. */
+	docs?: string;
+	/** The line that imports it where it is used, for the usage snippet. */
+	importStatement?: string;
+	key: string;
+	name: string;
+	/** The source file shown in the Code tab, and its name. */
+	source: string;
+	sourceFile: string;
+	theme?: string | null;
+}
+
 export interface FrontendToken {
 	cssVariable: string;
 	defaultValue: string;

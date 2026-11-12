@@ -1,19 +1,23 @@
 import './lib/dom';
 
-import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 
 import {markdownToText} from '../src/docs/markdown';
+import {componentTag} from '../src/model/components';
 import {allFields, defaultRawValue, parseConfiguration} from '../src/model/configuration';
 import {renderFragment} from '../src/model/fragmentRenderer';
 import {readCheckout, readDocs} from './lib/assets';
+
+import type {ReactComponent} from '../src/model/types';
 
 /**
  * The machine-readable face of the site, for AI agents and tooling:
  *
  * - `public/catalog.json`: every fragment with its configuration fields,
- *   editables and docs, every page template and style book, with the URL
- *   that shows each one.
+ *   editables and docs, every page template and style book, and the
+ *   optional React components with their props, with the URL that shows
+ *   each one.
  * - `public/llms.txt`: the same as a document an agent reads in one go,
  *   plus how to compose a page definition the site imports.
  *
@@ -32,6 +36,10 @@ const packageJSON = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
 const site = argument('site', packageJSON.homepage ?? './').replace(/\/?$/, '/');
 const checkout = readCheckout(root);
 const docs = readDocs(root);
+
+/* Packed by pack-collections.mjs, which runs first */
+const componentsPath = join(root, 'public', 'collections', 'components.json');
+const components: ReactComponent[] = existsSync(componentsPath) ? JSON.parse(readFileSync(componentsPath, 'utf8')) : [];
 
 const theme = (key: string | null | undefined) => checkout.themes.find((candidate) => candidate.key === key) ?? checkout.themes[0] ?? null;
 
@@ -70,6 +78,27 @@ const catalog = {
 		resources: Object.keys(collection.resources),
 		theme: collection.theme ?? null,
 	})),
+	components: components.map((component) => {
+		const {configuration} = parseConfiguration(component.configuration);
+
+		return {
+			description: component.description || undefined,
+			docs: component.docs ? markdownToText(component.docs) : undefined,
+			import: component.importStatement,
+			key: component.key,
+			name: component.name,
+			props: allFields(configuration).map((field) => ({
+				default: defaultRawValue(field),
+				description: field.description || undefined,
+				label: field.label,
+				name: field.name,
+				options: field.typeOptions?.validValues?.map((option: any) => String(option.value)) ?? undefined,
+				type: field.type,
+			})),
+			tag: componentTag(component),
+			url: `${site}?path=/component/${encodeURIComponent(component.key)}`,
+		};
+	}),
 	docs: docs.map((doc) => ({slug: doc.slug, text: markdownToText(doc.markdown), title: doc.title, url: `${site}?path=/docs/${doc.slug}`})),
 	generated: new Date().toISOString(),
 	pageDefinition: {
@@ -156,6 +185,34 @@ for (const styleBook of catalog.styleBooks) {
 	lines.push(`- ${styleBook.name} (key \`${styleBook.key}\`, theme ${styleBook.theme}, ${styleBook.tokens} token values)`);
 }
 
+if (catalog.components.length) {
+	lines.push('', '## React components', '');
+	lines.push('React components a team uses elsewhere in Liferay, outside the page editor. They are documented here but are not Liferay assets: a page template cannot place them and nothing imports them into Liferay.', '');
+
+	for (const component of catalog.components) {
+		lines.push(`### ${component.name} (\`<${component.tag} />\`)`, '');
+		lines.push(`- URL: ${component.url}`);
+
+		if (component.import) {
+			lines.push(`- Import: \`${component.import}\``);
+		}
+
+		if (component.props.length) {
+			lines.push(`- Props: ${component.props.map((prop) => `${prop.name} (${prop.type}${prop.options ? `: ${prop.options.join(' | ')}` : ''}, default ${JSON.stringify(prop.default)})`).join('; ')}`);
+		}
+
+		if (component.description) {
+			lines.push('', component.description);
+		}
+
+		if (component.docs) {
+			lines.push('', component.docs);
+		}
+
+		lines.push('');
+	}
+}
+
 lines.push('', '## Documentation', '');
 
 for (const doc of catalog.docs) {
@@ -166,4 +223,4 @@ mkdirSync(join(root, 'public'), {recursive: true});
 writeFileSync(join(root, 'public', 'catalog.json'), JSON.stringify(catalog, null, '\t') + '\n');
 writeFileSync(join(root, 'public', 'llms.txt'), lines.join('\n') + '\n');
 
-console.log(`Catalog: ${catalog.collections.reduce((total, collection) => total + collection.fragments.length, 0)} fragment(s), ${catalog.templates.length} template(s), ${catalog.styleBooks.length} style book(s), ${catalog.docs.length} doc page(s) → public/catalog.json, public/llms.txt`);
+console.log(`Catalog: ${catalog.collections.reduce((total, collection) => total + collection.fragments.length, 0)} fragment(s), ${catalog.templates.length} template(s), ${catalog.styleBooks.length} style book(s), ${catalog.components.length} React component(s), ${catalog.docs.length} doc page(s) → public/catalog.json, public/llms.txt`);

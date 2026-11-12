@@ -1,0 +1,9 @@
+.empty-state {
+	margin: 0 auto;
+	max-width: 32rem;
+}
+
+.empty-state .c-empty-state-footer {
+	display: flex;
+	justify-content: center;
+}
