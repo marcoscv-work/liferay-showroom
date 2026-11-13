@@ -1,16 +1,16 @@
 import {useState} from 'react';
 
 import {createElement} from '../model/pageDefinition';
-import {canDeleteCollection, canDeleteFragment, canDeleteTemplate} from '../model/permissions';
+import {canDeleteCollection, canDeleteFragment, canDeleteStyleBook, canDeleteTemplate} from '../model/permissions';
 import {downloadBlob, exportAllZip, exportCollectionZip} from '../model/zip';
-import {useStore} from '../store';
+import {DEFAULT_STYLE_BOOK_KEY, useStore} from '../store';
 import {assetURL} from '../store/load';
 import {ConfirmButton} from './ConfirmButton';
 import {useEditorScheme} from './editorScheme';
 import {Icon, IconButton} from './Icon';
 import {openImportDialog} from './importDialog';
 
-import type {Collection, PageTemplate} from '../model/types';
+import type {Collection, PageTemplate, StyleBook} from '../model/types';
 
 export function Sidebar() {
 	const {dispatch, state} = useStore();
@@ -33,6 +33,13 @@ export function Sidebar() {
 		};
 
 		dispatch({templates: [template], type: 'addTemplates'});
+	};
+
+	const createStyleBook = () => {
+		const styleBook: StyleBook = {key: `style-book-${Date.now().toString(36)}`, name: `Style book ${state.styleBooks.length}`, source: 'imported', themeKey: state.themeKey, values: {}};
+
+		dispatch({styleBook, type: 'addStyleBook'});
+		dispatch({selection: {key: styleBook.key, kind: 'styleBook'}, type: 'select'});
 	};
 
 	const [exporting, setExporting] = useState(false);
@@ -165,6 +172,38 @@ export function Sidebar() {
 										</button>
 										{canDeleteTemplate(template) && (
 											<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({id: template.id, type: 'removeTemplate'})} title={`Delete ${template.name}`}>
+												<Icon symbol="times" />
+											</ConfirmButton>
+										)}
+									</li>
+								);
+							})}
+					</ul>
+				</div>
+
+				<div className="showroom-section">
+					<div className="showroom-section__title">
+						<span>Style books</span>
+						<button className="btn btn-unstyled btn-sm text-primary" onClick={createStyleBook} title="Create an empty style book for the theme in use" type="button">
+							<Icon className="mr-1" symbol="plus" />
+							New
+						</button>
+					</div>
+
+					<ul className="nav nav-stacked">
+						{state.styleBooks
+							.filter((styleBook) => matches(styleBook.name))
+							.map((styleBook) => {
+								const active = state.selection.kind === 'styleBook' && state.selection.key === styleBook.key;
+
+								return (
+									<li className="nav-item showroom-nav-row" key={styleBook.key}>
+										<button aria-current={active ? 'page' : undefined} className={`nav-link btn btn-unstyled${active ? ' active' : ''}`} onClick={() => dispatch({selection: {key: styleBook.key, kind: 'styleBook'}, type: 'select'})} type="button">
+											<Icon className="mr-2" symbol="color-picker" />
+											<span className="text-truncate">{styleBook.name}</span>
+										</button>
+										{canDeleteStyleBook(styleBook, DEFAULT_STYLE_BOOK_KEY) && (
+											<ConfirmButton className="btn btn-unstyled btn-sm btn-monospaced showroom-nav-row__action" confirmLabel={<Icon symbol="check" />} onConfirm={() => dispatch({key: styleBook.key, type: 'removeStyleBook'})} title={`Delete ${styleBook.name}`}>
 												<Icon symbol="times" />
 											</ConfirmButton>
 										)}

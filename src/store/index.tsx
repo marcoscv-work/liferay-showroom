@@ -9,7 +9,7 @@ import {withCustomTokens} from '../model/tokens';
 import type {EditableValue} from '../model/fragmentRenderer';
 import type {Collection, DocPage, Fragment, FrontendToken, PageElement, PageTemplate, ReactComponent, ReleaseManifest, StyleBook, Theme, ViewportId} from '../model/types';
 
-export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'component'; key: string} | {kind: 'template'; id: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
+export type Selection = {kind: 'fragment'; collectionKey: string; fragmentKey: string} | {kind: 'component'; key: string} | {kind: 'template'; id: string} | {kind: 'styleBook'; key: string} | {kind: 'doc'; slug: string} | {kind: 'releases'} | {kind: 'none'};
 
 export type PanelTab = 'controls' | 'docs' | 'stylebook' | 'layout' | 'code' | 'warnings';
 
@@ -258,11 +258,24 @@ export function reducer(state: State, action: Action): State {
 				selection = {kind: 'none'};
 			}
 
+			if (selection.kind === 'styleBook') {
+				const {key} = selection;
+
+				if (!styleBooks.some((styleBook) => styleBook.key === key)) {
+					selection = {key: DEFAULT_STYLE_BOOK_KEY, kind: 'styleBook'};
+				}
+			}
+
 			if (selection.kind === 'none' && collections[0]?.fragments[0]) {
 				selection = {kind: 'fragment', collectionKey: collections[0].key, fragmentKey: collections[0].fragments[0].key};
 			}
 
-			const followed = followTheme(selection, {styleBookKey: styleBooks.some((styleBook) => styleBook.key === persisted.styleBookKey) ? persisted.styleBookKey! : DEFAULT_STYLE_BOOK_KEY, styleBooks, themeKey, themes: action.themes}, collections, templates, components);
+			/* A style book page shows the style book it names, on the theme that style book is for */
+			const openStyleBook = selection.kind === 'styleBook' ? styleBooks.find((styleBook) => styleBook.key === (selection as {key: string}).key) : undefined;
+			const wantedStyleBookKey = openStyleBook?.key ?? persisted.styleBookKey;
+			const startThemeKey = openStyleBook?.themeKey && action.themes.some((theme) => theme.key === openStyleBook.themeKey) ? openStyleBook.themeKey : themeKey;
+
+			const followed = followTheme(selection, {styleBookKey: styleBooks.some((styleBook) => styleBook.key === wantedStyleBookKey) ? wantedStyleBookKey! : DEFAULT_STYLE_BOOK_KEY, styleBooks, themeKey: startThemeKey, themes: action.themes}, collections, templates, components);
 
 			return {
 				...state,
@@ -285,7 +298,23 @@ export function reducer(state: State, action: Action): State {
 			};
 		}
 		case 'select': {
-			const {styleBookKey, themeKey} = followTheme(action.selection, state, state.collections, state.templates, state.components);
+			let {styleBookKey, themeKey} = followTheme(action.selection, state, state.collections, state.templates, state.components);
+
+			/* Opening a style book puts it in use, on the theme it is for */
+			if (action.selection.kind === 'styleBook') {
+				const {key} = action.selection;
+				const styleBook = state.styleBooks.find((candidate) => candidate.key === key);
+
+				if (!styleBook) {
+					return state;
+				}
+
+				styleBookKey = styleBook.key;
+
+				if (styleBook.themeKey && state.themes.some((theme) => theme.key === styleBook.themeKey)) {
+					themeKey = styleBook.themeKey;
+				}
+			}
 
 			return {
 				...state,
@@ -303,7 +332,7 @@ export function reducer(state: State, action: Action): State {
 		case 'setTheme':
 			return {...state, runtimeWarnings: [], themeKey: action.key};
 		case 'setStyleBook':
-			return {...state, styleBookKey: action.key};
+			return {...state, selection: state.selection.kind === 'styleBook' ? {key: action.key, kind: 'styleBook'} : state.selection, styleBookKey: action.key};
 		case 'setViewport':
 			return {...state, viewport: action.viewport};
 		case 'setFragmentArgs':
@@ -365,13 +394,22 @@ export function reducer(state: State, action: Action): State {
 					return {...styleBook, customTokens: current.filter((token) => token.name !== action.name), values};
 				}),
 			};
-		case 'addStyleBook':
-			return {...state, styleBookKey: action.select === false ? state.styleBookKey : action.styleBook.key, styleBooks: [...state.styleBooks, action.styleBook]};
+		case 'addStyleBook': {
+			const selected = action.select !== false;
+
+			return {
+				...state,
+				selection: selected && state.selection.kind === 'styleBook' ? {key: action.styleBook.key, kind: 'styleBook'} : state.selection,
+				styleBookKey: selected ? action.styleBook.key : state.styleBookKey,
+				styleBooks: [...state.styleBooks, action.styleBook],
+			};
+		}
 		case 'renameStyleBook':
 			return {...state, styleBooks: state.styleBooks.map((styleBook) => (styleBook.key === action.key ? {...styleBook, name: action.name} : styleBook))};
 		case 'removeStyleBook':
 			return {
 				...state,
+				selection: state.selection.kind === 'styleBook' && state.selection.key === action.key ? {key: DEFAULT_STYLE_BOOK_KEY, kind: 'styleBook'} : state.selection,
 				styleBookKey: state.styleBookKey === action.key ? DEFAULT_STYLE_BOOK_KEY : state.styleBookKey,
 				styleBooks: state.styleBooks.filter((styleBook) => styleBook.key !== action.key || styleBook.key === DEFAULT_STYLE_BOOK_KEY || styleBook.source === 'builtin'),
 			};

@@ -219,8 +219,9 @@ function ProposalReview({context, notice, onDiscard, proposal}: {context: AICont
 			context
 		);
 
+		/* The new style book opens on its page, where its colours can go on being edited */
 		dispatch({styleBook, type: 'addStyleBook'});
-		dispatch({tab: 'stylebook', type: 'setPanelTab'});
+		dispatch({selection: {key: styleBook.key, kind: 'styleBook'}, type: 'select'});
 		closeImportDialog();
 	};
 

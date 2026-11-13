@@ -13,7 +13,7 @@ import type {FrontendToken} from '../model/types';
  * with the current style book values as editable "props".
  */
 export function StyleBookPanel() {
-	const {dispatch} = useStore();
+	const {dispatch, state} = useStore();
 	const theme = useCurrentTheme();
 	const styleBook = useCurrentStyleBook();
 	const [query, setQuery] = useState('');
@@ -77,6 +77,16 @@ export function StyleBookPanel() {
 					</div>
 				</div>
 			</div>
+
+			{state.selection.kind !== 'styleBook' && (
+				<p className="mb-3">
+					<button className="btn btn-secondary btn-sm" onClick={() => dispatch({selection: {key: styleBook.key, kind: 'styleBook'}, type: 'select'})} type="button">
+						<Icon className="mr-1" symbol="expand" />
+						Open the style book editor
+					</button>
+					<span className="text-secondary small ml-2">The same editor on a page of its own, with a preview of the style book at work.</span>
+				</p>
+			)}
 
 			<p className="text-secondary small mb-3">
 				The style book is page-level, as in Liferay: the values below apply to every fragment and page template rendered with the <strong>{theme.name}</strong> theme, not only to the one selected. Pick or create a style book in the toolbar.

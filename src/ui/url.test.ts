@@ -17,6 +17,13 @@ describe('URL state', () => {
 		expect(urlFromSelection(selection!)).toBe('/component/empty-state');
 	});
 
+	it('round-trips a style book', () => {
+		const selection = selectionFromURL('?path=/style-book/builtin-lsds-dark');
+
+		expect(selection).toEqual({key: 'builtin-lsds-dark', kind: 'styleBook'});
+		expect(urlFromSelection(selection!)).toBe('/style-book/builtin-lsds-dark');
+	});
+
 	it('opens the advanced editor only with edit=1', () => {
 		expect(advancedEditingFromURL('?path=/template/home&edit=1')).toBe(true);
 		expect(advancedEditingFromURL('?path=/template/home')).toBe(false);

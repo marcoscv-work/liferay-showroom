@@ -2686,3 +2686,81 @@ html:not(#__):not(#___) .showroom .showroom-stylebook__category-title {
 	font-weight: 600;
 	margin: 1rem 0 0.5rem;
 }
+
+/* Style book page --------------------------------------------------------- */
+
+html:not(#__):not(#___) .showroom .showroom-stylebook-page {
+	background: var(--sb-bg);
+	display: grid;
+	grid-template-columns: minmax(0, 3fr) minmax(22rem, 2fr);
+	min-height: 0;
+	overflow: hidden;
+}
+
+html:not(#__):not(#___) .showroom .showroom-stylebook-page__editor {
+	min-height: 0;
+	overflow: auto;
+	padding: 1.25rem 1.5rem 4rem;
+}
+
+html:not(#__):not(#___) .showroom .showroom-stylebook-page__preview {
+	background: var(--sb-canvas-bg);
+	border-inline-start: 1px solid var(--sb-border);
+	display: flex;
+	justify-content: center;
+	min-height: 0;
+	padding: 0.75rem;
+}
+
+html:not(#__):not(#___) .showroom .showroom-stylebook-page__frame {
+	border-radius: 0.375rem;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+	display: flex;
+	overflow: hidden;
+	width: 100%;
+}
+
+html:not(#__):not(#___) .showroom .showroom-stylebook-page__frame iframe {
+	background: #fff;
+	border: 0;
+	flex: 1;
+	width: 100%;
+}
+
+@media (max-width: 1100px) {
+	html:not(#__):not(#___) .showroom .showroom-stylebook-page {
+		grid-template-columns: 1fr;
+		grid-template-rows: minmax(0, 1fr) 38vh;
+	}
+
+	html:not(#__):not(#___) .showroom .showroom-stylebook-page__preview {
+		border-block-start: 1px solid var(--sb-border);
+		border-inline-start: 0;
+	}
+}
+
+/* A scale always fits its row: its steps share the width instead of wrapping */
+html:not(#__):not(#___) .showroom .showroom-scale__steps {
+	flex-wrap: nowrap;
+}
+
+html:not(#__):not(#___) .showroom .showroom-scale__step {
+	flex: 1 1 0;
+	max-width: 2.5rem;
+	min-width: 0;
+}
+
+html:not(#__):not(#___) .showroom .showroom-scale__step .showroom-palette__swatch {
+	width: 100%;
+}
+
+html:not(#__):not(#___) .showroom .showroom-scales {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+
+/* Long token names wrap instead of pushing the table wider than its column */
+html:not(#__):not(#___) .showroom .showroom-table .showroom-table__name,
+html:not(#__):not(#___) .showroom .showroom-table .showroom-table__name span {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}

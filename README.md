@@ -65,7 +65,7 @@ React components the team uses elsewhere in Liferay can be documented next to th
 
 ### Style book tokens of its own
 
-A style book can add tokens to the ones of its theme: colours, font families, sizes and weights, spacings and radii (the Style book tab, "Added to this style book"). The same tab shows the theme's colours as a palette of scales and the contrast of its text and background pairs. The added tokens are kept as Liferay keeps the tokens created in its editor: `style-books/<name>/frontend-token-definition.json`, named in `style-book.json` as `frontendTokenDefinitionPath`. **Import → Style book from a website** builds one from a pasted stylesheet or design tokens file, with no AI for that part.
+Each style book has a page of its own (`?path=/style-book/<key>`, under Style books in the sidebar): its editor at full size next to a live preview. A style book can add tokens to the ones of its theme: colours, font families, sizes and weights, spacings and radii ("Added to this style book"). The editor also shows the theme's colours as a palette of scales and the contrast of its text and background pairs. The added tokens are kept as Liferay keeps the tokens created in its editor: `style-books/<name>/frontend-token-definition.json`, named in `style-book.json` as `frontendTokenDefinitionPath`. **Import → Style book from a website** builds one from a pasted stylesheet or design tokens file, with no AI for that part.
 
 What can be deleted or changed in the browser is decided in `src/model/permissions.ts`: today, only what a person imported or created there, never what ships with the showroom.
 

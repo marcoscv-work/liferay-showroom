@@ -8,6 +8,7 @@ import {Icon} from './Icon';
 import {useTemplateEditing} from './templateEditing';
 import {ReleasesView} from './ReleasesView';
 import {componentFrameKey} from './story';
+import {StyleBookView} from './StyleBookView';
 import {useRender} from './useRender';
 
 export function Canvas() {
@@ -108,6 +109,10 @@ export function Canvas() {
 
 	if (state.selection.kind === 'releases') {
 		return <ReleasesView />;
+	}
+
+	if (state.selection.kind === 'styleBook') {
+		return <StyleBookView />;
 	}
 
 	return (

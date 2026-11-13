@@ -21,6 +21,7 @@ import type {ShortcutKey} from './templateEditing';
 /**
  * The URL mirrors the selection, Storybook style:
  * `?path=/fragment/<collection>/<fragment>`, `?path=/component/<key>`, `?path=/template/<id>`,
+ * `?path=/style-book/<key>`,
  * `?path=/docs/<slug>` or `?path=/releases`.
  */
 export function selectionFromURL(search: string): Selection | null {
@@ -42,6 +43,10 @@ export function selectionFromURL(search: string): Selection | null {
 
 	if (kind === 'template' && rest[0]) {
 		return {id: decodeURIComponent(rest.join('/')), kind: 'template'};
+	}
+
+	if (kind === 'style-book' && rest[0]) {
+		return {key: decodeURIComponent(rest.join('/')), kind: 'styleBook'};
 	}
 
 	if (kind === 'docs' && rest[0]) {
@@ -71,6 +76,10 @@ export function urlFromSelection(selection: Selection): string | null {
 
 	if (selection.kind === 'template') {
 		return `/template/${encodeURIComponent(selection.id)}`;
+	}
+
+	if (selection.kind === 'styleBook') {
+		return `/style-book/${encodeURIComponent(selection.key)}`;
 	}
 
 	if (selection.kind === 'doc') {
@@ -283,7 +292,7 @@ export function App() {
 		);
 	}
 
-	const showsPanel = state.selection.kind !== 'doc' && state.selection.kind !== 'releases';
+	const showsPanel = state.selection.kind !== 'doc' && state.selection.kind !== 'releases' && state.selection.kind !== 'styleBook';
 	const advanced = state.advancedEditing && state.selection.kind === 'template';
 
 	return (

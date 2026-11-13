@@ -26,9 +26,10 @@ export function Toolbar() {
 	const output = useRender();
 
 	const doc = state.selection.kind === 'doc' ? state.docs.find((candidate) => candidate.slug === (state.selection as {slug: string}).slug) : null;
+	const onStyleBook = state.selection.kind === 'styleBook';
 	const showsFrame = state.selection.kind === 'fragment' || state.selection.kind === 'component' || state.selection.kind === 'template' || state.selection.kind === 'none';
 
-	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : output.component ? `React components / ${output.component.name}` : template ? template.name : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Showroom';
+	const title = output.fragment ? `${output.collection?.name ?? ''} / ${output.fragment.name}` : output.component ? `React components / ${output.component.name}` : template ? template.name : onStyleBook ? `Style books / ${styleBook.name}` : doc ? doc.title : state.selection.kind === 'releases' ? 'Releases' : 'Liferay Showroom';
 
 	const createStyleBook = (copy: boolean) => {
 		const name = copy ? `${styleBook.name} copy` : `Style book ${state.styleBooks.length}`;
@@ -98,7 +99,7 @@ export function Toolbar() {
 			</div>
 
 			<div aria-label="Viewport" className="btn-group" role="group">
-				{showsFrame && VIEWPORTS.map((viewport) => (
+				{(showsFrame || onStyleBook) && VIEWPORTS.map((viewport) => (
 					<IconButton
 						className="btn btn-secondary btn-sm btn-monospaced"
 						key={viewport.id}

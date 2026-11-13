@@ -151,3 +151,30 @@ describe('theme defaults', () => {
 		expect(again.styleBooks[0]).toMatchObject({customTokens: [{name: 'gap'}], key: 'theme-defaults', values: {'--brand': '#123456'}});
 	});
 });
+
+describe('style book page', () => {
+	it('puts the style book it opens in use and follows the one in use', () => {
+		let state = reducer(loaded(), {selection: {key: 'builtin-dark', kind: 'styleBook'}, type: 'select'});
+
+		expect(state.styleBookKey).toBe('builtin-dark');
+
+		state = reducer(state, {key: 'theme-defaults', type: 'setStyleBook'});
+		expect(state.selection).toEqual({key: 'theme-defaults', kind: 'styleBook'});
+
+		state = reducer(state, {styleBook: {key: 'mine', name: 'Mine', source: 'imported', themeKey: null, values: {}}, type: 'addStyleBook'});
+		expect(state.selection).toEqual({key: 'mine', kind: 'styleBook'});
+
+		state = reducer(state, {key: 'mine', type: 'removeStyleBook'});
+		expect(state.selection).toEqual({key: 'theme-defaults', kind: 'styleBook'});
+		expect(state.styleBookKey).toBe('theme-defaults');
+	});
+
+	it('opens from the address, falling back to the theme defaults', () => {
+		const styleBooks = [{key: 'builtin-dark', name: 'Dark', source: 'builtin' as const, themeKey: null, values: {}}];
+		const open = (key: string) => reducer(initialState, {collections: [], docs: [], persisted: {selection: {key, kind: 'styleBook'}, styleBookKey: 'theme-defaults'}, releases: [], styleBooks, templates: [], themes: [], type: 'loaded'});
+
+		expect(open('builtin-dark')).toMatchObject({selection: {key: 'builtin-dark', kind: 'styleBook'}, styleBookKey: 'builtin-dark'});
+		expect(open('gone')).toMatchObject({selection: {key: 'theme-defaults', kind: 'styleBook'}, styleBookKey: 'theme-defaults'});
+		expect(reducer(loaded(), {selection: {key: 'gone', kind: 'styleBook'}, type: 'select'}).selection.kind).not.toBe('styleBook');
+	});
+});

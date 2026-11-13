@@ -54,9 +54,11 @@ set: sdsSize
 
 ## Editing a style book
 
-Create or duplicate a style book from the toolbar, edit any token in the Style book tab under a fragment, and export it. The export is the zip Liferay's Style Books admin imports, and it keeps a reference to the theme it belongs to.
+Every style book has a page of its own: pick it under **Style books** in the sidebar, or create one there. The page is its editor at full size, next to a preview that shows the style book at work (its own tokens, a few fragments made for its theme, and the type, buttons, messages and forms every theme styles) and follows each change. The address of the page names the style book, so a link opens it.
 
-The Style book tab has three parts above the table of tokens:
+The same editor sits in the Style book tab under a fragment or a page template, for changing a token while you look at what it does there. Create, duplicate, export or delete a style book from the toolbar. The export is the zip Liferay's Style Books admin imports, and it keeps a reference to the theme it belongs to.
+
+The editor has three parts above the table of tokens:
 
 - **Added to this style book**: the tokens the style book adds to its theme. See below.
 - **Palette**: the theme's colours with this style book's values. A scale the token names describe, such as the grays from 100 to 900 or a colour from its lightest to its darkest shade, shows as one strip; the colours that belong to no scale follow. A dot marks the ones this style book changes, and picking a colour finds its token in the table.
